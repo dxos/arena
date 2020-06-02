@@ -16,8 +16,7 @@
   "author": "DxOS.org",
   "workspaces": {
     "packages": [
-      "apps/*",
-      "bots/*"
+      "packages/*"
     ]
   },
   "scripts": {

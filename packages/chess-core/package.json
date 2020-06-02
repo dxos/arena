@@ -1,0 +1,28 @@
+{
+  "name": "@dxos/chess-core",
+  "version": "1.0.0-beta.56",
+  "private": true,
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "babel src -d dist",
+    "lint": "eslint ./src --ignore-path ../../.eslintignore",
+    "test": "jest --rootDir ./src --verbose --passWithNoTests"
+  },
+  "dependencies": {
+    "@dxos/echodb": "1.0.0-beta.6",
+    "chess.js": "^0.10.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-export-default-from": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4",
+    "@dxos/data-client": "^1.0.0-beta.56",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-add-module-exports": "^1.0.2",
+    "babel-plugin-inline-import": "^3.0.0"
+  }
+}

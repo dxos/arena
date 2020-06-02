@@ -1,0 +1,48 @@
+{
+  "name": "@wirelineio/chess-bot",
+  "version": "1.0.0-beta.56",
+  "private": true,
+  "description": "Chess Bot",
+  "keywords": [],
+  "license": "GPL-3.0",
+  "author": "DxOS.org",
+  "main": "dist/index.js",
+  "files": [
+    ".babelrc",
+    "src"
+  ],
+  "scripts": {
+    "build": "npm run clean && npm run dist",
+    "build:watch": "yarn run build --watch",
+    "clean": "rm -rf dist",
+    "dist": "babel ./src --out-dir ./dist --ignore \"**/*.test.js\"",
+    "lint": "eslint ./src --ignore-path ../../.eslintignore",
+    "package:linux-x64": "rm -rf out/bin && npm run pkg:linux-x64 && ./scripts/package.sh linux-x64",
+    "package:macos-x64": "rm -rf out/bin && npm run pkg:macos-x64 && ./scripts/package.sh macos-x64",
+    "pkg:linux-x64": "npm run build && NODE_OPTIONS='' && pkg --target node12-linux-x64  dist/main.js -o ./out/bin/main-linux-x64",
+    "pkg:macos-x64": "npm run build && NODE_OPTIONS='' && pkg --target node12-macos-x64  dist/main.js -o ./out/bin/main-macos-x64",
+    "test": "jest --rootDir ./src --verbose --passWithNoTests"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "dependencies": {
+    "@dxos/botkit": "^1.0.0-beta.56",
+    "@dxos/chess-core": "^1.0.0-beta.56"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/node": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.3.0",
+    "@babel/plugin-proposal-export-default-from": "^7.2.0",
+    "@babel/plugin-transform-runtime": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "babel-jest": "^25.1.0",
+    "babel-loader": "^8.0.0",
+    "babel-plugin-add-module-exports": "^1.0.0",
+    "babel-watch": "7.0.0",
+    "jest": "^25.1.0",
+    "pkg": "^4.4.8"
+  }
+}
