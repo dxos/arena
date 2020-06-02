@@ -1,0 +1,89 @@
+{
+  "root": true,
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "node": true,
+    "jest": true
+  },
+  "extends": "airbnb",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "jsdoc"
+  ],
+  "settings": {
+    "react": {
+      "version": "16"
+    }
+  },
+  "globals": {
+    "Atomics": "readonly",
+    "PATH": "readonly",
+    "SharedArrayBuffer": "readonly",
+    "browser": true,
+    "context": true,
+    "jestPuppeteer": true,
+    "page": true
+  },
+  "rules": {
+    "arrow-body-style": "off",
+    "arrow-parens": "off",
+    "comma-dangle": "off",
+    "consistent-return": "off",
+    "dot-notation": "off",
+    "import/prefer-default-export": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true
+      }
+    ],
+    "jsdoc/valid-types": 1,
+    "jsx-a11y/anchor-is-valid": "off",
+    "max-len": [
+      2,
+      120,
+      2,
+      {
+        "ignoreComments": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true,
+        "ignoreUrls": true
+      }
+    ],
+    "max-classes-per-file": "off",
+    "no-console": "off",
+    "no-multi-spaces": "off",
+    "no-nested-ternary": "off",
+    "no-param-reassign": "off",
+    "no-plusplus": "off",
+    "no-restricted-syntax": "off",
+    "no-shadow": "off",
+    "no-underscore-dangle": "off",
+    "object-curly-newline": "off",
+    "operator-linebreak": "off",
+    "padded-blocks": "off",
+    "quote-props": "off",
+    "react/jsx-boolean-value": "off",
+    "react/jsx-filename-extension": "off",
+    "react/jsx-fragments": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/forbid-prop-types": "off",
+    "react/state-in-constructor": "off",
+    "react/no-multi-comp": "off",
+    "react/no-array-index-key": "off",
+    "react/prefer-stateless-function": "off",
+    "react/prop-types": "off",
+    "react/sort-comp": "off"
+  }
+}
