@@ -5,7 +5,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { Channel } from '@dxos/messenger-components';
+// import { Channel } from '@dxos/messenger-components';
 
 import ChessPad from '../components/ChessPad';
 import MovesPad from '../components/MovesPad';
@@ -38,7 +38,7 @@ const Game = () => {
       <div className={classes.content}>
         <MovesPad history={game.history({ verbose: true })} />
         <ChessPad gameId={gameId} game={game} makeMove={makeMove} />
-        <Channel narrow />
+        {/* <Channel narrow /> */}
       </div>
     </div>
   );

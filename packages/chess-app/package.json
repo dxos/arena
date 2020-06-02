@@ -20,7 +20,6 @@
     "@dxos/config": "^1.0.0-beta.56",
     "@dxos/crypto": "1.0.0-beta.1",
     "@dxos/debug": "^1.0.0-beta.56",
-    "@dxos/messenger-components": "^1.0.0-beta.56",
     "@dxos/metrics": "^1.0.0-beta.6",
     "@dxos/react-appkit": "^1.0.0-beta.56",
     "@dxos/react-client": "^1.0.0-beta.56",
