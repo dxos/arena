@@ -14,7 +14,7 @@ client:
     root: "dxos/incubator/feeds"
 
   swarm:
-    signal: "ws://localhost:4000"
+    signal: "wss://signal2.dxos.network/dxos/signal"
     ice:
       - urls: "stun:stun.wirelne.ninja:3478"
       - urls: "turn:stun.wireline.ninja:3478"
