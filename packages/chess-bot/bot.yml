@@ -1,0 +1,6 @@
+id: 'wrn:bot:wireline.io/chess'
+name: ChessBot
+version: 0.0.3
+package:
+  macos:
+    x64: Qmdw7zUetxYUDCpoCpvt2fP12zcA8gsAMtsQ5N4mhAqCWY

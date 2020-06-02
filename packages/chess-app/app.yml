@@ -1,0 +1,4 @@
+name: wireline.io/chess
+displayName: Chess App
+build: yarn dist
+version: 0.0.4
