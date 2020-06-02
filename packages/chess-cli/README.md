@@ -3,6 +3,24 @@
 This is a CLI extension for playing chess games.
 Core model is located at [Chess Core](../chess-core/README.md).
 
+## Initial linking
+
+Until this [issue](https://github.com/wirelineio/incubator/issues/886) is resolved, there are some step required in order to run/develop this extension outside of the `incubator` repository:
+
+1. Link the chess cli package:
+```bash
+cd packages/chess-cli
+yarn link
+```
+
+2. Use the linked cli package in incubator:
+```bash
+cd incubator
+yarn link "@dxos/chess-cli"
+```
+
+3. That should solve the issue for now
+
 ## Running the CLI
 
 Chess CLI is operable within a party, so one needs to create or join a party:
