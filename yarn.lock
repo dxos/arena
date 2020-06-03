@@ -996,7 +996,7 @@
   resolved "https://registry.yarnpkg.com/@date-io/core/-/core-1.3.13.tgz#90c71da493f20204b7a972929cc5c482d078b3fa"
   integrity sha512-AlEKV7TxjeK+jxWVKcCFrfYAk8spX9aCyiToFIiLPtfQbsjmRGLIhb5VZgptQcJdHtLXo7+m0DuurwFgUToQuA==
 
-"@date-io/moment@^1.3.1":
+"@date-io/moment@^1.3.1", "@date-io/moment@^1.3.11":
   version "1.3.13"
   resolved "https://registry.yarnpkg.com/@date-io/moment/-/moment-1.3.13.tgz#56c2772bc4f6675fc6970257e6033e7a7c2960f0"
   integrity sha512-3kJYusJtQuOIxq6byZlzAHoW/18iExJer9qfRF5DyyzdAk074seTuJfdofjz4RFfTd/Idk8WylOQpWtERqvFuQ==
@@ -1326,6 +1326,20 @@
     protobufjs "^6.8.8"
     source-map-support "^0.5.12"
 
+"@dxos/echodb@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@dxos/echodb/-/echodb-0.0.3.tgz#86082d9147a75b76b0e4dbe6844153e9fd4fa58b"
+  integrity sha512-d0RwnsJVcMGEAxkbD8oC7vlY4gg1u9jTPpAbuFOdmMw1+AUvIUiLHjtaEN3JR8ST4f0/83hp7LdKrDnMDZDwfA==
+  dependencies:
+    "@dxos/codec-protobuf" "^1.1.0-beta.0"
+    "@dxos/data-client" "^1.0.0-beta.0"
+    debug "^4.1.1"
+    hypercore-crypto "^1.0.0"
+    lodash.merge "^4.6.1"
+    protobufjs "^6.8.8"
+    source-map-support "^0.5.12"
+    uuid "^3.3.3"
+
 "@dxos/feed-level-indexer@^1.0.0-beta.11":
   version "1.0.0-beta.11"
   resolved "https://registry.yarnpkg.com/@dxos/feed-level-indexer/-/feed-level-indexer-1.0.0-beta.11.tgz#40b43f3841efc8ece31971c7e3a24d5f64c7ed7a"
@@ -1385,6 +1399,36 @@
     random-access-file "^2.1.0"
     source-map-support "^0.5.12"
     through2 "^3.0.1"
+
+"@dxos/messenger-components@1.0.1-beta.5":
+  version "1.0.1-beta.5"
+  resolved "https://registry.yarnpkg.com/@dxos/messenger-components/-/messenger-components-1.0.1-beta.5.tgz#ae5e1956f027c82e1d64726e3c310df7a4918a51"
+  integrity sha512-/KPUDcFbdOou8osaIN0gUOh6BuHkha2ym5XZ4X0Ycia0+rRPp4moiGzGsKtakH3Oo0tCtLpaZ+yvShrgCtWAcQ==
+  dependencies:
+    "@date-io/moment" "^1.3.11"
+    "@dxos/async" "^1.0.0-beta.1"
+    "@dxos/botkit-client" "^1.0.0-beta.56"
+    "@dxos/config" "^1.0.0-beta.56"
+    "@dxos/credentials" "^1.0.1-beta.4"
+    "@dxos/crypto" "^1.0.0-beta.1"
+    "@dxos/data-client" "^1.0.0-beta.56"
+    "@dxos/debug" "^1.0.0-beta.56"
+    "@dxos/echodb" "^0.0.3"
+    "@dxos/react-appkit" "^1.0.0-beta.56"
+    "@dxos/react-client" "^1.0.0-beta.56"
+    "@dxos/react-router" "^1.0.0-beta.56"
+    "@dxos/react-ux" "^1.0.0-beta.56"
+    "@geut/discovery-swarm-webrtc" "^3.0.0-beta.3"
+    "@material-ui/core" "^4.9.0"
+    "@material-ui/icons" "^4.5.1"
+    "@material-ui/lab" "^4.0.0-alpha.42"
+    "@material-ui/pickers" "^3.2.10"
+    "@material-ui/styles" "^4.9.0"
+    assert "^2.0.0"
+    clsx "^1.0.4"
+    color-hash "^1.0.3"
+    moment "^2.24.0"
+    prop-types "^15.7.2"
 
 "@dxos/metrics@^1.0.0-beta.5":
   version "1.0.0-beta.5"
