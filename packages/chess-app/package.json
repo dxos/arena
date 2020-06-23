@@ -1,7 +1,6 @@
 {
   "name": "@dxos/chess-app",
   "version": "1.0.0-beta.57",
-  "private": true,
   "main": "index.js",
   "scripts": {
     "analyzer": "webpack --config webpack-analyzer.config.js",
@@ -63,5 +62,8 @@
     "webpack-merge": "^4.2.2",
     "webpack-version-file-plugin": "^0.4.0",
     "yaml-loader": "^0.5.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

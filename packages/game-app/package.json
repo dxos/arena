@@ -1,7 +1,6 @@
 {
   "name": "@dxos/game-app",
   "version": "1.0.0-beta.57",
-  "private": true,
   "description": "Wireline game app",
   "keywords": [],
   "license": "GPL-3.0",
@@ -66,5 +65,8 @@
     "webpack-merge": "^4.2.2",
     "webpack-version-file-plugin": "^0.4.0",
     "yaml-loader": "^0.5.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

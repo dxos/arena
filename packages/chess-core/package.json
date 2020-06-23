@@ -1,7 +1,6 @@
 {
   "name": "@dxos/chess-core",
   "version": "1.0.0-beta.57",
-  "private": true,
   "main": "dist/index.js",
   "scripts": {
     "build": "babel src -d dist",
@@ -24,5 +23,8 @@
     "babel-loader": "^8.1.0",
     "babel-plugin-add-module-exports": "^1.0.2",
     "babel-plugin-inline-import": "^3.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
