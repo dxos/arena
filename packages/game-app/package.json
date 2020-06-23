@@ -1,6 +1,6 @@
 {
   "name": "@dxos/game-app",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.57",
   "private": true,
   "description": "Wireline game app",
   "keywords": [],
@@ -24,7 +24,7 @@
     "@dxos/data-client": "^1.0.0-beta.92",
     "@dxos/debug": "^1.0.0-beta.73",
     "@dxos/echo-db": "^1.0.0-beta.13",
-    "@dxos/game-pad": "^1.0.0-beta.3",
+    "@dxos/game-pad": "^1.0.0-beta.57",
     "@dxos/react-appkit": "^1.0.0-beta.92",
     "@dxos/react-client": "^1.0.0-beta.92",
     "@dxos/react-router": "^1.0.0-beta.92",
