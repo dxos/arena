@@ -1,6 +1,6 @@
 {
   "name": "@dxos/game-pad",
-  "version": "1.0.0-beta.57",
+  "version": "1.0.0-beta.58",
   "description": "Wireline oxo game pad",
   "main": "dist/es/index.js",
   "scripts": {
@@ -16,7 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@dxos/game-model": "^1.0.0-beta.57",
+    "@dxos/game-model": "^1.0.0-beta.58",
     "clsx": "^1.0.4",
     "lodash.flowright": "^3.5.0"
   },
