@@ -1,0 +1,5 @@
+name: example.com/tictactoe
+displayName: TicTacToe Pad
+build: yarn dist
+version: 0.0.11
+package: QmRoaej4KFLQWkogELQuzMoKTUdFcizNgy7UJ6uttiZjtg

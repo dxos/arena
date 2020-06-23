@@ -1,0 +1,67 @@
+{
+  "name": "@dxos/game-cli",
+  "version": "1.0.0-beta.92",
+  "private": true,
+  "license": "GPL-3.0",
+  "main": "dist/es/index.js",
+  "bin": {
+    "wire-game": "bin/wire-game.js"
+  },
+  "files": [
+    "bin/",
+    "dist/es"
+  ],
+  "scripts": {
+    "build": "babel ./src --out-dir ./dist/es --ignore \"**/*.test.js\" --copy-files",
+    "clean": "rm -rf ./dist",
+    "cli": "BABEL_CACHE_PATH=./dist/babel-cache.json babel-node ./src/index.js",
+    "lint": "eslint **/*.js --ignore-path ../../.eslintignore",
+    "prepublishOnly": "npm run clean && npm run build && npm run test",
+    "test": "jest --rootDir ./src --verbose --passWithNoTests"
+  },
+  "jest": {
+    "cacheDirectory": "/tmp/jest",
+    "verbose": false
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.0.0",
+    "@dxos/async": "^1.0.0-beta.1",
+    "@dxos/cli-core": "^1.0.0-beta.68",
+    "@dxos/crypto": "^1.0.0-beta.1",
+    "@dxos/data-cli": "^1.0.0-beta.68",
+    "@dxos/data-client": "^1.0.0-beta.92",
+    "@dxos/debug": "^1.0.0-beta.73",
+    "@wirelineio/game-model": "^1.0.0-beta.92",
+    "assert": "^2.0.0",
+    "chance": "^1.1.3",
+    "hypercore-crypto": "^1.0.0",
+    "yargs": "^11.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/node": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.3.0",
+    "@babel/plugin-transform-runtime": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "babel-eslint": "^9.0.0",
+    "babel-jest": "^25.1.0",
+    "babel-loader": "^8.0.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-inline-import": "^3.0.0",
+    "eslint": "^5.5.0",
+    "eslint-config-prettier": "^3.0.1",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-prettier": "^2.6.2",
+    "jest": "^25.1.0",
+    "prettier": "^1.14.2",
+    "uuid": "^3.3.3"
+  },
+  "peerDependencies": {
+    "@dxos/cli": "^1.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
