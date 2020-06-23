@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { GameModel } from '@wirelineio/game-model';
+import { GameModel } from '@dxos/game-model';
 import { useModel } from '@dxos/react-client';
 
 import Game from './Game';

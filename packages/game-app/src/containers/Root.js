@@ -18,7 +18,7 @@ import {
 } from '@dxos/react-appkit';
 import { ClientContextProvider } from '@dxos/react-client';
 
-import Pad from '@wirelineio/game-pad';
+import Pad from '@dxos/game-pad';
 
 import App from './App';
 

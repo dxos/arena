@@ -7,7 +7,7 @@ import Chance from 'chance';
 
 import { asyncHandler } from '@dxos/async';
 import { log } from '@dxos/debug';
-import { GameModel } from '@wirelineio/game-model';
+import { GameModel } from '@dxos/game-model';
 import { DefaultModel } from '@dxos/data-client';
 
 const MODEL_TYPE_GAME = 'testing.game.Game';

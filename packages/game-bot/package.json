@@ -1,6 +1,6 @@
 {
-  "name": "@wirelineio/game-bot",
-  "version": "1.0.0-beta.92",
+  "name": "@dxos/game-bot",
+  "version": "1.0.0-beta.56",
   "private": true,
   "description": "Game Bot",
   "keywords": [],
@@ -25,7 +25,7 @@
   "dependencies": {
     "@dxos/botkit": "^1.0.0-beta.92",
     "@dxos/data-client": "^1.0.0-beta.92",
-    "@wirelineio/game-model": "^1.0.0-beta.92"
+    "@dxos/game-model": "^1.0.0-beta.56"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",

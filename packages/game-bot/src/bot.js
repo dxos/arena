@@ -3,7 +3,7 @@
 //
 
 import { Bot } from '@dxos/botkit';
-import { GameModel } from '@wirelineio/game-model';
+import { GameModel } from '@dxos/game-model';
 
 const MODEL_TYPE_MOVE = 'testing.game.Move';
 
