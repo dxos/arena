@@ -22,7 +22,7 @@
     "@dxos/crypto": "^1.0.0-beta.1",
     "@dxos/data-client": "^1.0.0-beta.92",
     "@dxos/debug": "^1.0.0-beta.73",
-    "@dxos/echo-db": "^1.0.0-beta.13",
+    "@dxos/echo-db": "^1.0.0-beta.19",
     "@dxos/game-pad": "^1.0.0-beta.59",
     "@dxos/react-appkit": "^1.0.0-beta.92",
     "@dxos/react-client": "^1.0.0-beta.92",
