@@ -1583,14 +1583,14 @@
   dependencies:
     debug "^4.1.1"
 
-"@dxos/echo-db@^1.0.0-beta.13":
-  version "1.0.0-beta.18"
-  resolved "https://registry.yarnpkg.com/@dxos/echo-db/-/echo-db-1.0.0-beta.18.tgz#f22feb733ae86820ddbae5411bab4d9db6376d5b"
-  integrity sha512-6Ja5pjhjmF9nQvXCBM2oyAS1xT5KFpnl/q5iciqI+H+DQhy7Tay5daHJTICXt5OO6QTCFu1FUUqxsGdA5uP6jA==
+"@dxos/echo-db@^1.0.0-beta.19":
+  version "1.0.0-beta.19"
+  resolved "https://registry.yarnpkg.com/@dxos/echo-db/-/echo-db-1.0.0-beta.19.tgz#8d44f91cf868f9cb2b149fc01bb1a76d75fa8b57"
+  integrity sha512-kNzkrmJ4O3mBNwLl2kfhAsCk0QEZXX3BTVdZs/t+k0f6biVLm1J5oziEhPabBLXFxSk9+Xl14F5HfGReao80dA==
   dependencies:
     "@dxos/codec-protobuf" "^1.1.0-beta.0"
     "@dxos/crypto" "^0.0.1"
-    "@dxos/model-factory" "^1.0.0-beta.18"
+    "@dxos/model-factory" "^1.0.0-beta.19"
     "@types/debug" "^4.1.1"
     "@types/end-of-stream" "^1.4.0"
     "@types/node" "^14.0.9"
@@ -1799,10 +1799,31 @@
     lodash.set "^4.3.2"
     lodash.unset "^4.5.2"
 
-"@dxos/model-factory@^1.0.0-beta.17", "@dxos/model-factory@^1.0.0-beta.18":
+"@dxos/model-factory@^1.0.0-beta.17":
   version "1.0.0-beta.18"
   resolved "https://registry.yarnpkg.com/@dxos/model-factory/-/model-factory-1.0.0-beta.18.tgz#171ec6ebc2e24cca8765e24b64e7585f922081a7"
   integrity sha512-YXhXUvJNzW7F4LwoIAkEq1S7u+WJm97QbXE1piZdPeH+dDK/yobzn0E4P9JiVBgbzK1WczwFE9Eb6+/S8GL0Hw==
+  dependencies:
+    "@dxos/crypto" "^0.0.1"
+    "@dxos/debug" "^1.0.0-beta.20"
+    "@dxos/feed-level-indexer" "^1.1.0-alpha.9"
+    "@dxos/metrics" "^1.0.0-beta.8"
+    charwise "^3.0.1"
+    debug "^4.1.1"
+    end-of-stream "^1.4.4"
+    level-mem "^5.0.1"
+    lodash.debounce "^4.0.8"
+    monotonic-timestamp "^0.0.9"
+    multi-read-stream "^2.0.0"
+    p-limit "^3.0.1"
+    pump "^3.0.0"
+    source-map-support "^0.5.12"
+    through2 "^3.0.1"
+
+"@dxos/model-factory@^1.0.0-beta.19":
+  version "1.0.0-beta.19"
+  resolved "https://registry.yarnpkg.com/@dxos/model-factory/-/model-factory-1.0.0-beta.19.tgz#8bf1cfb42498124e4f500f8d83644212d55a450b"
+  integrity sha512-pskoeZ4Vc6W1BfuqAwVV7qfr3fwSIQiDtSQDuo14kxCpkh73BmLQZ3hLXW6feUwUX5fqMiprSRubgFExkRHwOg==
   dependencies:
     "@dxos/crypto" "^0.0.1"
     "@dxos/debug" "^1.0.0-beta.20"
