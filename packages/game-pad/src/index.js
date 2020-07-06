@@ -1,4 +1,3 @@
-
 import { Gamepad as GamepadIcon } from '@material-ui/icons';
 
 import Main from './Main';
