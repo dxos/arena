@@ -9,35 +9,31 @@ import { ErrorHandler } from '@dxos/debug';
 import {
   SET_LAYOUT,
   AppKitContextProvider,
-  CheckForErrors,
   DefaultRouter,
+  CheckForErrors,
   Registration,
   RequireWallet,
   SystemRoutes,
   Theme
 } from '@dxos/react-appkit';
 import { ClientContextProvider } from '@dxos/react-client';
-import GamePad from '@dxos/game-pad';
-import ChessPad from '@dxos/chess-pad';
+import metrics from '@dxos/metrics';
 
+import { useOnFirstRender } from '../lifecycle';
 import App from './App';
-import Home from './Home';
 
 const initialState = {
   [SET_LAYOUT]: {
-    showSidebar: false,
+    showSidebar: true,
     showDebug: false
   }
 };
 
-const pads = [
-  GamePad,
-  ChessPad
-];
-
 const Root = ({ config }) => {
   const router = { ...DefaultRouter, publicUrl: config.app.publicUrl };
-  const { routes } = router;
+  const { paths, routes } = router;
+
+  useOnFirstRender(() => metrics.event('chess.Root.mounted'));
 
   return (
     <Theme>
@@ -46,18 +42,16 @@ const Root = ({ config }) => {
           initialState={initialState}
           errorHandler={new ErrorHandler()}
           router={router}
-          pads={pads}
         >
           <CheckForErrors>
             <HashRouter>
               <Switch>
                 <Route exact path={routes.register} component={Registration} />
-                <RequireWallet redirect={routes.register}>
+                <RequireWallet redirect={routes.register} isRequired={(path = '', query = {}) => !path.startsWith(paths.auth) || !query.identityKey}>
                   <Switch>
                     {SystemRoutes(router)}
                     <Route exact path={routes.app} component={App} />
-                    <Route exact path="/home" component={Home} />
-                    <Redirect to="/home" />
+                    <Redirect to={paths.home} />
                   </Switch>
                 </RequireWallet>
               </Switch>

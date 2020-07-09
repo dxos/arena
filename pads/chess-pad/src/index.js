@@ -2,20 +2,20 @@
 // Copyright 2020 DXOS.org
 //
 
-import Icon from '@material-ui/icons/AssignmentTurnedIn';
+import KingWhite from './icons/KingWhite';
 
-import { Board } from './containers/Board';
-import { BOARD_TYPE } from './model/board';
+import { Game } from './containers/Game';
+import { TYPE_CHESS_GAME } from './model';
 
 // export * from './model';
 
 export default {
   // TODO(elmasse): READ THIS FROM PAD.YML
-  name: 'example.com/board',
-  displayName: 'Board',
+  name: 'example.com/chess',
+  displayName: 'Chess',
 
-  icon: Icon,
-  main: Board,
-  type: BOARD_TYPE,
-  description: 'Plan your projects'
+  icon: KingWhite,
+  main: Game,
+  type: TYPE_CHESS_GAME,
+  description: 'Play chess'
 };
