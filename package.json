@@ -24,6 +24,7 @@
   },
   "scripts": {
     "build": "lerna run build",
+    "dist": "lerna run dist",
     "clean": "lerna run clean",
     "lint": "lerna run lint",
     "lint:fix": "lerna run lint -- --fix",
