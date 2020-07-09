@@ -17,11 +17,7 @@ import {
   Theme
 } from '@dxos/react-appkit';
 import { ClientContextProvider } from '@dxos/react-client';
-import MessengerPad from '@dxos/messenger-pad';
-import EditorPad from '@dxos/editor-pad';
-import PlannerPad from '@dxos/planner-pad';
-import CanvasApp from '@dxos/canvas-pad';
-import TestingPad from '@dxos/testing-pad';
+import GamePad from '@dxos/game-pad';
 
 import App from './App';
 import Home from './Home';
@@ -34,11 +30,7 @@ const initialState = {
 };
 
 const pads = [
-  MessengerPad,
-  EditorPad,
-  PlannerPad,
-  CanvasApp,
-  TestingPad
+  GamePad
 ];
 
 const Root = ({ config }) => {
