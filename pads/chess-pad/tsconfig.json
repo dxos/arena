@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "downlevelIteration": true,
+    "outDir": "dist",
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "jsx": "react",
+  },
+  "include": [
+    "src/**/*.js",
+    "src/**/*.ts",
+    "src/**/*.jsx",
+    "src/**/*.tsx",
+    "./version.json"
+  ]
+}
