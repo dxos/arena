@@ -9,7 +9,7 @@
     "analyzer": "webpack --config webpack-analyzer.config.js",
     "debug": "DOT_ENV=.env.debug webpack-dev-server --mode development",
     "debug:localhost": "CONFIG=localhost.yml webpack-dev-server --mode development",
-    "dist": "webpack",
+    "dist": "NODE_ENV=production webpack",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "start": "VERBOSE=true NODE_ENV=development webpack-dev-server",
     "start:public": "VERBOSE=true PUBLIC_URL=/arena npm run start",

@@ -7,8 +7,8 @@ Decentralized Competetive apps and games.
 
 ## Usage
 
+Start the Arena app:
+
 ```bash
-yarn
-yarn build
-yarn test
+yarn start
 ```
