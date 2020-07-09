@@ -1,4 +1,4 @@
-const REGEX = /Copyright/;
+const REGEX = /Copyright [0-9]+ D[x,X]OS.org/;
 const TEMPLATE = [
   '//',
   `// Copyright ${new Date().getFullYear()} DXOS.org`,
