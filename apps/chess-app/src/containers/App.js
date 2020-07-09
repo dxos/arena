@@ -14,7 +14,7 @@ import { AppContainer } from '@dxos/react-appkit';
 import { EditableText } from '@dxos/react-ux';
 import metrics from '@dxos/metrics';
 
-import useOnFirstRender from '../lifecycle';
+import { useOnFirstRender } from '../lifecycle';
 import { useItem } from '../model';
 import Game from './Game';
 import Sidebar from './Sidebar';
