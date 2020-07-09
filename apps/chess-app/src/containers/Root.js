@@ -19,7 +19,7 @@ import {
 import { ClientContextProvider } from '@dxos/react-client';
 import metrics from '@dxos/metrics';
 
-import useOnFirstRender from '../lifecycle';
+import { useOnFirstRender } from '../lifecycle';
 import App from './App';
 
 const initialState = {
