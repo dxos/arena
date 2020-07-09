@@ -13,7 +13,7 @@
     "url": "git+https://github.com/dxos/arena.git"
   },
   "license": "GPL-3.0",
-  "author": "DxOS.org",
+  "author": "DXOS.org",
   "workspaces": {
     "packages": [
       "apps/*",
