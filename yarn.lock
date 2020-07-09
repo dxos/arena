@@ -1860,7 +1860,7 @@
     debug "^4.1.1"
     hypercore-crypto "^1.0.0"
 
-"@dxos/botkit-client@^1.0.0-beta.56", "@dxos/botkit-client@^1.0.0-beta.92", "@dxos/botkit-client@^1.0.0-beta.99":
+"@dxos/botkit-client@^1.0.0-beta.56", "@dxos/botkit-client@^1.0.0-beta.99":
   version "1.0.0-beta.101"
   resolved "https://registry.yarnpkg.com/@dxos/botkit-client/-/botkit-client-1.0.0-beta.101.tgz#ac1e24f2df774c91bd8f0f2d295b89c1c6e53133"
   integrity sha512-RNOzShHW0LGoVNEu5OXKlRJ1b6BPkLROPqXMyyQjk+sDtax3RrT+S1EpaeE75R6oemP3vErp4W9BXpR8TblK3g==
