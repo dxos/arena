@@ -2,7 +2,7 @@
   "name": "@dxos/arena",
   "version": "1.0.0-beta.56",
   "private": true,
-  "description": "UX",
+  "description": "DXOS Games",
   "keywords": [],
   "homepage": "https://github.com/dxos/arena#readme",
   "bugs": {
@@ -16,7 +16,10 @@
   "author": "DxOS.org",
   "workspaces": {
     "packages": [
-      "packages/*"
+      "apps/*",
+      "bots/*",
+      "packages/*",
+      "pads/*"
     ]
   },
   "scripts": {
