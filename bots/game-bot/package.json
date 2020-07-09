@@ -1,0 +1,46 @@
+{
+  "name": "@dxos/game-bot",
+  "version": "1.0.0-beta.59",
+  "description": "Game Bot",
+  "keywords": [],
+  "license": "GPL-3.0",
+  "author": "DxOS.org",
+  "main": "dist/index.js",
+  "files": [
+    ".babelrc",
+    "src"
+  ],
+  "scripts": {
+    "build": "npm run clean && npm run dist",
+    "build:watch": "yarn run build --watch",
+    "clean": "rm -rf dist",
+    "dist": "node_modules/.bin/babel ./src --out-dir ./dist --ignore \\\"**/*.test.js\\\"",
+    "lint": "eslint **/*.js --ignore-path ../../.eslintignore",
+    "test": "node_modules/.bin/jest --rootDir ./src --verbose --passWithNoTests"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "dependencies": {
+    "@dxos/botkit": "^1.0.0-beta.92",
+    "@dxos/data-client": "^1.0.0-beta.92",
+    "@dxos/game-model": "^1.0.0-beta.59"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/node": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.3.0",
+    "@babel/plugin-proposal-export-default-from": "^7.2.0",
+    "@babel/plugin-transform-runtime": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "babel-jest": "^25.1.0",
+    "babel-loader": "^8.0.0",
+    "babel-plugin-add-module-exports": "^1.0.0",
+    "babel-watch": "7.0.0",
+    "jest": "^25.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
