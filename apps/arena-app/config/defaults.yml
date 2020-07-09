@@ -1,0 +1,27 @@
+#
+# App-specific constants and defaults.
+#
+
+app:
+  name: 'Arena'
+  rootElement: 'root'
+
+client:
+  devtools: true
+  keyStorage:
+    root: "dxos/incubator/keys"
+
+  feedStorage:
+    root: "dxos/incubator/feeds"
+    type: "idb"
+
+  swarm:
+    signal: "wss://signal2.dxos.network/dxos/signal"
+    ice:
+      - urls: "stun:stun.wirelne.ninja:3478"
+      - urls: "turn:stun.wireline.ninja:3478"
+        username: "wireline"
+        credential: "wireline"
+
+debug:
+    mode: 'development'
