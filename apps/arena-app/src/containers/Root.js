@@ -9,28 +9,33 @@ import { ErrorHandler } from '@dxos/debug';
 import {
   SET_LAYOUT,
   AppKitContextProvider,
+  CheckForErrors,
   DefaultRouter,
   Registration,
   RequireWallet,
-  CheckForErrors,
   SystemRoutes,
   Theme
 } from '@dxos/react-appkit';
 import { ClientContextProvider } from '@dxos/react-client';
-import Pad from '@dxos/game-pad';
+import GamePad from '@dxos/game-pad';
 
 import App from './App';
+import Home from './Home';
 
 const initialState = {
   [SET_LAYOUT]: {
-    showSidebar: true,
+    showSidebar: false,
     showDebug: false
   }
 };
 
+const pads = [
+  GamePad
+];
+
 const Root = ({ config }) => {
   const router = { ...DefaultRouter, publicUrl: config.app.publicUrl };
-  const { paths, routes } = router;
+  const { routes } = router;
 
   return (
     <Theme>
@@ -39,22 +44,18 @@ const Root = ({ config }) => {
           initialState={initialState}
           errorHandler={new ErrorHandler()}
           router={router}
-          pads={[Pad]}
+          pads={pads}
         >
           <CheckForErrors>
             <HashRouter>
               <Switch>
                 <Route exact path={routes.register} component={Registration} />
-                <RequireWallet
-                  redirect={routes.register}
-                  // Allow access to the AUTH route if it is for joining an Identity, otherwise require a Wallet.
-                  // TODO(telackey): Should we make a separate path for authorizing devices?
-                  isRequired={(path = '', query = {}) => !path.startsWith(paths.auth) || !query.identityKey}
-                >
+                <RequireWallet redirect={routes.register}>
                   <Switch>
                     {SystemRoutes(router)}
-                    <Route path={routes.app} component={App} />
-                    <Redirect to={paths.home} />
+                    <Route exact path={routes.app} component={App} />
+                    <Route exact path="/home" component={Home} />
+                    <Redirect to="/home" />
                   </Switch>
                 </RequireWallet>
               </Switch>

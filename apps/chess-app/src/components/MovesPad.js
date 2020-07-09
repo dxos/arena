@@ -23,7 +23,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export default function MovesPad({ history }) {
+export default function MovesPad ({ history }) {
   const classes = useStyles();
 
   return (

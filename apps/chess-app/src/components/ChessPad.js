@@ -21,31 +21,31 @@ const useStyles = makeStyles(() => ({
     display: 'grid',
     gridTemplateColumns: 'minmax(0, 1fr)',
     gridTemplateRows: '1fr 200px',
-    width: '100%',
+    width: '100%'
   },
 
   board: {
-    alignSelf: 'center',
+    alignSelf: 'center'
   },
 
   details: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'center'
   },
 
   caption: {
-    fontSize: 21,
+    fontSize: 21
   },
 
   swapButton: {
-    marginBottom: 20,
+    marginBottom: 20
   },
 
   gameId: {
     fontFamily: 'monospace',
-    fontSize: 'large',
-  },
+    fontSize: 'large'
+  }
 }));
 
 const getCaption = game => {
@@ -61,7 +61,7 @@ const getCaption = game => {
 /**
  * Chess board wrapper.
  */
-export default function ChessPad({ gameId, game, makeMove, maxWidth, transitionDuration = 300 }) {
+export default function ChessPad ({ gameId, game, makeMove, maxWidth, transitionDuration = 300 }) {
   const classes = useStyles();
   const board = useRef();
   const [orientation, setOrientation] = useState('white');
@@ -72,7 +72,7 @@ export default function ChessPad({ gameId, game, makeMove, maxWidth, transitionD
     resolve(p);
   }));
 
-  async function handleDrop({ sourceSquare, targetSquare }) {
+  async function handleDrop ({ sourceSquare, targetSquare }) {
     let promotion;
     const { type: piece } = game.get(sourceSquare);
     if ((targetSquare.endsWith('8') || targetSquare.endsWith('1')) && piece === 'p') {

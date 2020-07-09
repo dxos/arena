@@ -14,7 +14,7 @@ const lines = [
   ['a3', 'b3', 'c3'],
 
   ['a1', 'b2', 'c3'],
-  ['a3', 'b2', 'c1'],
+  ['a3', 'b2', 'c1']
 ];
 
 const squares = [
@@ -27,30 +27,29 @@ const squares = [
  * Noughts-and-crosses game.
  */
 export class Game {
-
   _move = 0;
 
   _turn = 0;
 
   _state = [...new Array(3)].map(() => [...new Array(3)]);
 
-  get move() {
+  get move () {
     return this._move;
   }
 
-  get turn() {
+  get turn () {
     return this._turn;
   }
 
-  get board() {
+  get board () {
     return this._state;
   }
 
-  ascii() {
+  ascii () {
     const rows = [];
     const pieces = 'ox';
     this._state.forEach((row, i) => {
-      rows.push(row.map((c => (c === undefined ? ' ' : pieces[c]))).join('|'));
+      rows.push(row.map(c => (c === undefined ? ' ' : pieces[c])).join('|'));
       if (i < 2) {
         rows.push('-+-+-');
       }
@@ -59,11 +58,11 @@ export class Game {
     return rows.join('\n');
   }
 
-  isOver() {
+  isOver () {
     return this._move === 9 || this.winner() !== undefined;
   }
 
-  winner() {
+  winner () {
     let winner;
     lines.forEach((line) => {
       const count = [0, 0];
@@ -86,13 +85,13 @@ export class Game {
     return winner;
   }
 
-  result() {
+  result () {
     const winner = this.winner();
     return (winner === undefined ? '-' : winner);
   }
 
   // eslint-disable-next-line class-methods-use-this
-  position(position) {
+  position (position) {
     if (position.length !== 2) {
       throw new Error(`Illegal move: ${position}`);
     }
@@ -109,7 +108,7 @@ export class Game {
 
   // TODO(burdon): Legal player?
   // TODO(burdon): CRDT: reference previous move.
-  set(position, piece, move) {
+  set (position, piece, move) {
     if (this.isOver()) {
       return false;
     }
@@ -138,7 +137,7 @@ export class Game {
   /**
    * Get legal moves.
    */
-  moves() {
+  moves () {
     return squares.filter(position => {
       const { row, column } = this.position(position);
       return (this._state[row][column] === undefined);
@@ -150,16 +149,15 @@ export class Game {
  * Stream adapter.
  */
 export class GameModel extends Model {
-
   _game = new Game();
 
-  get state() {
+  get state () {
     return {
       game: this._game
     };
   }
 
-  onUpdate(messages) {
+  onUpdate (messages) {
     messages
       .sort((a, b) => a.move - b.move)
       .forEach(message => {

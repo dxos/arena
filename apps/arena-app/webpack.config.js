@@ -1,23 +1,33 @@
 //
-// Copyright 2020 DXOS.org
+// Copyright 2019 DXOS.org
 //
 
 const path = require('path');
 const VersionFile = require('webpack-version-file-plugin');
 const webpack = require('webpack');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 const { ConfigPlugin } = require('@dxos/config/ConfigPlugin');
 
 const PUBLIC_URL = process.env.PUBLIC_URL || '';
 
+const distDir = path.join(__dirname, 'dist');
+const isDevelopment = process.env.NODE_ENV !== 'production';
+
 module.exports = {
+
+  entry: './src/main.js',
 
   devtool: 'eval-source-map',
 
+  mode: isDevelopment ? 'development' : 'production',
+
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: distDir,
     compress: true,
     disableHostCheck: true,
+    hotOnly: true,
     port: 8080,
     watchOptions: {
       ignored: /node_modules/,
@@ -30,7 +40,7 @@ module.exports = {
   },
 
   output: {
-    path: `${__dirname}/dist`,
+    path: distDir,
     filename: '[name].bundle.js',
     publicPath: PUBLIC_URL
   },
@@ -58,8 +68,8 @@ module.exports = {
               return 'material-ui';
             }
 
-            if (packageName.startsWith('@dxos')) {
-              return 'dxos';
+            if (packageName.startsWith('@wireline')) {
+              return 'wireline';
             }
 
             return 'vendor';
@@ -84,19 +94,47 @@ module.exports = {
     // https://www.npmjs.com/package/webpack-version-file-plugin
     new VersionFile({
       packageFile: path.join(__dirname, 'package.json'),
-      outputFile: path.join(__dirname, 'version.json')
-    })
-  ],
+      outputFile: path.join(distDir, 'version.json')
+    }),
+
+    new HtmlWebPackPlugin({
+      template: './public/index.html',
+      templateParameters: {
+        title: 'Arena'
+      }
+    }),
+
+    isDevelopment && new ReactRefreshWebpackPlugin(),
+  ].filter(Boolean),
 
   module: {
     rules: [
-      // js
+      // js & ts
       {
-        test: /\.js$/,
-        exclude: /(node_modules)/,
+        test: /\.[jt]sx?$/,
+        exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
-        }
+          loader: 'babel-loader',
+          options: {
+            cacheDirectory: true,
+            babelrc: false,
+            presets: [
+              '@babel/preset-typescript',
+              [
+                '@babel/preset-env',
+                { targets: { browsers: '> 5%, not IE <= 11' } },
+              ],
+              '@babel/preset-react',
+            ],
+            plugins: [
+              ['@babel/plugin-proposal-class-properties', { loose: true }],
+              '@babel/plugin-proposal-nullish-coalescing-operator',
+              '@babel/plugin-proposal-optional-chaining',
+              'babel-plugin-styled-components',
+              isDevelopment && require.resolve('react-refresh/babel'),
+            ].filter(Boolean),
+          },
+        },
       },
 
       // config
@@ -108,7 +146,7 @@ module.exports = {
 
       // fonts
       {
-        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        test: /\.(woff(2)?|ttf|eot|svg|png|jpg)(\?v=\d+\.\d+\.\d+)?$/,
         use: [
           {
             loader: 'file-loader',
@@ -118,16 +156,20 @@ module.exports = {
             }
           }
         ]
-      }
+      },
+
+      // css
+      { test: /\.css$/, loader: 'style-loader!css-loader' }
     ]
   },
 
   resolve: {
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
     alias: {
       '@material-ui/styles': path.resolve(__dirname, '..', '..', 'node_modules/@material-ui/styles'),
       'react': path.resolve(__dirname, '..', '..', 'node_modules/react'),
       'react-dom': path.resolve(__dirname, '..', '..', 'node_modules/react-dom'),
-      '@dxos/react-client': path.resolve(__dirname, '..', '..', 'node_modules/@dxos/react-client')
+      'yjs': path.resolve(__dirname, '..', '..', 'node_modules/yjs')
     }
   }
 };

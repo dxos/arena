@@ -1,3 +1,7 @@
+//
+// Copyright 2020 DXOS.org
+//
+
 import { Gamepad as GamepadIcon } from '@material-ui/icons';
 
 import Main from './Main';
