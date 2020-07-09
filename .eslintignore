@@ -72,7 +72,7 @@ webpack.zip
 
 .DS_Store
 
-bin
+bin/
 
 # TODO(burdon): Why?
 **/*.test.js

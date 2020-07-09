@@ -4,7 +4,7 @@
   "description": "",
   "keywords": [],
   "license": "GPL-3.0",
-  "author": "DxOS.org",
+  "author": "DXOS.org",
   "main": "dist/es/game.js",
   "scripts": {
     "build": "babel ./src --out-dir ./dist/es --ignore \"**/*.test.js\" --source-maps inline",
