@@ -2825,7 +2825,7 @@
     random-access-web "^2.0.3"
     source-map-support "^0.5.16"
 
-"@dxos/react-appkit@^1.0.0-beta.105":
+"@dxos/react-appkit@^1.0.0-beta.118":
   version "1.0.0-beta.127"
   resolved "https://registry.yarnpkg.com/@dxos/react-appkit/-/react-appkit-1.0.0-beta.127.tgz#0f45ad7aeab29ca1b359586e35bb9f514f7fc93a"
   integrity sha512-458HMO62/pNsvU5d/HFalrSDUkfE/IC0ytIsKY1+mWDgTFOcISTI/PFXqS03dJpzDXjwno65xOzWufQ66JL+ZA==
@@ -2854,7 +2854,7 @@
     react-router "^5.1.2"
     react-router-dom "^5.1.2"
 
-"@dxos/react-appkit@^1.0.0-beta.56", "@dxos/react-appkit@^1.0.0-beta.92", "@dxos/react-appkit@^1.0.0-beta.94":
+"@dxos/react-appkit@^1.0.0-beta.56":
   version "1.0.0-beta.102"
   resolved "https://registry.yarnpkg.com/@dxos/react-appkit/-/react-appkit-1.0.0-beta.102.tgz#adee71457d008fdbcac977f38d352b51d4474cdf"
   integrity sha512-S6gb/lu7woCv1BKcFLluPD7fUE0nt1BaoEtJZPePWuodny4x9cse6RKXa0INUzqDITpr5J51cCtc6GDezqc4oA==
@@ -2883,7 +2883,7 @@
     react-router "^5.1.2"
     react-router-dom "^5.1.2"
 
-"@dxos/react-client@^1.0.0-beta.102", "@dxos/react-client@^1.0.0-beta.56", "@dxos/react-client@^1.0.0-beta.92", "@dxos/react-client@^1.0.0-beta.94":
+"@dxos/react-client@^1.0.0-beta.102", "@dxos/react-client@^1.0.0-beta.56":
   version "1.0.0-beta.102"
   resolved "https://registry.yarnpkg.com/@dxos/react-client/-/react-client-1.0.0-beta.102.tgz#0ffb50cafc55d8229f09d07bc6b4801997ec36b3"
   integrity sha512-dCsCyb3RNHphHLz4WrCiFxxNL1rO2Rkv+DKB6IjtKv0AxU66CwKZCUao840wtVN7kOK+xp5K4AJBXIpEbTQjeA==
@@ -2902,7 +2902,7 @@
     react-router-dom "^5.1.2"
     use-deep-compare-effect "^1.3.0"
 
-"@dxos/react-client@^1.0.0-beta.105", "@dxos/react-client@^1.0.0-beta.127":
+"@dxos/react-client@^1.0.0-beta.118", "@dxos/react-client@^1.0.0-beta.127":
   version "1.0.0-beta.127"
   resolved "https://registry.yarnpkg.com/@dxos/react-client/-/react-client-1.0.0-beta.127.tgz#2f49dc7be51edfb378946d73128884b6e25443b2"
   integrity sha512-l80IWU3o6Slerxego+cJ3/6vKH3lEW1lsoTPkZdMwuHOQUVWW5mHRZVsCY6Jv7P7c4Em0znccRdYEoutcgNmXw==
@@ -2929,7 +2929,7 @@
     prop-types "^15.5.8"
     react-base16-styling "^0.5.1"
 
-"@dxos/react-router@^1.0.0-beta.102", "@dxos/react-router@^1.0.0-beta.56", "@dxos/react-router@^1.0.0-beta.92":
+"@dxos/react-router@^1.0.0-beta.102", "@dxos/react-router@^1.0.0-beta.56":
   version "1.0.0-beta.102"
   resolved "https://registry.yarnpkg.com/@dxos/react-router/-/react-router-1.0.0-beta.102.tgz#50f1c571f3e5dc22c8e076f731dabeb8d8949fe0"
   integrity sha512-fO6fco97WtyRzXsf1jGVKdvjkY9dm4U7yVNHEKEwnLt1o/uWyMCvyLiH9gMlsLzGXnwTVM+9C22SES0gMuaoRQ==
@@ -2942,7 +2942,7 @@
     react-router-dom "^5.1.2"
     uuid "^3.3.3"
 
-"@dxos/react-router@^1.0.0-beta.105", "@dxos/react-router@^1.0.0-beta.127":
+"@dxos/react-router@^1.0.0-beta.118", "@dxos/react-router@^1.0.0-beta.127":
   version "1.0.0-beta.127"
   resolved "https://registry.yarnpkg.com/@dxos/react-router/-/react-router-1.0.0-beta.127.tgz#ce3404b2f1b0c0311456030f8cac6287d4997a9e"
   integrity sha512-1tQ22ZVrXmaUYQF2hqk9Jhm5hc4Es+rF9bETd3DnUANHvSVnMDSng8Nvm83rBhxiY2AFrxFZrR0q6wHA/ehFeA==
@@ -2955,7 +2955,7 @@
     react-router-dom "^5.1.2"
     uuid "^3.3.3"
 
-"@dxos/react-ux@^1.0.0-beta.102", "@dxos/react-ux@^1.0.0-beta.56", "@dxos/react-ux@^1.0.0-beta.92", "@dxos/react-ux@^1.0.0-beta.94":
+"@dxos/react-ux@^1.0.0-beta.102", "@dxos/react-ux@^1.0.0-beta.56":
   version "1.0.0-beta.102"
   resolved "https://registry.yarnpkg.com/@dxos/react-ux/-/react-ux-1.0.0-beta.102.tgz#d1d889f040add8e59d682c43db3e805f66f2a914"
   integrity sha512-LjzUcwiL6P44xcPnrILgozHlMVUu/5vlXk0qcJMKMiRNJ8wvY/h9p4dvlY47xGSjRNGJdpkwxxVt6BAXNeybgg==
@@ -2969,7 +2969,7 @@
     lodash.isplainobject "^4.0.6"
     uuid "^3.3.3"
 
-"@dxos/react-ux@^1.0.0-beta.105", "@dxos/react-ux@^1.0.0-beta.127":
+"@dxos/react-ux@^1.0.0-beta.118", "@dxos/react-ux@^1.0.0-beta.127":
   version "1.0.0-beta.127"
   resolved "https://registry.yarnpkg.com/@dxos/react-ux/-/react-ux-1.0.0-beta.127.tgz#5db93a14c6140dff95d82885f49136aeb00fe0a8"
   integrity sha512-AJM8bc+hybnHOoOnfTQD43bv4ch5/9srJd82QPFXW5usief7diDe7RnL75PFgA/5Mf+69w+8q5JhGmVfQpN43Q==
