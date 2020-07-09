@@ -16,7 +16,7 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     flex: 1,
-    overflow: 'hidden',
+    overflow: 'hidden'
   },
 
   content: {
@@ -24,8 +24,8 @@ const useStyles = makeStyles(() => ({
     display: 'grid',
     gridTemplateColumns: '100px minmax(400px, 1fr) 1fr',
     gridColumnGap: '8px',
-    height: '100%',
-  },
+    height: '100%'
+  }
 }));
 
 const Game = () => {

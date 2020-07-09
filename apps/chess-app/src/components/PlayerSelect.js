@@ -24,8 +24,8 @@ const sorter = (a, b) => (a.displayName < b.displayName ? -1 : a.displayName > b
 
 const useStyles = makeStyles(() => ({
   itemText: {
-    paddingRight: 150,
-  },
+    paddingRight: 150
+  }
 }));
 
 export const PlayerSelect = ({ isVisible, onSelected }) => {

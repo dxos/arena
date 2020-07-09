@@ -1,3 +1,7 @@
+//
+// Copyright 2020 DXOS.org
+//
+
 import ChessJs from 'chess.js';
 import assert from 'assert';
 
@@ -14,7 +18,7 @@ export const CHESS_BLACK_ROLE = 'black';
 export class ChessModel extends OrderedModel {
   _game = new Chess();
 
-  get game() {
+  get game () {
     return this._game;
   }
 
@@ -26,7 +30,7 @@ export class ChessModel extends OrderedModel {
    * @param  {string} to
    * @param  {string} promotion
    */
-  makeMove({ from, to, promotion }) {
+  makeMove ({ from, to, promotion }) {
     if (!new Chess(this.game.fen()).move({ from, to, promotion })) {
       console.log('not a valid move', from, to);
       return;
@@ -38,7 +42,7 @@ export class ChessModel extends OrderedModel {
    * Update the game engine with new (ordered and validated) messages containing chess moves
    * @Override
    */
-  async onUpdate(messages) {
+  async onUpdate (messages) {
     for (const message of messages) {
       if (message.__type_url === TYPE_CHESS_MOVE) {
         this._game.move(message);
@@ -50,7 +54,7 @@ export class ChessModel extends OrderedModel {
    * @Override
    */
   // eslint-disable-next-line no-unused-vars
-  validateCandidate(intendedPosition, _message) {
+  validateCandidate (intendedPosition, _message) {
     if (_message.__type_url === TYPE_CHESS_GAME) {
       assert(intendedPosition === 0);
       assert(_message.members);
@@ -66,11 +70,11 @@ export class ChessModel extends OrderedModel {
   /**
    * Whether the model is initialized with a genesis block of a chess game
    */
-  get isInitialized() {
+  get isInitialized () {
     return this._whitePubKey && this._blackPubKey;
   }
 
-  _isKeyValid(intendedPosition, key) {
+  _isKeyValid (intendedPosition, key) {
     assert(this.isInitialized);
     assert(key);
 
@@ -78,13 +82,13 @@ export class ChessModel extends OrderedModel {
     return key.equals(expectedPubKey);
   }
 
-  static createGenesisMessage(title, white, black) {
+  static createGenesisMessage (title, white, black) {
     return OrderedModel.createGenesisMessage({
       title,
       members: [
         { publicKey: white, role: CHESS_WHITE_ROLE },
-        { publicKey: black, role: CHESS_BLACK_ROLE },
-      ],
+        { publicKey: black, role: CHESS_BLACK_ROLE }
+      ]
     });
   }
 }

@@ -9,12 +9,12 @@ import { ChessModel } from '@dxos/chess-core';
  * Chess bot.
  */
 export class ChessBot extends Bot {
-  constructor(config) {
+  constructor (config) {
     super(ChessModel, config);
   }
 
   // eslint-disable-next-line class-methods-use-this
-  async onModelUpdate(model) {
+  async onModelUpdate (model) {
     if (model.game.turn() === 'b') {
       console.log('This is a black move, making a move...');
       const moves = model.game.moves({ verbose: true });

@@ -2,7 +2,6 @@
 // Copyright 2020 DXOS.org
 //
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useLayoutEffect } from 'react';
 
 const INITIAL_STATE = [undefined, undefined];

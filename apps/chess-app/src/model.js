@@ -35,7 +35,7 @@ export const useItemList = (topic) => {
     },
     renameItem: (itemId, title) => {
       model.appendMessage({ __type_url: TYPE_CHESS_GAME, itemId, title });
-    },
+    }
   };
 };
 
@@ -77,6 +77,6 @@ export const useChessModel = (topic, itemId) => {
 
   return [
     model?.game ?? new Chess(),
-    move => model.makeMove(move),
+    move => model.makeMove(move)
   ];
 };

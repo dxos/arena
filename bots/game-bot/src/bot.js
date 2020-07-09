@@ -8,7 +8,7 @@ import { GameModel } from '@dxos/game-model';
 const MODEL_TYPE_MOVE = 'testing.game.Move';
 
 class ExtendedGameModel extends GameModel {
-  processMessages(messages) {
+  processMessages (messages) {
     messages
       .sort((a, b) => a.data.move - b.data.move)
       .forEach(message => {
@@ -28,23 +28,22 @@ class ExtendedGameModel extends GameModel {
  * Game bot.
  */
 export class GameBot extends Bot {
-
   /**
    * @constructor
    * @param {Object} config
    */
-  constructor(config) {
+  constructor (config) {
     super(ExtendedGameModel, config, { readStreamOptions: { feedLevelIndexInfo: true } });
   }
 
-  async start() {
+  async start () {
     await super.start();
 
     this._feed = this._client.feedStore.getDescriptors().find(descriptor => descriptor.path === `/topic/${this._topic}/writable`);
   }
 
   // eslint-disable-next-line class-methods-use-this
-  async onModelUpdate(model, metadata) {
+  async onModelUpdate (model, metadata) {
     const { state: { game } } = model;
     const { lastMoveOrigin } = metadata;
 

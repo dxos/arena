@@ -18,7 +18,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
   root: {
-    width: 250,
+    width: 250
   },
 
   board: {
@@ -46,11 +46,11 @@ const Game = ({ game, onMove, title, className, ...cardProps }) => {
 
   const winner = game.winner();
   const player = piece => 'OX'[piece];
-  const subheader = winner !== undefined ? `${player(winner)} is the winner.` :
-    game.isOver() ? 'stalemate' : `${player(game.turn)} to play`;
+  const subheader = winner !== undefined ? `${player(winner)} is the winner.`
+    : game.isOver() ? 'stalemate' : `${player(game.turn)} to play`;
 
-  const Icon = ({ piece, ...rest }) => (piece === undefined ? <BlankIcon {...rest} className={classes.blank} /> :
-    piece === 0 ? <CircleIcon {...rest} /> : <CrossIcon {...rest} />);
+  const Icon = ({ piece, ...rest }) => (piece === undefined ? <BlankIcon {...rest} className={classes.blank} />
+    : piece === 0 ? <CircleIcon {...rest} /> : <CrossIcon {...rest} />);
 
   return (
     <Card className={clsx(classes.root, className)} {...cardProps}>
@@ -65,10 +65,8 @@ const Game = ({ game, onMove, title, className, ...cardProps }) => {
           <table>
             <tbody>
               {game.board.map((row, i) => (
-                // eslint-disable-next-line react/no-array-index-key
                 <tr key={i}>
                   {row.map((cell, j) => (
-                    // eslint-disable-next-line react/no-array-index-key
                     <td key={`${i}-${j}`}>
                       <IconButton onClick={() => handleClick(i, j)}>
                         <Icon piece={game.board[i][j]} fontSize="large" />

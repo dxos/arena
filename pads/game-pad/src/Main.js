@@ -1,3 +1,7 @@
+//
+// Copyright 2020 DXOS.org
+//
+
 import React from 'react';
 import clsx from 'clsx';
 
@@ -28,7 +32,7 @@ const onMove = (model) => (position, piece, move) => {
   });
 };
 
-export default function TicTacToePad(props) {
+export default function TicTacToePad (props) {
   const { className, topic, viewId, ...cardProps } = props;
   const classes = useStyles();
   const model = useModel({

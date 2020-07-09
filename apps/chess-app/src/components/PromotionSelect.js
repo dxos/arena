@@ -1,3 +1,7 @@
+//
+// Copyright 2020 DXOS.org
+//
+
 import React from 'react';
 import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
@@ -16,8 +20,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
     display: 'grid',
     gridTemplateColumns: '1fr',
-    gridRowGap: 8,
-  },
+    gridRowGap: 8
+  }
 }));
 
 export const PromotionSelect = ({ isVisible, onSelect }) => {
