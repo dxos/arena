@@ -9,7 +9,7 @@
   "license": "GPL-3.0",
   "author": "DXOS.org",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && cp -r src/assets dist/src/",
     "debug": "DOT_ENV=.env.debug webpack-dev-server --mode development",
     "debug:localhost": "CONFIG=localhost.yml webpack-dev-server --mode development",
     "dist": "rollup -c",
