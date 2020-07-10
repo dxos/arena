@@ -8,7 +8,7 @@ import Chance from 'chance';
 import { asyncHandler } from '@dxos/async';
 import { log } from '@dxos/debug';
 import { GameModel } from '@dxos/game-model';
-import { DefaultModel } from '@dxos/data-client';
+import { DefaultModel } from '@dxos/client';
 
 const MODEL_TYPE_GAME = 'testing.game.Game';
 const MODEL_TYPE_MOVE = 'testing.game.Move';

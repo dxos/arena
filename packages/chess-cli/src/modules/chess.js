@@ -6,7 +6,7 @@ import assert from 'assert';
 import Chance from 'chance';
 
 import { asyncHandler } from '@dxos/async';
-import { DefaultModel } from '@dxos/data-client';
+import { DefaultModel } from '@dxos/client';
 import { log } from '@dxos/debug';
 // eslint-disable-next-line no-unused-vars
 import { TYPE_CHESS_GAME, TYPE_CHESS_MOVE, ChessModel } from '@dxos/chess-core';

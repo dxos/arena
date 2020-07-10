@@ -105,3 +105,7 @@ dist
 
 # Idea
 .idea/workspace.xml
+
+# Out
+.bots
+out
