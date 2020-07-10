@@ -10,6 +10,7 @@ import { OrderedModel } from '@dxos/echo-db';
 const Chess = (typeof define !== 'undefined') ? ChessJs : ChessJs.Chess;
 
 export const TYPE_CHESS_GAME = 'testing.chess.Game';
+export const TYPE_CHESS_PLAYERSELECT = 'testing.chess.PlayerSelect';
 export const TYPE_CHESS_MOVE = 'testing.chess.Move';
 
 export const CHESS_WHITE_ROLE = 'white';
@@ -55,7 +56,7 @@ export class ChessModel extends OrderedModel {
    */
   // eslint-disable-next-line no-unused-vars
   validateCandidate (intendedPosition, _message) {
-    if (_message.__type_url === TYPE_CHESS_GAME) {
+    if (_message.__type_url === TYPE_CHESS_PLAYERSELECT) {
       assert(intendedPosition === 0);
       assert(_message.members);
       this._whitePubKey = _message.members.find(m => m.role === CHESS_WHITE_ROLE).publicKey;

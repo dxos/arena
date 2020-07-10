@@ -13,6 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core';
+import Card from '@material-ui/core/Card';
 
 import { humanize } from '@dxos/crypto';
 import { useParty } from '@dxos/react-client';
@@ -22,20 +23,30 @@ import KingBlack from '../icons/KingBlack';
 
 const sorter = (a, b) => (a.displayName < b.displayName ? -1 : a.displayName > b.displayName ? 1 : a.isMe ? -1 : 1);
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
+  root: {
+    margin: 'auto',
+    marginLeft: 40,
+    display: 'flex',
+    flexDirection: 'column',
+    width: 300,
+    height: 414,
+    padding: theme.spacing(5),
+    borderRadius: '8px',
+    textAlign: 'center'
+  },
   itemText: {
     paddingRight: 150
   }
 }));
 
-export const PlayerSelect = ({ isVisible, onSelected }) => {
+const PlayerSelect = ({ onSelected }) => {
   const party = useParty();
   const [{ black, white }, setPlayers] = useState({});
   const classes = useStyles();
 
   return (
-    <Dialog open={isVisible}>
-      <DialogTitle>Choose players</DialogTitle>
+    <Card className={classes.root}>
       <List>
         {party.members.sort(sorter).map(member => (
           <ListItem key={member.publicKey}>
@@ -51,20 +62,15 @@ export const PlayerSelect = ({ isVisible, onSelected }) => {
           </ListItem>
         ))}
       </List>
-      <DialogActions>
-        <Button
-          onClick={() => onSelected(undefined)}
-        >
-          Cancel
-        </Button>
-        <Button
-          color="primary"
-          disabled={!white || !black}
-          onClick={() => onSelected({ white, black })}
-        >
-          Create
-        </Button>
-      </DialogActions>
-    </Dialog>
+      <Button
+        color="primary"
+        disabled={!white || !black}
+        onClick={() => onSelected({ white, black })}
+      >
+        Select
+      </Button>
+    </Card>
   );
 };
+
+export default PlayerSelect;

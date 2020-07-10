@@ -7,7 +7,7 @@ import Chess from 'chess.js';
 
 import { useModel } from '@dxos/react-client';
 import { createId } from '@dxos/crypto';
-import { TYPE_CHESS_GAME, TYPE_CHESS_MOVE, ChessModel } from '@dxos/chess-core';
+import { TYPE_CHESS_GAME, TYPE_CHESS_MOVE, TYPE_CHESS_PLAYERSELECT, ChessModel } from '@dxos/chess-core';
 
 // TODO(burdon): Define types.
 
@@ -73,10 +73,11 @@ export const useChessModel = (topic, itemId) => {
   assert(topic);
   assert(itemId);
 
-  const model = useModel({ model: ChessModel, options: { type: [TYPE_CHESS_MOVE, TYPE_CHESS_GAME], topic, itemId } }); // TODO(rzadp,marik-d,rburdon) Use ECHO
+  const model = useModel({ model: ChessModel, options: { type: [TYPE_CHESS_MOVE, TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT], topic, itemId } }); // TODO(rzadp,marik-d,rburdon) Use ECHO
 
   return [
     model?.game ?? new Chess(),
-    move => model.makeMove(move)
+    move => model.makeMove(move),
+    model
   ];
 };
