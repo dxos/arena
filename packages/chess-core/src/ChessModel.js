@@ -5,7 +5,7 @@
 import ChessJs from 'chess.js';
 import assert from 'assert';
 
-import { OrderedModel } from '@dxos/echodb';
+import { OrderedModel } from '@dxos/echo-db';
 
 const Chess = (typeof define !== 'undefined') ? ChessJs : ChessJs.Chess;
 
