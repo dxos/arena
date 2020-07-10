@@ -14,6 +14,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 
 import { humanize } from '@dxos/crypto';
 import { useParty } from '@dxos/react-client';
@@ -26,17 +29,22 @@ const sorter = (a, b) => (a.displayName < b.displayName ? -1 : a.displayName > b
 const useStyles = makeStyles(theme => ({
   root: {
     margin: 'auto',
-    marginLeft: 40,
     display: 'flex',
     flexDirection: 'column',
-    width: 300,
-    height: 414,
+    minWidth: 300,
+    minHeight: 414,
     padding: theme.spacing(5),
     borderRadius: '8px',
-    textAlign: 'center'
+    textAlign: 'center',
+    justifyContent: 'space-between'
   },
   itemText: {
     paddingRight: 150
+  },
+  actions: {
+    justifyContent: 'center',
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2)
   }
 }));
 
@@ -47,28 +55,34 @@ const PlayerSelect = ({ onSelected }) => {
 
   return (
     <Card className={classes.root}>
-      <List>
-        {party.members.sort(sorter).map(member => (
-          <ListItem key={member.publicKey}>
-            <ListItemText primary={member.displayName || humanize(member.publicKey)} className={classes.itemText} />
-            <ListItemSecondaryAction>
-              <IconButton onClick={() => setPlayers({ black, white: member.publicKey })}>
-                <KingWhite style={{ opacity: white && member.publicKey.equals(white) ? 1 : 0.1 }} />
-              </IconButton>
-              <IconButton onClick={() => setPlayers({ white, black: member.publicKey })}>
-                <KingBlack style={{ opacity: black && member.publicKey.equals(black) ? 1 : 0.1 }} />
-              </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
-        ))}
-      </List>
-      <Button
-        color="primary"
-        disabled={!white || !black}
-        onClick={() => onSelected({ white, black })}
-      >
-        Select
-      </Button>
+      <CardHeader title="Select players" />
+      <CardContent>
+        <List>
+          {party.members.sort(sorter).map(member => (
+            <ListItem key={member.publicKey}>
+              <ListItemText primary={member.displayName || humanize(member.publicKey)} className={classes.itemText} />
+              <ListItemSecondaryAction>
+                <IconButton onClick={() => setPlayers({ black, white: member.publicKey })}>
+                  <KingWhite style={{ opacity: white && member.publicKey.equals(white) ? 1 : 0.1 }} />
+                </IconButton>
+                <IconButton onClick={() => setPlayers({ white, black: member.publicKey })}>
+                  <KingBlack style={{ opacity: black && member.publicKey.equals(black) ? 1 : 0.1 }} />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+          ))}
+        </List>
+      </CardContent>
+      <CardActions className={classes.actions}>
+        <Button
+          color="primary"
+          variant="outlined"
+          disabled={!white || !black}
+          onClick={() => onSelected({ white, black })}
+        >
+          Select
+        </Button>
+      </CardActions>
     </Card>
   );
 };

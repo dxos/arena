@@ -48,16 +48,15 @@ const Game = () => {
 
   if (!gameModel) return (<p>Loading...</p>);
 
+  if (!gameModel.isInitialized) {
+    return (<PlayerSelect onSelected={handlePlayerSelect} />);
+  }
+
   return (
     <div className={classes.root}>
       <div className={classes.content}>
-        {!gameModel.isInitialized && (
-          <PlayerSelect isVisible={true} onSelected={handlePlayerSelect} />
-        )}
-        {gameModel.isInitialized && (<>
-          <MovesPad history={game.history({ verbose: true })} />
-          <ChessPad gameId={gameId} game={game} makeMove={makeMove} />
-        </>)}
+        <MovesPad history={game.history({ verbose: true })} />
+        <ChessPad gameId={gameId} game={game} makeMove={makeMove} />
       </div>
     </div>
   );
