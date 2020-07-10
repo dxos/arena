@@ -33,6 +33,7 @@ import { useClient } from '@dxos/react-client';
 import { generatePasscode } from '@dxos/credentials';
 import { useAppRouter } from '@dxos/react-appkit';
 import { BotFactoryClient } from '@dxos/botkit-client';
+import { InviteDetails, InviteType } from '@dxos/party-manager';
 
 import MemberAvatar from '../components/MemberAvatar';
 import { useAsync } from '../hooks/use-async';
@@ -95,13 +96,15 @@ const SettingsDialog = ({ party, open, onClose }) => {
   const createInvitation = async () => {
     const invitation = await client.partyManager.inviteToParty(
       party.publicKey,
-      (invitation, secret) => secret && secret.equals(invitation.secret),
-      () => {
-        const passcode = generatePasscode();
-        // TODO(burdon): Don't use generic variable names like "arr" and "x"
-        setPendingInvitations(arr => arr.map(x => x.invitation === invitation ? { ...x, passcode } : x));
-        return Buffer.from(passcode);
-      },
+      new InviteDetails(InviteType.INTERACTIVE, {
+        secretValidator: (invitation, secret) => secret && secret.equals(invitation.secret),
+        secretProvider: () => {
+          const passcode = generatePasscode();
+          // TODO(burdon): Don't use generic variable names like "arr" and "x"
+          setPendingInvitations(arr => arr.map(x => x.invitation === invitation ? { ...x, passcode } : x));
+          return Buffer.from(passcode);
+        }
+      }),
       {
         onFinish: () => setPendingInvitations(arr => arr.filter(x => x.invitation !== invitation))
       }
@@ -126,8 +129,10 @@ const SettingsDialog = ({ party, open, onClose }) => {
 
     const invitation = await client.partyManager.inviteToParty(
       keyToBuffer(topic),
-      secretValidator,
-      secretProvider,
+      new InviteDetails(InviteType.INTERACTIVE, {
+          secretValidator,
+          secretProvider
+      }),
       {
         onFinish: () => {
           botFactoryClient.close();
