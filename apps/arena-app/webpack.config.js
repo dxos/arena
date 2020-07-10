@@ -159,7 +159,13 @@ module.exports = {
       },
 
       // css
-      { test: /\.css$/, loader: 'style-loader!css-loader' }
+      { test: /\.css$/, loader: 'style-loader!css-loader' },
+
+      // svg
+      {
+        test: /\.svg$/,
+        use: ['@svgr/webpack', 'file-loader'],
+      }
     ]
   },
 

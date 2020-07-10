@@ -4,8 +4,8 @@
 
 import KingWhite from './icons/KingWhite';
 
-import { Game } from './containers/Game';
-import { TYPE_CHESS_GAME, ChessModel } from '@dxos/chess-core';
+import Game from './containers/Game';
+import { TYPE_CHESS_GAME } from '@dxos/chess-core';
 
 // export * from './model';
 
