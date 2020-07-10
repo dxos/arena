@@ -5,7 +5,7 @@
 import debug from 'debug';
 import waitForExpect from 'wait-for-expect'
 
-import { ChessModel, TYPE_CHESS_GAME, TYPE_CHESS_MOVE, CHESS_BLACK_ROLE, CHESS_WHITE_ROLE } from './ChessModel';
+import { ChessModel, TYPE_CHESS_GAME, TYPE_CHESS_MOVE, CHESS_BLACK_ROLE, CHESS_WHITE_ROLE, TYPE_CHESS_PLAYERSELECT } from './ChessModel';
 
 const PLAYER_1 = Buffer.from([1]);
 const PLAYER_2 = Buffer.from([2]);
@@ -130,7 +130,7 @@ test('can make a move', async () => {
 });
 
 const genesisMessage = (white, black) => ({
-  __type_url: TYPE_CHESS_GAME,
+  __type_url: TYPE_CHESS_PLAYERSELECT,
   previousMessageId: 0,
   messageId: 1,
   members: [

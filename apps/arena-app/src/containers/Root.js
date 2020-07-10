@@ -18,6 +18,7 @@ import {
 } from '@dxos/react-appkit';
 import { ClientContextProvider } from '@dxos/react-client';
 import GamePad from '@dxos/game-pad';
+import ChessPad from '@dxos/chess-pad';
 
 import App from './App';
 import Home from './Home';
@@ -30,7 +31,8 @@ const initialState = {
 };
 
 const pads = [
-  GamePad
+  GamePad,
+  ChessPad
 ];
 
 const Root = ({ config }) => {

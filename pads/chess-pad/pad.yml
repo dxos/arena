@@ -1,0 +1,4 @@
+name: example.com/chess
+displayName: Chess 
+build: yarn dist
+version: 0.0.0
