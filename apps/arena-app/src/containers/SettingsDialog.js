@@ -4,6 +4,7 @@
 
 import React, { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import copy from 'copy-to-clipboard';
 
 import { makeStyles, withStyles } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
@@ -20,6 +21,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 
 import DeleteIcon from '@material-ui/icons/Clear';
 import FaceIcon from '@material-ui/icons/Face';
@@ -27,6 +30,7 @@ import LinkIcon from '@material-ui/icons/Link';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import InviteIcon from '@material-ui/icons/Add';
 import PeopleIcon from '@material-ui/icons/People';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 import { humanize, keyToBuffer, verify, SIGNATURE_LENGTH, keyToString } from '@dxos/crypto';
 import { useClient } from '@dxos/react-client';
@@ -92,6 +96,7 @@ const SettingsDialog = ({ party, open, onClose }) => {
   const [contacts, error] = useAsync(async () => client.partyManager.getContacts(), []);
   const newContacts = contacts?.filter(c => !party.members.some(m => m.publicKey.toString('hex') === c.publicKey.toString('hex')));
   const [botDialogVisible, setBotDialogVisible] = useState(false);
+  const [copiedSnackBarOpen, setCopiedSnackBarOpen] = useState(false);
 
   const createInvitation = async () => {
     const invitation = await client.partyManager.inviteToParty(
@@ -145,8 +150,16 @@ const SettingsDialog = ({ party, open, onClose }) => {
     await botFactoryClient.sendInvitationRequest(botUID, topic, spec, invitation.toQueryParameters());
   };
 
+  const handleCopy = (value) => {
+    setCopiedSnackBarOpen(true);
+    console.log(value);
+  };
+
   const handleNewPendingInvitation = async () => {
     const invitation = await createInvitation();
+    const inviteUrl = router.createInvitationUrl(invitation);
+    copy(inviteUrl);
+    handleCopy(inviteUrl);
     setPendingInvitations(old => [...old, { invitation }]);
   };
 
@@ -231,10 +244,10 @@ const SettingsDialog = ({ party, open, onClose }) => {
                       >
                         <RefreshIcon />
                       </IconButton>
-                    ) : (
+                    ) : (<>
                       <CopyToClipboard
                         text={router.createInvitationUrl(pending.invitation)}
-                        onCopy={value => console.log(value)}
+                        onCopy={handleCopy}
                       >
                         <IconButton
                           size="small"
@@ -246,7 +259,16 @@ const SettingsDialog = ({ party, open, onClose }) => {
                           <LinkIcon />
                         </IconButton>
                       </CopyToClipboard>
-                    )}
+                      <Snackbar
+                        open={copiedSnackBarOpen}
+                        onClose={() => setCopiedSnackBarOpen(false)}
+                        autoHideDuration={3000}
+                      >
+                        <Alert onClose={() => setCopiedSnackBarOpen(false)} severity="success" icon={<FileCopyIcon fontSize="inherit" />}>
+                          Invitation link copied
+                        </Alert>
+                      </Snackbar>
+                    </>)}
                   </TableCell>
                 </TableRow>
               ))}

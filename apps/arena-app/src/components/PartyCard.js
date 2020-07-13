@@ -200,15 +200,7 @@ const PartyCard = ({ party }) => {
         <CardActions className={classes.actions}>
           {party.subscribed && (
             <>
-              <Button
-                size="small"
-                variant="outlined"
-                onClick={() => setShareDialogOpen(true)}
-              >
-              Share
-              </Button>
-
-              <PartyMemberList party={party} />
+              <PartyMemberList party={party} onShare={() => setShareDialogOpen(true)} />
 
               <IconButton
                 ref={createViewAnchor}
