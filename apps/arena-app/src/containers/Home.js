@@ -80,14 +80,14 @@ const Home = () => {
   return (
     <AppContainer>
       <Grid container spacing={4} alignItems="stretch" className={classes.grid}>
-        <Grid item zeroMinWidth>
-          <NewPartyCard onNewParty={createParty} />
-        </Grid>
         {parties.sort(sortBySubscribedAndName).map((party) => (
           <Grid key={party.publicKey.toString()} item zeroMinWidth>
             <PartyCard party={party} />
           </Grid>
         ))}
+        <Grid item zeroMinWidth>
+          <NewPartyCard onNewParty={createParty} />
+        </Grid>
       </Grid>
     </AppContainer>
   );
