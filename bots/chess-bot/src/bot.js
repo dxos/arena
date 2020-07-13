@@ -44,6 +44,7 @@ export class ChessBot extends Bot {
    */
   async playInParty (topic) {
     if (!this._parties.has(topic)) {
+      console.log(`Joining party '${topic}'.`);
       this._parties.add(topic);
 
       const model = await this._client.modelFactory.createModel(undefined, { type: [TYPE_CHESS_PLAYERSELECT], topic });
@@ -75,6 +76,10 @@ export class ChessBot extends Bot {
    * @param {String} color
    */
   async joinGame (topic, itemId, isWhite, isBlack) {
+    console.log(`Joining game '${itemId}'`);
+    isWhite && console.log('Playing white.');
+    isBlack && console.log('Playing black.');
+
     this._games.set(itemId, { itemId, isWhite, isBlack });
 
     const model = await this._client.modelFactory.createModel(ChessModel, { type: [TYPE_CHESS_MOVE, TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT], topic, itemId });
@@ -83,6 +88,8 @@ export class ChessBot extends Bot {
         const moves = model.game.moves({ verbose: true });
         if (moves.length > 0) {
           const move = moves[Math.floor(Math.random() * moves.length)];
+
+          console.log(`Making move in game '${itemId}': ${JSON.stringify(move)}`);
           model.makeMove(move);
         }
       }
