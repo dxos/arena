@@ -4,7 +4,7 @@
 
 import { Bot } from '@dxos/botkit';
 import { keyToString } from '@dxos/crypto';
-import { CHESS_WHITE_ROLE, CHESS_BLACK_ROLE, TYPE_CHESS_MOVE, TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT, ChessModel } from '@dxos/chess-core';
+import { TYPE_CHESS_MOVE, TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT, ChessModel } from '@dxos/chess-core';
 
 /**
  * Chess bot.
@@ -53,10 +53,13 @@ export class ChessBot extends Bot {
           for (const message of model.messages) {
             const { itemId, members } = message;
             const [white, black] = members;
-            if (white.publicKey.equals(this._publicKey) || black.publicKey.equals(this._publicKey)) {
+
+            const isWhite = white.publicKey.equals(this._publicKey);
+            const isBlack = black.publicKey.equals(this._publicKey);
+
+            if (isWhite || isBlack) {
               if (!this._games.has(itemId)) {
-                const color = white.publicKey.equals(this._publicKey) ? CHESS_WHITE_ROLE : CHESS_BLACK_ROLE;
-                this.joinGame(topic, itemId, color);
+                this.joinGame(topic, itemId, isWhite, isBlack);
               }
             }
           }
@@ -71,12 +74,12 @@ export class ChessBot extends Bot {
    * @param {String} itemId
    * @param {String} color
    */
-  async joinGame (topic, itemId, color) {
-    this._games.set(itemId, { itemId, color });
+  async joinGame (topic, itemId, isWhite, isBlack) {
+    this._games.set(itemId, { itemId, isWhite, isBlack });
 
     const model = await this._client.modelFactory.createModel(ChessModel, { type: [TYPE_CHESS_MOVE, TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT], topic, itemId });
     model.on('update', async () => {
-      if ((model.game.turn() === 'b' && color === CHESS_BLACK_ROLE) || (model.game.turn() === 'w' && color === CHESS_WHITE_ROLE)) {
+      if ((model.game.turn() === 'b' && isBlack) || (model.game.turn() === 'w' && isWhite)) {
         const moves = model.game.moves({ verbose: true });
         if (moves.length > 0) {
           const move = moves[Math.floor(Math.random() * moves.length)];
