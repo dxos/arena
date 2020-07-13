@@ -55,6 +55,7 @@ const Root = ({ config }) => {
                 <RequireWallet redirect={routes.register}>
                   <Switch>
                     {SystemRoutes(router)}
+                    <Route exact path="/app/:topic?"><Redirect to="/home" /></Route>
                     <Route exact path={routes.app} component={App} />
                     <Route exact path="/home" component={Home} />
                     <Redirect to="/home" />
