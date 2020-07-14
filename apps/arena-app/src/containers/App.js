@@ -6,15 +6,15 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
+import { Home, BuildOutlined } from '@material-ui/icons';
+import IconButton from '@material-ui/core/IconButton';
 
 import { noop } from '@dxos/async';
 import { keyToBuffer } from '@dxos/crypto';
 import { useClient } from '@dxos/react-client';
-import { AppContainer, usePads } from '@dxos/react-appkit';
-import { EditableText } from '@dxos/react-ux';
+import { AppContainer, usePads, useAppRouter, DefaultViewSidebar } from '@dxos/react-appkit';
 
 import { useViews } from '../model';
-import Sidebar from './Sidebar';
 
 const useStyles = makeStyles(theme => ({
   main: {
@@ -32,6 +32,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const App = () => {
+  const router = useAppRouter();
   const classes = useStyles();
   const { topic, item: viewId } = useParams();
   const [pads] = usePads();
@@ -49,20 +50,19 @@ const App = () => {
   }, [topic]);
 
   const appBarContent = (<>
-    {item && (
-      <EditableText
-        value={item.displayName}
-        variant="h6"
-        classes={{ root: classes.titleRoot }}
-        onUpdate={(title) => model.renameView(viewId, title)}
-      />
-    )}
+    <IconButton color="inherit">
+      <Home onClick={() => router.push({ path: '/home' })} />
+    </IconButton>
+    <IconButton color="inherit">
+      <BuildOutlined onClick={() => router.push({ path: '/settings', topic, item: viewId })} />
+    </IconButton>
+
   </>);
 
   return (
     <AppContainer
       appBarContent={appBarContent}
-      sidebarContent={<Sidebar />}
+      sidebarContent={<DefaultViewSidebar />}
     >
       <div className={classes.main}>
         {pad && <pad.main topic={topic} viewId={viewId} />}
