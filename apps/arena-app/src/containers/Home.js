@@ -9,10 +9,9 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/styles';
 
 import { useClient, useParties } from '@dxos/react-client';
-import { AppContainer } from '@dxos/react-appkit';
+import { AppContainer, NewPartyCard } from '@dxos/react-appkit';
 
-import PartyCard from '../components/PartyCard';
-import NewPartyCard from '../components/NewPartyCard';
+import PartyCardContainer from './PartyCardContainer';
 
 const useStyles = makeStyles(theme => ({
   fab: {
@@ -82,7 +81,7 @@ const Home = () => {
       <Grid container spacing={4} alignItems="stretch" className={classes.grid}>
         {parties.sort(sortBySubscribedAndName).map((party) => (
           <Grid key={party.publicKey.toString()} item zeroMinWidth>
-            <PartyCard party={party} />
+            <PartyCardContainer party={party} />
           </Grid>
         ))}
         <Grid item zeroMinWidth>

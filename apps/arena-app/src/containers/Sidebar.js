@@ -12,10 +12,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Home } from '@material-ui/icons';
 import Typography from '@material-ui/core/Typography';
 
-import { PartyTreeAddItemButton, PartyTreeItem, useAppRouter, usePads, MemberList } from '@dxos/react-appkit';
+import { PartyTreeAddItemButton, PartyTreeItem, useAppRouter, usePads, MemberList, NewViewCreationMenu } from '@dxos/react-appkit';
 import { useParty } from '@dxos/react-client';
 
-import NewViewCreationMenu from '../components/NewViewCreationMenu';
 import { useViews } from '../model';
 
 const useStyles = makeStyles(theme => ({
