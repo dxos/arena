@@ -1044,13 +1044,13 @@
   resolved "https://registry.yarnpkg.com/@dxos/async/-/async-1.0.0-beta.2.tgz#063ce87151682953864c193feb4b2281383ac18c"
   integrity sha512-hBP3Nla/QD8W82CDJv/SZDyn2LMXiZkljMpUGgqL9Pbv04DEY78bsCg5SBqDbaL4zudwIs/u41Y45SOjjdQWcQ==
 
-"@dxos/botkit-client@^1.0.0-beta.140":
-  version "1.0.0-beta.140"
-  resolved "https://registry.yarnpkg.com/@dxos/botkit-client/-/botkit-client-1.0.0-beta.140.tgz#3c17d063dca35efd16bd346f798256c438855d78"
-  integrity sha512-an5KHYhO+oM2zIGifCLEC7H3VUdbG1mQ0qh4O1iHGqTL2bPW0IUmQ6nGXPgZspHEl6Wx3JovJ7wXgOCIHgP2pg==
+"@dxos/botkit-client@^1.0.0-beta.144":
+  version "1.0.0-beta.144"
+  resolved "https://registry.yarnpkg.com/@dxos/botkit-client/-/botkit-client-1.0.0-beta.144.tgz#8cfa8ce38c03c4da2d5e0c86a12c1964fad94744"
+  integrity sha512-rWeNC+sh+bwmY4omrtne/ly0d6v+A0HDD7afrW4Mcj/F7q2xxKt1PkiSY0TPeNtMJp/B9o7k9iUZ7sacAkWN7Q==
   dependencies:
     "@dxos/async" "^1.0.0-beta.1"
-    "@dxos/client" "^1.0.0-beta.140"
+    "@dxos/client" "^1.0.0-beta.144"
     "@dxos/crypto" "^1.0.0-beta.1"
     "@dxos/debug" "^1.0.0-beta.73"
     "@dxos/network-manager" "^1.0.0-beta.94"
@@ -1059,13 +1059,13 @@
     debug "^4.1.1"
     hypercore-crypto "^1.0.0"
 
-"@dxos/botkit@^1.0.0-beta.140":
-  version "1.0.0-beta.140"
-  resolved "https://registry.yarnpkg.com/@dxos/botkit/-/botkit-1.0.0-beta.140.tgz#e1d2a4c53909a7e7d50a375f503eaa9649b6d886"
-  integrity sha512-8YyFwaaeh7cBjHAqa/xQu7Z0dNJSL8bFrH6qBuzR0433m3YT0dQ4S1TOobUf2tWgjx0FHICnLZNNnJCmwT0p+Q==
+"@dxos/botkit@^1.0.0-beta.144":
+  version "1.0.0-beta.144"
+  resolved "https://registry.yarnpkg.com/@dxos/botkit/-/botkit-1.0.0-beta.144.tgz#516bbbfc1e5a714c50819e0cb9b2938dce8699d1"
+  integrity sha512-ZW3df5bVabRCrwIdLZbj0hEoKzjS1TPtJ4tP6xslJkWexeBRPj5Gw46kpk/EY0gjtu1TfuBNg960Wk6KmpZH7g==
   dependencies:
     "@dxos/async" "^1.0.0-beta.2"
-    "@dxos/client" "^1.0.0-beta.140"
+    "@dxos/client" "^1.0.0-beta.144"
     "@dxos/codec-protobuf" "^1.1.0-beta.7"
     "@dxos/config" "^1.0.0-beta.73"
     "@dxos/credentials" "^1.0.1-beta.4"
@@ -1280,10 +1280,10 @@
     semver "^7.1.1"
     yargs "^11.0.0"
 
-"@dxos/client@^1.0.0-beta.140":
-  version "1.0.0-beta.140"
-  resolved "https://registry.yarnpkg.com/@dxos/client/-/client-1.0.0-beta.140.tgz#cd93dd9621a9ba3fa27c110421433ecc713b837c"
-  integrity sha512-6u8QCJ+IdgYXCoFAbGh/ZRq+GGXWQfxxJyP24jzqwvdvFt5zRxr/tCVyyFp1k9TWTuqBgROjV6+NM73t7Dvoqw==
+"@dxos/client@^1.0.0-beta.144":
+  version "1.0.0-beta.144"
+  resolved "https://registry.yarnpkg.com/@dxos/client/-/client-1.0.0-beta.144.tgz#795c0a73b69315b2a1114ac3f7e835c68b8d3e27"
+  integrity sha512-o8o8bfNeXhHROVpZeizfyzw8QWu7+Dg3myfWjm9Q2IgGZldsLnTkKi5z9JHVNYzMpnfof3pFTXSmfRLnKmeC1Q==
   dependencies:
     "@babel/runtime" "^7.9.6"
     "@dxos/async" "^1.0.0-beta.1"
@@ -1675,21 +1675,21 @@
     random-access-web "^2.0.3"
     source-map-support "^0.5.16"
 
-"@dxos/react-appkit@^1.0.0-beta.140":
-  version "1.0.0-beta.140"
-  resolved "https://registry.yarnpkg.com/@dxos/react-appkit/-/react-appkit-1.0.0-beta.140.tgz#b26591f86af3c929ea997a3fa62be273c995d980"
-  integrity sha512-c7kXJk1Hvwv0CttadIN4EXKh8WHknwtamNfDKWJjrRllSCUgnM0g7QV8shCAEAG9BiQDFXjpvfs0zEdnii+lqQ==
+"@dxos/react-appkit@^1.0.0-beta.144":
+  version "1.0.0-beta.144"
+  resolved "https://registry.yarnpkg.com/@dxos/react-appkit/-/react-appkit-1.0.0-beta.144.tgz#ce0062a910c3c361f982267bcd0c174b9210419e"
+  integrity sha512-pEgz3rKYbYEE6GZaiODMtCbscraxw1aOuOmB+g8NEL5w5I551Iml3kGQ0BUJUieZX7Sbv3NBFrQM7TpuMlmoWg==
   dependencies:
-    "@dxos/botkit-client" "^1.0.0-beta.140"
+    "@dxos/botkit-client" "^1.0.0-beta.144"
     "@dxos/credentials" "^1.0.1-beta.4"
     "@dxos/crypto" "^1.0.0-beta.1"
     "@dxos/debug" "^1.0.0-beta.73"
     "@dxos/metrics" "^1.0.0-beta.6"
     "@dxos/party-manager" "^1.0.1-beta.20"
-    "@dxos/react-client" "^1.0.0-beta.140"
+    "@dxos/react-client" "^1.0.0-beta.144"
     "@dxos/react-json-tree" "^0.11.3"
-    "@dxos/react-router" "^1.0.0-beta.140"
-    "@dxos/react-ux" "^1.0.0-beta.140"
+    "@dxos/react-router" "^1.0.0-beta.144"
+    "@dxos/react-ux" "^1.0.0-beta.144"
     "@material-ui/core" "^4.9.0"
     "@material-ui/icons" "^4.5.1"
     "@material-ui/lab" "^4.0.0-alpha.42"
@@ -1704,13 +1704,13 @@
     react-router "^5.1.2"
     react-router-dom "^5.1.2"
 
-"@dxos/react-client@^1.0.0-beta.140":
-  version "1.0.0-beta.140"
-  resolved "https://registry.yarnpkg.com/@dxos/react-client/-/react-client-1.0.0-beta.140.tgz#ccf2dce178030b89966e1e78e3056d34160d2181"
-  integrity sha512-bJa9fXnBVIVTtDfRY5DTh9UoaxtNSt+bwfaOAlX9vaH2hf5BMCLVoYAzXG+GrMAoKD69YOJTTgKMm9sj6SNfwg==
+"@dxos/react-client@^1.0.0-beta.144":
+  version "1.0.0-beta.144"
+  resolved "https://registry.yarnpkg.com/@dxos/react-client/-/react-client-1.0.0-beta.144.tgz#f1e81462406f918fa48920728e542463d7a8fd0d"
+  integrity sha512-eLL0Nsr6ky7FgwmACtSDBDh+uug73Ncid0q2/iEdwvBwd55OSCQHc4HO9ZcCPEiRTZX0D4oZwbHNSOMPk1LXXw==
   dependencies:
     "@dxos/async" "^1.0.0-beta.1"
-    "@dxos/client" "^1.0.0-beta.140"
+    "@dxos/client" "^1.0.0-beta.144"
     "@dxos/credentials" "^1.0.1-beta.4"
     "@dxos/crypto" "^1.0.0-beta.0"
     "@dxos/debug" "^1.0.0-beta.73"
@@ -1731,10 +1731,10 @@
     prop-types "^15.5.8"
     react-base16-styling "^0.5.1"
 
-"@dxos/react-router@^1.0.0-beta.140":
-  version "1.0.0-beta.140"
-  resolved "https://registry.yarnpkg.com/@dxos/react-router/-/react-router-1.0.0-beta.140.tgz#4367ed3f7885f11c019a9de36b983dd487cb8f5b"
-  integrity sha512-WYwU8k/kixHhzstBYM+Rl7A5C83orerbalvpzAezjJ8DLDFkLx6pei2b+YySiXXcnQTV70tL91NG08HB1YcaGw==
+"@dxos/react-router@^1.0.0-beta.144":
+  version "1.0.0-beta.144"
+  resolved "https://registry.yarnpkg.com/@dxos/react-router/-/react-router-1.0.0-beta.144.tgz#e27a32bfe0861b2ac2d64541964a316ed70cc15e"
+  integrity sha512-BImBrQDfIQB5o3QlfXC7jpFnduvt9N6wHzRT7ZGNCVD3AfW9DuvD+RmS1c0URDV0FhKNG/fpqL0qIYDifnPY6g==
   dependencies:
     "@material-ui/core" "^4.9.0"
     "@material-ui/icons" "^4.5.1"
@@ -1744,10 +1744,10 @@
     react-router-dom "^5.1.2"
     uuid "^3.3.3"
 
-"@dxos/react-ux@^1.0.0-beta.140":
-  version "1.0.0-beta.140"
-  resolved "https://registry.yarnpkg.com/@dxos/react-ux/-/react-ux-1.0.0-beta.140.tgz#ffc66b192c91d754080938616958e35b0f97956f"
-  integrity sha512-ltClonJdGX5f+1jQtJkWLeyQsO119mNlURsV1xw5sSnihqoR2ecqGP5DI6WEgS/MBgS01ri+jmORYQrVp6b4/Q==
+"@dxos/react-ux@^1.0.0-beta.144":
+  version "1.0.0-beta.144"
+  resolved "https://registry.yarnpkg.com/@dxos/react-ux/-/react-ux-1.0.0-beta.144.tgz#87d1d49c2c978920b39f71d9584e91f905c73c7c"
+  integrity sha512-FzTy+UP2tmb0aTUWjc+4IHjjF1z1UVPJQbYPjPWpbnYoNnFvup9S7txZ6ntz1cqP9xRrRjaJhrwydH6G+x7dZg==
   dependencies:
     "@dxos/crypto" "^1.0.0-beta.1"
     "@dxos/debug" "^1.0.0-beta.73"
