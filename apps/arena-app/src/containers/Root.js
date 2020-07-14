@@ -14,7 +14,8 @@ import {
   Registration,
   RequireWallet,
   SystemRoutes,
-  Theme
+  Theme,
+  ViewSettings
 } from '@dxos/react-appkit';
 import { ClientContextProvider } from '@dxos/react-client';
 import GamePad from '@dxos/game-pad';
@@ -55,8 +56,12 @@ const Root = ({ config }) => {
                 <RequireWallet redirect={routes.register}>
                   <Switch>
                     {SystemRoutes(router)}
+                    <Route exact path="/settings/:topic?"><Redirect to="/home" /></Route>
+                    <Route exact path={'/settings/:topic([0-9a-fA-F]{64})/:item'} component={ViewSettings} />
+
                     <Route exact path="/app/:topic?"><Redirect to="/home" /></Route>
                     <Route exact path={routes.app} component={App} />
+
                     <Route exact path="/home" component={Home} />
                     <Redirect to="/home" />
                   </Switch>
