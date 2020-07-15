@@ -3,7 +3,6 @@
 //
 
 import { Bot } from '@dxos/botkit';
-import { keyToString } from '@dxos/crypto';
 import { TYPE_CHESS_MOVE, TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT, ChessModel } from '@dxos/chess-core';
 
 /**
@@ -11,62 +10,45 @@ import { TYPE_CHESS_MOVE, TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT, ChessModel }
  */
 export class ChessBot extends Bot {
   /**
-   * @type {Set}
-   */
-  _parties = new Set();
-
-  /**
    * @type {Map<String, {itemId: String, color: String}>}
    */
   _games = new Map();
 
-  async start () {
-    await super.start();
+  constructor (config) {
+    super(config);
 
-    this._publicKey = this._client.partyManager.identityManager.publicKey;
-
-    this._client.partyManager.on('party', async topic => {
-      await this.playInParty(keyToString(topic));
+    this.on('party', async (topic) => {
+      await this.joinParty(topic);
     });
-
-    const parties = this._client.partyManager._parties.keys();
-
-    if (parties.length > 1) {
-      await Promise.all(parties.slice(1).map(async topic => {
-        await this.playInParty(topic);
-      }));
-    }
   }
 
   /**
-   * Play in party.
+   * Join party.
    * @param {String} topic
    */
-  async playInParty (topic) {
-    if (!this._parties.has(topic)) {
-      console.log(`Joining party '${topic}'.`);
-      this._parties.add(topic);
+  async joinParty (topic) {
+    console.log(`Joining party '${topic}'.`);
 
-      const model = await this._client.modelFactory.createModel(undefined, { type: [TYPE_CHESS_PLAYERSELECT], topic });
+    const self = this._client.partyManager.identityManager.publicKey;
+    const model = await this._client.modelFactory.createModel(undefined, { type: [TYPE_CHESS_PLAYERSELECT], topic });
 
-      model.on('update', async () => {
-        if (model.messages) {
-          for (const message of model.messages) {
-            const { itemId, members } = message;
-            const [white, black] = members;
+    model.on('update', async () => {
+      if (model.messages) {
+        for (const message of model.messages) {
+          const { itemId, members } = message;
+          const [white, black] = members;
 
-            const isWhite = white.publicKey.equals(this._publicKey);
-            const isBlack = black.publicKey.equals(this._publicKey);
+          const isWhite = white.publicKey.equals(self);
+          const isBlack = black.publicKey.equals(self);
 
-            if (isWhite || isBlack) {
-              if (!this._games.has(itemId)) {
-                this.joinGame(topic, itemId, isWhite, isBlack);
-              }
+          if (isWhite || isBlack) {
+            if (!this._games.has(itemId)) {
+              this.joinGame(topic, itemId, isWhite, isBlack);
             }
           }
         }
-      });
-    }
+      }
+    });
   }
 
   /**
