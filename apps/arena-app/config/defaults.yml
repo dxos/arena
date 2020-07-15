@@ -9,10 +9,10 @@ app:
 client:
   devtools: true
   keyStorage:
-    root: "dxos/incubator/keys"
+    root: "dxos/arena/keys"
 
   feedStorage:
-    root: "dxos/incubator/feeds"
+    root: "dxos/arena/feeds"
     type: "idb"
 
   swarm:
