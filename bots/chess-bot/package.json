@@ -26,7 +26,7 @@
     "testEnvironment": "node"
   },
   "dependencies": {
-    "@dxos/botkit": "^1.0.0-beta.149",
+    "@dxos/botkit": "^1.0.0-beta.151",
     "@dxos/chess-core": "^1.0.0-beta.59"
   },
   "devDependencies": {
