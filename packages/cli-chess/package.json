@@ -1,5 +1,5 @@
 {
-  "name": "@dxos/chess-cli",
+  "name": "@dxos/cli-chess",
   "version": "1.0.0-beta.59",
   "main": "dist/index.js",
   "scripts": {
@@ -10,11 +10,12 @@
   "dependencies": {
     "@dxos/async": "^1.0.0-beta.0",
     "@dxos/chess-core": "^1.0.0-beta.59",
-    "@dxos/cli-core": "^1.0.0-beta.56",
+    "@dxos/cli-core": "^1.0.1-beta.22",
     "@dxos/client": "^1.0.0-beta.161",
     "@dxos/debug": "^1.0.0-beta.56",
     "chance": "^1.1.4",
-    "chess.js": "^0.10.3"
+    "chess.js": "^0.10.3",
+    "lodash.defaultsdeep": "^4.6.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

@@ -1,6 +1,6 @@
-name: dxos/chess-cli
+name: dxos/cli-chess
 version: 0.0.1
-displayName: chess-cli
+displayName: cli-chess
 description: Chess operations.
 command:
   - chess

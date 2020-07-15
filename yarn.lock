@@ -1130,41 +1130,6 @@
     semver "^7.1.1"
     yargs "^11.0.0"
 
-"@dxos/cli-core@^1.0.0-beta.56", "@dxos/cli-core@^1.0.0-beta.68":
-  version "1.0.0-beta.68"
-  resolved "https://registry.yarnpkg.com/@dxos/cli-core/-/cli-core-1.0.0-beta.68.tgz#d7bbd63fdaff8f7e5328558d9ad735cae778ffcf"
-  integrity sha512-g8/FZ6g430ltTYQbR2jfezl9wKKyhMsG6fiMh3GdITnOfHfJTTJ0de3wJ973AkdkOptBQ2QRAiDa7W9/5dhBHg==
-  dependencies:
-    "@babel/runtime" "7.7.2"
-    "@dxos/config" "^1.0.0-beta.68"
-    "@dxos/crypto" "^1.0.0-beta.1"
-    "@dxos/debug" "^1.0.0-beta.68"
-    assert "^2.0.0"
-    command-exists "^1.2.9"
-    console.table "^0.10.0"
-    download "^7.1.0"
-    find-root "^1.1.0"
-    fs-extra "^8.1.0"
-    js-yaml "^3.13.1"
-    lodash.defaults "^4.2.0"
-    lodash.defaultsdeep "^4.6.1"
-    lodash.get "^4.4.2"
-    lodash.isarray "^4.0.0"
-    lodash.omit "^4.5.0"
-    lodash.set "^4.3.2"
-    mkdirp "^0.5.1"
-    ndjson-parse "^1.0.4"
-    node-yaml "^4.0.1"
-    ora "^3.4.0"
-    pify "^5.0.0"
-    pm2 "^4.2.3"
-    read-pkg-up "^6.0.0"
-    syswide-cas "^5.3.0"
-    tree-kill "^1.2.1"
-    yargs "^11.0.0"
-    yargs-parser "^18.1.2"
-    yargs-unparser "1.5.0"
-
 "@dxos/cli-core@^1.0.1-beta.20":
   version "1.0.1-beta.20"
   resolved "https://registry.yarnpkg.com/@dxos/cli-core/-/cli-core-1.0.1-beta.20.tgz#5158ae116a5afe1951d6ab29f0811bbfe1853b6f"
@@ -1203,6 +1168,40 @@
   version "1.0.1-beta.21"
   resolved "https://registry.yarnpkg.com/@dxos/cli-core/-/cli-core-1.0.1-beta.21.tgz#c31c28240debb0eb53002915a80663697faa74b4"
   integrity sha512-dVqPLb+OQ7YwUbtnfcY5jW3/zT1RaQNnl9XrwqIQdKBX7HWMj2wUFCsYmdgbo4maJJT5lw6QnDZYAa+gMg5JiA==
+  dependencies:
+    "@babel/runtime" "7.7.2"
+    "@dxos/config" "^1.0.0-beta.67"
+    "@dxos/crypto" "^1.0.0-beta.1"
+    "@dxos/debug" "^1.0.0-beta.67"
+    assert "^2.0.0"
+    console.table "^0.10.0"
+    download "^7.1.0"
+    find-root "^1.1.0"
+    fs-extra "^8.1.0"
+    js-yaml "^3.13.1"
+    lodash.defaults "^4.2.0"
+    lodash.defaultsdeep "^4.6.1"
+    lodash.get "^4.4.2"
+    lodash.isarray "^4.0.0"
+    lodash.omit "^4.5.0"
+    lodash.set "^4.3.2"
+    mkdirp "^0.5.1"
+    ndjson-parse "^1.0.4"
+    node-yaml "^4.0.1"
+    ora "^3.4.0"
+    pify "^5.0.0"
+    pm2 "^4.2.3"
+    read-pkg-up "^6.0.0"
+    syswide-cas "^5.3.0"
+    tree-kill "^1.2.1"
+    yargs "^11.0.0"
+    yargs-parser "^18.1.2"
+    yargs-unparser "1.5.0"
+
+"@dxos/cli-core@^1.0.1-beta.22":
+  version "1.0.1-beta.22"
+  resolved "https://registry.yarnpkg.com/@dxos/cli-core/-/cli-core-1.0.1-beta.22.tgz#92bdf7e7c5baca223fafe85f488c5e87b84f3ea1"
+  integrity sha512-Tns3Iw8ceHmP4Kid3lEMchBUx3hvrVu6I6JH2/wONaXssVMmvhF4gIy6609Jmuss7XN1BQ8OBYJ86I8SjxePiQ==
   dependencies:
     "@babel/runtime" "7.7.2"
     "@dxos/config" "^1.0.0-beta.67"
@@ -1333,7 +1332,7 @@
     protobufjs "^6.9.0"
     source-map-support "^0.5.12"
 
-"@dxos/config@^1.0.0-beta.67", "@dxos/config@^1.0.0-beta.68", "@dxos/config@^1.0.0-beta.73":
+"@dxos/config@^1.0.0-beta.67", "@dxos/config@^1.0.0-beta.73":
   version "1.0.0-beta.74"
   resolved "https://registry.yarnpkg.com/@dxos/config/-/config-1.0.0-beta.74.tgz#0451bb87cf67821a2ca0d390419fb7d4d2fd4cf5"
   integrity sha512-oKQEPJFiXFpxYvvRboqsxrT7HBy7apdab4edDNfXJ+cA+WC6vXcxvmyg78tATeth3XDsGY3Q0rB65wjL/SHh4Q==
@@ -1445,7 +1444,7 @@
   dependencies:
     debug "^4.1.1"
 
-"@dxos/debug@^1.0.0-beta.56", "@dxos/debug@^1.0.0-beta.67", "@dxos/debug@^1.0.0-beta.68", "@dxos/debug@^1.0.0-beta.73":
+"@dxos/debug@^1.0.0-beta.56", "@dxos/debug@^1.0.0-beta.67", "@dxos/debug@^1.0.0-beta.73":
   version "1.0.0-beta.73"
   resolved "https://registry.yarnpkg.com/@dxos/debug/-/debug-1.0.0-beta.73.tgz#0bbc4d4a5f48bde79394c78d323d62255ec2fb26"
   integrity sha512-wiDCYA+stgNyhXZUNj5xGxWxyKFbJw3pwrzU9PGnmYh0J0DXrJwvJ8dkBITxDXQRLESKFW1SW5ixb/7kmTl77w==
@@ -5768,11 +5767,6 @@ combined-stream@^1.0.6, combined-stream@^1.0.8, combined-stream@~1.0.6:
   integrity sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==
   dependencies:
     delayed-stream "~1.0.0"
-
-command-exists@^1.2.9:
-  version "1.2.9"
-  resolved "https://registry.yarnpkg.com/command-exists/-/command-exists-1.2.9.tgz#c50725af3808c8ab0260fd60b01fbfa25b954f69"
-  integrity sha512-LTQ/SGc+s0Xc0Fu5WaKnR0YiygZkm9eKFvyS+fRsU7/ZWFF8ykFM6Pc9aCVf1+xasOOZpO3BAVgVrKvsqKHV7w==
 
 commander@2.15.1:
   version "2.15.1"

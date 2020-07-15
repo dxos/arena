@@ -1,22 +1,22 @@
-# chess-cli
+# cli-chess
 
 This is a CLI extension for playing chess games.
 Core model is located at [Chess Core](../chess-core/README.md).
 
 ## Initial linking
 
-Until this [issue](https://github.com/wirelineio/incubator/issues/886) is resolved, there are some step required in order to run/develop this extension outside of the `incubator` repository:
+There are some step required in order to run/develop this extension outside of the `cli` repository:
 
 1. Link the chess cli package:
 ```bash
-cd packages/chess-cli
+cd packages/cli-chess
 yarn link
 ```
 
-2. Use the linked cli package in incubator:
+2. Use the linked cli package in cli:
 ```bash
-cd incubator
-yarn link "@dxos/chess-cli"
+cd cli
+yarn link "@dxos/cli-chess"
 ```
 
 3. That should solve the issue for now
@@ -37,7 +37,7 @@ yarn wire party create
 4. Join the party from CLI:
 
 ```bash
-yarn wire party join <party ID> --url <copied invite URL>
+yarn wire party join --invitation-url <copied invite URL>
 ```
 
 ## Available commands
