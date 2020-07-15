@@ -5,3 +5,8 @@
 
 app:
   name: 'Arena'
+client:
+  keyStorage:
+    root: "dxos/arena-local/keys"
+  feedStorage:
+    root: "dxos/arena-local/feeds"
