@@ -23,6 +23,14 @@ export class ChessModel extends OrderedModel {
     return this._game;
   }
 
+  get whitePubKey () {
+    return this._whitePubKey;
+  }
+
+  get blackPubKey () {
+    return this._blackPubKey;
+  }
+
   /**
    * Make a move as one of the players
    * The public key must be consistent with corresponding public key

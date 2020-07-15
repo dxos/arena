@@ -41,7 +41,7 @@ export const GameModule = ({ getClient, stateManager }) => ({
 
         const client = await getClient();
         const model = await client.modelFactory.createModel(DefaultModel, { type: MODEL_TYPE_GAME, topic });
-        await stateManager.setModel(model, MODEL_TYPE_GAME);
+        await stateManager.setModel(model);
       })
     })
 
@@ -68,7 +68,7 @@ export const GameModule = ({ getClient, stateManager }) => ({
         });
 
         const gameModel = await client.modelFactory.createModel(GameModel, { type: MODEL_TYPE_MOVE, topic, gameId });
-        await stateManager.setModel(gameModel, MODEL_TYPE_MOVE, gameUpdateHandler);
+        await stateManager.setModel(gameModel, gameUpdateHandler);
 
         return JSON.stringify({ gameId });
       })
@@ -88,7 +88,7 @@ export const GameModule = ({ getClient, stateManager }) => ({
 
         const client = await getClient();
         const gameModel = await client.modelFactory.createModel(GameModel, { type: MODEL_TYPE_MOVE, topic, gameId });
-        await stateManager.setModel(gameModel, MODEL_TYPE_MOVE, gameUpdateHandler);
+        await stateManager.setModel(gameModel, gameUpdateHandler);
 
         return JSON.stringify({ gameId });
       })
