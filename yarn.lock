@@ -1059,13 +1059,28 @@
     debug "^4.1.1"
     hypercore-crypto "^1.0.0"
 
-"@dxos/botkit@^1.0.0-beta.161":
-  version "1.0.0-beta.161"
-  resolved "https://registry.yarnpkg.com/@dxos/botkit/-/botkit-1.0.0-beta.161.tgz#ab3e71ac78efe8f5e8dfab89ae95df0dabcc5d81"
-  integrity sha512-Hj0CdlHOlFB6uKMD6EzzpkYhSdCRgis2CCwG4TgOgm5oIh4TczMGPw4Zh3ex5v5PbfiktpCdraIiTZ6XXi2k2A==
+"@dxos/botkit-client@^1.0.0-beta.168":
+  version "1.0.0-beta.168"
+  resolved "https://registry.yarnpkg.com/@dxos/botkit-client/-/botkit-client-1.0.0-beta.168.tgz#673a365be8e782c9362a373103b6c140e90844b1"
+  integrity sha512-jPfb9+30QwEyYUYpiHelK7uLdPBMnrpf+9GWI+6aa/MHwxyLl19zjILyjlfgFtI+ZLIF3vLz44V/ayqw4FoQrQ==
+  dependencies:
+    "@dxos/async" "^1.0.0-beta.1"
+    "@dxos/client" "^1.0.0-beta.168"
+    "@dxos/crypto" "^1.0.0-beta.1"
+    "@dxos/debug" "^1.0.0-beta.73"
+    "@dxos/network-manager" "^1.0.0-beta.94"
+    "@dxos/protocol-plugin-bot" "^1.1.0-beta.12"
+    assert "^2.0.0"
+    debug "^4.1.1"
+    hypercore-crypto "^1.0.0"
+
+"@dxos/botkit@^1.0.0-beta.168":
+  version "1.0.0-beta.168"
+  resolved "https://registry.yarnpkg.com/@dxos/botkit/-/botkit-1.0.0-beta.168.tgz#5e9a6870eec24f53f0b83ad4903e66336d54e45a"
+  integrity sha512-azTJ5XYSYFN56t4hpRrMrw/C6z/k+qfN5vrrTnxRhUUUTjFGw1UIk22UhPT8pbc7yxCzRlVtz8+KMybMa4IuyA==
   dependencies:
     "@dxos/async" "^1.0.0-beta.2"
-    "@dxos/client" "^1.0.0-beta.161"
+    "@dxos/client" "^1.0.0-beta.168"
     "@dxos/codec-protobuf" "^1.1.0-beta.7"
     "@dxos/config" "^1.0.0-beta.73"
     "@dxos/credentials" "^1.0.1-beta.4"
@@ -1283,6 +1298,48 @@
   version "1.0.0-beta.161"
   resolved "https://registry.yarnpkg.com/@dxos/client/-/client-1.0.0-beta.161.tgz#2655bf9de8d64c45654c7b20353715187e3c8470"
   integrity sha512-jsOE0a5joPBM44p2N78mMqeuL7V0Qz0yS7u0FErWNpvsOQ6qTahwsz5SOZDXJb1hg5D0/DhasK3Qd3LrFcUPoA==
+  dependencies:
+    "@babel/runtime" "^7.9.6"
+    "@dxos/async" "^1.0.0-beta.1"
+    "@dxos/credentials" "^1.0.1-beta.4"
+    "@dxos/crypto" "^1.0.0-beta.1"
+    "@dxos/debug" "^1.0.0-beta.73"
+    "@dxos/feed-store" "^1.2.0-beta.1"
+    "@dxos/metrics" "^1.0.0-beta.6"
+    "@dxos/model-factory" "^1.0.0-beta.17"
+    "@dxos/network-manager" "^1.0.0-beta.93"
+    "@dxos/party-manager" "^1.0.1-beta.20"
+    "@dxos/protocol" "^1.1.0-alpha.4"
+    "@dxos/protocol-plugin-replicator" "^1.1.0-alpha.4"
+    "@geut/discovery-swarm-webrtc" "^3.0.0-beta.3"
+    assert "^2.0.0"
+    buffer-json-encoding "^1.0.2"
+    canonicalize "^1.0.1"
+    debug "^4.1.1"
+    del "^5.1.0"
+    end-of-stream "^1.4.4"
+    hypertrie "^3.8.0"
+    level-mem "^5.0.1"
+    lodash.debounce "^4.0.8"
+    lodash.defaults "^4.2.0"
+    lodash.defaultsdeep "^4.6.1"
+    lodash.get "^4.4.2"
+    lodash.pickby "^4.6.0"
+    lodash.set "^4.3.2"
+    lodash.unset "^4.5.2"
+    multi-read-stream "^2.0.0"
+    p-limit "^2.3.0"
+    pify "^4.0.1"
+    pump "^3.0.0"
+    pumpify "^2.0.1"
+    queue-microtask "^1.1.3"
+    through2 "^3.0.1"
+    wrtc "^0.4.3"
+
+"@dxos/client@^1.0.0-beta.168":
+  version "1.0.0-beta.168"
+  resolved "https://registry.yarnpkg.com/@dxos/client/-/client-1.0.0-beta.168.tgz#ea07e9ee0afb2c550b6e11e630828faba800e1e5"
+  integrity sha512-cMSedDZ2lmTLUyokn4a7LgQbuKCjkzAcV7vv9ZkFjhwMagLfEYOTNB07REja9/VibntANDmNJb1zK70XbwWHrw==
   dependencies:
     "@babel/runtime" "^7.9.6"
     "@dxos/async" "^1.0.0-beta.1"
