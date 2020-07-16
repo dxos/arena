@@ -9,9 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/styles';
 
 import { useClient, useParties } from '@dxos/react-client';
-import { AppContainer, NewPartyCard } from '@dxos/react-appkit';
-
-import PartyCardContainer from './PartyCardContainer';
+import { AppContainer, NewPartyCard, PartyCardContainer } from '@dxos/react-appkit';
 
 const useStyles = makeStyles(theme => ({
   fab: {
