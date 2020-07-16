@@ -5,7 +5,7 @@
     "outDir": "dist",
     "resolveJsonModule": true,
     "moduleResolution": "node",
-    "jsx": "react",
+    "jsx": "react"
   },
   "include": [
     "src/**/*.js",
