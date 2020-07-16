@@ -1,3 +1,7 @@
+//
+// Copyright 2020 DXOS.org
+//
+
 import babel from 'rollup-plugin-babel';
 import commonjs from 'rollup-plugin-commonjs';
 import externalGlobals from 'rollup-plugin-external-globals';
@@ -12,7 +16,7 @@ const external = Object.keys(pkg.peerDependencies)
   .concat(Object.keys(pkg.devDependencies));
 
 const externalsMap = {
-  'react': 'React',
+  react: 'React',
   'react-dom': 'ReactDOM',
   '@dxos/react-client': 'DXOSReactClient',
   '@dxos/crypto': 'DXOSCrypto'
