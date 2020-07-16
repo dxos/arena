@@ -12,9 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { noop } from '@dxos/async';
 import { keyToBuffer } from '@dxos/crypto';
 import { useClient } from '@dxos/react-client';
-import { AppContainer, usePads, useAppRouter, DefaultViewSidebar } from '@dxos/react-appkit';
-
-import { useViews } from '../model';
+import { AppContainer, usePads, useAppRouter, DefaultViewSidebar, useViews } from '@dxos/react-appkit';
 
 const useStyles = makeStyles(theme => ({
   main: {
