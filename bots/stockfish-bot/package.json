@@ -1,7 +1,7 @@
 {
-  "name": "@dxos/chess-bot",
+  "name": "@dxos/stockfish-bot",
   "version": "1.0.0-beta.59",
-  "description": "Chess Bot",
+  "description": "Stockfish Chess Bot",
   "keywords": [],
   "license": "GPL-3.0",
   "author": "DXOS.org",
@@ -26,9 +26,11 @@
     "testEnvironment": "node"
   },
   "dependencies": {
-    "@dxos/async": "^1.0.0-beta.2",
-    "@dxos/botkit": "^1.0.0-beta.168",
-    "@dxos/chess-core": "^1.0.0-beta.59"
+    "@dxos/chess-bot": "^1.0.0-beta.59",
+    "better-queue": "^3.8.10",
+    "better-queue-memory": "^1.0.3",
+    "pify": "^4.0.1",
+    "source-map-support": "^0.5.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",

@@ -2,6 +2,7 @@
 // Copyright 2020 DXOS.org
 //
 
+import { sleep } from '@dxos/async';
 import { Bot } from '@dxos/botkit';
 import { TYPE_CHESS_MOVE, TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT, ChessModel } from '@dxos/chess-core';
 
@@ -67,14 +68,18 @@ export class ChessBot extends Bot {
     const model = await this._client.modelFactory.createModel(ChessModel, { type: [TYPE_CHESS_MOVE, TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT], topic, itemId });
     model.on('update', async () => {
       if ((model.game.turn() === 'b' && isBlack) || (model.game.turn() === 'w' && isWhite)) {
-        const moves = model.game.moves({ verbose: true });
-        if (moves.length > 0) {
-          const move = moves[Math.floor(Math.random() * moves.length)];
-
+        const move = await this.getNextMove(model.game);
+        if (move) {
           console.log(`Making move in game '${itemId}': ${JSON.stringify(move)}`);
+          await sleep(2000);
           model.makeMove(move);
         }
       }
     });
+  }
+
+  async getNextMove (game) {
+    const moves = game.moves({ verbose: true });
+    return (moves.length > 0) ? moves[Math.floor(Math.random() * moves.length)] : null;
   }
 }
