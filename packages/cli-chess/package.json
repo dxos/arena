@@ -11,7 +11,7 @@
     "@dxos/async": "^1.0.0-beta.0",
     "@dxos/chess-core": "^1.0.0-beta.59",
     "@dxos/cli-core": "^1.0.1-beta.22",
-    "@dxos/client": "^1.0.0-beta.180",
+    "@dxos/client": "^1.0.0-beta.181",
     "@dxos/debug": "^1.0.0-beta.56",
     "chance": "^1.1.4",
     "chess.js": "^0.10.3",
