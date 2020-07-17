@@ -3,16 +3,15 @@
 //
 
 import React from 'react';
-import { Chance } from 'chance';
 import { useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { ChessModel, TYPE_CHESS_PLAYERSELECT } from '@dxos/chess-core';
+
+import { usePads, useViews } from '@dxos/react-appkit';
 
 import ChessPad from '../components/ChessPad';
-import PlayerSelect from '../components/PlayerSelect';
-import { useChessModel } from '../model';
 
-const chance = new Chance();
+import { useChessModel } from '../model';
+import CustomViewSettingsDialog from './CustomViewSettingsDialog';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -23,30 +22,28 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const Game = () => {
+const Game = ({ viewSettingsOpen = false, setViewSettingsOpen = () => {} }) => {
   const classes = useStyles();
-  const { topic, item: gameId } = useParams();
-  const [game, makeMove, gameModel] = useChessModel(topic, gameId);
+  const { topic, item: viewId } = useParams();
+  const [pads] = usePads();
+  const { model: viewModel } = useViews(topic, viewId);
+  const [game, makeMove, gameModel] = useChessModel(topic, viewId);
 
-  const handlePlayerSelect = (selection) => {
-    if (!selection) {
-      return;
-    }
-    const title = `game-${chance.word()}`;
-    gameModel.appendMessage({ __type_url: TYPE_CHESS_PLAYERSELECT, viewId: gameId, ...ChessModel.createGenesisMessage(title, selection.white, selection.black) });
-  };
+  if (!gameModel || !viewModel) return (<p>Loading...</p>);
 
-  if (!gameModel) return (<p>Loading...</p>);
-
-  if (!gameModel.isInitialized) {
-    return (<PlayerSelect onSelected={handlePlayerSelect} />);
-  }
-
-  return (
+  return (<>
     <div className={classes.root}>
-        <ChessPad gameId={gameId} game={game} makeMove={makeMove} />
+      <ChessPad gameId={viewId} game={game} makeMove={makeMove} />
     </div>
-  );
+    <CustomViewSettingsDialog
+      open={viewSettingsOpen || !gameModel.isInitialized}
+      onClose={() => setViewSettingsOpen(false)}
+      viewModel={viewModel}
+      gameModel={gameModel}
+      pads={pads}
+      viewId={viewId}
+    />
+  </>);
 };
 
 export default Game;
