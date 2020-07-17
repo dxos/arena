@@ -17,5 +17,6 @@ export default {
   icon: KingWhite,
   main: Game,
   type: TYPE_CHESS_GAME,
-  description: 'Play chess'
+  description: 'Play chess',
+  customViewSettings: true
 };
