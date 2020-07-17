@@ -1,0 +1,6 @@
+id: 'wrn:bot:dxos.org/stockfish'
+name: StockfishChessBot
+version: 0.0.1
+package:
+  macos:
+    x64: Qmdw7zUetxYUDCpoCpvt2fP12zcA8gsAMtsQ5N4mhAqCWY
