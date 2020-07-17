@@ -13,7 +13,6 @@ const MAX_RETRIES = 3;
  * Base class for Stockfish worker.
  */
 class StockfishWorker {
-
   /**
    * Callback for command result delivery.
    * @type {Function}
@@ -25,7 +24,7 @@ class StockfishWorker {
    * @param {Number} maxMoveTime - Max allowed time for move calculation.
    * @param {Number} maxRetries - Max number of retries.
    */
-  constructor(maxMoveTime = MAX_MOVE_TIME, maxRetries = MAX_RETRIES) {
+  constructor (maxMoveTime = MAX_MOVE_TIME, maxRetries = MAX_RETRIES) {
     this._maxMoveTime = maxMoveTime;
     this._moveTimeout = maxMoveTime * 10;
     this._maxRetries = maxRetries;
@@ -60,7 +59,7 @@ class StockfishWorker {
    * @param {String} fen - game state.
    * @return {Promise<{object}>}
    */
-  async makeMove(fen) {
+  async makeMove (fen) {
     return new Promise((resolve, reject) => {
       this._queue.push({ fen }, (err, result) => {
         if (err) {
@@ -75,20 +74,20 @@ class StockfishWorker {
   /**
    * (Re)Init worker process.
    */
-  init() {}
+  init () {}
 
   /**
    * @param {...String} commands - Commands to process.
    */
   // eslint-disable-next-line no-unused-vars
-  async processRequest(...commands) {}
+  async processRequest (...commands) {}
 
   /**
    * Process response from a worker.
    * @param {String} res Response string.
    */
-  processResponse(res) {
-    let match = res.match(/^bestmove ([a-h][1-8])([a-h][1-8])([qrbk])?/);
+  processResponse (res) {
+    const match = res.match(/^bestmove ([a-h][1-8])([a-h][1-8])([qrbk])?/);
     if (match) {
       this._callback(null, { from: match[1], to: match[2], promotion: match[3] });
     }
@@ -99,8 +98,7 @@ class StockfishWorker {
  * Node.js version of Stockfish Worker.
  */
 export class NodeWorker extends StockfishWorker {
-
-  init() {
+  init () {
     if (this._engine) {
       this._engine.stdin.pause();
       this._engine.kill();
@@ -119,7 +117,7 @@ export class NodeWorker extends StockfishWorker {
     this._initialized = true;
   }
 
-  processRequest(...commands) {
+  processRequest (...commands) {
     commands.map(command => {
       this._engine.stdin.write(command + '\n');
     });
@@ -130,13 +128,13 @@ export class NodeWorker extends StockfishWorker {
  * Browser version of Stockfish Worker.
  */
 export class BrowserWorker extends StockfishWorker {
-
-  init() {
+  init () {
     if (this._engine) {
       this._engine.terminate();
     }
 
     const workerPath = `${process.env.STOCKFISH_WORKER_PATH || ''}/stockfish.js`;
+    // eslint-disable-next-line no-undef
     this._engine = new Worker(workerPath);
 
     this._engine.onmessage = (event) => {
@@ -146,7 +144,7 @@ export class BrowserWorker extends StockfishWorker {
     this._initialized = true;
   }
 
-  processRequest(...commands) {
+  processRequest (...commands) {
     commands.map((command) => {
       this._engine.postMessage(command + '\n');
     });

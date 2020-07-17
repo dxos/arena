@@ -76,3 +76,5 @@ bin/
 
 # TODO(burdon): Why?
 **/*.test.js
+
+stockfish.js
