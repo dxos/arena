@@ -29,12 +29,19 @@ const Game = ({ viewSettingsOpen = false, setViewSettingsOpen = () => {} }) => {
   const { model: viewModel } = useViews(topic, viewId);
   const [game, makeMove, gameModel] = useChessModel(topic, viewId);
 
-  if (!gameModel || !viewModel) return (<p>Loading...</p>);
+  if (!gameModel || !viewModel) {
+    return (<p>Loading...</p>);
+  }
 
   return (<>
     <div className={classes.root}>
-      <ChessPad gameId={viewId} game={game} makeMove={makeMove} />
+      <ChessPad
+        gameId={viewId}
+        game={game}
+        onMove={makeMove}
+      />
     </div>
+
     <CustomViewSettingsDialog
       open={viewSettingsOpen || !gameModel.isInitialized}
       onClose={() => setViewSettingsOpen(false)}

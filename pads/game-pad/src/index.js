@@ -9,7 +9,7 @@ import Main from './Main';
 export default {
   // TODO(elmasse): READ THIS FROM PAD.YML
   name: 'example.com/tictactoe',
-  displayName: 'TicTacToe Pad',
+  displayName: 'TicTacToe',
 
   icon: GamepadIcon,
   main: Main,

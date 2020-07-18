@@ -7,55 +7,25 @@ import Chessboard from 'chessboardjsx';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import { PromotionSelect } from './PromotionSelect';
-import MovesTable from './MovesTable';
+import ChessPanel from './ChessPanel';
+import PromotionSelect from './PromotionSelect';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    width: '100vw'
+    flex: 1,
+    justifyContent: 'center'
   },
-
-  actions: {
-    maxHeight: 200
-  },
-
-  board: {},
-
-  details: {
+  container: {
     display: 'flex',
-    flexDirection: 'column',
     alignItems: 'center'
   },
-
-  caption: {
-    fontSize: 21
-  },
-
-  swapButton: {
-    marginBottom: 20
-  },
-
-  gameId: {
-    fontFamily: 'monospace',
-    fontSize: 'large'
-  },
-
   panel: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-
-  panelActions: {
-    marginTop: 10
+    marginLeft: theme.spacing(4)
   }
 }));
 
-const getCaption = game => {
+const getCaption = (game) => {
   if (game.in_checkmate()) {
     return 'Checkmate';
   } if (game.in_draw()) {
@@ -65,6 +35,7 @@ const getCaption = game => {
   }
 };
 
+// TODO(burdon): Remove: search appkit for the correct way to do this (please ask when not sure).
 const useKeyPress = (targetKey, setter) => {
   const upHandler = ({ key }) => {
     if (key === targetKey) {
@@ -83,12 +54,14 @@ const useKeyPress = (targetKey, setter) => {
 /**
  * Chess board wrapper.
  */
-export default function ChessPad ({ game, makeMove, maxWidth, transitionDuration = 300 }) {
+const ChessPad = ({ game, onMove, maxWidth, transitionDuration = 300 }) => {
   const classes = useStyles();
   const board = useRef();
-  const [orientation, setOrientation] = useState('white');
+  const [orientation, setOrientation] = useState('white'); // TODO(burdon): Constants.
   const [promotionSelectCallback, setPromotionSelectCallback] = useState();
   const [isPanelVisible, setPanelVisibility] = useState(true);
+
+  // TODO(burdon): Replace.
   useKeyPress('p', setPanelVisibility);
 
   const askForPromotion = () => new Promise(resolve => setPromotionSelectCallback(() => p => {
@@ -96,7 +69,7 @@ export default function ChessPad ({ game, makeMove, maxWidth, transitionDuration
     resolve(p);
   }));
 
-  async function handleDrop ({ sourceSquare, targetSquare }) {
+  const handleDrop = async ({ sourceSquare, targetSquare }) => {
     let promotion;
     const { type: piece } = game.get(sourceSquare);
     if ((targetSquare.endsWith('8') || targetSquare.endsWith('1')) && piece === 'p') {
@@ -106,8 +79,8 @@ export default function ChessPad ({ game, makeMove, maxWidth, transitionDuration
       }
     }
 
-    makeMove({ from: sourceSquare, to: targetSquare, promotion });
-  }
+    onMove({ from: sourceSquare, to: targetSquare, promotion });
+  };
 
   const calcWidth = () => {
     if (!board.current) { return 0; }
@@ -115,30 +88,38 @@ export default function ChessPad ({ game, makeMove, maxWidth, transitionDuration
     return maxWidth ? Math.min(size, maxWidth) : size;
   };
 
+  // TODO(burdon): Not used?
   const caption = getCaption(game);
 
   // TODO(burdon): Fix flicker transition bug.
   return (
     <div className={classes.root}>
-      <div ref={board} className={classes.board}>
-        <Chessboard
-          orientation={orientation}
-          transitionDuration={transitionDuration}
-          calcWidth={calcWidth}
-          position={game && game.fen()}
-          onDrop={handleDrop}
-        />
+      <div className={classes.container}>
+        <div ref={board} className={classes.board}>
+          <Chessboard
+            orientation={orientation}
+            transitionDuration={transitionDuration}
+            calcWidth={calcWidth}
+            position={game && game.fen()}
+            onDrop={handleDrop}
+          />
+        </div>
+
+        {/* TODO(burdon): Factor out. Use constants. */}
+        {isPanelVisible && (
+          <div className={classes.panel}>
+            <ChessPanel
+              game={game}
+              onToggleOrientation={() => setOrientation(previous => (previous === 'white' ? 'black' : 'white'))}
+            />
+
+            {/* TODO(burdon): Why only visible if panel is visible? */}
+            <PromotionSelect isVisible={!!promotionSelectCallback} onSelect={promotionSelectCallback} />
+          </div>
+        )}
       </div>
-      {isPanelVisible &&
-      <div className={classes.panel}>
-        <MovesTable
-            history={game.history({ verbose: true })}
-            nextPlayerColor={caption || (game && game.turn())}
-            setOrientation={() => setOrientation(previous => (previous === 'white' ? 'black' : 'white'))}
-        />
-        <PromotionSelect isVisible={!!promotionSelectCallback} onSelect={promotionSelectCallback} />
-      </div>
-      }
     </div>
   );
-}
+};
+
+export default ChessPad;

@@ -3,9 +3,9 @@
 //
 
 import React from 'react';
-import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import Modal from '@material-ui/core/Modal';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -24,7 +24,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export const PromotionSelect = ({ isVisible, onSelect }) => {
+// TODO(burdon): Change to Popover.
+const PromotionSelect = ({ isVisible, onSelect }) => {
   const classes = useStyles();
   return (
     <Modal
@@ -40,3 +41,5 @@ export const PromotionSelect = ({ isVisible, onSelect }) => {
     </Modal>
   );
 };
+
+export default PromotionSelect;

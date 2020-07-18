@@ -7,6 +7,7 @@ import assert from 'assert';
 
 import { OrderedModel } from '@dxos/echo-db';
 
+// TODO(burdon): Document.
 const Chess = (typeof define !== 'undefined') ? ChessJs : ChessJs.Chess;
 
 export const TYPE_CHESS_GAME = 'testing.chess.Game';
@@ -40,10 +41,12 @@ export class ChessModel extends OrderedModel {
    * @param  {string} promotion
    */
   makeMove ({ from, to, promotion }) {
+    // TODO(burdon): Why create new Game on each call?
     if (!new Chess(this.game.fen()).move({ from, to, promotion })) {
       console.log('not a valid move', from, to);
       return;
     }
+
     this.appendMessage({ __type_url: TYPE_CHESS_MOVE, from, to, promotion });
   }
 
@@ -63,6 +66,7 @@ export class ChessModel extends OrderedModel {
    * @Override
    */
   // eslint-disable-next-line no-unused-vars
+  // TODO(burdon): Why underscore?
   validateCandidate (intendedPosition, _message) {
     if (_message.__type_url === TYPE_CHESS_PLAYERSELECT) {
       assert(intendedPosition === 0);

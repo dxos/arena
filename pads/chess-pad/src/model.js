@@ -66,17 +66,25 @@ export const useItem = (topic, itemId) => {
 /**
  * Provides game state and a way to make moves.
  * @param topic
- * @param channelId
+ * @param itemId
  * @returns {[Object[], function]}
  */
 export const useChessModel = (topic, itemId) => {
   assert(topic);
   assert(itemId);
 
-  const model = useModel({ model: ChessModel, options: { type: [TYPE_CHESS_MOVE, TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT], topic, itemId } }); // TODO(rzadp,marik-d,rburdon) Use ECHO
+  // TODO(rzadp,marik-d,rburdon) Use ECHO.
+  const model = useModel({
+    model: ChessModel,
+    options: {
+      type: [TYPE_CHESS_MOVE, TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT],
+      topic,
+      itemId
+    }
+  });
 
   return [
-    model?.game ?? new Chess(),
+    model?.game ?? new Chess(), // TODO(burdon): Defensive: should assert if null.
     move => model.makeMove(move),
     model
   ];

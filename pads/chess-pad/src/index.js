@@ -2,12 +2,10 @@
 // Copyright 2020 DXOS.org
 //
 
-import KingWhite from './icons/KingWhite';
-
-import Game from './containers/Game';
 import { TYPE_CHESS_GAME } from '@dxos/chess-core';
 
-// export * from './model';
+import Game from './containers/Game';
+import KingWhite from './icons/KingWhite';
 
 export default {
   // TODO(elmasse): READ THIS FROM PAD.YML
