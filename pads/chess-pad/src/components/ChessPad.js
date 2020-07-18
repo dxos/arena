@@ -4,6 +4,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import Chessboard from 'chessboardjsx';
+import Chess from 'chess.js';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -54,15 +55,36 @@ const useKeyPress = (targetKey, setter) => {
 /**
  * Chess board wrapper.
  */
-const ChessPad = ({ game, onMove, maxWidth, transitionDuration = 300 }) => {
+const ChessPad = ({ game, onMove, maxWidth, transitionDuration = 150 }) => {
   const classes = useStyles();
   const board = useRef();
   const [orientation, setOrientation] = useState('white'); // TODO(burdon): Constants.
   const [promotionSelectCallback, setPromotionSelectCallback] = useState();
   const [isPanelVisible, setPanelVisibility] = useState(true);
+  const [position, setPosition] = useState(-1);
+  const [fen, setFen] = useState(game && game.fen());
+
+  useEffect(() => {
+    if (game) {
+      const history = game.history();
+      if (position === -1 || position === history.length) {
+        setFen(game.fen());
+      } else {
+        const tempGame = new Chess();
+        for (let i = 0; i < position; i++) {
+          tempGame.move(history[i]);
+        }
+        setFen(tempGame.fen());
+      }
+    }
+  }, [game, position]);
 
   // TODO(burdon): Replace.
   useKeyPress('p', setPanelVisibility);
+
+  if (!game) {
+    return null;
+  }
 
   const askForPromotion = () => new Promise(resolve => setPromotionSelectCallback(() => p => {
     setPromotionSelectCallback(undefined);
@@ -88,10 +110,10 @@ const ChessPad = ({ game, onMove, maxWidth, transitionDuration = 300 }) => {
     return maxWidth ? Math.min(size, maxWidth) : size;
   };
 
-  // TODO(burdon): Not used?
-  const caption = getCaption(game);
+  // TODO(burdon): Not used.
+  // const caption = getCaption(game);
 
-  // TODO(burdon): Fix flicker transition bug.
+  // TODO(burdon): Fix flicker transition bug?
   return (
     <div className={classes.root}>
       <div className={classes.container}>
@@ -100,16 +122,18 @@ const ChessPad = ({ game, onMove, maxWidth, transitionDuration = 300 }) => {
             orientation={orientation}
             transitionDuration={transitionDuration}
             calcWidth={calcWidth}
-            position={game && game.fen()}
+            position={fen}
             onDrop={handleDrop}
           />
         </div>
 
-        {/* TODO(burdon): Factor out. Use constants. */}
+        {/* TODO(burdon): Use constants for sides. */}
         {isPanelVisible && (
           <div className={classes.panel}>
             <ChessPanel
               game={game}
+              position={position}
+              onSetPosition={setPosition}
               onToggleOrientation={() => setOrientation(previous => (previous === 'white' ? 'black' : 'white'))}
             />
 

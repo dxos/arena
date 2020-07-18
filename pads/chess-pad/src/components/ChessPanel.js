@@ -49,6 +49,10 @@ const useStyles = makeStyles(theme => ({
   move: {
     width: 80,
     textAlign: 'left'
+  },
+  current: {
+    color: theme.palette.primary.main,
+    backgroundColor: theme.palette.grey[100]
   }
 }));
 
@@ -64,8 +68,12 @@ const Player = ({ name, turn }) => {
   );
 };
 
-const ChessPanel = ({ game, onToggleOrientation }) => {
+const ChessPanel = ({ game, position = -1, onSetPosition, onToggleOrientation }) => {
   const classes = useStyles({ rows: 8 });
+
+  if (!game) {
+    return null;
+  }
 
   const history = game.history({ verbose: true });
   const moves = history.reduce((result, value, index, array) => {
@@ -75,13 +83,9 @@ const ChessPanel = ({ game, onToggleOrientation }) => {
     return result;
   }, []);
 
-  // nextPlayerColor={caption || (game && game.turn())}
-  // console.log(game.turn());
-
   // TODO(burdon): Player names.
   // TODO(burdon): Player turn indicator (NOTE: this depends if we are playing!)
-  // TODO(burdon): History buttons.
-  // TODO(burdon): Stick moves to bottom.
+  // TODO(burdon): Scroll to move.
   // TODO(burdon): Chess font for notation.
 
   return (
@@ -98,16 +102,16 @@ const ChessPanel = ({ game, onToggleOrientation }) => {
                 </IconButton>
               </TableCell>
               <TableCell colSpan={2}>
-                <IconButton size="small" onClick={() => {}}>
+                <IconButton size="small" onClick={() => onSetPosition(0)}>
                   <StartIcon />
                 </IconButton>
-                <IconButton size="small" onClick={() => {}}>
+                <IconButton size="small" onClick={() => position > 0 && onSetPosition(position - 1)}>
                   <BackIcon />
                 </IconButton>
-                <IconButton size="small" onClick={() => {}}>
+                <IconButton size="small" onClick={() => position < history.length && onSetPosition(position + 1)}>
                   <ForwardIcon />
                 </IconButton>
-                <IconButton size="small" onClick={() => {}}>
+                <IconButton size="small" onClick={() => onSetPosition(history.length)}>
                   <EndIcon />
                 </IconButton>
               </TableCell>
@@ -116,9 +120,15 @@ const ChessPanel = ({ game, onToggleOrientation }) => {
           <TableBody>
             {moves.map(([white, black], i) => (
               <TableRow key={i}>
-                <TableCell className={classes.number}>{i + 1}</TableCell>
-                <TableCell className={classes.move}>{white && white.san}</TableCell>
-                <TableCell className={classes.move}>{black && black.san}</TableCell>
+                <TableCell
+                  className={classes.number}>{i + 1}
+                </TableCell>
+                <TableCell
+                  className={clsx(classes.move, position === (i * 2 + 1) && classes.current)}>{white && white.san}
+                </TableCell>
+                <TableCell
+                  className={clsx(classes.move, position === (i * 2 + 2) && classes.current)}>{black && black.san}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
