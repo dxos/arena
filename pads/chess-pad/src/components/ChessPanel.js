@@ -23,7 +23,6 @@ import ForwardIcon from '@material-ui/icons/NavigateNext';
 import EndIcon from '@material-ui/icons/SkipNext';
 
 const useStyles = makeStyles(theme => ({
-  table: {},
   container: ({ rows }) => ({
     maxHeight: 43 + rows * 33
   }),
@@ -48,11 +47,12 @@ const useStyles = makeStyles(theme => ({
   },
   move: {
     width: 80,
-    textAlign: 'left'
+    textAlign: 'left',
+    cursor: 'pointer'
   },
   current: {
     color: theme.palette.primary.main,
-    backgroundColor: theme.palette.grey[100]
+    backgroundColor: theme.palette.info.light + '33'
   }
 }));
 
@@ -93,7 +93,7 @@ const ChessPanel = ({ game, position = -1, onSetPosition, onToggleOrientation })
       <Player name={'Player 1'} turn={game.turn() === 'w'} />
 
       <TableContainer className={classes.container}>
-        <Table stickyHeader size="small" className={classes.table} aria-label="moves table">
+        <Table stickyHeader size="small" aria-label="moves table">
           <TableHead className={classes.header}>
             <TableRow>
               <TableCell>
@@ -124,9 +124,11 @@ const ChessPanel = ({ game, position = -1, onSetPosition, onToggleOrientation })
                   className={classes.number}>{i + 1}
                 </TableCell>
                 <TableCell
+                  onClick={() => onSetPosition(i * 2 + 1)}
                   className={clsx(classes.move, position === (i * 2 + 1) && classes.current)}>{white && white.san}
                 </TableCell>
                 <TableCell
+                  onClick={() => onSetPosition(i * 2 + 2)}
                   className={clsx(classes.move, position === (i * 2 + 2) && classes.current)}>{black && black.san}
                 </TableCell>
               </TableRow>

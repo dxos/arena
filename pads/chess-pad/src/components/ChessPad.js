@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+// TODO(burdon): Not used?
 const getCaption = (game) => {
   if (game.in_checkmate()) {
     return 'Checkmate';
@@ -36,7 +37,7 @@ const getCaption = (game) => {
   }
 };
 
-// TODO(burdon): Remove: search appkit for the correct way to do this (please ask when not sure).
+// TODO(burdon): Remove.
 const useKeyPress = (targetKey, setter) => {
   const upHandler = ({ key }) => {
     if (key === targetKey) {
@@ -62,28 +63,24 @@ const ChessPad = ({ game, onMove, maxWidth, transitionDuration = 150 }) => {
   const [promotionSelectCallback, setPromotionSelectCallback] = useState();
   const [isPanelVisible, setPanelVisibility] = useState(true);
   const [position, setPosition] = useState(-1);
-  const [fen, setFen] = useState(game && game.fen());
 
-  useEffect(() => {
-    if (game) {
-      const history = game.history();
-      if (position === -1 || position === history.length) {
-        setFen(game.fen());
-      } else {
-        const tempGame = new Chess();
-        for (let i = 0; i < position; i++) {
-          tempGame.move(history[i]);
-        }
-        setFen(tempGame.fen());
-      }
-    }
-  }, [game, position]);
-
-  // TODO(burdon): Replace.
+  // TODO(burdon): Position keys (forward, back, etc.)
+  // TODO(burdon): Replace with https://www.npmjs.com/package/react-hotkeys (see appkit).
   useKeyPress('p', setPanelVisibility);
 
   if (!game) {
     return null;
+  }
+
+  // Get game position.
+  let fen = game.fen();
+  const history = game.history();
+  if (position !== -1 && position !== history.length) {
+    const tempGame = new Chess();
+    for (let i = 0; i < position; i++) {
+      tempGame.move(history[i]);
+    }
+    fen = tempGame.fen();
   }
 
   const askForPromotion = () => new Promise(resolve => setPromotionSelectCallback(() => p => {
