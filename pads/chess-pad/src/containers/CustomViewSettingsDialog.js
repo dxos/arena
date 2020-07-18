@@ -24,6 +24,8 @@ const useStyles = makeStyles(theme => ({
 
 const CustomViewSettingsDialog = ({ open, onClose, viewModel, gameModel, viewId, pads }) => {
   const classes = useStyles();
+
+  // TODO(burdon): Circular hooks (this is already required in ancestor so pass it in since you're passing in models).
   const party = useParty();
 
   const handlePlayerSelect = (selection) => {
@@ -42,7 +44,7 @@ const CustomViewSettingsDialog = ({ open, onClose, viewModel, gameModel, viewId,
   // TODO(burdon): Show Black and White rows with Picker to select person.
   // TODO(burdon): closingDisabled???
   // TODO(burdon): value={'TODO'}???
-
+  // TODO(burdon): CustomViewSettingsDialog shold not wrap ViewSettingsDialog -- other way around!
   return (
     <ViewSettingsDialog
       open={open}
@@ -52,11 +54,12 @@ const CustomViewSettingsDialog = ({ open, onClose, viewModel, gameModel, viewId,
       viewId={viewId}
       closingDisabled={!gameModel.isInitialized}
     >
-      {/* TODO(burdon): Flickers on startup. */}
+      {/* TODO(burdon): Remove: trigger from createItem. */}
       {!gameModel.isInitialized && (
         <PlayerSelect party={party} onSelected={handlePlayerSelect} />
       )}
 
+      {/* TODO(burdon): Remove since PlayerSelect shows this information. */}
       {gameModel.isInitialized && (
         <>
           <TextField

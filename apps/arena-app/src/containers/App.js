@@ -13,7 +13,14 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import { noop } from '@dxos/async';
 import { keyToBuffer } from '@dxos/crypto';
 import { useClient } from '@dxos/react-client';
-import { AppContainer, usePads, useAppRouter, DefaultViewSidebar, useViews, ViewSettingsDialog } from '@dxos/react-appkit';
+import {
+  AppContainer,
+  DefaultViewSidebar,
+  ViewSettingsDialog,
+  usePads,
+  useAppRouter,
+  useViews
+} from '@dxos/react-appkit';
 
 const useStyles = makeStyles(theme => ({
   main: {
@@ -49,26 +56,39 @@ const App = () => {
     }
   }, [topic]);
 
-  const appBarContent = (<>
-    <IconButton color="inherit">
-      <Home onClick={() => router.push({ path: '/home' })} />
-    </IconButton>
-    <IconButton color="inherit">
-      <SettingsIcon onClick={() => setViewSettingsOpen(true)} />
-    </IconButton>
-
-  </>);
+  // TODO(burdon): Move to appkit.
+  const AppBarContent = () => {
+    return (
+      <>
+        <IconButton color="inherit">
+          <Home onClick={() => router.push({ path: '/home' })} />
+        </IconButton>
+        <IconButton color="inherit">
+          <SettingsIcon onClick={() => setViewSettingsOpen(true)} />
+        </IconButton>
+      </>
+    );
+  };
 
   return (
     <>
       <AppContainer
-        appBarContent={appBarContent}
+        appBarContent={<AppBarContent />}
         sidebarContent={<DefaultViewSidebar />}
       >
         <div className={classes.main}>
-          {pad && <pad.main topic={topic} viewId={viewId} viewSettingsOpen={viewSettingsOpen} setViewSettingsOpen={setViewSettingsOpen} />}
+          {pad && (
+            <pad.main
+              topic={topic}
+              viewId={viewId}
+              viewSettingsOpen={viewSettingsOpen}
+              setViewSettingsOpen={setViewSettingsOpen}
+            />
+          )}
         </div>
       </AppContainer>
+
+      {/* TODO(burdon): Move from here to framework. */}
       {pad && !pad.customViewSettings && (
         <ViewSettingsDialog
           open={viewSettingsOpen}
@@ -79,7 +99,6 @@ const App = () => {
         />
       )}
     </>
-
   );
 };
 

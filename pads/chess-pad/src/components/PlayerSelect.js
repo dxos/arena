@@ -73,13 +73,13 @@ const PlayerSelect = ({ party, onSelected }) => {
     <div className={classes.root}>
       <PlayerSelector
         members={members}
-        label='White player'
+        label='White pieces'
         onSelect={publicKey => setPlayers({ black, white: publicKey || undefined })}
       />
 
       <PlayerSelector
         members={members}
-        label='Black player'
+        label='Black pieces'
         onSelect={publicKey => setPlayers({ white, black: publicKey || undefined })}
       />
 
