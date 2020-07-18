@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center'
   },
   panel: {
-    marginLeft: theme.spacing(4)
+    marginLeft: theme.spacing(6)
   }
 }));
 
