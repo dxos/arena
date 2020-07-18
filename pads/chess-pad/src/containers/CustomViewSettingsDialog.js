@@ -10,6 +10,7 @@ import TextField from '@material-ui/core/TextField';
 
 import { ViewSettingsDialog } from '@dxos/react-appkit';
 import { ChessModel, TYPE_CHESS_PLAYERSELECT } from '@dxos/chess-core';
+import { useParty } from '@dxos/react-client';
 
 import PlayerSelect from '../components/PlayerSelect';
 
@@ -23,6 +24,7 @@ const useStyles = makeStyles(theme => ({
 
 const CustomViewSettingsDialog = ({ open, onClose, viewModel, gameModel, viewId, pads }) => {
   const classes = useStyles();
+  const party = useParty();
 
   const handlePlayerSelect = (selection) => {
     if (!selection) {
@@ -50,9 +52,11 @@ const CustomViewSettingsDialog = ({ open, onClose, viewModel, gameModel, viewId,
       viewId={viewId}
       closingDisabled={!gameModel.isInitialized}
     >
+      {/* TODO(burdon): Flickers on startup. */}
       {!gameModel.isInitialized && (
-        <PlayerSelect onSelected={handlePlayerSelect} />
+        <PlayerSelect party={party} onSelected={handlePlayerSelect} />
       )}
+
       {gameModel.isInitialized && (
         <>
           <TextField

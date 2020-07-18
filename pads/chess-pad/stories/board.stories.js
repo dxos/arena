@@ -29,6 +29,12 @@ storiesOf('Chess', module)
     return (
       <ChessPad
         game={game}
+        onMove={move => {
+          const newGame = new Chess();
+          game.history().forEach(move => newGame.move(move));
+          newGame.move(move);
+          setGame(newGame);
+        }}
       />
     );
   })

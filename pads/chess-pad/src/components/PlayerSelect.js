@@ -5,78 +5,95 @@
 import React, { useState } from 'react';
 
 import { makeStyles } from '@material-ui/core';
+
 import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import IconButton from '@material-ui/core/IconButton';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import TextField from '@material-ui/core/TextField';
+
+import Autocomplete from '@material-ui/lab/Autocomplete';
+
+import SecurityIcon from '@material-ui/icons/Security';
 
 import { humanize } from '@dxos/crypto';
-import { useParty } from '@dxos/react-client';
 
+// TODO(burdon): Icons not working in storyboard2.
 import KingWhite from '../icons/KingWhite';
 import KingBlack from '../icons/KingBlack';
 
-const sorter = (a, b) => (a.displayName < b.displayName ? -1 : a.displayName > b.displayName ? 1 : a.isMe ? -1 : 1);
+const sorter = (a, b) => (a.displayName < b.displayName ? -1 : a.displayName > b.displayName ? 1 : 0);
 
 const useStyles = makeStyles(theme => ({
   root: {
-    margin: 'auto',
     display: 'flex',
     flexDirection: 'column',
-    minWidth: 300,
-    textAlign: 'center',
-    justifyContent: 'space-between'
+    minWidth: 300
   },
-  itemText: {
-    paddingRight: 150
+  selector: {
+    display: 'flex',
+    marginBottom: theme.spacing(4),
+    alignItems: 'center'
   },
-  actions: {
-    justifyContent: 'center'
+  icon: {
+    marginRight: theme.spacing(2)
   }
 }));
 
-const PlayerSelect = ({ onSelected }) => {
-  const party = useParty();
-  const [{ black, white }, setPlayers] = useState({});
+const PlayerSelector = ({ members, label, onSelect }) => {
   const classes = useStyles();
 
+  // TODO(burdon): Set initial state.
   return (
-    <Card className={classes.root}>
-      <CardHeader title="Select players" />
-      <CardContent>
-        <List>
-          {party.members.sort(sorter).map(member => (
-            <ListItem key={member.publicKey}>
-              <ListItemText primary={member.displayName || humanize(member.publicKey)} className={classes.itemText} />
-              <ListItemSecondaryAction>
-                <IconButton onClick={() => setPlayers({ black, white: member.publicKey })}>
-                  <KingWhite style={{ opacity: white && member.publicKey.equals(white) ? 1 : 0.1 }} />
-                </IconButton>
-                <IconButton onClick={() => setPlayers({ white, black: member.publicKey })}>
-                  <KingBlack style={{ opacity: black && member.publicKey.equals(black) ? 1 : 0.1 }} />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-          ))}
-        </List>
-      </CardContent>
-      <CardActions className={classes.actions}>
+    <div className={classes.selector}>
+      <div className={classes.icon}>
+        <SecurityIcon fontSize='large' />
+      </div>
+
+      <Autocomplete
+        id="combo-box-demo"
+        options={members}
+        getOptionLabel={(member) => member.displayName || humanize(member.publicKey)}
+        style={{ width: 300 }}
+        renderInput={(params) => <TextField {...params} label={label} variant="outlined" />}
+        onChange={(_, member) => {
+          onSelect(member && member.publicKey);
+        }}
+      />
+    </div>
+  );
+};
+
+// TODO(burdon): Rename ChessSettings.
+// TODO(burdon): Pass in current state.
+const PlayerSelect = ({ party, onSelected }) => {
+  const [{ white, black }, setPlayers] = useState({});
+  const classes = useStyles();
+
+  const members = [...party.members].sort(sorter);
+
+  return (
+    <div className={classes.root}>
+      <PlayerSelector
+        members={members}
+        label='White player'
+        onSelect={publicKey => setPlayers({ black, white: publicKey || undefined })}
+      />
+
+      <PlayerSelector
+        members={members}
+        label='Black player'
+        onSelect={publicKey => setPlayers({ white, black: publicKey || undefined })}
+      />
+
+      {/* TODO(burdon): Remove: set state when View settings is closed (if unset). */}
+      <div>
         <Button
           color="primary"
-          variant="outlined"
           disabled={!white || !black}
           onClick={() => onSelected({ white, black })}
         >
-          Select
+          Done
         </Button>
-      </CardActions>
-    </Card>
+      </div>
+    </div>
   );
 };
 

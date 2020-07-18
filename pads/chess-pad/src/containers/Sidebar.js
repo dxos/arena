@@ -52,6 +52,7 @@ const Games = ({ topic }) => {
     if (!selection) {
       return;
     }
+
     const title = `game-${chance.word()}`;
     const itemId = createItem(ChessModel.createGenesisMessage(title, selection.white, selection.black));
     handleSelect(itemId);
@@ -69,8 +70,15 @@ const Games = ({ topic }) => {
         />
       ))}
 
-      <PartyTreeAddItemButton topic={topic} onClick={() => setPlayerSelectVisible(true)}>Game</PartyTreeAddItemButton>
-      <PlayerSelect isVisible={playerSelectVisible} onSelected={handleCreate} />
+      <PartyTreeAddItemButton topic={topic} onClick={() => setPlayerSelectVisible(true)}>
+        Game
+      </PartyTreeAddItemButton>
+
+      {/* TODO(burdon): Move into View. */}
+      <PlayerSelect
+        isVisible={playerSelectVisible}
+        onSelected={handleCreate}
+      />
     </Fragment>
   );
 };
