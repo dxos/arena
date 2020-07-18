@@ -63,6 +63,15 @@ const ChessPad = ({ game, onMove, maxWidth, transitionDuration = 150 }) => {
   const [promotionSelectCallback, setPromotionSelectCallback] = useState();
   const [isPanelVisible, setPanelVisibility] = useState(true);
   const [position, setPosition] = useState(-1);
+  const lengthRef = useRef(-1);
+
+  const length = !game ? -1 : game.history().length;
+  useEffect(() => {
+    if (position === lengthRef.current) {
+      setPosition(length);
+    }
+    lengthRef.current = length;
+  }, [position, length]);
 
   // TODO(burdon): Position keys (forward, back, etc.)
   // TODO(burdon): Replace with https://www.npmjs.com/package/react-hotkeys (see appkit).

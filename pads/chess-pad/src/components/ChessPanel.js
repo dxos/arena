@@ -3,7 +3,7 @@
 //
 
 import clsx from 'clsx';
-import React from 'react';
+import React, { useRef } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
@@ -23,8 +23,8 @@ import ForwardIcon from '@material-ui/icons/NavigateNext';
 import EndIcon from '@material-ui/icons/SkipNext';
 
 const useStyles = makeStyles(theme => ({
-  container: ({ rows }) => ({
-    maxHeight: 43 + rows * 33
+  table: ({ rows }) => ({
+    height: 43 + rows * 33
   }),
   player: {
     display: 'flex',
@@ -92,7 +92,7 @@ const ChessPanel = ({ game, position = -1, onSetPosition, onToggleOrientation })
     <Paper>
       <Player name={'Player 1'} turn={game.turn() === 'w'} />
 
-      <TableContainer className={classes.container}>
+      <TableContainer className={classes.table}>
         <Table stickyHeader size="small" aria-label="moves table">
           <TableHead className={classes.header}>
             <TableRow>
