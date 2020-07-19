@@ -14,7 +14,7 @@ import { useClient, useParties } from '@dxos/react-client';
 import { ChessModel } from '@dxos/chess-core';
 
 import { useItemList } from '../model';
-import { PlayerSelect } from '../components/PlayerSelect';
+import { ChessSettings } from '../components/ChessSettings';
 
 const chance = new Chance();
 
@@ -37,6 +37,8 @@ const Games = ({ topic }) => {
   const router = useAppRouter();
   const { item: active } = useParams();
   const { items, createItem, renameItem } = useItemList(topic);
+
+  // TODO(burdon): Remove.
   const [playerSelectVisible, setPlayerSelectVisible] = useState(false);
 
   if (!topic) {
@@ -74,8 +76,8 @@ const Games = ({ topic }) => {
         Game
       </PartyTreeAddItemButton>
 
-      {/* TODO(burdon): Move into View. */}
-      <PlayerSelect
+      {/* TODO(burdon): Remove: move into View. */}
+      <ChessSettings
         isVisible={playerSelectVisible}
         onSelected={handleCreate}
       />
@@ -83,6 +85,7 @@ const Games = ({ topic }) => {
   );
 };
 
+// TODO(burdon): Remove custom sidebar.
 const Sidebar = () => {
   const client = useClient();
   const parties = useParties();

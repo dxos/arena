@@ -15,25 +15,25 @@ import SecurityIcon from '@material-ui/icons/Security';
 
 import { humanize } from '@dxos/crypto';
 
-// TODO(burdon): Icons not working in storyboard2.
-import KingWhite from '../icons/KingWhite';
-import KingBlack from '../icons/KingBlack';
-
 const sorter = (a, b) => (a.displayName < b.displayName ? -1 : a.displayName > b.displayName ? 1 : 0);
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
-    flexDirection: 'column',
-    minWidth: 300
+    flexDirection: 'column'
   },
   selector: {
     display: 'flex',
-    marginBottom: theme.spacing(4),
-    alignItems: 'center'
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: theme.spacing(4)
+  },
+  autocomplete: {
+    display: 'flex',
+    flex: 1
   },
   icon: {
-    marginRight: theme.spacing(2)
+    marginLeft: theme.spacing(3)
   }
 }));
 
@@ -43,27 +43,27 @@ const PlayerSelector = ({ members, label, onSelect }) => {
   // TODO(burdon): Set initial state.
   return (
     <div className={classes.selector}>
-      <div className={classes.icon}>
-        <SecurityIcon fontSize='large' />
-      </div>
-
       <Autocomplete
         id="combo-box-demo"
+        classes={{ root: classes.autocomplete }}
         options={members}
         getOptionLabel={(member) => member.displayName || humanize(member.publicKey)}
-        style={{ width: 300 }}
         renderInput={(params) => <TextField {...params} label={label} variant="outlined" />}
         onChange={(_, member) => {
           onSelect(member && member.publicKey);
         }}
       />
+
+      {/* TODO(burdon): Show player avatar. */}
+      <div className={classes.icon}>
+        <SecurityIcon fontSize='large' />
+      </div>
     </div>
   );
 };
 
-// TODO(burdon): Rename ChessSettings.
 // TODO(burdon): Pass in current state.
-const PlayerSelect = ({ party, onSelected }) => {
+const ChessSettings = ({ party, onSelected }) => {
   const [{ white, black }, setPlayers] = useState({});
   const classes = useStyles();
 
@@ -97,4 +97,4 @@ const PlayerSelect = ({ party, onSelected }) => {
   );
 };
 
-export default PlayerSelect;
+export default ChessSettings;

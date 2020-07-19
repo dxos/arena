@@ -8,9 +8,9 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { usePads, useViews } from '@dxos/react-appkit';
 
-import ChessPad from '../components/ChessPad';
-import CustomViewSettingsDialog from './CustomViewSettingsDialog';
 import { useChessModel } from '../model';
+import ChessPad from '../components/ChessPad';
+import CustomSettingsDialog from './CustomSettingsDialog';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -48,7 +48,7 @@ const Game = ({ viewSettingsOpen = false, setViewSettingsOpen = () => {} }) => {
 
       {/* TODO(burdon): Remove from here -- standardize display of settings. */}
       {/* TODO(burdon): Should be in form of <ItemSettings><ChessSettings /></ItemSettings> */}
-      <CustomViewSettingsDialog
+      <CustomSettingsDialog
         open={viewSettingsOpen || !gameModel.isInitialized}
         onClose={() => setViewSettingsOpen(false)}
         viewModel={viewModel}

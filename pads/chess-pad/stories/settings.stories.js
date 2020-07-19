@@ -11,7 +11,7 @@ import CardContent from '@material-ui/core/CardContent';
 
 import { createId } from '@dxos/crypto';
 
-import PlayerSelect from '../src/components/PlayerSelect';
+import ChessSettings from '../src/components/ChessSettings';
 
 storiesOf('Settings', module)
   .add('Board', () => {
@@ -26,7 +26,7 @@ storiesOf('Settings', module)
       <Box m={2}>
         <Card>
           <CardContent>
-            <PlayerSelect party={party} />
+            <ChessSettings party={party} />
           </CardContent>
         </Card>
       </Box>

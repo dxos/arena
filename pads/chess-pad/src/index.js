@@ -11,10 +11,10 @@ export default {
   // TODO(elmasse): READ THIS FROM PAD.YML
   name: 'example.com/chess',
   displayName: 'Chess',
+  description: 'Chess',
+  type: TYPE_CHESS_GAME,
 
   icon: KingWhite,
   main: Game,
-  type: TYPE_CHESS_GAME,
-  description: 'Play chess',
-  customViewSettings: true
+  customViewSettings: true // TODO(burdon): Change to `settings: ChessSettings`
 };
