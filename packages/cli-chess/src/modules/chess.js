@@ -13,7 +13,10 @@ import { TYPE_CHESS_GAME, TYPE_CHESS_MOVE, TYPE_CHESS_PLAYERSELECT, ChessModel }
 import { print } from '@dxos/cli-core';
 
 const chance = new Chance();
-const generateRandom = () => `item-${chance.word()}`;
+
+const peekCustomItem = (arr) => {
+  return arr[Math.floor(Math.random() * arr.length)];
+};
 
 // TODO(egorgripasov): Factor out.
 const sorter = (a, b) => (a.displayName < b.displayName ? -1 : a.displayName > b.displayName ? 1 : a.isMe ? -1 : 1);
@@ -92,25 +95,26 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface }) =
       command: ['create [title]'],
       describe: 'Create game.',
       builder: yargs => yargs
-        .option('title'),
+        .option('title')
+        .option('quantity', { type: 'number' })
+        .option('auto-assign', { type: 'boolean' }),
 
       handler: asyncHandler(async argv => {
-        const { title = generateRandom(), json } = argv;
+        const { title: gameTitle, json, quantity = 1, autoAssign } = argv;
 
         const topic = stateManager.currentParty;
         assert(topic, 'Invalid party.');
-
-        const itemId = createId();
 
         const client = await getClient();
 
         const party = client.partyManager.getPartyInfo(keyToBuffer(topic));
         const members = party.members.sort(sorter);
 
-        log('\nParty members:');
+        let membersStr = '\nParty members:\n';
         members.map((member, index) => {
-          log(`${index}) ${member.displayName}`);
+          membersStr += `${index}) ${member.displayName}\n`;
         });
+        log(`${membersStr}\n`);
 
         const rl = getReadlineInterface();
         const askUser = async (question) => {
@@ -121,37 +125,53 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface }) =
           });
         };
 
-        const self = client.partyManager.identityManager;
-        let white;
-        let black;
-        if (members.length > 1) {
-          white = members[
-            Number(await askUser(`\nSelect white player (0 - ${members.length - 1}): `)) || 0
-          ];
-          black = members[
-            Number(await askUser(`Select black player (0 - ${members.length - 1}): `)) || 0
-          ];
-        } else {
-          white = self;
-          black = self;
+        const games = [];
+        for (let counter = 0; counter < quantity; counter++) {
+          const itemId = createId();
+
+          let white;
+          let black;
+          if (autoAssign) {
+            white = peekCustomItem(members);
+            black = peekCustomItem(members);
+          } else {
+            const self = client.partyManager.identityManager;
+            if (members.length > 1) {
+              white = members[
+                Number(await askUser(`\nSelect white player (0 - ${members.length - 1}): `)) || 0
+              ];
+              black = members[
+                Number(await askUser(`Select black player (0 - ${members.length - 1}): `)) || 0
+              ];
+            } else {
+              white = self;
+              black = self;
+            }
+          }
+
+          const title = !gameTitle ? `item-${chance.word()}` : gameTitle;
+
+          log(`Game \x1b[1m${title}\x1b[0m.`);
+          log(`\x1b[1m${white.displayName}\x1b[0m selected to play white.`);
+          log(`\x1b[1m${black.displayName}\x1b[0m selected to play black.\n`);
+
+          const model = await client.modelFactory.createModel(undefined, { type: TYPE_CHESS_GAME, topic });
+          model.appendMessage({
+            __type_url: TYPE_CHESS_GAME,
+            viewId: itemId,
+            displayName: title,
+            itemId
+          });
+
+          const gameModel = await client.modelFactory.createModel(ChessModel, { type: [TYPE_CHESS_MOVE, TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT], topic, itemId });
+          gameModel.appendMessage({ __type_url: TYPE_CHESS_PLAYERSELECT, viewId: itemId, itemId, ...ChessModel.createGenesisMessage(title, white.publicKey, black.publicKey) });
+          if (quantity === 1) {
+            await stateManager.setModel(gameModel, getGameUpdateHandler(members));
+          }
+          games.push({ gameId: itemId, title });
         }
 
-        log(`\n\x1b[1m${white.displayName}\x1b[0m selected to play white.`);
-        log(`\x1b[1m${black.displayName}\x1b[0m selected to play black.\n`);
-
-        const model = await client.modelFactory.createModel(undefined, { type: TYPE_CHESS_GAME, topic });
-        model.appendMessage({
-          __type_url: TYPE_CHESS_GAME,
-          viewId: itemId,
-          displayName: title,
-          itemId
-        });
-
-        const gameModel = await client.modelFactory.createModel(ChessModel, { type: [TYPE_CHESS_MOVE, TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT], topic, itemId });
-        gameModel.appendMessage({ __type_url: TYPE_CHESS_PLAYERSELECT, viewId: itemId, itemId, ...ChessModel.createGenesisMessage(title, white.publicKey, black.publicKey) });
-        await stateManager.setModel(gameModel, getGameUpdateHandler(members));
-
-        print({ gameId: itemId, title }, { json });
+        print(games, { json });
       })
     })
 
