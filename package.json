@@ -31,7 +31,7 @@
     "lint:staged": "lint-staged",
     "sort-package-json": "lerna exec npx sort-package-json",
     "test": "lerna run test --stream",
-    "start": "yarn && yarn build && lerna run start --scope '@dxos/teamwork-app' --stream"
+    "start": "yarn && yarn build && lerna run start --scope '@dxos/arena' --stream"
   },
   "pre-commit": [
     "lint:staged"
