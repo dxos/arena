@@ -119,7 +119,6 @@ module.exports = {
             cacheDirectory: true,
             babelrc: false,
             presets: [
-              '@babel/preset-typescript',
               [
                 '@babel/preset-env',
                 { targets: { browsers: '> 5%, not IE <= 11' } }
