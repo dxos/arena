@@ -3,7 +3,7 @@
 //
 
 import clsx from 'clsx';
-import React, { useRef } from 'react';
+import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
@@ -24,7 +24,10 @@ import EndIcon from '@material-ui/icons/SkipNext';
 
 const useStyles = makeStyles(theme => ({
   table: ({ rows }) => ({
-    height: 43 + rows * 33
+    height: 43 + rows * 33,
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'column-reverse'
   }),
   player: {
     display: 'flex',
@@ -68,7 +71,7 @@ const Player = ({ name, turn }) => {
   );
 };
 
-const ChessPanel = ({ game, position = -1, onSetPosition, onToggleOrientation }) => {
+const ChessPanel = ({ game, position = -1, onSetPosition, onToggleOrientation, orientation }) => {
   const classes = useStyles({ rows: 8 });
 
   if (!game) {
@@ -90,8 +93,10 @@ const ChessPanel = ({ game, position = -1, onSetPosition, onToggleOrientation })
 
   return (
     <Paper>
-      <Player name={'Player 1'} turn={game.turn() === 'w'} />
-
+      <Player
+        name={orientation === 'white' ? 'Player 2' : 'Player 1'}
+        turn={game.turn() === (orientation === 'white' ? 'b' : 'w')}
+      />
       <TableContainer className={classes.table}>
         <Table stickyHeader size="small" aria-label="moves table">
           <TableHead className={classes.header}>
@@ -137,7 +142,10 @@ const ChessPanel = ({ game, position = -1, onSetPosition, onToggleOrientation })
         </Table>
       </TableContainer>
 
-      <Player name={'Player 2'} turn={game.turn() === 'b'} />
+      <Player
+        name={orientation === 'white' ? 'Player 1' : 'Player 2'}
+        turn={game.turn() === (orientation === 'white' ? 'w' : 'b')}
+      />
     </Paper>
   );
 };

@@ -10,6 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import ChessPanel from './ChessPanel';
 import PromotionSelect from './PromotionSelect';
+import { HotKeys } from 'react-hotkeys';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,35 +23,29 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center'
   },
   panel: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center',
     marginLeft: theme.spacing(6)
+  },
+  panelContainer: {
+    height: 80,
+    width: '90%',
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
   }
 }));
 
-// TODO(burdon): Not used?
 const getCaption = (game) => {
   if (game.in_checkmate()) {
     return 'Checkmate';
   } if (game.in_draw()) {
-    return 'Draw';
+    return 'Stalemate';
   } if (game.in_check()) {
     return 'Check';
   }
-};
-
-// TODO(burdon): Remove.
-const useKeyPress = (targetKey, setter) => {
-  const upHandler = ({ key }) => {
-    if (key === targetKey) {
-      setter(prev => !prev);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener('keyup', upHandler);
-    return () => {
-      window.removeEventListener('keyup', upHandler);
-    };
-  }, []);
 };
 
 /**
@@ -73,9 +68,18 @@ const ChessPad = ({ game, onMove, maxWidth, transitionDuration = 150 }) => {
     lengthRef.current = length;
   }, [position, length]);
 
-  // TODO(burdon): Position keys (forward, back, etc.)
-  // TODO(burdon): Replace with https://www.npmjs.com/package/react-hotkeys (see appkit).
-  useKeyPress('p', setPanelVisibility);
+  const keyMap = {
+    panelVisibility: {
+      name: 'Toggle action panel',
+      sequences: ['alt+p']
+    }
+  };
+
+  const keyHandlers = {
+    panelVisibility: () => {
+      setPanelVisibility(prev => !prev);
+    }
+  };
 
   if (!game) {
     return null;
@@ -116,12 +120,16 @@ const ChessPad = ({ game, onMove, maxWidth, transitionDuration = 150 }) => {
     return maxWidth ? Math.min(size, maxWidth) : size;
   };
 
-  // TODO(burdon): Not used.
-  // const caption = getCaption(game);
+  const caption = getCaption(game);
 
   // TODO(burdon): Fix flicker transition bug?
   return (
-    <div className={classes.root}>
+    <HotKeys
+      allowChanges
+      keyMap={keyMap}
+      handlers={keyHandlers}
+      className={classes.root}
+    >
       <div className={classes.container}>
         <div ref={board} className={classes.board}>
           <Chessboard
@@ -136,19 +144,22 @@ const ChessPad = ({ game, onMove, maxWidth, transitionDuration = 150 }) => {
         {/* TODO(burdon): Use constants for sides. */}
         {isPanelVisible && (
           <div className={classes.panel}>
+            <div className={classes.panelContainer} />
             <ChessPanel
               game={game}
               position={position}
               onSetPosition={setPosition}
+              orientation={orientation}
               onToggleOrientation={() => setOrientation(previous => (previous === 'white' ? 'black' : 'white'))}
             />
-
-            {/* TODO(burdon): Why only visible if panel is visible? */}
-            <PromotionSelect isVisible={!!promotionSelectCallback} onSelect={promotionSelectCallback} />
+            <div className={classes.panelContainer}>
+              {caption}
+            </div>
           </div>
         )}
+        <PromotionSelect isVisible={!!promotionSelectCallback} onSelect={promotionSelectCallback} />
       </div>
-    </div>
+    </HotKeys>
   );
 };
 
