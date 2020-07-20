@@ -17,7 +17,7 @@
   },
   "peerDependencies": {
     "@dxos/crypto": "^1.0.0-beta.1",
-    "@dxos/react-client": "^1.0.0-beta.185",
+    "@dxos/react-client": "^1.0.0-beta.189",
     "@material-ui/core": "^4.9.0",
     "@material-ui/icons": "^4.5.1",
     "react": "*"
@@ -29,9 +29,9 @@
     "@dxos/chess-core": "^1.0.0-beta.59",
     "@dxos/debug": "^1.0.0-beta.73",
     "@dxos/echo-db": "^1.0.0-beta.23",
-    "@dxos/react-appkit": "^1.0.0-beta.185",
-    "@dxos/react-router": "^1.0.0-beta.185",
-    "@dxos/react-ux": "^1.0.0-beta.185",
+    "@dxos/react-appkit": "^1.0.0-beta.189",
+    "@dxos/react-router": "^1.0.0-beta.189",
+    "@dxos/react-ux": "^1.0.0-beta.189",
     "@dxos/view-model": "^1.0.0-beta.19",
     "@material-ui/lab": "^4.0.0-alpha.42",
     "@material-ui/pickers": "^3.2.10",
