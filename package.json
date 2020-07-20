@@ -31,7 +31,7 @@
     "lint:staged": "lint-staged",
     "sort-package-json": "lerna exec npx sort-package-json",
     "test": "lerna run test --stream",
-    "start": "yarn && yarn build && lerna run start --scope '@dxos/teamwork-app' --stream"
+    "start": "yarn && yarn build && lerna run start --scope '@dxos/arena' --stream"
   },
   "pre-commit": [
     "lint:staged"
@@ -42,7 +42,6 @@
   "devDependencies": {
     "@dxos/cli": "^1.0.1-beta.12",
     "@dxos/cli-app": "^1.0.1-beta.12",
-    "@typescript-eslint/parser": "^3.6.0",
     "@dxos/cli-wns": "^1.0.1-beta.20",
     "babel-eslint": "^10.0.3",
     "eslint": "^6.7.2",
