@@ -114,7 +114,7 @@ test('can make a move', async () => {
   model.processMessages([
     genesisMessage(PLAYER_1, PLAYER_2),
     moveMessage(0, 'e2', 'e3', PLAYER_1),
-  ])
+  ]);
 
   let pushedMove;
   model.on('append', move => { pushedMove = move });

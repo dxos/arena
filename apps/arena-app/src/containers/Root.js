@@ -5,6 +5,10 @@
 import React from 'react';
 import { HashRouter, Redirect, Route, Switch } from 'react-router-dom';
 
+import { ThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import primary from '@material-ui/core/colors/deepOrange';
+
 import { ErrorHandler } from '@dxos/debug';
 import {
   SET_LAYOUT,
@@ -14,7 +18,7 @@ import {
   Registration,
   RequireWallet,
   SystemRoutes,
-  Theme
+  createTheme
 } from '@dxos/react-appkit';
 import { ClientContextProvider } from '@dxos/react-client';
 import GamePad from '@dxos/game-pad';
@@ -35,12 +39,25 @@ const pads = [
   ChessPad
 ];
 
+const theme = {
+  props: {
+    MuiAppBar: {
+      elevation: 0
+    }
+  },
+
+  palette: {
+    primary
+  }
+};
+
 const Root = ({ config }) => {
   const router = { ...DefaultRouter, publicUrl: config.app.publicUrl };
   const { routes } = router;
 
   return (
-    <Theme>
+    <ThemeProvider theme={createTheme(theme)}>
+      <CssBaseline />
       <ClientContextProvider config={config}>
         <AppKitContextProvider
           initialState={initialState}
@@ -67,7 +84,7 @@ const Root = ({ config }) => {
           </CheckForErrors>
         </AppKitContextProvider>
       </ClientContextProvider>
-    </Theme>
+    </ThemeProvider>
   );
 };
 

@@ -65,7 +65,12 @@ export class ChessBot extends Bot {
 
     this._games.set(itemId, { itemId, isWhite, isBlack });
 
-    const model = await this._client.modelFactory.createModel(ChessModel, { type: [TYPE_CHESS_MOVE, TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT], topic, itemId });
+    const model = await this._client.modelFactory.createModel(ChessModel, {
+      type: [TYPE_CHESS_MOVE, TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT],
+      topic,
+      itemId
+    });
+
     model.on('update', async () => {
       if ((model.game.turn() === 'b' && isBlack) || (model.game.turn() === 'w' && isWhite)) {
         const move = await this.getNextMove(model.game);

@@ -3,16 +3,19 @@
   "version": "1.0.0-beta.59",
   "private": true,
   "main": "dist/index.js",
-  "description": "Dxos chess pad",
+  "types": "dist/index.d.ts",
+  "description": "DXOS Chess pad",
   "keywords": [],
   "license": "GPL-3.0",
   "author": "DXOS.org",
   "scripts": {
-    "build": "babel src -d dist && cp -r src/assets dist/",
+    "build": "cp -r src/assets dist/ && babel src -d dist",
+    "build:dev": "cp -r src/assets dist/ && babel src -d dist --watch",
     "debug": "DOT_ENV=.env.debug webpack-dev-server --mode development",
     "debug:localhost": "CONFIG=localhost.yml webpack-dev-server --mode development",
     "dist": "rollup -c",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
+    "storybook": "start-storybook -s ./stories/static -p 9001 -c .storybook --ci",
     "test": "jest --rootDir ./src --verbose --passWithNoTests"
   },
   "peerDependencies": {
@@ -50,7 +53,8 @@
     "react-dom": "^16.12.0",
     "seedrandom": "^3.0.5",
     "typescript": "^3.9.5",
-    "uuid": "^7.0.3"
+    "uuid": "^7.0.3",
+    "react-hotkeys": "^2.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
@@ -64,6 +68,9 @@
     "@babel/preset-react": "^7.10.1",
     "@babel/preset-typescript": "^7.10.1",
     "@rollup/plugin-commonjs": "^13.0.0",
+    "@storybook/addon-actions": "^5.2.5",
+    "@storybook/addon-knobs": "^5.2.5",
+    "@storybook/react": "^5.2.5",
     "@types/react": "^16.9.35",
     "@types/react-beautiful-dnd": "^13.0.0",
     "@types/react-dom": "^16.9.8",
