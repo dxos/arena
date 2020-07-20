@@ -8,7 +8,7 @@
   "license": "GPL-3.0",
   "author": "DXOS.org",
   "scripts": {
-    "build": "babel src -d dist && cp -r src/assets dist/src/",
+    "build": "babel src -d dist && cp -r src/assets dist/",
     "debug": "DOT_ENV=.env.debug webpack-dev-server --mode development",
     "debug:localhost": "CONFIG=localhost.yml webpack-dev-server --mode development",
     "dist": "rollup -c",
