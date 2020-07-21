@@ -3,7 +3,6 @@
 //
 
 import React from 'react';
-import { useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { usePads, useViews } from '@dxos/react-appkit';
@@ -24,9 +23,8 @@ const useStyles = makeStyles(() => ({
 
 // TODO(burdon): Callbacks should be onXXX.
 // TODO(burdon): Individual Game class SHOULD NOT open all views. Pass in the item!
-const Game = ({ viewSettingsOpen = false, setViewSettingsOpen = () => {} }) => {
+const Game = ({ topic, viewId, viewSettingsOpen = false, grid, setViewSettingsOpen = () => {} }) => {
   const classes = useStyles();
-  const { topic, item: viewId } = useParams();
   const [pads] = usePads();
   const { model: viewModel } = useViews(topic);
   const [game, makeMove, gameModel] = useChessModel(topic, viewId);
@@ -43,6 +41,8 @@ const Game = ({ viewSettingsOpen = false, setViewSettingsOpen = () => {} }) => {
           gameId={viewId}
           game={game}
           onMove={makeMove}
+          grid={grid}
+          maxWidth={grid && 300}
         />
       </div>
 

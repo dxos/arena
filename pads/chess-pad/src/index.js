@@ -7,6 +7,8 @@ import { TYPE_CHESS_GAME } from '@dxos/chess-core';
 import Game from './containers/Game';
 import KingWhite from './icons/KingWhite';
 
+export Game from './containers/Game';
+
 export default {
   // TODO(elmasse): READ THIS FROM PAD.YML
   name: 'example.com/chess',
