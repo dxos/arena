@@ -6,6 +6,7 @@
   "license": "GPL-3.0",
   "author": "DXOS.org",
   "main": "dist/es/game.js",
+  "private": true,
   "scripts": {
     "build": "babel ./src --out-dir ./dist/es --ignore \"**/*.test.js\" --source-maps inline",
     "build:watch": "yarn run build --watch",
