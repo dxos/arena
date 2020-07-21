@@ -60,11 +60,11 @@ const App = () => {
   const AppBarContent = () => {
     return (
       <>
-        <IconButton color="inherit">
-          <Home onClick={() => router.push({ path: '/home' })} />
+        <IconButton color="inherit" onClick={() => router.push({ path: '/home' })}>
+          <Home />
         </IconButton>
-        <IconButton color="inherit">
-          <SettingsIcon onClick={() => setViewSettingsOpen(true)} />
+        <IconButton color="inherit" onClick={() => setViewSettingsOpen(true)}>
+          <SettingsIcon />
         </IconButton>
       </>
     );
