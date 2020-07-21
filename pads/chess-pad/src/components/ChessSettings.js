@@ -15,7 +15,7 @@ import SecurityIcon from '@material-ui/icons/Security';
 import { useTheme } from '@material-ui/styles';
 
 import { humanize } from '@dxos/crypto';
-import { MemberAvatar, getAvatarStyle } from '@dxos/react-appkit'
+import { MemberAvatar, getAvatarStyle } from '@dxos/react-appkit';
 
 const sorter = (a, b) => (a.displayName < b.displayName ? -1 : a.displayName > b.displayName ? 1 : 0);
 
@@ -40,6 +40,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const PlayerSelector = ({ value, members, label, onSelect, disabled }) => {
+  const theme = useTheme();
   const classes = useStyles();
 
   return (
@@ -62,13 +63,13 @@ const PlayerSelector = ({ value, members, label, onSelect, disabled }) => {
         { value ? (
           <MemberAvatar member={value} />
         ) : (
-          <Avatar style={getAvatarStyle(useTheme())}>
+          <Avatar style={getAvatarStyle(theme)}>
             <FaceIcon />
           </Avatar>
         )
 
         }
-        
+
         {/* <SecurityIcon fontSize='large' /> */}
       </div>
     </div>

@@ -1589,6 +1589,28 @@
     source-map-support "^0.5.12"
     through2 "^3.0.1"
 
+"@dxos/messenger-pad@^1.0.1-beta.7":
+  version "1.0.1-beta.7"
+  resolved "https://registry.yarnpkg.com/@dxos/messenger-pad/-/messenger-pad-1.0.1-beta.7.tgz#46922004ae634fc44f59f88c8058c91f29f69e1d"
+  integrity sha512-8iDom4F7tpdOtG3aW1BKW60JnyNrNTrouc2xK+RkRuO3FWs9FjYJGz3q3+l2QauKTel4M5ecjAllYicmKqPVbA==
+  dependencies:
+    "@date-io/moment" "^1.3.11"
+    "@dxos/async" "^1.0.0-beta.1"
+    "@dxos/debug" "^1.0.0-beta.73"
+    "@dxos/echo-db" "^1.0.0-beta.23"
+    "@dxos/react-appkit" "^1.0.0-beta.193"
+    "@dxos/react-router" "^1.0.0-beta.193"
+    "@dxos/react-ux" "^1.0.0-beta.193"
+    "@geut/discovery-swarm-webrtc" "^3.0.0-beta.3"
+    "@material-ui/lab" "^4.0.0-alpha.42"
+    "@material-ui/pickers" "^3.2.10"
+    "@material-ui/styles" "^4.9.0"
+    assert "^2.0.0"
+    clsx "^1.0.4"
+    color-hash "^1.0.3"
+    moment "^2.24.0"
+    prop-types "^15.7.2"
+
 "@dxos/metrics@^1.0.0-beta.6", "@dxos/metrics@^1.0.0-beta.8":
   version "1.0.0-beta.9"
   resolved "https://registry.yarnpkg.com/@dxos/metrics/-/metrics-1.0.0-beta.9.tgz#1ed14a0c2b9890a71ba4f1091b80d9cac9c6d080"
