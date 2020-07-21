@@ -26,6 +26,7 @@ const useStyles = makeStyles(theme => ({
   table: ({ rows }) => ({
     display: 'flex',
     flexDirection: 'column',
+    tableLayout: 'fixed',
     height: 43 + rows * 33
   }),
   player: {
@@ -43,7 +44,6 @@ const useStyles = makeStyles(theme => ({
     color: 'green'
   },
   number: {
-    width: 40,
     textAlign: 'right',
     backgroundColor: theme.palette.grey[100]
   },
@@ -96,15 +96,15 @@ const ChessPanel = ({ game, position = -1, onSetPosition, onToggleOrientation, o
       />
 
       <TableContainer className={classes.table}>
-        <Table stickyHeader size="small" aria-label="moves table">
+        <Table stickyHeader size="small" aria-label="chess moves">
           <TableHead className={classes.header}>
             <TableRow>
-              <TableCell>
+              <TableCell style={{ width: 80 }}>
                 <IconButton size="small" onClick={onToggleOrientation}>
                   <SwapIcon />
                 </IconButton>
               </TableCell>
-              <TableCell colSpan={2}>
+              <TableCell style={{ width: 160 }} colSpan={2}>
                 <IconButton size="small" onClick={() => onSetPosition(0)}>
                   <StartIcon />
                 </IconButton>
