@@ -2,44 +2,47 @@
 // Copyright 2020 DXOS.org
 //
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Home } from '@material-ui/icons';
-import IconButton from '@material-ui/core/IconButton';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import { Grid as GridUI, IconButton, Typography } from '@material-ui/core';
 
 import { Game } from '@dxos/chess-pad';
 import { noop } from '@dxos/async';
 import { keyToBuffer } from '@dxos/crypto';
 import { useClient } from '@dxos/react-client';
-import { AppContainer, usePads, useAppRouter, DefaultViewSidebar, useViews, ViewSettingsDialog } from '@dxos/react-appkit';
+import { AppContainer, DefaultViewSidebar, useAppRouter, useViews } from '@dxos/react-appkit';
 
-const useStyles = makeStyles(theme => ({
-  main: {
+const useStyles = makeStyles(() => ({
+  grid: {
+    marginTop: 50,
+    width: '80%',
+    maxWidth: 1200
+  },
+  gridItem: {
     display: 'flex',
     flexDirection: 'column',
-    flex: 1,
-    overflow: 'hidden'
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-
-  titleRoot: {
-    color: theme.palette.primary.contrastText,
-    display: 'inline-block',
-    lineHeight: '48px'
+  gridItemTitle: {
+    marginTop: 10
+  },
+  container: {
+    overflow: 'auto',
+    overflowX: 'hidden',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center'
   }
 }));
-
-const type = ''
 
 const Grid = () => {
   const router = useAppRouter();
   const classes = useStyles();
   const { topic } = useParams();
-  const [pads] = usePads();
   const { model } = useViews(topic);
   const client = useClient();
 
@@ -61,21 +64,32 @@ const Grid = () => {
         appBarContent={appBarContent}
         sidebarContent={<DefaultViewSidebar />}
       >
-        <List dense disablePadding>
-          {model.getAllViews().map(item => (
-            <ListItem
-              key={item.viewId}
-            >
-              <ListItemText>
+        <div className={classes.container}>
+          <GridUI
+            container
+            spacing={2}
+            direction="row"
+            justify="center"
+            alignItems="center"
+            className={classes.grid}
+          >
+            {model.getAllViews().slice(0, 9).map(item => (
+              <GridUI
+                item
+                key={item.viewId}
+                className={classes.gridItem}
+                md={4}
+              >
                 <Game
+                  grid
                   topic={topic}
                   viewId={item.viewId}
                 />
-                {item.displayName}
-              </ListItemText>
-            </ListItem>
-          ))}
-        </List>
+                <Typography className={classes.gridItemTitle}>{item.displayName}</Typography>
+              </GridUI>
+            ))}
+          </GridUI>
+        </div>
       </AppContainer>
     </>
   );
