@@ -9,10 +9,13 @@ import { makeStyles } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 
 import Autocomplete from '@material-ui/lab/Autocomplete';
-
+import Avatar from '@material-ui/core/Avatar';
+import FaceIcon from '@material-ui/icons/Face';
 import SecurityIcon from '@material-ui/icons/Security';
+import { useTheme } from '@material-ui/styles';
 
 import { humanize } from '@dxos/crypto';
+import { MemberAvatar, getAvatarStyle } from '@dxos/react-appkit'
 
 const sorter = (a, b) => (a.displayName < b.displayName ? -1 : a.displayName > b.displayName ? 1 : 0);
 
@@ -36,12 +39,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const PlayerSelector = ({ value, members, label, onSelect }) => {
+const PlayerSelector = ({ value, members, label, onSelect, disabled }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.selector}>
       <Autocomplete
+        disabled={disabled}
         id="combo-box-demo"
         classes={{ root: classes.autocomplete }}
         options={members}
@@ -55,14 +59,24 @@ const PlayerSelector = ({ value, members, label, onSelect }) => {
 
       {/* TODO(burdon): Show player avatar. */}
       <div className={classes.icon}>
-        <SecurityIcon fontSize='large' />
+        { value ? (
+          <MemberAvatar member={value} />
+        ) : (
+          <Avatar style={getAvatarStyle(useTheme())}>
+            <FaceIcon />
+          </Avatar>
+        )
+
+        }
+        
+        {/* <SecurityIcon fontSize='large' /> */}
       </div>
     </div>
   );
 };
 
 // TODO(burdon): Pass in current state.
-const ChessSettings = ({ party, white, black, setPlayers }) => {
+const ChessSettings = ({ party, white, black, setPlayers, playerSelectDisabled }) => {
   const classes = useStyles();
 
   const members = [...party.members].sort(sorter);
@@ -70,6 +84,7 @@ const ChessSettings = ({ party, white, black, setPlayers }) => {
   return (
     <div className={classes.root}>
       <PlayerSelector
+        disabled={playerSelectDisabled}
         members={members}
         label='White pieces'
         value={white}
@@ -77,6 +92,7 @@ const ChessSettings = ({ party, white, black, setPlayers }) => {
       />
 
       <PlayerSelector
+        disabled={playerSelectDisabled}
         members={members}
         label='Black pieces'
         value={black}

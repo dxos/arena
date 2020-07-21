@@ -7,9 +7,10 @@ import { useParams } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 
+import { TYPE_CHESS_GAME, TYPE_CHESS_MOVE, TYPE_CHESS_PLAYERSELECT, ChessModel } from '@dxos/chess-core';
 import { noop } from '@dxos/async';
 import { keyToBuffer } from '@dxos/crypto';
-import { useClient, useParty } from '@dxos/react-client';
+import { useClient, useParty, useModel } from '@dxos/react-client';
 import {
   AppContainer,
   DefaultViewSidebar,
@@ -54,11 +55,26 @@ const App = () => {
     }
   }, [topic]);
 
-  if (!model || !item) {
-    return <p>Loading...</p>;
+  const chessGameModel = useModel({
+    model: ChessModel,
+    options: {
+      type: [TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT],
+      topic,
+      itemId: viewId
+    }
+  });
+
+  if (!model || !item || !pad) {
+    return null;
   }
 
-  const Settings = (pad && pad.settings) ? pad.settings : DefaultSettingsDialog;
+  const Settings = (pad.settings) ? pad.settings : DefaultSettingsDialog;
+
+  if (pad.type === TYPE_CHESS_GAME) {
+    if (!chessGameModel || !chessGameModel.isInitialized) {
+      return null;
+    }
+  }
 
   return (
     <>
@@ -85,6 +101,7 @@ const App = () => {
         item={item}
         viewModel={model}
         Icon={pad && pad.icon}
+        chessGameModel={chessGameModel}
       />
     </>
   );
