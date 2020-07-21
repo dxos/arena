@@ -26,6 +26,7 @@ import ChessPad from '@dxos/chess-pad';
 
 import App from './App';
 import Home from './Home';
+import Grid from './Grid';
 
 const initialState = {
   [SET_LAYOUT]: {
@@ -72,6 +73,7 @@ const Root = ({ config }) => {
                 <RequireWallet redirect={routes.register}>
                   <Switch>
                     {SystemRoutes(router)}
+                    <Route exact path="/grid/:topic" component={Grid} />
                     <Route exact path="/app/:topic?"><Redirect to="/home" /></Route>
                     <Route exact path={routes.app} component={App} />
 

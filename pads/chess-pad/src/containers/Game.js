@@ -24,9 +24,8 @@ const useStyles = makeStyles(() => ({
 
 // TODO(burdon): Callbacks should be onXXX.
 // TODO(burdon): Individual Game class SHOULD NOT open all views. Pass in the item!
-const Game = ({ viewSettingsOpen = false, setViewSettingsOpen = () => {} }) => {
+const Game = ({ topic, viewId, viewSettingsOpen = false, setViewSettingsOpen = () => {} }) => {
   const classes = useStyles();
-  const { topic, item: viewId } = useParams();
   const [pads] = usePads();
   const { model: viewModel } = useViews(topic);
   const [game, makeMove, gameModel] = useChessModel(topic, viewId);
