@@ -82,6 +82,7 @@ const App = () => {
         sidebarContent={<DefaultViewSidebar />}
         onSettingsOpened={() => setViewSettingsOpen(true)}
         onHomeNavigation={() => router.push({ path: '/home' })}
+        onPartyHomeNavigation={() => router.push({ path: '/grid', topic })}
       >
         <div className={classes.main}>
           {pad && (
