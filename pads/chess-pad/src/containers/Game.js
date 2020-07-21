@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 // TODO(burdon): Callbacks should be onXXX.
-const Game = ({ topic, viewId }) => {
+const Game = ({ topic, viewId, grid }) => {
   const classes = useStyles();
   const [game, makeMove, gameModel] = useChessModel(topic, viewId);
 
