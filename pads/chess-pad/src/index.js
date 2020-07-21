@@ -7,6 +7,7 @@ import { TYPE_CHESS_GAME } from '@dxos/chess-core';
 import Game from './containers/Game';
 import KingWhite from './icons/KingWhite';
 
+import ChessSettingsDialog from './containers/ChessSettingsDialog';
 export Game from './containers/Game';
 
 export default {
@@ -18,5 +19,5 @@ export default {
 
   icon: KingWhite,
   main: Game,
-  customViewSettings: true // TODO(burdon): Change to `settings: ChessSettings`
+  settings: ChessSettingsDialog
 };

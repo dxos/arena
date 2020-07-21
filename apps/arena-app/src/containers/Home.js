@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/styles';
 
 import { useClient, useParties } from '@dxos/react-client';
-import { AppContainer, NewPartyCard, PartyCardContainer } from '@dxos/react-appkit';
+import { AppContainer, PartyCard, PartyCardContainer } from '@dxos/react-appkit';
 
 const useStyles = makeStyles(theme => ({
   fab: {
@@ -83,7 +83,7 @@ const Home = () => {
           </Grid>
         ))}
         <Grid item zeroMinWidth>
-          <NewPartyCard onNewParty={createParty} />
+          <PartyCard onNewParty={createParty} />
         </Grid>
       </Grid>
     </AppContainer>

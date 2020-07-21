@@ -5,11 +5,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { usePads, useViews } from '@dxos/react-appkit';
-
 import { useChessModel } from '../model';
 import ChessPad from '../components/ChessPad';
-import CustomSettingsDialog from './CustomSettingsDialog';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -22,16 +19,16 @@ const useStyles = makeStyles(() => ({
 }));
 
 // TODO(burdon): Callbacks should be onXXX.
-// TODO(burdon): Individual Game class SHOULD NOT open all views. Pass in the item!
-const Game = ({ topic, viewId, viewSettingsOpen = false, grid, setViewSettingsOpen = () => {} }) => {
+const Game = ({ topic, viewId, grid }) => {
   const classes = useStyles();
-  const [pads] = usePads();
-  const { model: viewModel } = useViews(topic);
   const [game, makeMove, gameModel] = useChessModel(topic, viewId);
 
-  // TODO(burdon): Remove adhoc "Loading" UX.
-  if (!gameModel || !viewModel) {
-    return (<p>Loading...</p>);
+  if (!gameModel) {
+    return null;
+  }
+
+  if (!gameModel.isInitialized) {
+    return null;
   }
 
   return (
@@ -45,17 +42,6 @@ const Game = ({ topic, viewId, viewSettingsOpen = false, grid, setViewSettingsOp
           maxWidth={grid && 300}
         />
       </div>
-
-      {/* TODO(burdon): Remove from here -- standardize display of settings. */}
-      {/* TODO(burdon): Should be in form of <ItemSettings><ChessSettings /></ItemSettings> */}
-      <CustomSettingsDialog
-        open={viewSettingsOpen || !gameModel.isInitialized}
-        onClose={() => setViewSettingsOpen(false)}
-        viewModel={viewModel}
-        gameModel={gameModel}
-        pads={pads}
-        viewId={viewId}
-      />
     </>
   );
 };
