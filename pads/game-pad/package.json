@@ -3,6 +3,7 @@
   "version": "1.0.0-beta.59",
   "description": "DXOS oxo game pad",
   "main": "dist/es/index.js",
+  "private": true,
   "scripts": {
     "build": "npm run clean && node_modules/.bin/babel ./src --out-dir ./dist/es --ignore \\\"**/*.test.js\\\" --source-maps inline",
     "build:watch": "yarn run build --watch",
@@ -22,7 +23,7 @@
   },
   "peerDependencies": {
     "@dxos/crypto": "^1.0.0-beta.1",
-    "@dxos/react-client": "^1.0.0-beta.193",
+    "@dxos/react-client": "^1.0.0-beta.194",
     "@material-ui/core": "^4.9.0",
     "@material-ui/icons": "^4.5.1",
     "react": "^16.13.1",

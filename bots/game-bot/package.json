@@ -6,6 +6,7 @@
   "license": "GPL-3.0",
   "author": "DXOS.org",
   "main": "dist/index.js",
+  "private": true,
   "files": [
     ".babelrc",
     "src"
