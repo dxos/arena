@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     marginLeft: theme.spacing(6)
   },
-  panelContainer: {
+  captionContainer: {
     height: 80,
     width: '90%',
     display: 'flex',
@@ -144,7 +144,8 @@ const ChessPad = ({ game, onMove, maxWidth, transitionDuration = 150 }) => {
         {/* TODO(burdon): Use constants for sides. */}
         {isPanelVisible && (
           <div className={classes.panel}>
-            <div className={classes.panelContainer} />
+            <div className={classes.captionContainer} />
+
             <ChessPanel
               game={game}
               position={position}
@@ -152,7 +153,8 @@ const ChessPad = ({ game, onMove, maxWidth, transitionDuration = 150 }) => {
               orientation={orientation}
               onToggleOrientation={() => setOrientation(previous => (previous === 'white' ? 'black' : 'white'))}
             />
-            <div className={classes.panelContainer}>
+
+            <div className={classes.captionContainer}>
               {caption}
             </div>
           </div>

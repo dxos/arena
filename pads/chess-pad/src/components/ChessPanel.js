@@ -24,10 +24,9 @@ import EndIcon from '@material-ui/icons/SkipNext';
 
 const useStyles = makeStyles(theme => ({
   table: ({ rows }) => ({
-    height: 43 + rows * 33,
     display: 'flex',
-    flex: 1,
-    flexDirection: 'column-reverse'
+    flexDirection: 'column',
+    height: 43 + rows * 33
   }),
   player: {
     display: 'flex',
@@ -73,7 +72,6 @@ const Player = ({ name, turn }) => {
 
 const ChessPanel = ({ game, position = -1, onSetPosition, onToggleOrientation, orientation }) => {
   const classes = useStyles({ rows: 8 });
-
   if (!game) {
     return null;
   }
@@ -83,13 +81,12 @@ const ChessPanel = ({ game, position = -1, onSetPosition, onToggleOrientation, o
     if (index % 2 === 0) {
       result.push(array.slice(index, index + 2));
     }
+
     return result;
   }, []);
 
   // TODO(burdon): Player names.
   // TODO(burdon): Player turn indicator (NOTE: this depends if we are playing!)
-  // TODO(burdon): Scroll to move.
-  // TODO(burdon): Chess font for notation.
 
   return (
     <Paper>
@@ -97,6 +94,7 @@ const ChessPanel = ({ game, position = -1, onSetPosition, onToggleOrientation, o
         name={orientation === 'white' ? 'Player 2' : 'Player 1'}
         turn={game.turn() === (orientation === 'white' ? 'b' : 'w')}
       />
+
       <TableContainer className={classes.table}>
         <Table stickyHeader size="small" aria-label="moves table">
           <TableHead className={classes.header}>
