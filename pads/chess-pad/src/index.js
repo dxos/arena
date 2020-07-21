@@ -8,6 +8,7 @@ import Game from './containers/Game';
 import KingWhite from './icons/KingWhite';
 
 import ChessSettingsDialog from './containers/ChessSettingsDialog';
+export Game from './containers/Game';
 
 export default {
   // TODO(elmasse): READ THIS FROM PAD.YML

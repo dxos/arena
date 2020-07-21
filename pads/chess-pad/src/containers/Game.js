@@ -21,6 +21,8 @@ const useStyles = makeStyles(() => ({
 // TODO(burdon): Callbacks should be onXXX.
 const Game = ({ topic, viewId }) => {
   const classes = useStyles();
+  const [pads] = usePads();
+  const { model: viewModel } = useViews(topic);
   const [game, makeMove, gameModel] = useChessModel(topic, viewId);
 
   if (!gameModel) {
@@ -38,6 +40,8 @@ const Game = ({ topic, viewId }) => {
           gameId={viewId}
           game={game}
           onMove={makeMove}
+          grid={grid}
+          maxWidth={grid && 300}
         />
       </div>
     </>

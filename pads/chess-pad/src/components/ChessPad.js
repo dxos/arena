@@ -16,7 +16,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    outline: 'none'
   },
   container: {
     display: 'flex',
@@ -51,12 +52,12 @@ const getCaption = (game) => {
 /**
  * Chess board wrapper.
  */
-const ChessPad = ({ game, onMove, maxWidth, transitionDuration = 150 }) => {
+const ChessPad = ({ game, onMove, maxWidth, transitionDuration = 150, grid }) => {
   const classes = useStyles();
   const board = useRef();
   const [orientation, setOrientation] = useState('white'); // TODO(burdon): Constants.
   const [promotionSelectCallback, setPromotionSelectCallback] = useState();
-  const [isPanelVisible, setPanelVisibility] = useState(true);
+  const [showPanel, setShowPanel] = useState(!grid && true);
   const [position, setPosition] = useState(-1);
   const lengthRef = useRef(-1);
 
@@ -68,6 +69,10 @@ const ChessPad = ({ game, onMove, maxWidth, transitionDuration = 150 }) => {
     lengthRef.current = length;
   }, [position, length]);
 
+  if (!game) {
+    return null;
+  }
+
   const keyMap = {
     panelVisibility: {
       name: 'Toggle action panel',
@@ -77,13 +82,11 @@ const ChessPad = ({ game, onMove, maxWidth, transitionDuration = 150 }) => {
 
   const keyHandlers = {
     panelVisibility: () => {
-      setPanelVisibility(prev => !prev);
+      if (!grid) {
+        setShowPanel(prev => !prev);
+      }
     }
   };
-
-  if (!game) {
-    return null;
-  }
 
   // Get game position.
   let fen = game.fen();
@@ -122,7 +125,7 @@ const ChessPad = ({ game, onMove, maxWidth, transitionDuration = 150 }) => {
 
   const caption = getCaption(game);
 
-  // TODO(burdon): Fix flicker transition bug?
+  // TODO(burdon): Fix flicker game move bug?
   return (
     <HotKeys
       allowChanges
@@ -142,7 +145,7 @@ const ChessPad = ({ game, onMove, maxWidth, transitionDuration = 150 }) => {
         </div>
 
         {/* TODO(burdon): Use constants for sides. */}
-        {isPanelVisible && (
+        {showPanel && (
           <div className={classes.panel}>
             <div className={classes.captionContainer} />
 
