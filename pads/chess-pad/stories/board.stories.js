@@ -12,6 +12,21 @@ import ChessPad from '../src/components/ChessPad';
 import ChessPanel from '../src/components/ChessPanel';
 
 storiesOf('Chess', module)
+  .add('Init', () => {
+    const [game, setGame] = useState(new Chess());
+
+    return (
+      <ChessPad
+        game={game}
+        onMove={move => {
+          const newGame = new Chess();
+          game.history().forEach(move => newGame.move(move));
+          newGame.move(move);
+          setGame(newGame);
+        }}
+      />
+    );
+  })
   .add('Board', () => {
     const [game, setGame] = useState();
 
