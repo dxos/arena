@@ -6,7 +6,6 @@ import React, { useState } from 'react';
 
 import { makeStyles } from '@material-ui/core';
 
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -26,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: theme.spacing(4)
+    marginBottom: theme.spacing(2)
   },
   autocomplete: {
     display: 'flex',
@@ -37,20 +36,20 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const PlayerSelector = ({ members, label, onSelect }) => {
+const PlayerSelector = ({ value, members, label, onSelect }) => {
   const classes = useStyles();
 
-  // TODO(burdon): Set initial state.
   return (
     <div className={classes.selector}>
       <Autocomplete
         id="combo-box-demo"
         classes={{ root: classes.autocomplete }}
         options={members}
-        getOptionLabel={(member) => member.displayName || humanize(member.publicKey)}
+        getOptionLabel={(member) => member ? (member.displayName || humanize(member.publicKey)) : ''}
         renderInput={(params) => <TextField {...params} label={label} variant="outlined" />}
+        value={value || ''}
         onChange={(_, member) => {
-          onSelect(member && member.publicKey);
+          onSelect(member);
         }}
       />
 
@@ -63,8 +62,7 @@ const PlayerSelector = ({ members, label, onSelect }) => {
 };
 
 // TODO(burdon): Pass in current state.
-const ChessSettings = ({ party, onSelected }) => {
-  const [{ white, black }, setPlayers] = useState({});
+const ChessSettings = ({ party, white, black, setPlayers }) => {
   const classes = useStyles();
 
   const members = [...party.members].sort(sorter);
@@ -74,25 +72,16 @@ const ChessSettings = ({ party, onSelected }) => {
       <PlayerSelector
         members={members}
         label='White pieces'
+        value={white}
         onSelect={publicKey => setPlayers({ black, white: publicKey || undefined })}
       />
 
       <PlayerSelector
         members={members}
         label='Black pieces'
+        value={black}
         onSelect={publicKey => setPlayers({ white, black: publicKey || undefined })}
       />
-
-      {/* TODO(burdon): Remove: set state when View settings is closed (if unset). */}
-      <div>
-        <Button
-          color="primary"
-          disabled={!white || !black}
-          onClick={() => onSelected({ white, black })}
-        >
-          Done
-        </Button>
-      </div>
     </div>
   );
 };

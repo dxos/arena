@@ -6,20 +6,17 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Home } from '@material-ui/icons';
-import IconButton from '@material-ui/core/IconButton';
-import SettingsIcon from '@material-ui/icons/Settings';
 
 import { noop } from '@dxos/async';
 import { keyToBuffer } from '@dxos/crypto';
-import { useClient } from '@dxos/react-client';
+import { useClient, useParty } from '@dxos/react-client';
 import {
   AppContainer,
   DefaultViewSidebar,
-  ViewSettingsDialog,
   usePads,
   useAppRouter,
-  useViews
+  useViews,
+  DefaultSettingsDialog
 } from '@dxos/react-appkit';
 
 const useStyles = makeStyles(theme => ({
@@ -38,6 +35,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const App = () => {
+  const party = useParty();
   const router = useAppRouter();
   const classes = useStyles();
   const { topic, item: viewId } = useParams();
@@ -56,48 +54,38 @@ const App = () => {
     }
   }, [topic]);
 
-  // TODO(burdon): Move to appkit.
-  const AppBarContent = () => {
-    return (
-      <>
-        <IconButton color="inherit">
-          <Home onClick={() => router.push({ path: '/home' })} />
-        </IconButton>
-        <IconButton color="inherit">
-          <SettingsIcon onClick={() => setViewSettingsOpen(true)} />
-        </IconButton>
-      </>
-    );
-  };
+  if (!model || !item) {
+    return <p>Loading...</p>;
+  }
+
+  const Settings = (pad && pad.settings) ? pad.settings : DefaultSettingsDialog;
 
   return (
     <>
       <AppContainer
-        appBarContent={<AppBarContent />}
         sidebarContent={<DefaultViewSidebar />}
+        onSettingsOpened={() => setViewSettingsOpen(true)}
+        onHomeNavigation={() => router.push({ path: '/home' })}
       >
         <div className={classes.main}>
           {pad && (
             <pad.main
               topic={topic}
               viewId={viewId}
-              viewSettingsOpen={viewSettingsOpen}
-              setViewSettingsOpen={setViewSettingsOpen}
             />
           )}
         </div>
       </AppContainer>
-
-      {/* TODO(burdon): Move from here to framework. */}
-      {pad && !pad.customViewSettings && (
-        <ViewSettingsDialog
-          open={viewSettingsOpen}
-          onClose={() => setViewSettingsOpen(false)}
-          viewModel={model}
-          pads={pads}
-          viewId={viewId}
-        />
-      )}
+      <Settings
+        party={party}
+        topic={topic}
+        open={viewSettingsOpen}
+        onClose={() => setViewSettingsOpen(false)}
+        onCancel={() => setViewSettingsOpen(false)}
+        item={item}
+        viewModel={model}
+        Icon={pad && pad.icon}
+      />
     </>
   );
 };
