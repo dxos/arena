@@ -1071,11 +1071,6 @@
   dependencies:
     "@date-io/core" "^1.3.13"
 
-"@dxos/async@^1.0.0-beta.0":
-  version "1.0.0-beta.0"
-  resolved "https://registry.yarnpkg.com/@dxos/async/-/async-1.0.0-beta.0.tgz#596ad2bec1ecd22cdf8d2ee4161b0e2647d3b3e9"
-  integrity sha512-MV2w4bAZ2jmfHXReaJ6EGwa+dCIMbXR3x7hj4MMGqPz6L5TzOywmNvjCOV7MsfR9P4GJqQefri7+agoBuTHPYw==
-
 "@dxos/async@^1.0.0-beta.1", "@dxos/async@^1.0.0-beta.2":
   version "1.0.0-beta.2"
   resolved "https://registry.yarnpkg.com/@dxos/async/-/async-1.0.0-beta.2.tgz#063ce87151682953864c193feb4b2281383ac18c"

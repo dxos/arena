@@ -27,8 +27,8 @@ jobs:
           yarn lint
 
           # Uncomment for NPM publishing.
-          # npm whoami
-          # yarn lerna publish -y prerelease --dist-tag="beta" --force-publish
+          npm whoami
+          yarn lerna publish -y prerelease --dist-tag="beta" --force-publish
 
           # Publish to WNS
           yarn wire profile init --name $WIRE_PROFILE --template-url https://signal1.dxos.network/dxos/ipfs/gateway/QmeJcwpcQuXeY1N94ezWAzYinSX5AA4kZoaZjp9JmmpaLN
