@@ -7,15 +7,18 @@ import Chance from 'chance';
 import defaultsDeep from 'lodash.defaultsdeep';
 
 import { createId, keyToBuffer, keyToString } from '@dxos/crypto';
-import { asyncHandler } from '@dxos/async';
+import { sleep } from '@dxos/async';
 import { log } from '@dxos/debug';
 import { TYPE_CHESS_GAME, TYPE_CHESS_MOVE, TYPE_CHESS_PLAYERSELECT, ChessModel } from '@dxos/chess-core';
-import { print } from '@dxos/cli-core';
+import { print, asyncHandler } from '@dxos/cli-core';
 
 const chance = new Chance();
 
-const peekCustomItem = (arr) => {
-  return arr[Math.floor(Math.random() * arr.length)];
+const peekCustomItem = (arr, filter) => {
+  const inputArr = filter ? arr.filter(filter) : arr;
+  assert(inputArr.length, 'Unable to peek random item from empty list.');
+
+  return inputArr[Math.floor(Math.random() * inputArr.length)];
 };
 
 // TODO(egorgripasov): Factor out.
@@ -96,11 +99,12 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface }) =
       describe: 'Create game.',
       builder: yargs => yargs
         .option('title')
-        .option('quantity', { type: 'number' })
-        .option('auto-assign', { type: 'boolean' }),
+        .option('count', { type: 'number' })
+        .option('auto-assign', { type: 'boolean' })
+        .option('demo', { type: 'boolean' }),
 
       handler: asyncHandler(async argv => {
-        const { title: gameTitle, json, quantity = 1, autoAssign } = argv;
+        const { title: gameTitle, json, count = 1, autoAssign, demo } = argv;
 
         const topic = stateManager.currentParty;
         assert(topic, 'Invalid party.');
@@ -126,14 +130,21 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface }) =
         };
 
         const games = [];
-        for (let counter = 0; counter < quantity; counter++) {
+        for (let counter = 0; counter < count; counter++) {
+          // TODO(egorgripasov): For demo purpose only, remove.
+          if (counter > 0 && demo) {
+            await sleep(300);
+          }
+
           const itemId = createId();
 
           let white;
           let black;
           if (autoAssign) {
-            white = peekCustomItem(members);
-            black = peekCustomItem(members);
+            // TODO(egorgripasov): For demo purpose only, remove.
+            const filter = demo ? item => item.displayName.startsWith('bot:') : undefined;
+            white = peekCustomItem(members, filter);
+            black = peekCustomItem(members, filter);
           } else {
             const self = client.partyManager.identityManager;
             if (members.length > 1) {
@@ -165,7 +176,7 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface }) =
 
           const gameModel = await client.modelFactory.createModel(ChessModel, { type: [TYPE_CHESS_MOVE, TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT], topic, itemId });
           gameModel.appendMessage({ __type_url: TYPE_CHESS_PLAYERSELECT, viewId: itemId, itemId, ...ChessModel.createGenesisMessage(title, white.publicKey, black.publicKey) });
-          if (quantity === 1) {
+          if (count === 1) {
             await stateManager.setModel(gameModel, getGameUpdateHandler(members));
           }
           games.push({ gameId: itemId, title });

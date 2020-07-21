@@ -2,7 +2,6 @@
   "name": "@dxos/chess-core",
   "version": "1.0.0-beta.59",
   "main": "dist/index.js",
-  "private": true,
   "scripts": {
     "build": "babel src -d dist",
     "lint": "eslint ./src --ignore-path ../../.eslintignore",
