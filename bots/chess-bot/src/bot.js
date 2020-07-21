@@ -72,11 +72,12 @@ export class ChessBot extends Bot {
     });
 
     model.on('update', async () => {
+      console.log(`\nGame '${itemId}':\n${model.game.ascii()}`);
       if ((model.game.turn() === 'b' && isBlack) || (model.game.turn() === 'w' && isWhite)) {
         const move = await this.getNextMove(model.game);
         if (move) {
-          console.log(`Making move in game '${itemId}': ${JSON.stringify(move)}`);
-          await sleep(2000);
+          console.log(`Making move: ${JSON.stringify(move)}`);
+          await sleep(1200);
           model.makeMove(move);
         }
       }
