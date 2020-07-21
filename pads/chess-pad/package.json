@@ -9,8 +9,8 @@
   "license": "GPL-3.0",
   "author": "DXOS.org",
   "scripts": {
-    "build": "cp -r src/assets dist/ && babel src -d dist",
-    "build:dev": "cp -r src/assets dist/ && babel src -d dist --watch",
+    "build": "mkdir -p dist && cp -r src/assets dist/ && babel src -d dist",
+    "build:dev": "mkdir -p dist && cp -r src/assets dist/ && babel src -d dist --watch",
     "debug": "DOT_ENV=.env.debug webpack-dev-server --mode development",
     "debug:localhost": "CONFIG=localhost.yml webpack-dev-server --mode development",
     "dist": "rollup -c",
