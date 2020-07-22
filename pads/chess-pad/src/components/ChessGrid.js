@@ -11,7 +11,7 @@ import Game from '../containers/Game';
 
 const useStyles = makeStyles(() => ({
   grid: {
-    marginTop: 50,
+    marginTop: 30,
     width: '80%',
     maxWidth: 1200
   },
@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    width: 350
+    width: 250
   },
   gridItemTitle: {
     marginTop: 10
@@ -54,6 +54,7 @@ const ChessGrid = ({ boards, topic }) => {
                 item
                 key={item.viewId}
                 className={classes.gridItem}
+                md={4}
               >
                 <Game
                   grid

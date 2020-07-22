@@ -39,7 +39,7 @@ const Game = ({ topic, viewId, grid }) => {
           game={game}
           onMove={makeMove}
           grid={grid}
-          maxWidth={grid && 300}
+          maxWidth={grid && 200}
         />
       </div>
     </>
