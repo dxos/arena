@@ -33,9 +33,10 @@ const Grid = () => {
           topic={topic}
           boards={
             model.getAllViews()
-            .slice(0, 9)
-            .filter(item => !item.deleted && item.type === 'testing.chess.Game')}
-        />
+              .filter(item => !item.deleted && item.type === 'testing.chess.Game')
+              .slice(0, 9)
+          }
+      />
       </AppContainer>
     </>
   );
