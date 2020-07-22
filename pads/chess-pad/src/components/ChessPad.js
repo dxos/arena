@@ -52,12 +52,12 @@ const getCaption = (game) => {
 /**
  * Chess board wrapper.
  */
-const ChessPad = ({ game, onMove, maxWidth, transitionDuration = 150, grid }) => {
+const ChessPad = ({ game, onMove, maxWidth, transitionDuration = 150, showPabel: initShowPanel = true }) => {
   const classes = useStyles();
   const board = useRef();
   const [orientation, setOrientation] = useState('white'); // TODO(burdon): Constants.
   const [promotionSelectCallback, setPromotionSelectCallback] = useState();
-  const [showPanel, setShowPanel] = useState(!grid && true);
+  const [showPanel, setShowPanel] = useState(initShowPanel);
   const [position, setPosition] = useState(-1);
   const lengthRef = useRef(-1);
 
@@ -82,7 +82,7 @@ const ChessPad = ({ game, onMove, maxWidth, transitionDuration = 150, grid }) =>
 
   const keyHandlers = {
     panelVisibility: () => {
-      if (!grid) {
+      if (initShowPanel) {
         setShowPanel(prev => !prev);
       }
     }
@@ -96,6 +96,7 @@ const ChessPad = ({ game, onMove, maxWidth, transitionDuration = 150, grid }) =>
     for (let i = 0; i < position; i++) {
       tempGame.move(history[i]);
     }
+
     fen = tempGame.fen();
   }
 
@@ -118,12 +119,12 @@ const ChessPad = ({ game, onMove, maxWidth, transitionDuration = 150, grid }) =>
   };
 
   const calcWidth = () => {
-    if (!board.current) { return 0; }
-    const size = Math.min(board.current.offsetWidth, board.current.offsetHeight);
-    if (grid) {
-      return maxWidth;
+    if (!board.current) {
+      return 0;
     }
-    return maxWidth ? Math.min(size, maxWidth) : size;
+
+    const size = Math.min(board.current.offsetWidth, board.current.offsetHeight);
+    return maxWidth ? Math.max(size, maxWidth) : size;
   };
 
   const caption = getCaption(game);
