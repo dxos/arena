@@ -104,7 +104,7 @@ module.exports = {
       }
     }),
 
-    isDevelopment && new ReactRefreshWebpackPlugin()
+    isDevelopment && new ReactRefreshWebpackPlugin({ overlay: false })
   ].filter(Boolean),
 
   module: {
