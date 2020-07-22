@@ -53,8 +53,8 @@ const Grid = () => {
   }, [topic]);
 
   const appBarContent = (<>
-    <IconButton color="inherit">
-      <Home onClick={() => router.push({ path: '/home' })} />
+    <IconButton color="inherit" onClick={() => router.push({ path: '/home' })}>
+      <Home />
     </IconButton>
   </>);
 
