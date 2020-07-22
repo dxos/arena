@@ -120,6 +120,9 @@ const ChessPad = ({ game, onMove, maxWidth, transitionDuration = 150, grid }) =>
   const calcWidth = () => {
     if (!board.current) { return 0; }
     const size = Math.min(board.current.offsetWidth, board.current.offsetHeight);
+    if (grid) {
+      return maxWidth;
+    }
     return maxWidth ? Math.min(size, maxWidth) : size;
   };
 

@@ -25,7 +25,8 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    width: 350
   },
   gridItemTitle: {
     marginTop: 10
@@ -81,7 +82,6 @@ const Grid = () => {
                   item
                   key={item.viewId}
                   className={classes.gridItem}
-                  md={4}
                 >
                   <Game
                     grid
