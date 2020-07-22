@@ -12,9 +12,12 @@ import ChessGrid from '../src/components/ChessGrid';
 // TODO(burdon): How to test with fake party?
 storiesOf('Panels', module)
   .add('Grid', () => {
+    const topic = null;
+    const boards = null;
+
     return (
       <Box m={2}>
-        <ChessGrid />
+        <ChessGrid topic={topic} boards={boards} />
       </Box>
     );
   });

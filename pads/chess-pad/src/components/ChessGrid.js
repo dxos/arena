@@ -4,35 +4,68 @@
 
 import React from 'react';
 
-import Chessboard from 'chessboardjsx';
+import { makeStyles } from '@material-ui/core/styles';
+import { Grid as GridUI, Typography } from '@material-ui/core';
 
-import Grid from '@material-ui/core/Card';
+import Game from '../containers/Game';
 
-import { useViews } from '@dxos/react-appkit';
+const useStyles = makeStyles(() => ({
+  grid: {
+    marginTop: 50,
+    width: '80%',
+    maxWidth: 1200
+  },
+  gridItem: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 350
+  },
+  gridItemTitle: {
+    marginTop: 10
+  },
+  container: {
+    overflow: 'auto',
+    overflowX: 'hidden',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center'
+  }
+}));
 
-import { useChessModel } from '../model';
+const ChessGrid = ({ boards, topic }) => {
+  const classes = useStyles();
 
-const ChessBoard = ({ topic, item }) => {
-  const [game, makeMove, gameModel] = useChessModel(topic, item.viewId);
+  if (!boards) return null;
 
   return (
-    <Chessboard
-      position={game.fen()}
-    />
-  );
-};
-
-const ChessGrid = ({ topic }) => {
-  const { model } = useViews(topic);
-
-  return (
-    <Grid container>
-      {model.getAllViews().map(item => (
-        <Grid key={item.viewId} item>
-          <ChessBoard item={item} />
-        </Grid>
-      ))}
-    </Grid>
+    <div className={classes.container}>
+      <GridUI
+        container
+        spacing={2}
+        direction="row"
+        justify="center"
+        alignItems="center"
+        className={classes.grid}
+      >
+        {boards.map(item => (
+              <GridUI
+                item
+                key={item.viewId}
+                className={classes.gridItem}
+              >
+                <Game
+                  grid
+                  topic={topic}
+                  viewId={item.viewId}
+                />
+                <Typography className={classes.gridItemTitle}>{item.displayName}</Typography>
+              </GridUI>
+            )
+          )}
+      </GridUI>
+    </div>
   );
 };
 

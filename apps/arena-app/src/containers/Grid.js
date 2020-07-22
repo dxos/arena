@@ -5,44 +5,17 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { makeStyles } from '@material-ui/core/styles';
 import { Home } from '@material-ui/icons';
-import { Grid as GridUI, IconButton, Typography } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 
-import { Game } from '@dxos/chess-pad';
 import { noop } from '@dxos/async';
 import { keyToBuffer } from '@dxos/crypto';
 import { useClient } from '@dxos/react-client';
 import { AppContainer, DefaultViewSidebar, useAppRouter, useViews } from '@dxos/react-appkit';
-
-const useStyles = makeStyles(() => ({
-  grid: {
-    marginTop: 50,
-    width: '80%',
-    maxWidth: 1200
-  },
-  gridItem: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 350
-  },
-  gridItemTitle: {
-    marginTop: 10
-  },
-  container: {
-    overflow: 'auto',
-    overflowX: 'hidden',
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center'
-  }
-}));
+import ChessGrid from '@dxos/chess-pad/src/components/ChessGrid';
 
 const Grid = () => {
   const router = useAppRouter();
-  const classes = useStyles();
   const { topic } = useParams();
   const { model } = useViews(topic);
   const client = useClient();
@@ -65,35 +38,13 @@ const Grid = () => {
         appBarContent={appBarContent}
         sidebarContent={<DefaultViewSidebar />}
       >
-        <div className={classes.container}>
-          <GridUI
-            container
-            spacing={2}
-            direction="row"
-            justify="center"
-            alignItems="center"
-            className={classes.grid}
-          >
-            {model.getAllViews()
-              .slice(0, 9)
-              .filter(item => !item.deleted && item.type === 'testing.chess.Game')
-              .map(item => (
-                <GridUI
-                  item
-                  key={item.viewId}
-                  className={classes.gridItem}
-                >
-                  <Game
-                    grid
-                    topic={topic}
-                    viewId={item.viewId}
-                  />
-                  <Typography className={classes.gridItemTitle}>{item.displayName}</Typography>
-                </GridUI>
-              )
-            )}
-          </GridUI>
-        </div>
+        <ChessGrid
+          topic={topic}
+          boards={
+            model.getAllViews()
+            .slice(0, 9)
+            .filter(item => !item.deleted && item.type === 'testing.chess.Game')}
+        />
       </AppContainer>
     </>
   );
