@@ -73,21 +73,25 @@ const Grid = () => {
             alignItems="center"
             className={classes.grid}
           >
-            {model.getAllViews().slice(0, 9).map(item => (
-              <GridUI
-                item
-                key={item.viewId}
-                className={classes.gridItem}
-                md={4}
-              >
-                <Game
-                  grid
-                  topic={topic}
-                  viewId={item.viewId}
-                />
-                <Typography className={classes.gridItemTitle}>{item.displayName}</Typography>
-              </GridUI>
-            ))}
+            {model.getAllViews()
+              .slice(0, 9)
+              .filter(item => !item.deleted && item.type === 'testing.chess.Game')
+              .map(item => (
+                <GridUI
+                  item
+                  key={item.viewId}
+                  className={classes.gridItem}
+                  md={4}
+                >
+                  <Game
+                    grid
+                    topic={topic}
+                    viewId={item.viewId}
+                  />
+                  <Typography className={classes.gridItemTitle}>{item.displayName}</Typography>
+                </GridUI>
+              )
+            )}
           </GridUI>
         </div>
       </AppContainer>
