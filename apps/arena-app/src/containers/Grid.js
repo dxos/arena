@@ -5,9 +5,6 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { Home } from '@material-ui/icons';
-import { IconButton } from '@material-ui/core';
-
 import { noop } from '@dxos/async';
 import { keyToBuffer } from '@dxos/crypto';
 import { useClient } from '@dxos/react-client';
@@ -26,17 +23,11 @@ const Grid = () => {
     }
   }, [topic]);
 
-  const appBarContent = (<>
-    <IconButton color="inherit" onClick={() => router.push({ path: '/home' })}>
-      <Home />
-    </IconButton>
-  </>);
-
   return (
     <>
       <AppContainer
-        appBarContent={appBarContent}
         sidebarContent={<DefaultViewSidebar />}
+        onHomeNavigation={() => router.push({ path: '/home' })}
       >
         <ChessGrid
           topic={topic}
