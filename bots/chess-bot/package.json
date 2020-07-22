@@ -28,8 +28,8 @@
   },
   "dependencies": {
     "@dxos/async": "^1.0.0-beta.2",
-    "@dxos/botkit": "^1.0.0-beta.204",
-    "@dxos/chess-core": "^1.0.0-beta.70"
+    "@dxos/chess-core": "^1.0.0-beta.70",
+    "@dxos/botkit": "^1.0.0-beta.207"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
