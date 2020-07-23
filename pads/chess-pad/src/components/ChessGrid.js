@@ -7,8 +7,9 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
 
-import ChessPad from './ChessPad';
+import { useAppRouter } from '@dxos/react-appkit';
 
+import ChessPad from './ChessPad';
 import { useChessModel } from '../model';
 
 const useStyles = makeStyles(theme => ({
@@ -33,7 +34,12 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center'
   },
   gridItemTitle: {
-    marginTop: 10
+    marginTop: 10,
+    cursor: 'pointer',
+
+    '&:hover': {
+      color: theme.palette.primary.main
+    }
   }
 }));
 
@@ -58,6 +64,8 @@ const Game = ({ topic, viewId }) => {
 
 const ChessGrid = ({ boards, topic }) => {
   const classes = useStyles();
+  const router = useAppRouter();
+
   if (!boards) {
     return null;
   }
@@ -82,7 +90,10 @@ const ChessGrid = ({ boards, topic }) => {
             sm={3}
           >
             <Game topic={topic} viewId={item.viewId} />
-            <Typography className={classes.gridItemTitle}>
+            <Typography
+              className={classes.gridItemTitle}
+              onClick={() => router.push({ path: '/app', topic, item: item.viewId })}
+            >
               {item.displayName}
             </Typography>
           </Grid>
