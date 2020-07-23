@@ -87,6 +87,7 @@ const App = () => {
         <div className={classes.main}>
           {pad && (
             <pad.main
+              party={party}
               topic={topic}
               viewId={viewId}
             />

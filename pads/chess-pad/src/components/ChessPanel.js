@@ -3,7 +3,7 @@
 //
 
 import clsx from 'clsx';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
@@ -70,8 +70,16 @@ const Player = ({ name, turn }) => {
   );
 };
 
-const ChessPanel = ({ game, position = -1, onSetPosition, onToggleOrientation, orientation }) => {
+const ChessPanel = ({ party, game, position = -1, onSetPosition, onToggleOrientation, orientation }) => {
+  const [playerOneName, setPlayerOneName] = useState('Player 1');
+  const [playerTwoName, setPlayerTwoName] = useState('Player 2');
   const classes = useStyles({ rows: 8 });
+
+  useEffect(() => {
+    party.members[0] && setPlayerOneName(party.members[0].displayName);
+    party.members[1] && setPlayerTwoName(party.members[1].displayName);
+  }, [party.members]);
+
   if (!game) {
     return null;
   }
@@ -91,7 +99,7 @@ const ChessPanel = ({ game, position = -1, onSetPosition, onToggleOrientation, o
   return (
     <Paper>
       <Player
-        name={orientation === 'white' ? 'Player 2' : 'Player 1'}
+        name={orientation === 'white' ? playerTwoName : playerOneName}
         turn={game.turn() === (orientation === 'white' ? 'b' : 'w')}
       />
 
@@ -141,7 +149,7 @@ const ChessPanel = ({ game, position = -1, onSetPosition, onToggleOrientation, o
       </TableContainer>
 
       <Player
-        name={orientation === 'white' ? 'Player 1' : 'Player 2'}
+        name={orientation === 'white' ? playerOneName : playerTwoName}
         turn={game.turn() === (orientation === 'white' ? 'w' : 'b')}
       />
     </Paper>

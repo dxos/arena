@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 // TODO(burdon): Remove (ChessPad should be outer container.)
-const Game = ({ topic, viewId }) => {
+const Game = ({ party, topic, viewId }) => {
   const classes = useStyles();
   const [game, makeMove, gameModel] = useChessModel(topic, viewId);
   if (!gameModel || !gameModel.isInitialized) {
@@ -30,6 +30,7 @@ const Game = ({ topic, viewId }) => {
         gameId={viewId}
         game={game}
         onMove={makeMove}
+        party={party}
       />
     </div>
   );

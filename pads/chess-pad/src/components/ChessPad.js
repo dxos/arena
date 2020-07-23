@@ -52,7 +52,7 @@ const getCaption = (game) => {
 /**
  * Chess board wrapper.
  */
-const ChessPad = ({ game, onMove, maxWidth, transitionDuration = 150, showPabel: initShowPanel = true }) => {
+const ChessPad = ({ party, game, onMove, maxWidth, transitionDuration = 150, showPabel: initShowPanel = true }) => {
   const classes = useStyles();
   const board = useRef();
   const [orientation, setOrientation] = useState('white'); // TODO(burdon): Constants.
@@ -154,6 +154,7 @@ const ChessPad = ({ game, onMove, maxWidth, transitionDuration = 150, showPabel:
             <div className={classes.captionContainer} />
 
             <ChessPanel
+              party={party}
               game={game}
               position={position}
               onSetPosition={setPosition}
