@@ -1,6 +1,6 @@
 {
   "name": "@dxos/cli-chess",
-  "version": "1.0.0-beta.75",
+  "version": "1.0.0-beta.76",
   "main": "dist/index.js",
   "scripts": {
     "build": "babel src -d dist",
@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@dxos/async": "^1.0.0-beta.2",
-    "@dxos/chess-core": "^1.0.0-beta.75",
+    "@dxos/chess-core": "^1.0.0-beta.76",
     "@dxos/cli-core": "^1.0.1-beta.22",
     "@dxos/client": "^1.0.0-beta.207",
     "@dxos/debug": "^1.0.0-beta.56",
