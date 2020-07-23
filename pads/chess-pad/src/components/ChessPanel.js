@@ -71,13 +71,15 @@ const Player = ({ name, turn }) => {
 };
 
 const ChessPanel = ({ party, game, position = -1, onSetPosition, onToggleOrientation, orientation }) => {
-  const [playerOneName, setPlayerOneName] = useState('Player 1');
-  const [playerTwoName, setPlayerTwoName] = useState('Player 2');
+  const [firstPlayerName, setFirstPlayerName] = useState('Player 1');
+  const [secondPlayerName, setSecondPlayerName] = useState('Player 2');
   const classes = useStyles({ rows: 8 });
 
   useEffect(() => {
-    party.members[0] && setPlayerOneName(party.members[0].displayName);
-    party.members[1] && setPlayerTwoName(party.members[1].displayName);
+    if (party.members[0]) {
+      setFirstPlayerName(party.members[0].displayName);
+      setSecondPlayerName(party.members[1] ? party.members[1].displayName : party.members[0].displayName);
+    }
   }, [party.members]);
 
   if (!game) {
@@ -99,7 +101,7 @@ const ChessPanel = ({ party, game, position = -1, onSetPosition, onToggleOrienta
   return (
     <Paper>
       <Player
-        name={orientation === 'white' ? playerTwoName : playerOneName}
+        name={orientation === 'white' ? secondPlayerName : firstPlayerName}
         turn={game.turn() === (orientation === 'white' ? 'b' : 'w')}
       />
 
@@ -149,7 +151,7 @@ const ChessPanel = ({ party, game, position = -1, onSetPosition, onToggleOrienta
       </TableContainer>
 
       <Player
-        name={orientation === 'white' ? playerOneName : playerTwoName}
+        name={orientation === 'white' ? firstPlayerName : secondPlayerName}
         turn={game.turn() === (orientation === 'white' ? 'w' : 'b')}
       />
     </Paper>
