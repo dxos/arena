@@ -11,38 +11,27 @@ import ChessPad from '../components/ChessPad';
 const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
-    overflow: 'hidden',
-    // TODO(burdon): Don't use custom CSS. flex: 1 (follow existing patterns).
-    height: '100%',
-    width: '100%'
+    flex: 1,
+    overflow: 'hidden'
   }
 }));
 
-// TODO(burdon): Callbacks should be onXXX.
-const Game = ({ topic, viewId, grid }) => {
+// TODO(burdon): Remove (ChessPad should be outer container.)
+const Game = ({ topic, viewId }) => {
   const classes = useStyles();
   const [game, makeMove, gameModel] = useChessModel(topic, viewId);
-
-  if (!gameModel) {
-    return null;
-  }
-
-  if (!gameModel.isInitialized) {
+  if (!gameModel || !gameModel.isInitialized) {
     return null;
   }
 
   return (
-    <>
-      <div className={classes.root}>
-        <ChessPad
-          gameId={viewId}
-          game={game}
-          onMove={makeMove}
-          grid={grid}
-          maxWidth={grid && 200}
-        />
-      </div>
-    </>
+    <div className={classes.root}>
+      <ChessPad
+        gameId={viewId}
+        game={game}
+        onMove={makeMove}
+      />
+    </div>
   );
 };
 

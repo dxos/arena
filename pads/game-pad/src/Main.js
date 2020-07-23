@@ -32,7 +32,7 @@ const onMove = (model) => (position, piece, move) => {
   });
 };
 
-export default function TicTacToePad (props) {
+const TicTacToePad = (props) => {
   const { className, topic, viewId, ...cardProps } = props;
   const classes = useStyles();
   const model = useModel({
@@ -45,4 +45,6 @@ export default function TicTacToePad (props) {
       {model && <Game game={model.state.game} onMove={onMove(model)} classes={{ root: classes.gameCard }} />}
     </Card>
   );
-}
+};
+
+export default TicTacToePad;
