@@ -61,8 +61,8 @@ const ChessPad = ({ party, game, gameModel, onMove, maxWidth, transitionDuration
   const [showPanel, setShowPanel] = useState(initShowPanel);
   const [position, setPosition] = useState(-1);
   const lengthRef = useRef(-1);
-  const whitePlayerMember = party.members.find(m => keyToString(m.publicKey) === keyToString(gameModel.whitePubKey));
-  const blackPlayerMember = party.members.find(m => keyToString(m.publicKey) === keyToString(gameModel.blackPubKey));
+  const [whitePlayerName, setWhitePlayerName] = React.useState('White player');
+  const [blackPlayerName, setBlackPlayerName] = React.useState('Black player');
 
   const length = !game ? -1 : game.history().length;
   useEffect(() => {
@@ -71,6 +71,17 @@ const ChessPad = ({ party, game, gameModel, onMove, maxWidth, transitionDuration
     }
     lengthRef.current = length;
   }, [position, length]);
+
+  useEffect(() => {
+    if (party?.members && gameModel) {
+      setWhitePlayerName(
+        () => party.members.find(m => keyToString(m.publicKey) === keyToString(gameModel.whitePubKey)).displayName
+      );
+      setBlackPlayerName(
+        () => party.members.find(m => keyToString(m.publicKey) === keyToString(gameModel.blackPubKey)).displayName
+      );
+    }
+  }, []);
 
   if (!game) {
     return null;
@@ -162,8 +173,8 @@ const ChessPad = ({ party, game, gameModel, onMove, maxWidth, transitionDuration
               position={position}
               onSetPosition={setPosition}
               orientation={orientation}
-              whitePlayerName={whitePlayerMember.displayName}
-              blackPlayerName={blackPlayerMember.displayName}
+              whitePlayerName={whitePlayerName}
+              blackPlayerName={blackPlayerName}
               onToggleOrientation={() => setOrientation(previous => (previous === 'white' ? 'black' : 'white'))}
             />
 
