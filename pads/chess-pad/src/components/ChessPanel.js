@@ -2,18 +2,20 @@
 // Copyright 2020 DXOS.org
 //
 
+import React from 'react';
 import clsx from 'clsx';
-import React, { useEffect, useState } from 'react';
 
+import {
+  TableRow,
+  TableHead,
+  TableContainer,
+  TableCell,
+  TableBody,
+  Table,
+  Paper,
+  IconButton
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 
 import TurnIcon from '@material-ui/icons/ArrowLeft';
 import SwapIcon from '@material-ui/icons/Cached';
@@ -70,17 +72,16 @@ const Player = ({ name, turn }) => {
   );
 };
 
-const ChessPanel = ({ party, game, position = -1, onSetPosition, onToggleOrientation, orientation }) => {
-  const [firstPlayerName, setFirstPlayerName] = useState('Player 1');
-  const [secondPlayerName, setSecondPlayerName] = useState('Player 2');
+const ChessPanel = ({
+  whitePlayerName,
+  blackPlayerName,
+  game,
+  position = -1,
+  onSetPosition,
+  onToggleOrientation,
+  orientation
+}) => {
   const classes = useStyles({ rows: 8 });
-
-  useEffect(() => {
-    if (party.members[0]) {
-      setFirstPlayerName(party.members[0].displayName);
-      setSecondPlayerName(party.members[1] ? party.members[1].displayName : party.members[0].displayName);
-    }
-  }, [party.members]);
 
   if (!game) {
     return null;
@@ -101,7 +102,7 @@ const ChessPanel = ({ party, game, position = -1, onSetPosition, onToggleOrienta
   return (
     <Paper>
       <Player
-        name={orientation === 'white' ? secondPlayerName : firstPlayerName}
+        name={orientation === 'white' ? blackPlayerName : whitePlayerName}
         turn={game.turn() === (orientation === 'white' ? 'b' : 'w')}
       />
 
@@ -151,7 +152,7 @@ const ChessPanel = ({ party, game, position = -1, onSetPosition, onToggleOrienta
       </TableContainer>
 
       <Player
-        name={orientation === 'white' ? firstPlayerName : secondPlayerName}
+        name={orientation === 'white' ? whitePlayerName : blackPlayerName}
         turn={game.turn() === (orientation === 'white' ? 'w' : 'b')}
       />
     </Paper>

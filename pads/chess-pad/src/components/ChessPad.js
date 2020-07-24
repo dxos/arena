@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import ChessPanel from './ChessPanel';
 import PromotionSelect from './PromotionSelect';
 import { HotKeys } from 'react-hotkeys';
+import { keyToString } from '@dxos/crypto';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,7 +53,7 @@ const getCaption = (game) => {
 /**
  * Chess board wrapper.
  */
-const ChessPad = ({ party, game, onMove, maxWidth, transitionDuration = 150, showPabel: initShowPanel = true }) => {
+const ChessPad = ({ party, game, gameModel, onMove, maxWidth, transitionDuration = 150, showPabel: initShowPanel = true }) => {
   const classes = useStyles();
   const board = useRef();
   const [orientation, setOrientation] = useState('white'); // TODO(burdon): Constants.
@@ -60,6 +61,8 @@ const ChessPad = ({ party, game, onMove, maxWidth, transitionDuration = 150, sho
   const [showPanel, setShowPanel] = useState(initShowPanel);
   const [position, setPosition] = useState(-1);
   const lengthRef = useRef(-1);
+  const whitePlayerMember = party.members.find(m => keyToString(m.publicKey) === keyToString(gameModel.whitePubKey));
+  const blackPlayerMember = party.members.find(m => keyToString(m.publicKey) === keyToString(gameModel.blackPubKey));
 
   const length = !game ? -1 : game.history().length;
   useEffect(() => {
@@ -159,6 +162,8 @@ const ChessPad = ({ party, game, onMove, maxWidth, transitionDuration = 150, sho
               position={position}
               onSetPosition={setPosition}
               orientation={orientation}
+              whitePlayerName={whitePlayerMember.displayName}
+              blackPlayerName={blackPlayerMember.displayName}
               onToggleOrientation={() => setOrientation(previous => (previous === 'white' ? 'black' : 'white'))}
             />
 

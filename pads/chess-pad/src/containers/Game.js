@@ -29,6 +29,7 @@ const Game = ({ party, topic, viewId }) => {
       <ChessPad
         gameId={viewId}
         game={game}
+        gameModel={gameModel}
         onMove={makeMove}
         party={party}
       />
