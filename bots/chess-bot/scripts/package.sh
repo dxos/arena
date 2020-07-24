@@ -40,6 +40,9 @@ case $PLATFORM_ARCH in
     cp -r ../../node_modules/sodium-native/prebuilds/linux-arm/. "${PACKAGE_BUILD_DIR}/${PLATFORM_ARCH}/prebuilds/linux-arm"
     ;;
 
+  linux-arm64 )
+    # Native binaries are not required at this time except for wrtc (see below).
+    ;;
   * )
     echo "Unsupported platform/arch: ${PLATFORM_ARCH}" && exit
 esac

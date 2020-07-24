@@ -19,6 +19,8 @@
     "lint": "eslint src --ignore-path ../../.eslintignore",
     "package:linux-x64": "rm -rf out/bin && npm run pkg:linux-x64 && scripts/package.sh linux-x64",
     "package:macos-x64": "rm -rf out/bin && npm run pkg:macos-x64 && scripts/package.sh macos-x64",
+    "package:linux-arm64": "rm -rf out/bin && npm run pkg:linux-arm64 && scripts/package.sh linux-arm64",
+    "pkg:linux-arm64": "npm run build && NODE_OPTIONS='' && node_modules/.bin/pkg --target node12-linux-arm64  dist/main.js -o ./out/bin/main-linux-arm64",
     "pkg:linux-x64": "npm run build && NODE_OPTIONS='' && node_modules/.bin/pkg --target node12-linux-x64  dist/main.js -o ./out/bin/main-linux-x64",
     "pkg:macos-x64": "npm run build && NODE_OPTIONS='' && node_modules/.bin/pkg --target node12-macos-x64  dist/main.js -o ./out/bin/main-macos-x64",
     "test": "node_modules/.bin/jest --rootDir ./src --verbose --passWithNoTests"
