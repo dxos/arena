@@ -87,10 +87,11 @@ const ChessPad = ({ party, game, gameModel, onMove, maxWidth, transitionDuration
     return null;
   }
 
+  // alt + ... -> wont work on macos
   const keyMap = {
     panelVisibility: {
       name: 'Toggle action panel',
-      sequences: ['alt+p']
+      sequences: ['ctrl+p']
     }
   };
 
