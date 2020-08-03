@@ -2,9 +2,8 @@
 
 set -euo pipefail
 
-for app in `find . -name 'app.yml'`; do
-  pushd `dirname $app`
-  yarn
+for appdir in `find ./packages -name '*-app' -type d | grep -v node_modules`; do
+  pushd $appdir
 
   ORG="dxos.network"
   PKG_NAME=`cat package.json | jq -r '.name' | cut -d'/' -f2-`
