@@ -2,7 +2,8 @@
 
 set -euo pipefail
 
-for appdir in `find ./packages -name '*-app' -type d | grep -v node_modules`; do
+# TODO(telackey) do we need to check for the the '-app' suffix?
+for appdir in `find ./apps -name '*-app' -type d | grep -v node_modules`; do
   pushd $appdir
 
   ORG="dxos.network"
