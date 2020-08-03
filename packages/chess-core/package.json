@@ -1,6 +1,6 @@
 {
   "name": "@dxos/chess-core",
-  "version": "1.0.0-beta.85",
+  "version": "1.0.0-beta.86",
   "main": "dist/index.js",
   "scripts": {
     "build": "babel src -d dist",

@@ -1,6 +1,6 @@
 {
   "name": "@dxos/game-pad",
-  "version": "1.0.0-beta.85",
+  "version": "1.0.0-beta.86",
   "description": "DXOS oxo game pad",
   "main": "dist/es/index.js",
   "private": true,
@@ -17,7 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@dxos/game-model": "^1.0.0-beta.85",
+    "@dxos/game-model": "^1.0.0-beta.86",
     "clsx": "^1.0.4",
     "lodash.flowright": "^3.5.0"
   },
