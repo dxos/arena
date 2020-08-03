@@ -6,7 +6,6 @@ const path = require('path');
 const VersionFile = require('webpack-version-file-plugin');
 const webpack = require('webpack');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
-// const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 const { ConfigPlugin } = require('@dxos/config/ConfigPlugin');
 
@@ -103,8 +102,6 @@ module.exports = {
         title: 'Arena'
       }
     })
-
-    // isDevelopment && new ReactRefreshWebpackPlugin({ overlay: false })
   ].filter(Boolean),
 
   module: {
@@ -129,8 +126,7 @@ module.exports = {
               ['@babel/plugin-proposal-class-properties', { loose: true }],
               '@babel/plugin-proposal-nullish-coalescing-operator',
               '@babel/plugin-proposal-optional-chaining',
-              'babel-plugin-styled-components',
-              // isDevelopment && require.resolve('react-refresh/babel')
+              'babel-plugin-styled-components'
             ].filter(Boolean)
           }
         }
