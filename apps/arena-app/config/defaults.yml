@@ -10,11 +10,10 @@ devtools: true
 
 client:
   keyStorage:
-    root: "dxos/arena/keys"
+    root: "dxos/apps/keys"
 
   feedStorage:
-    root: "dxos/arena/feeds"
-    type: "idb"
+    root: "dxos/apps/feeds"
 
   swarm:
     signal: "wss://demo.kube.dxos.network/dxos/signal"
