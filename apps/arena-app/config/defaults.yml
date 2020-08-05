@@ -24,5 +24,10 @@ client:
         username: "wireline"
         credential: "wireline"
 
+services:
+  wns:
+    server: "https://node1.dxos.network/wns/api"
+    chainId: "wireline"
+
 debug:
     mode: 'development'
