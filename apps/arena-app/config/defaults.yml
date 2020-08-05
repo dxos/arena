@@ -6,8 +6,9 @@ app:
   name: 'Arena'
   rootElement: 'root'
 
+devtools: true
+
 client:
-  devtools: true
   keyStorage:
     root: "dxos/arena/keys"
 

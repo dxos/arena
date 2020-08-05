@@ -27,7 +27,7 @@
     "@babel/runtime": "^7.0.0",
     "@dxos/async": "^1.0.0-beta.1",
     "@dxos/cli-core": "^1.0.1-beta.22",
-    "@dxos/client": "^1.0.0-beta.217",
+    "@dxos/client": "^1.0.0-beta.231",
     "@dxos/crypto": "^1.0.0-beta.1",
     "@dxos/debug": "^1.0.0-beta.73",
     "@dxos/game-model": "^1.0.0-beta.86",
