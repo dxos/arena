@@ -20,7 +20,7 @@ import {
   SystemRoutes,
   createTheme
 } from '@dxos/react-appkit';
-import { ClientContextProvider } from '@dxos/react-client';
+import { ClientProvider } from '@dxos/react-client';
 import GamePad from '@dxos/game-pad';
 import ChessPad from '@dxos/chess-pad';
 import MessengerPad from '@dxos/messenger-pad';
@@ -54,14 +54,16 @@ const theme = {
   }
 };
 
-const Root = ({ config }) => {
-  const router = { ...DefaultRouter, publicUrl: config.app.publicUrl };
+const Root = ({ config, client }) => {
+  const { app: { publicUrl } } = config;
+
+  const router = { ...DefaultRouter, publicUrl };
   const { routes } = router;
 
   return (
     <ThemeProvider theme={createTheme(theme)}>
       <CssBaseline />
-      <ClientContextProvider config={config}>
+      <ClientProvider client={client} config={config}>
         <AppKitContextProvider
           initialState={initialState}
           errorHandler={new ErrorHandler()}
@@ -87,7 +89,7 @@ const Root = ({ config }) => {
             </HashRouter>
           </CheckForErrors>
         </AppKitContextProvider>
-      </ClientContextProvider>
+      </ClientProvider>
     </ThemeProvider>
   );
 };
