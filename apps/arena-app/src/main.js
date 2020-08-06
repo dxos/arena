@@ -10,6 +10,7 @@ import leveljs from 'level-js';
 import { createStorage } from '@dxos/random-access-multi-storage';
 import { Keyring, KeyStore } from '@dxos/credentials';
 import { Client } from '@dxos/client';
+import { Registry } from '@wirelineio/registry-client';
 
 import Root from './containers/Root';
 
@@ -18,14 +19,19 @@ import { loadConfig } from './config';
 (async () => {
   const cfg = await loadConfig();
 
-  const { client: { feedStorage, keyStorage, swarm }, ...config } = cfg.values;
+  const {
+    client: { feedStorage, keyStorage, swarm },
+    services: { wns: { server, chainId } },
+    ...config
+  } = cfg.values;
 
   const keyring = new Keyring(new KeyStore(leveljs(`${keyStorage.root}/keystore`)));
 
   const client = new Client({
     storage: createStorage(feedStorage.root, feedStorage.type),
     keyring,
-    swarm
+    swarm,
+    registry: new Registry(server, chainId)
   });
   await client.initialize();
 
