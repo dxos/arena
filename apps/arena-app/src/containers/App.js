@@ -13,7 +13,7 @@ import { keyToBuffer } from '@dxos/crypto';
 import { useClient, useParty, useModel } from '@dxos/react-client';
 import {
   AppContainer,
-  DefaultViewSidebar,
+  DefaultViewList,
   usePads,
   useAppRouter,
   useViews,
@@ -79,7 +79,7 @@ const App = () => {
   return (
     <>
       <AppContainer
-        sidebarContent={<DefaultViewSidebar />}
+        sidebarContent={<DefaultViewList />}
         onSettingsOpened={() => setViewSettingsOpen(true)}
         onHomeNavigation={() => router.push({ path: '/home' })}
         onPartyHomeNavigation={() => router.push({ path: '/grid', topic })}
