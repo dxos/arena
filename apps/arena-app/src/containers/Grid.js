@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 import { noop } from '@dxos/async';
 import { keyToBuffer } from '@dxos/crypto';
 import { useClient } from '@dxos/react-client';
-import { AppContainer, DefaultViewSidebar, useAppRouter, useViews } from '@dxos/react-appkit';
+import { AppContainer, DefaultViewList, useAppRouter, useViews } from '@dxos/react-appkit';
 import ChessGrid from '@dxos/chess-pad/src/components/ChessGrid';
 
 const Grid = () => {
@@ -26,7 +26,7 @@ const Grid = () => {
   return (
     <>
       <AppContainer
-        sidebarContent={<DefaultViewSidebar />}
+        sidebarContent={<DefaultViewList />}
         onHomeNavigation={() => router.push({ path: '/home' })}
       >
         <ChessGrid
