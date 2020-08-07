@@ -1,6 +1,6 @@
 {
   "name": "@dxos/arena",
-  "version": "1.0.0-beta.88",
+  "version": "1.0.0-beta.89",
   "description": "DXOS Arena",
   "keywords": [],
   "license": "GPL-3.0",
@@ -17,17 +17,17 @@
     "test": "jest --rootDir ./src --verbose --passWithNoTests"
   },
   "dependencies": {
-    "@babel/runtime": "7.7.2",
+    "@babel/runtime": "7.10.4",
     "@date-io/moment": "^1.3.11",
     "@dxos/async": "^1.0.0-beta.1",
     "@dxos/botkit-client": "^1.0.0-beta.241",
-    "@dxos/chess-pad": "^1.0.0-beta.88",
+    "@dxos/chess-pad": "^1.0.0-beta.89",
     "@dxos/config": "^1.0.0-beta.73",
     "@dxos/credentials": "^1.0.1-beta.29",
     "@dxos/crypto": "^1.0.0-beta.1",
     "@dxos/debug": "^1.0.0-beta.73",
     "@dxos/echo-db": "^1.0.0-beta.27",
-    "@dxos/game-pad": "^1.0.0-beta.88",
+    "@dxos/game-pad": "^1.0.0-beta.89",
     "@dxos/messenger-pad": "^1.0.1-beta.7",
     "@dxos/random-access-multi-storage": "^1.1.0-beta.4",
     "@dxos/react-appkit": "^1.0.0-beta.241",
