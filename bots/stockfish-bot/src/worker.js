@@ -2,9 +2,9 @@
 // Copyright 2020 DXOS.org
 //
 
-import { spawn } from 'child_process';
-import MemoryStore from 'better-queue-memory';
 import Queue from 'better-queue';
+import MemoryStore from 'better-queue-memory';
+import { spawn } from 'child_process';
 
 const MAX_MOVE_TIME = 250;
 const MAX_RETRIES = 3;

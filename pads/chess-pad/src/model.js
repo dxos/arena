@@ -5,9 +5,9 @@
 import assert from 'assert';
 import Chess from 'chess.js';
 
-import { useModel } from '@dxos/react-client';
-import { createId } from '@dxos/crypto';
 import { TYPE_CHESS_GAME, TYPE_CHESS_MOVE, TYPE_CHESS_PLAYERSELECT, ChessModel } from '@dxos/chess-core';
+import { createId } from '@dxos/crypto';
+import { useModel } from '@dxos/react-client';
 
 // TODO(burdon): Define types.
 

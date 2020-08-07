@@ -2,8 +2,8 @@
 // Copyright 2020 DXOS.org
 //
 
-import ChessJs from 'chess.js';
 import assert from 'assert';
+import ChessJs from 'chess.js';
 
 import { OrderedModel } from '@dxos/echo-db';
 

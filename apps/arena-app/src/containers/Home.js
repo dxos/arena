@@ -5,11 +5,10 @@
 import React, { useState } from 'react';
 
 import Grid from '@material-ui/core/Grid';
-
 import { makeStyles } from '@material-ui/styles';
 
-import { useClient, useParties } from '@dxos/react-client';
 import { AppContainer, PartyCard, PartyCardContainer } from '@dxos/react-appkit';
+import { useClient, useParties } from '@dxos/react-client';
 
 const useStyles = makeStyles(theme => ({
   fab: {

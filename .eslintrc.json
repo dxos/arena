@@ -11,6 +11,29 @@
     "no-unused-vars": "off",
     "indent": "off",
     "local-rules/header": ["error"],
-    "camelcase": "off"
+    "camelcase": "off",
+    "import/order": ["error", {
+      "pathGroups": [
+        {
+          "pattern": "@material-ui/**",
+          "group": "external",
+          "position": "after"
+        },
+        {
+          "pattern": "@{dxos,wirelineio}/**",
+          "group": "internal",
+          "position": "before"
+        }
+      ],
+      "pathGroupsExcludedImportTypes": ["@{dxos,wirelineio}/**", "@material-ui/**"],
+      "newlines-between": "always",
+      "groups": [
+        ["builtin", "external"],
+        "internal"
+      ],
+      "alphabetize": {
+        "order": "asc"
+      }
+    }]
   }
 }

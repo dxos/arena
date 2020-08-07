@@ -9,10 +9,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { noop } from '@dxos/async';
 import { keyToBuffer } from '@dxos/crypto';
-import { useClient } from '@dxos/react-client';
-import { AppContainer } from '@dxos/react-appkit';
-import { EditableText } from '@dxos/react-ux';
 import metrics from '@dxos/metrics';
+import { AppContainer } from '@dxos/react-appkit';
+import { useClient } from '@dxos/react-client';
+import { EditableText } from '@dxos/react-ux';
 
 import { useOnFirstRender } from '../lifecycle';
 import { useItem } from '../model';

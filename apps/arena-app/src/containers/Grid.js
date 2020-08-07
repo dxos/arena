@@ -6,10 +6,10 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { noop } from '@dxos/async';
-import { keyToBuffer } from '@dxos/crypto';
-import { useClient } from '@dxos/react-client';
-import { AppContainer, DefaultViewList, useAppRouter, useViews } from '@dxos/react-appkit';
 import ChessGrid from '@dxos/chess-pad/src/components/ChessGrid';
+import { keyToBuffer } from '@dxos/crypto';
+import { AppContainer, DefaultViewList, useAppRouter, useViews } from '@dxos/react-appkit';
+import { useClient } from '@dxos/react-client';
 
 const Grid = () => {
   const router = useAppRouter();

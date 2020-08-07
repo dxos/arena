@@ -3,10 +3,11 @@
 //
 
 import React from 'react';
+
 import { makeStyles } from '@material-ui/core/styles';
 
-import { useChessModel } from '../model';
 import ChessPad from '../components/ChessPad';
+import { useChessModel } from '../model';
 
 const useStyles = makeStyles(() => ({
   root: {

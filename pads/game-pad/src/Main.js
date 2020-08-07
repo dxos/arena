@@ -2,8 +2,8 @@
 // Copyright 2020 DXOS.org
 //
 
-import React from 'react';
 import clsx from 'clsx';
+import React from 'react';
 
 import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles';

@@ -3,6 +3,7 @@
 //
 
 import React from 'react';
+
 import SvgIcon from '@material-ui/core/SvgIcon';
 
 import { ReactComponent as KingBlackIcon } from '../assets/king-black.svg';

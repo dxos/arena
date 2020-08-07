@@ -8,13 +8,13 @@ import { useParams } from 'react-router-dom';
 
 import GameIcon from '@material-ui/icons/VideogameAsset';
 
+import { ChessModel } from '@dxos/chess-core';
 import { keyToString } from '@dxos/crypto';
 import { PartyTreeAddItemButton, PartyTree, PartyTreeItem, useAppRouter } from '@dxos/react-appkit';
 import { useClient, useParties } from '@dxos/react-client';
-import { ChessModel } from '@dxos/chess-core';
 
-import { useItemList } from '../model';
 import { ChessSettings } from '../components/ChessSettings';
+import { useItemList } from '../model';
 
 const chance = new Chance();
 

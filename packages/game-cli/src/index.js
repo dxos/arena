@@ -4,9 +4,8 @@
 
 import { createCLI } from '@dxos/cli-core';
 
-import { GameModule } from './modules/game';
-
 import info from '../extension.yml';
+import { GameModule } from './modules/game';
 
 module.exports = createCLI(
   {

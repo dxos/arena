@@ -2,16 +2,17 @@
 // Copyright 2020 DXOS.org
 //
 
-import React, { useEffect, useRef, useState } from 'react';
-import Chessboard from 'chessboardjsx';
 import Chess from 'chess.js';
+import Chessboard from 'chessboardjsx';
+import React, { useEffect, useRef, useState } from 'react';
+import { HotKeys } from 'react-hotkeys';
 
 import { makeStyles } from '@material-ui/core/styles';
 
+import { keyToString } from '@dxos/crypto';
+
 import ChessPanel from './ChessPanel';
 import PromotionSelect from './PromotionSelect';
-import { HotKeys } from 'react-hotkeys';
-import { keyToString } from '@dxos/crypto';
 
 const useStyles = makeStyles((theme) => ({
   root: {
