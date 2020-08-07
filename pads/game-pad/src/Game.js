@@ -2,19 +2,18 @@
 // Copyright 2020 DXOS.org
 //
 
-import React from 'react';
 import clsx from 'clsx';
-
-import Avatar from '@material-ui/icons/GridOn';
-import BlankIcon from '@material-ui/icons/AddCircleOutline';
-import CrossIcon from '@material-ui/icons/Clear';
-import CircleIcon from '@material-ui/icons/RadioButtonUnchecked';
+import React from 'react';
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
+import BlankIcon from '@material-ui/icons/AddCircleOutline';
+import CrossIcon from '@material-ui/icons/Clear';
+import Avatar from '@material-ui/icons/GridOn';
+import CircleIcon from '@material-ui/icons/RadioButtonUnchecked';
 
 const useStyles = makeStyles(() => ({
   root: {

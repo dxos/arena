@@ -2,8 +2,8 @@
 // Copyright 2020 DXOS.org
 //
 
-import React from 'react';
 import clsx from 'clsx';
+import React from 'react';
 
 import {
   TableRow,
@@ -16,13 +16,12 @@ import {
   IconButton
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
 import TurnIcon from '@material-ui/icons/ArrowLeft';
 import SwapIcon from '@material-ui/icons/Cached';
-import StartIcon from '@material-ui/icons/SkipPrevious';
 import BackIcon from '@material-ui/icons/NavigateBefore';
 import ForwardIcon from '@material-ui/icons/NavigateNext';
 import EndIcon from '@material-ui/icons/SkipNext';
+import StartIcon from '@material-ui/icons/SkipPrevious';
 
 const useStyles = makeStyles(theme => ({
   table: ({ rows }) => ({

@@ -4,9 +4,8 @@
 
 import { createCLI } from '@dxos/cli-core';
 
-import { ChessModule } from './modules/chess';
-
 import info from '../extension.yml';
+import { ChessModule } from './modules/chess';
 
 module.exports = createCLI(
   {

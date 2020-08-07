@@ -4,13 +4,13 @@
 
 import React from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { useAppRouter } from '@dxos/react-appkit';
 
-import ChessPad from './ChessPad';
 import { useChessModel } from '../model';
+import ChessPad from './ChessPad';
 
 const useStyles = makeStyles(theme => ({
   root: {

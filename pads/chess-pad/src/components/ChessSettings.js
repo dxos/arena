@@ -5,13 +5,11 @@
 import React, { useState } from 'react';
 
 import { makeStyles } from '@material-ui/core';
-
-import TextField from '@material-ui/core/TextField';
-
-import Autocomplete from '@material-ui/lab/Autocomplete';
 import Avatar from '@material-ui/core/Avatar';
+import TextField from '@material-ui/core/TextField';
 import FaceIcon from '@material-ui/icons/Face';
 import SecurityIcon from '@material-ui/icons/Security';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import { useTheme } from '@material-ui/styles';
 
 import { humanize } from '@dxos/crypto';

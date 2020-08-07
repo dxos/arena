@@ -7,10 +7,9 @@ import { useParams } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import { TYPE_CHESS_GAME, TYPE_CHESS_MOVE, TYPE_CHESS_PLAYERSELECT, ChessModel } from '@dxos/chess-core';
 import { noop } from '@dxos/async';
+import { TYPE_CHESS_GAME, TYPE_CHESS_MOVE, TYPE_CHESS_PLAYERSELECT, ChessModel } from '@dxos/chess-core';
 import { keyToBuffer } from '@dxos/crypto';
-import { useClient, useParty, useModel } from '@dxos/react-client';
 import {
   AppContainer,
   DefaultViewList,
@@ -19,6 +18,7 @@ import {
   useViews,
   DefaultSettingsDialog
 } from '@dxos/react-appkit';
+import { useClient, useParty, useModel } from '@dxos/react-client';
 
 const useStyles = makeStyles(theme => ({
   main: {

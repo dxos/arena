@@ -4,10 +4,10 @@
 
 import { TYPE_CHESS_GAME } from '@dxos/chess-core';
 
+import ChessSettingsDialog from './containers/ChessSettingsDialog';
 import Game from './containers/Game';
 import KingWhite from './icons/KingWhite';
 
-import ChessSettingsDialog from './containers/ChessSettingsDialog';
 export Game from './containers/Game';
 
 export default {

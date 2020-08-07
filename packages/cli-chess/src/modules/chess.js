@@ -6,11 +6,11 @@ import assert from 'assert';
 import Chance from 'chance';
 import defaultsDeep from 'lodash.defaultsdeep';
 
-import { createId, keyToBuffer, keyToString } from '@dxos/crypto';
 import { sleep } from '@dxos/async';
-import { log } from '@dxos/debug';
 import { TYPE_CHESS_GAME, TYPE_CHESS_MOVE, TYPE_CHESS_PLAYERSELECT, ChessModel } from '@dxos/chess-core';
 import { print, asyncHandler } from '@dxos/cli-core';
+import { createId, keyToBuffer, keyToString } from '@dxos/crypto';
+import { log } from '@dxos/debug';
 
 const chance = new Chance();
 

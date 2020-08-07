@@ -2,18 +2,18 @@
 // Copyright 2020 DXOS.org
 //
 
-import React, { useState, useEffect } from 'react';
 import assert from 'assert';
+import React, { useState, useEffect } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import KingWhite from '../icons/KingWhite';
 
-import { ItemSettings } from '@dxos/react-appkit';
-import { keyToString } from '@dxos/crypto';
-import { useModel } from '@dxos/react-client';
 import { TYPE_CHESS_GAME, TYPE_CHESS_MOVE, TYPE_CHESS_PLAYERSELECT, ChessModel } from '@dxos/chess-core';
+import { keyToString } from '@dxos/crypto';
+import { ItemSettings } from '@dxos/react-appkit';
+import { useModel } from '@dxos/react-client';
 
 import ChessSettings from '../components/ChessSettings';
+import KingWhite from '../icons/KingWhite';
 
 const useStyles = makeStyles(theme => ({
   settingsItem: {

@@ -5,11 +5,14 @@
 import React from 'react';
 import { HashRouter, Redirect, Route, Switch } from 'react-router-dom';
 
-import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import primary from '@material-ui/core/colors/deepOrange';
+import { ThemeProvider } from '@material-ui/core/styles';
 
+import ChessPad from '@dxos/chess-pad';
 import { ErrorHandler } from '@dxos/debug';
+import GamePad from '@dxos/game-pad';
+import MessengerPad from '@dxos/messenger-pad';
 import {
   SET_LAYOUT,
   AppKitContextProvider,
@@ -21,13 +24,10 @@ import {
   createTheme
 } from '@dxos/react-appkit';
 import { ClientProvider } from '@dxos/react-client';
-import GamePad from '@dxos/game-pad';
-import ChessPad from '@dxos/chess-pad';
-import MessengerPad from '@dxos/messenger-pad';
 
 import App from './App';
-import Home from './Home';
 import Grid from './Grid';
+import Home from './Home';
 
 const initialState = {
   [SET_LAYOUT]: {

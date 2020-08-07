@@ -3,18 +3,17 @@
 //
 
 import debug from 'debug';
+import leveljs from 'level-js';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import leveljs from 'level-js';
 
-import { createStorage } from '@dxos/random-access-multi-storage';
-import { Keyring, KeyStore } from '@dxos/credentials';
 import { Client } from '@dxos/client';
+import { Keyring, KeyStore } from '@dxos/credentials';
+import { createStorage } from '@dxos/random-access-multi-storage';
 import { Registry } from '@wirelineio/registry-client';
 
-import Root from './containers/Root';
-
 import { loadConfig } from './config';
+import Root from './containers/Root';
 
 (async () => {
   const cfg = await loadConfig();
