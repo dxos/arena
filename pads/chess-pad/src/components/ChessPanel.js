@@ -133,7 +133,7 @@ const ChessPanel = ({
               </TableCell>
               <TableCell style={{ width: 80 }}>
                 <IconButton size="small" onClick={onToggleMessenger}>
-                  <MessengerPad.icon/>
+                  <MessengerPad.icon />
                 </IconButton>
               </TableCell>
             </TableRow>
