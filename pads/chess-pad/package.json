@@ -32,7 +32,7 @@
     "@dxos/chess-core": "^1.0.0-beta.92",
     "@dxos/debug": "^1.0.0-beta.73",
     "@dxos/echo-db": "^1.0.0-beta.27",
-    "@dxos/messenger-pad": "^1.0.1-beta.7",
+    "@dxos/messenger-pad": "^1.0.1-beta.8",
     "@dxos/react-appkit": "^1.0.0-beta.241",
     "@dxos/react-router": "^1.0.0-beta.241",
     "@dxos/react-ux": "^1.0.0-beta.241",
