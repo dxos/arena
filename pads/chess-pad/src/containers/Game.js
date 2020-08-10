@@ -2,9 +2,11 @@
 // Copyright 2020 DXOS.org
 //
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
+
+import MessengerPad from '@dxos/messenger-pad';
 
 import ChessPad from '../components/ChessPad';
 import { useChessModel } from '../model';
@@ -14,6 +16,9 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flex: 1,
     overflow: 'hidden'
+  },
+  messengerContainer: {
+    maxWidth: 700
   }
 }));
 
@@ -21,6 +26,7 @@ const useStyles = makeStyles(() => ({
 const Game = ({ party, topic, viewId }) => {
   const classes = useStyles();
   const [game, makeMove, gameModel] = useChessModel(topic, viewId);
+  const [messengerOpen, setMessengerOpen] = useState(false);
   if (!gameModel || !gameModel.isInitialized) {
     return null;
   }
@@ -33,7 +39,17 @@ const Game = ({ party, topic, viewId }) => {
         gameModel={gameModel}
         onMove={makeMove}
         party={party}
+        onToggleMessenger={() => setMessengerOpen(oldValue => !oldValue)}
       />
+      {messengerOpen && (
+        <div className={classes.messengerContainer}>
+          <MessengerPad.main
+            party={party}
+            topic={topic}
+            viewId={viewId}
+          />
+        </div>
+      )}
     </div>
   );
 };
