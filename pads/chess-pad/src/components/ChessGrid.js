@@ -56,7 +56,7 @@ const Game = ({ topic, viewId }) => {
       gameId={viewId}
       game={game}
       onMove={makeMove}
-      showPabel={false}
+      showPanel={false}
       maxWidth={220}
     />
   );
