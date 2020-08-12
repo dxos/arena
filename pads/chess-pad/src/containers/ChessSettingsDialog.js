@@ -5,21 +5,13 @@
 import assert from 'assert';
 import React, { useState, useEffect } from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
-
-import { TYPE_CHESS_GAME, TYPE_CHESS_MOVE, TYPE_CHESS_PLAYERSELECT, ChessModel } from '@dxos/chess-core';
+import { TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT, ChessModel } from '@dxos/chess-core';
 import { keyToString } from '@dxos/crypto';
 import { ItemSettings } from '@dxos/react-appkit';
 import { useModel } from '@dxos/react-client';
 
 import ChessSettings from '../components/ChessSettings';
 import KingWhite from '../icons/KingWhite';
-
-const useStyles = makeStyles(theme => ({
-  settingsItem: {
-    marginTop: theme.spacing(2)
-  }
-}));
 
 const ChessSettingsDialog = ({ party, topic, open, onClose, onCancel, item, itemModel, chessGameModel }) => {
   const [{ white, black }, setPlayers] = useState({});

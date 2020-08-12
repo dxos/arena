@@ -8,7 +8,6 @@
     "eslint-plugin-local-rules"
   ],
   "rules": {
-    "no-unused-vars": "off",
     "indent": "off",
     "local-rules/header": ["error"],
     "camelcase": "off",
