@@ -45,7 +45,7 @@ const getGameListHandler = (getMembers, json) => {
     const members = await getMembers();
     for (const message of model.messages) {
       if (message.__type_url === TYPE_CHESS_GAME) {
-        const { viewId: gameId, displayName } = message;
+        const { itemId: gameId, displayName } = message;
         if (!games.has(gameId)) {
           games.set(gameId, { gameId, title: displayName });
         }
@@ -169,13 +169,12 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface }) =
           const model = await client.modelFactory.createModel(undefined, { type: TYPE_CHESS_GAME, topic });
           model.appendMessage({
             __type_url: TYPE_CHESS_GAME,
-            viewId: itemId,
-            displayName: title,
-            itemId
+            itemId,
+            displayName: title
           });
 
           const gameModel = await client.modelFactory.createModel(ChessModel, { type: [TYPE_CHESS_MOVE, TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT], topic, itemId });
-          gameModel.appendMessage({ __type_url: TYPE_CHESS_PLAYERSELECT, viewId: itemId, itemId, ...ChessModel.createGenesisMessage(title, white.publicKey, black.publicKey) });
+          gameModel.appendMessage({ __type_url: TYPE_CHESS_PLAYERSELECT, itemId, ...ChessModel.createGenesisMessage(title, white.publicKey, black.publicKey) });
           if (count === 1) {
             await stateManager.setModel(gameModel, getGameUpdateHandler(members));
           }

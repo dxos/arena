@@ -8,13 +8,13 @@ import { useParams } from 'react-router-dom';
 import { noop } from '@dxos/async';
 import ChessGrid from '@dxos/chess-pad/src/components/ChessGrid';
 import { keyToBuffer } from '@dxos/crypto';
-import { AppContainer, DefaultViewList, useAppRouter, useViews } from '@dxos/react-appkit';
+import { AppContainer, DefaultItemList, useAppRouter, useItems } from '@dxos/react-appkit';
 import { useClient } from '@dxos/react-client';
 
 const Grid = () => {
   const router = useAppRouter();
   const { topic } = useParams();
-  const { model } = useViews(topic);
+  const { model } = useItems(topic);
   const client = useClient();
 
   useEffect(() => {
@@ -26,13 +26,13 @@ const Grid = () => {
   return (
     <>
       <AppContainer
-        sidebarContent={<DefaultViewList />}
+        sidebarContent={<DefaultItemList />}
         onHomeNavigation={() => router.push({ path: '/home' })}
       >
         <ChessGrid
           topic={topic}
           boards={
-            model.getAllViews()
+            model.getAllItems()
               .filter(item => !item.deleted && item.type === 'testing.chess.Game')
               .slice(0, 9)
           }

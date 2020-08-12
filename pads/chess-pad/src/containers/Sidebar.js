@@ -76,7 +76,7 @@ const Games = ({ topic }) => {
         Game
       </PartyTreeAddItemButton>
 
-      {/* TODO(burdon): Remove: move into View. */}
+      {/* TODO(burdon): Remove: move into Item. */}
       <ChessSettings
         isVisible={playerSelectVisible}
         onSelected={handleCreate}

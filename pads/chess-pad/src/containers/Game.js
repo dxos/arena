@@ -23,9 +23,9 @@ const useStyles = makeStyles(() => ({
 }));
 
 // TODO(burdon): Remove (ChessPad should be outer container.)
-const Game = ({ party, topic, viewId }) => {
+const Game = ({ party, topic, itemId }) => {
   const classes = useStyles();
-  const [game, makeMove, gameModel] = useChessModel(topic, viewId);
+  const [game, makeMove, gameModel] = useChessModel(topic, itemId);
   const [messengerOpen, setMessengerOpen] = useState(false);
   if (!gameModel || !gameModel.isInitialized) {
     return null;
@@ -34,7 +34,7 @@ const Game = ({ party, topic, viewId }) => {
   return (
     <div className={classes.root}>
       <ChessPad
-        gameId={viewId}
+        gameId={itemId}
         game={game}
         gameModel={gameModel}
         onMove={makeMove}
@@ -46,7 +46,7 @@ const Game = ({ party, topic, viewId }) => {
           <MessengerPad.main
             party={party}
             topic={topic}
-            viewId={viewId}
+            itemId={itemId}
           />
         </div>
       )}

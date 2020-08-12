@@ -12,10 +12,10 @@ import { TYPE_CHESS_GAME, TYPE_CHESS_MOVE, TYPE_CHESS_PLAYERSELECT, ChessModel }
 import { keyToBuffer } from '@dxos/crypto';
 import {
   AppContainer,
-  DefaultViewList,
+  DefaultItemList,
   usePads,
   useAppRouter,
-  useViews,
+  useItems,
   DefaultSettingsDialog
 } from '@dxos/react-appkit';
 import { useClient, useParty, useModel } from '@dxos/react-client';
@@ -39,12 +39,12 @@ const App = () => {
   const party = useParty();
   const router = useAppRouter();
   const classes = useStyles();
-  const { topic, item: viewId } = useParams();
+  const { topic, item: itemId } = useParams();
   const [pads] = usePads();
-  const { model } = useViews(topic);
-  const item = model.getById(viewId);
+  const { model } = useItems(topic);
+  const item = model.getById(itemId);
   const client = useClient();
-  const [viewSettingsOpen, setViewSettingsOpen] = useState(false);
+  const [itemSettingsOpen, setItemSettingsOpen] = useState(false);
 
   const pad = item ? pads.find(pad => pad.type === item.type) : undefined;
 
@@ -60,7 +60,7 @@ const App = () => {
     options: {
       type: [TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT],
       topic,
-      itemId: viewId
+      itemId
     }
   });
 
@@ -79,8 +79,8 @@ const App = () => {
   return (
     <>
       <AppContainer
-        sidebarContent={<DefaultViewList />}
-        onSettingsOpened={() => setViewSettingsOpen(true)}
+        sidebarContent={<DefaultItemList />}
+        onSettingsOpened={() => setItemSettingsOpen(true)}
         onHomeNavigation={() => router.push({ path: '/home' })}
         onPartyHomeNavigation={() => router.push({ path: '/grid', topic })}
       >
@@ -89,7 +89,7 @@ const App = () => {
             <pad.main
               party={party}
               topic={topic}
-              viewId={viewId}
+              itemId={itemId}
             />
           )}
         </div>
@@ -97,11 +97,11 @@ const App = () => {
       <Settings
         party={party}
         topic={topic}
-        open={viewSettingsOpen}
-        onClose={() => setViewSettingsOpen(false)}
-        onCancel={() => setViewSettingsOpen(false)}
+        open={itemSettingsOpen}
+        onClose={() => setItemSettingsOpen(false)}
+        onCancel={() => setItemSettingsOpen(false)}
         item={item}
-        viewModel={model}
+        itemModel={model}
         Icon={pad && pad.icon}
         chessGameModel={chessGameModel}
       />
