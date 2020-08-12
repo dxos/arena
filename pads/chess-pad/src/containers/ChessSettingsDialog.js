@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const ChessSettingsDialog = ({ party, topic, open, onClose, onCancel, item, viewModel, chessGameModel }) => {
+const ChessSettingsDialog = ({ party, topic, open, onClose, onCancel, item, itemModel, chessGameModel }) => {
   const [{ white, black }, setPlayers] = useState({});
 
   // TODO(rzadp) this is hacky. gameModel is created because chessGameModel is only available in App, not when creating the item
@@ -33,7 +33,7 @@ const ChessSettingsDialog = ({ party, topic, open, onClose, onCancel, item, view
     }
   });
 
-  // TODO(rzadp) and this shouldn't be needed once we have the genesis in the viewModel
+  // TODO(rzadp) and this shouldn't be needed once we have the genesis in the itemModel
   useEffect(() => {
     if (!item) return;
     assert(chessGameModel);
@@ -49,17 +49,17 @@ const ChessSettingsDialog = ({ party, topic, open, onClose, onCancel, item, view
     assert(white);
     assert(black);
 
-    const initializeGame = (viewId) => {
+    const initializeGame = (itemId) => {
       gameModel.appendMessage({
         __type_url: TYPE_CHESS_PLAYERSELECT,
-        itemId: viewId,
+        itemId: itemId,
         ...ChessModel.createGenesisMessage('', white.publicKey, black.publicKey)
       });
     };
 
     if (item) {
-      viewModel.renameView(item.viewId, name);
-      initializeGame(item.viewId);
+      itemModel.renameItem(item.itemId, name);
+      initializeGame(item.itemId);
     }
     onClose({ name }, undefined, initializeGame);
   };

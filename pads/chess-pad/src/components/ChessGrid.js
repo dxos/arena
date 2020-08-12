@@ -45,15 +45,15 @@ const useStyles = makeStyles(theme => ({
 
 // TODO(burdon): Grid is currently a non-responsive hack.
 // TODO(burdon): Remove (ChessPad should be outer container.)
-const Game = ({ topic, viewId }) => {
-  const [game, makeMove, gameModel] = useChessModel(topic, viewId);
+const Game = ({ topic, itemId }) => {
+  const [game, makeMove, gameModel] = useChessModel(topic, itemId);
   if (!gameModel || !gameModel.isInitialized) {
     return null;
   }
 
   return (
     <ChessPad
-      gameId={viewId}
+      gameId={itemId}
       game={game}
       onMove={makeMove}
       showPanel={false}
@@ -83,16 +83,16 @@ const ChessGrid = ({ boards, topic }) => {
         {boards.map(item => (
           <Grid
             item
-            key={item.viewId}
+            key={item.itemId}
             className={classes.gridItem}
             lg={3}
             md={3}
             sm={3}
           >
-            <Game topic={topic} viewId={item.viewId} />
+            <Game topic={topic} itemId={item.itemId} />
             <Typography
               className={classes.gridItemTitle}
-              onClick={() => router.push({ path: '/app', topic, item: item.viewId })}
+              onClick={() => router.push({ path: '/app', topic, item: item.itemId })}
             >
               {item.displayName}
             </Typography>

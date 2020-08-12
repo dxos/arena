@@ -33,11 +33,11 @@ const onMove = (model) => (position, piece, move) => {
 };
 
 const TicTacToePad = (props) => {
-  const { className, topic, viewId, ...cardProps } = props;
+  const { className, topic, itemId, ...cardProps } = props;
   const classes = useStyles();
   const model = useModel({
     model: GameModel,
-    options: { topic, viewId, type: 'testing.game.tictactoe-move' }
+    options: { topic, itemId, type: 'testing.game.tictactoe-move' }
   });
 
   return (
