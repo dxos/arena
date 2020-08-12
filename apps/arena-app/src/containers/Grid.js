@@ -8,9 +8,8 @@ import { useParams } from 'react-router-dom';
 import { noop } from '@dxos/async';
 import ChessGrid from '@dxos/chess-pad/src/components/ChessGrid';
 import { keyToBuffer } from '@dxos/crypto';
-import { useClient } from '@dxos/react-client';
 import { AppContainer, DefaultItemList, useAppRouter, useItems } from '@dxos/react-appkit';
-import ChessGrid from '@dxos/chess-pad/src/components/ChessGrid';
+import { useClient } from '@dxos/react-client';
 
 const Grid = () => {
   const router = useAppRouter();

@@ -80,7 +80,7 @@ const App = () => {
     <>
       <AppContainer
         sidebarContent={<DefaultItemList />}
-        onSettingsOpened={() => setViewSettingsOpen(true)}
+        onSettingsOpened={() => setItemSettingsOpen(true)}
         onHomeNavigation={() => router.push({ path: '/home' })}
         onPartyHomeNavigation={() => router.push({ path: '/grid', topic })}
       >
