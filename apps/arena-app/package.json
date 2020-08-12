@@ -34,7 +34,7 @@
     "@dxos/react-client": "^1.0.0-beta.253",
     "@dxos/react-router": "^1.0.0-beta.253",
     "@dxos/react-ux": "^1.0.0-beta.253",
-    "@dxos/view-model": "^1.0.0-beta.29",
+    "@dxos/view-model": "^1.0.0-beta.28",
     "@material-ui/core": "^4.9.0",
     "@material-ui/icons": "^4.5.1",
     "@material-ui/lab": "^4.0.0-alpha.42",
