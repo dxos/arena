@@ -36,10 +36,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const App = () => {
-  const party = useParty();
+  const { topic, item: itemId } = useParams();
+  const party = useParty(topic);
   const router = useAppRouter();
   const classes = useStyles();
-  const { topic, item: itemId } = useParams();
   const [pads] = usePads();
   const { model } = useItems(topic);
   const item = model.getById(itemId);
