@@ -55,7 +55,7 @@ const theme = {
 };
 
 const Root = ({ config, client }) => {
-  const { app: { publicUrl } } = config;
+  const publicUrl = window.location.pathname;
 
   const router = { ...DefaultRouter, publicUrl };
   const { routes } = router;

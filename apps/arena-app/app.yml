@@ -1,7 +1,5 @@
-#
-# Copyright 2020 DXOS.org
-#
-
 name: Arena
-version: 0.0.1
+version: 0.0.2
 build: yarn dist
+package:
+  /: QmeS2bQ888rDPyRNQbixKTMTaPA7Sth36xf29NxqBzYbEC
