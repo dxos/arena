@@ -1,5 +1,6 @@
 name: ChessBot
-version: 0.0.3
-package:
-  macos:
-    x64: Qmdw7zUetxYUDCpoCpvt2fP12zcA8gsAMtsQ5N4mhAqCWY
+version: 0.0.1
+build:
+  macos: 'yarn package:macos-x64'
+  linux: 'yarn package:macos-x64'
+  arm64: 'yarn package:linux-arm64'
