@@ -59,5 +59,21 @@
     "lerna": "^3.19.0",
     "lint-staged": "^9.5.0",
     "pre-commit": "^1.2.2"
+  },
+  "resolutions": {
+     "@dxos/cli": "^1.0.1-moon.0",
+     "@dxos/cli-app": "^1.0.1-moon.0",
+     "@dxos/cli-core": "^1.0.1-moon.0",
+     "@dxos/cli-wns": "^1.0.1-moon.0",
+     "@dxos/cli-bot": "^1.0.1-moon.0",
+     "@dxos/botkit-client": "^1.0.0-moon.0",
+     "@dxos/botkit": "^1.0.0-moon.0",
+     "@dxos/client": "^1.0.0-moon.0",
+     "@dxos/react-appkit": "^1.0.0-moon.0",
+     "@dxos/react-client": "^1.0.0-moon.0",
+     "@dxos/react-router": "^1.0.0-moon.0",
+     "@dxos/react-ux": "^1.0.0-moon.0",
+     "@wirelineio/registry-client": "^1.0.0-moon.0",
+     "@wirelineio/wns-schema": "^1.0.0-moon.0"
   }
 }
