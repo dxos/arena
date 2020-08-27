@@ -25,8 +25,8 @@ client:
 
 services:
   wns:
-    server: "https://node1.dxos.network/wns/api"
-    chainId: "wireline"
+    server: "https://wns1.kube.moon.dxos.network/api"
+    chainId: "devnet-2"
 
 debug:
     mode: 'development'

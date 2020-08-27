@@ -1,6 +1,6 @@
 {
   "name": "@dxos/game-bot",
-  "version": "1.0.0-beta.103",
+  "version": "1.1.0-beta.0",
   "description": "Game Bot",
   "keywords": [],
   "license": "GPL-3.0",
@@ -23,8 +23,8 @@
     "testEnvironment": "node"
   },
   "dependencies": {
-    "@dxos/botkit": "^1.0.0-beta.262",
-    "@dxos/game-model": "^1.0.0-beta.103"
+    "@dxos/botkit": "^1.1.0-beta.1",
+    "@dxos/game-model": "^1.1.0-beta.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",

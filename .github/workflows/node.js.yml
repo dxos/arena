@@ -32,7 +32,7 @@ jobs:
           yarn lerna publish -y prerelease --dist-tag="beta" --force-publish
 
           # Publish to WNS
-          yarn wire profile init --name $WIRE_PROFILE --template-url https://signal1.dxos.network/dxos/ipfs/gateway/QmeJcwpcQuXeY1N94ezWAzYinSX5AA4kZoaZjp9JmmpaLN
+          yarn wire profile init --name $WIRE_PROFILE --template-url https://apollo1.kube.moon.dxos.network/dxos/ipfs/gateway/QmcVUWB3a5JAhc8nJD1UYoWpkPXiqpuXWCBzemyBvzUCXD
           scripts/deploy_apps_to_wns.sh
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}

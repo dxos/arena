@@ -1,11 +1,5 @@
-#
-# Copyright 2020 DXOS.org
-#
-
-id: 'wrn:app:dxos.io/arena'
-name: dxos.io/arena
-displayName: Arena
-version: 0.0.1
-baseUrl: /arena
+name: Arena
+version: 0.0.2
 build: yarn dist
-package: QmVwEZd8KKsKs5QSch3kY4KeaMmupVu1Wy9a5L7hhfowHV
+package:
+  /: QmeS2bQ888rDPyRNQbixKTMTaPA7Sth36xf29NxqBzYbEC
