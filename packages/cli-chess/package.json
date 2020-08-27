@@ -10,8 +10,8 @@
   "dependencies": {
     "@dxos/async": "^1.0.0-beta.2",
     "@dxos/chess-core": "^1.0.0-beta.103",
-    "@dxos/cli-core": "^1.0.1-beta.22",
-    "@dxos/client": "^1.0.0-beta.262",
+    "@dxos/cli-core": "^1.1.0-beta.0",
+    "@dxos/client": "^1.1.0-beta.1",
     "@dxos/debug": "^1.0.0-beta.56",
     "chance": "^1.1.4",
     "chess.js": "^0.10.3",
