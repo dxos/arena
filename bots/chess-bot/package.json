@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@dxos/async": "^1.0.0-beta.2",
-    "@dxos/botkit": "^1.1.0-beta.1",
+    "@dxos/botkit": "^1.1.0-beta.2",
     "@dxos/chess-core": "^1.1.0-beta.3"
   },
   "devDependencies": {
