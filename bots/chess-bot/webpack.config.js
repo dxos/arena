@@ -1,5 +1,10 @@
+//
+// Copyright 2020 DXOS.org
+//
+
 const path = require('path');
 const webpack = require('webpack');
+
 const packageJSON = require('./package.json');
 
 const excludeDependencies = ['node_modules'].concat(
@@ -24,7 +29,7 @@ module.exports = {
     devtoolModuleFilenameTemplate: '[absolute-resource-path]'
   },
 
-  externals : {
+  externals: {
     fatfs: 'fatfs',
     runtimejs: 'runtimejs',
     wrtc: 'wrtc',
@@ -33,7 +38,7 @@ module.exports = {
   },
 
   resolve: {
-    modules: ['node_modules'],
+    modules: ['node_modules']
   },
 
   plugins: [
