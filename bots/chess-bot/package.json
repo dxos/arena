@@ -20,7 +20,7 @@
     "package:linux-x64": "rm -rf out/bin && npm run pkg:linux-x64 && scripts/package.sh linux-x64",
     "package:macos-x64": "rm -rf out/bin && npm run pkg:macos-x64 && scripts/package.sh macos-x64",
     "package:linux-arm64": "rm -rf out/bin && npm run pkg:linux-arm64 && scripts/package.sh linux-arm64",
-    "package:node": "rm -rf out/builds && rm -rf out/dist && mkdir out/dist && webpack && tar -czf 'out/dist/node.tgz' -C 'out/builds/node' .",
+    "package:node": "rm -rf out/builds && rm -rf out/dist && mkdir -p out/dist && webpack && tar -czf 'out/dist/node.tgz' -C 'out/builds/node' .",
     "pkg:linux-arm64": "npm run build && NODE_OPTIONS='' && node_modules/.bin/pkg --target node12-linux-arm64  dist/main.js -o ./out/bin/main-linux-arm64",
     "pkg:linux-x64": "npm run build && NODE_OPTIONS='' && node_modules/.bin/pkg --target node12-linux-x64  dist/main.js -o ./out/bin/main-linux-x64",
     "pkg:macos-x64": "npm run build && NODE_OPTIONS='' && node_modules/.bin/pkg --target node12-macos-x64  dist/main.js -o ./out/bin/main-macos-x64",
