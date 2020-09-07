@@ -4,3 +4,4 @@ build:
   macos: 'yarn package:macos-x64'
   linux: 'yarn package:macos-x64'
   arm64: 'yarn package:linux-arm64'
+  node: 'yarn package:node'
