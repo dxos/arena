@@ -23,7 +23,7 @@
     "testEnvironment": "node"
   },
   "dependencies": {
-    "@dxos/botkit": "^1.1.0-beta.2",
+    "@dxos/botkit": "^1.1.0-beta.7",
     "@dxos/game-model": "^1.1.0-beta.4"
   },
   "devDependencies": {
