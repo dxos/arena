@@ -4,6 +4,7 @@
 
 import assert from 'assert';
 import Chance from 'chance';
+import set from 'lodash.set';
 
 import { TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT, ChessModel } from '@dxos/chess-core';
 import { print, asyncHandler } from '@dxos/cli-core';
@@ -47,22 +48,23 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface, che
         const party = stateManager.party;
         assert(party, 'Invalid party.');
 
-        const result = party.database.queryItems({ type: TYPE_CHESS_GAME });
-
         const members = party.queryMembers().value.sort(sorter);
 
+        const result = party.database.queryItems({ type: TYPE_CHESS_GAME });
         const games = result.value.map(item => {
-          return {
-            id: item.id,
-            white: {
-              publicKey: keyToString(item.model.model.whitePubKey),
-              displayName: members.find(member => item.model.model.whitePubKey.equals(member.publicKey))?.displayName
-            },
-            black: {
-              publicKey: keyToString(item.model.model.blackPubKey),
-              displayName: members.find(member => item.model.model.blackPubKey.equals(member.publicKey))?.displayName
-            }
+          const game = {
+            id: item.id
           };
+
+          set(game, json ? 'white.displayName' : 'white', members.find(member => item.model.model.whitePubKey.equals(member.publicKey))?.displayName);
+          set(game, json ? 'black.displayName' : 'black', members.find(member => item.model.model.blackPubKey.equals(member.publicKey))?.displayName);
+
+          if (json) {
+            set(game, 'white.publicKey', keyToString(item.model.model.whitePubKey));
+            set(game, 'black.publicKey', keyToString(item.model.model.blackPubKey));
+          }
+
+          return game;
         });
 
         print(games, { json });
