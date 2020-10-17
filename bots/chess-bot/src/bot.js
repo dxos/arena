@@ -4,7 +4,9 @@
 
 import { sleep } from '@dxos/async';
 import { Bot } from '@dxos/botkit';
-import { TYPE_CHESS_MOVE, TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT, ChessModel } from '@dxos/chess-core';
+import { TYPE_CHESS_GAME, ChessModel } from '@dxos/chess-core';
+import { keyToString } from '@dxos/crypto';
+import { createModelAdapter } from '@dxos/model-adapter';
 
 /**
  * Chess bot.
@@ -18,70 +20,77 @@ export class ChessBot extends Bot {
   constructor (config) {
     super(config);
 
-    this.on('party', async (topic) => {
-      await this.joinParty(topic);
+    this.on('party', async key => {
+      await this.joinParty(key);
     });
+  }
+
+  async start () {
+    await super.start();
+
+    const model = createModelAdapter(TYPE_CHESS_GAME, ChessModel);
+    this._client.modelFactory.registerModel(model);
+
+    // TODO(egorgripasov): Clean.
+    this._self = this._client.partyManager._identityManager.identityKey.publicKey;
   }
 
   /**
    * Join party.
-   * @param {String} topic
+   * @param {Buffer} key
    */
-  async joinParty (topic) {
-    console.log(`Joining party '${topic}'.`);
+  async joinParty (key) {
+    console.log(`Joining party '${keyToString(key)}'.`);
 
-    const self = this._client.partyManager.identityManager.publicKey;
-    const model = await this._client.modelFactory.createModel(undefined, { type: [TYPE_CHESS_PLAYERSELECT], topic });
+    const party = this._client.echo.getParty(key);
 
-    model.on('update', async () => {
-      if (model.messages) {
-        for (const message of model.messages) {
-          const { itemId, members } = message;
-          const [white, black] = members;
+    const result = party.database.queryItems({ type: TYPE_CHESS_GAME });
+    result.subscribe(async () => {
+      await this.readGames(result.value);
+    });
+    await this.readGames(result.value);
+  }
 
-          const isWhite = white.publicKey.equals(self);
-          const isBlack = black.publicKey.equals(self);
+  async readGames (games) {
+    for await (const game of games) {
+      const isWhite = game.model.model.whitePubKey.equals(this._self);
+      const isBlack = game.model.model.blackPubKey.equals(this._self);
 
-          if (isWhite || isBlack) {
-            if (!this._games.has(itemId)) {
-              this.joinGame(topic, itemId, isWhite, isBlack);
-            }
-          }
+      if (isWhite || isBlack) {
+        if (!this._games.has(game.id)) {
+          console.log(`Joining game '${game.id}'`);
+          isWhite && console.log('Playing white.');
+          isBlack && console.log('Playing black.');
+
+          this._games.set(game.id, { game, isWhite, isBlack });
+
+          game.subscribe(async () => {
+            await this.playMove(game, isWhite, isBlack);
+          });
+          await this.playMove(game, isWhite, isBlack);
         }
       }
-    });
+    }
   }
 
   /**
-   * Play game.
-   * @param {String} topic
-   * @param {String} itemId
-   * @param {String} color
+   * Play move.
+   * @param {Object} game
+   * @param {Boolean} isWhite
+   * @param {Boolean} isBlack
    */
-  async joinGame (topic, itemId, isWhite, isBlack) {
-    console.log(`Joining game '${itemId}'`);
-    isWhite && console.log('Playing white.');
-    isBlack && console.log('Playing black.');
+  async playMove (game, isWhite, isBlack) {
+    const model = game.model.model;
+    console.log(`\nGame '${game.id}':\n${model.game.ascii()}`);
 
-    this._games.set(itemId, { itemId, isWhite, isBlack });
-
-    const model = await this._client.modelFactory.createModel(ChessModel, {
-      type: [TYPE_CHESS_MOVE, TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT],
-      topic,
-      itemId
-    });
-
-    model.on('update', async () => {
-      console.log(`\nGame '${itemId}':\n${model.game.ascii()}`);
-      if ((model.game.turn() === 'b' && isBlack) || (model.game.turn() === 'w' && isWhite)) {
-        const move = await this.getNextMove(model.game);
-        if (move) {
-          console.log(`Making move: ${JSON.stringify(move)}`);
-          await sleep(1200);
-          model.makeMove(move);
-        }
+    if ((model.game.turn() === 'b' && isBlack) || (model.game.turn() === 'w' && isWhite)) {
+      const move = await this.getNextMove(model.game);
+      if (move) {
+        console.log(`Making move: ${JSON.stringify(move)}`);
+        await sleep(1200);
+        model.makeMove(move);
       }
-    });
+    }
   }
 
   async getNextMove (game) {
