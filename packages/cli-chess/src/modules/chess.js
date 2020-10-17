@@ -17,16 +17,16 @@ const chance = new Chance();
 const sorter = (a, b) => (a.displayName < b.displayName ? -1 : a.displayName > b.displayName ? 1 : a.isMe ? -1 : 1);
 
 const getGameUpdateHandler = (members) => {
-  return (item) => {
+  return item => {
     const model = item.model.model;
     if (model.orderedMessages.length > 0) {
       log(`\n${model.game.ascii()}`);
 
-      // const nextMovePublicKey = model.game.turn() === 'w' ? model.whitePubKey : model.blackPubKey;
-      // if (nextMovePublicKey) {
-      //   const nextMove = members.find(member => member.publicKey.equals(nextMovePublicKey)).displayName;
-      //   log(`Next move: \x1b[1m${nextMove}\x1b[0m`);
-      // }
+      const nextMovePublicKey = model.game.turn() === 'w' ? model.whitePubKey : model.blackPubKey;
+      if (nextMovePublicKey) {
+        const nextMove = members.find(member => member.publicKey.equals(nextMovePublicKey)).displayName;
+        log(`Next move: \x1b[1m${nextMove}\x1b[0m`);
+      }
       return true;
     }
   };
@@ -155,7 +155,7 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface, che
         .option('itemId'),
 
       handler: asyncHandler(async argv => {
-        const { itemId, json } = argv;
+        const { itemId } = argv;
 
         const party = stateManager.party;
         assert(party, 'Invalid party.');
@@ -166,7 +166,7 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface, che
         assert(game, 'Invalid game.');
         await stateManager.setItem(game, getGameUpdateHandler(members));
 
-        print({ gameId: game.id }, { json });
+        getGameUpdateHandler(members)(game);
       })
     })
 
