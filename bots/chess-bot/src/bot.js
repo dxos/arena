@@ -5,7 +5,7 @@
 import { sleep } from '@dxos/async';
 import { Bot } from '@dxos/botkit';
 import { TYPE_CHESS_GAME, ChessModel } from '@dxos/chess-core';
-import { keyToString } from '@dxos/crypto';
+import { keyToString, keyToBuffer } from '@dxos/crypto';
 import { createModelAdapter } from '@dxos/model-adapter';
 
 /**
@@ -29,10 +29,9 @@ export class ChessBot extends Bot {
     await super.start();
 
     const model = createModelAdapter(TYPE_CHESS_GAME, ChessModel);
-    this._client.modelFactory.registerModel(model);
+    this._client.registerModel(model);
 
-    // TODO(egorgripasov): Clean.
-    this._self = this._client.partyManager._identityManager.identityKey.publicKey;
+    this._self = keyToBuffer(this._client.getProfile().publicKey);
   }
 
   /**

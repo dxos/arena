@@ -8,7 +8,7 @@ import set from 'lodash.set';
 
 import { TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT, ChessModel } from '@dxos/chess-core';
 import { print, asyncHandler } from '@dxos/cli-core';
-import { keyToString } from '@dxos/crypto';
+import { keyToString, keyToBuffer } from '@dxos/crypto';
 import { log } from '@dxos/debug';
 
 const chance = new Chance();
@@ -109,7 +109,7 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface, che
         let black;
 
         const self = {
-          publicKey: client.partyManager._identityManager.identityKey.publicKey,
+          publicKey: keyToBuffer(client.getProfile().publicKey),
           displayName: 'Yourself'
         };
 
