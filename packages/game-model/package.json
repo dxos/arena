@@ -21,10 +21,10 @@
     ]
   },
   "dependencies": {
-    "@dxos/client": "^1.1.0-beta.7",
+    "@dxos/client": "^2.7.3-alpha.0",
     "@dxos/crypto": "^1.0.0-beta.1",
-    "@dxos/echo-db": "^1.0.0-beta.27",
-    "@dxos/model-factory": "^1.0.0-beta.27",
+    "@dxos/echo-db": "^2.5.2-alpha.0",
+    "@dxos/model-factory": "^2.5.2-alpha.0",
     "debug": "^4.1.1",
     "uuid": "3.4.0"
   },
