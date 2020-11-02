@@ -19,7 +19,8 @@
       "apps/*",
       "bots/*",
       "packages/*",
-      "pads/*"
+      "pads/*",
+      "models/*"
     ]
   },
   "scripts": {

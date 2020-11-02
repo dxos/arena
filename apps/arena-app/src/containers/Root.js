@@ -33,8 +33,8 @@ const initialState = {
 
 const pads = [
   GamePad,
-  ChessPad,
-  MessengerPad
+  // ChessPad,
+  // MessengerPad
 ];
 
 const Root = ({ clientConfig }) => {
