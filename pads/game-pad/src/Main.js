@@ -12,6 +12,7 @@ import { GameModel, Game } from '@dxos/game-model';
 import { useModel } from '@dxos/react-client';
 
 import GameComponent from './GameComponent';
+import { useGameModel } from './model';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -23,15 +24,7 @@ const useStyles = makeStyles(() => ({
   }
 }), { name: 'TicTacToeMain' });
 
-const onMove = (model) => (position, piece, move) => {
-  console.warn('on move on yet implemented')
-  // model.appendMessage({
-  //   __type_url: 'testing.game.tictactoe-move',
-  //   position,
-  //   piece,
-  //   move
-  // });
-};
+
 
 const TicTacToePad = (props) => {
   const { className, topic, itemId, ...cardProps } = props;
@@ -41,12 +34,13 @@ const TicTacToePad = (props) => {
   //   options: { topic, itemId, type: 'testing.game.tictactoe-move' }
   // });
 
-  const model = 'not yet implemented'
-  const game = new Game();
+  const [gameModel, makeMove] = useGameModel(topic, itemId)
+
+  if (!gameModel) return null;
 
   return (
     <Card className={clsx(classes.root, className)} {...cardProps}>
-      {model && <GameComponent game={game} onMove={onMove(model)} classes={{ root: classes.gameCard }} />}
+      {gameModel && <GameComponent game={gameModel.model.game} onMove={makeMove} classes={{ root: classes.gameCard }} />}
     </Card>
   );
 };
