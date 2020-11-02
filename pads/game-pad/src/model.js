@@ -30,7 +30,7 @@ export const useGameModel = (topic, gameId) => {
   return [
     gameModel,
     (gameMove) => {
-      const {position, piece, move} = gameMove
+      const { position, piece, move } = gameMove;
       gameModel.model.move({
         id: createId(),
         position,

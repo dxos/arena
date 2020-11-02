@@ -2,8 +2,6 @@
 // Copyright 2020 DXOS.org
 //
 
-import { Model } from '@dxos/model-factory';
-
 const lines = [
   ['a1', 'a2', 'a3'],
   ['b1', 'b2', 'b3'],
@@ -144,25 +142,3 @@ export class Game {
     }).map(position => ({ position, piece: this._turn }));
   }
 }
-
-/**
- * Stream adapter.
- */
-// export class GameModel extends Model {
-//   _game = new Game();
-
-//   get state () {
-//     return {
-//       game: this._game
-//     };
-//   }
-
-//   onUpdate (messages) {
-//     messages
-//       .sort((a, b) => a.move - b.move)
-//       .forEach(message => {
-//         const { position, piece, move } = message;
-//         this._game.set(position, piece, move);
-//       });
-//   }
-// }
