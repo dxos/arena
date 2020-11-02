@@ -148,21 +148,21 @@ export class Game {
 /**
  * Stream adapter.
  */
-export class GameModel extends Model {
-  _game = new Game();
+// export class GameModel extends Model {
+//   _game = new Game();
 
-  get state () {
-    return {
-      game: this._game
-    };
-  }
+//   get state () {
+//     return {
+//       game: this._game
+//     };
+//   }
 
-  onUpdate (messages) {
-    messages
-      .sort((a, b) => a.move - b.move)
-      .forEach(message => {
-        const { position, piece, move } = message;
-        this._game.set(position, piece, move);
-      });
-  }
-}
+//   onUpdate (messages) {
+//     messages
+//       .sort((a, b) => a.move - b.move)
+//       .forEach(message => {
+//         const { position, piece, move } = message;
+//         this._game.set(position, piece, move);
+//       });
+//   }
+// }

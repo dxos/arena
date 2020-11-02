@@ -5,10 +5,10 @@
 import React from 'react';
 import { HashRouter, Redirect, Route, Switch } from 'react-router-dom';
 
-import ChessPad from '@dxos/chess-pad';
+// import ChessPad from '@dxos/chess-pad';
 import { ErrorHandler } from '@dxos/debug';
 import GamePad from '@dxos/game-pad';
-import MessengerPad from '@dxos/messenger-pad';
+// import MessengerPad from '@dxos/messenger-pad';
 import {
   SET_LAYOUT,
   AppKitProvider,
@@ -21,7 +21,7 @@ import {
 } from '@dxos/react-appkit';
 
 import App from './App';
-import Grid from './Grid';
+// import Grid from './Grid';
 import Home from './Home';
 
 const initialState = {
@@ -82,7 +82,7 @@ const Root = ({ clientConfig }) => {
                 >
                   <Switch>
                     {SystemRoutes(router)}
-                    <Route exact path="/grid/:topic" component={Grid} />
+                    {/* <Route exact path="/grid/:topic" component={Grid} /> */}
                     <Route exact path="/app/:topic?"><Redirect to="/home" /></Route>
                     <Route exact path={routes.app} component={App} />
                     <Route exact path="/home" component={Home} />

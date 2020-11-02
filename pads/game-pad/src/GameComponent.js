@@ -30,7 +30,7 @@ const useStyles = makeStyles(() => ({
   }
 }), { name: 'TicTacToeMainGame' });
 
-const Game = ({ game, onMove, title, className, ...cardProps }) => {
+const GameComponent = ({ game, onMove, title, className, ...cardProps }) => {
   const classes = useStyles();
 
   const handleClick = (row, column) => {
@@ -82,4 +82,4 @@ const Game = ({ game, onMove, title, className, ...cardProps }) => {
   );
 };
 
-export default Game;
+export default GameComponent;

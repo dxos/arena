@@ -8,10 +8,10 @@ import React from 'react';
 import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { GameModel } from '@dxos/game-model';
+import { GameModel, Game } from '@dxos/game-model';
 import { useModel } from '@dxos/react-client';
 
-import Game from './Game';
+import GameComponent from './GameComponent';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -24,25 +24,29 @@ const useStyles = makeStyles(() => ({
 }), { name: 'TicTacToeMain' });
 
 const onMove = (model) => (position, piece, move) => {
-  model.appendMessage({
-    __type_url: 'testing.game.tictactoe-move',
-    position,
-    piece,
-    move
-  });
+  console.warn('on move on yet implemented')
+  // model.appendMessage({
+  //   __type_url: 'testing.game.tictactoe-move',
+  //   position,
+  //   piece,
+  //   move
+  // });
 };
 
 const TicTacToePad = (props) => {
   const { className, topic, itemId, ...cardProps } = props;
   const classes = useStyles();
-  const model = useModel({
-    model: GameModel,
-    options: { topic, itemId, type: 'testing.game.tictactoe-move' }
-  });
+  // const model = useModel({
+  //   model: GameModel,
+  //   options: { topic, itemId, type: 'testing.game.tictactoe-move' }
+  // });
+
+  const model = 'not yet implemented'
+  const game = new Game();
 
   return (
     <Card className={clsx(classes.root, className)} {...cardProps}>
-      {model && <Game game={model.state.game} onMove={onMove(model)} classes={{ root: classes.gameCard }} />}
+      {model && <GameComponent game={game} onMove={onMove(model)} classes={{ root: classes.gameCard }} />}
     </Card>
   );
 };
