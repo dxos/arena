@@ -4,9 +4,12 @@
 #
 
 app:
-  name: 'Arena'
-client:
-  keyStorage:
-    root: "dxos/arena-local/keys"
-  feedStorage:
-    root: "dxos/arena-local/feeds"
+  name: Arena
+storagePath: dxos/arena-local
+storageType: persistent
+wns:
+  server: "https://wns1.kube.moon.dxos.network/api"
+  chainId: "devnet-2"
+sentry:
+  dsn: http://c4520c11e2c14d799a2802f59495ac49@134.122.22.117:9000/2
+  environment: development

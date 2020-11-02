@@ -2,45 +2,19 @@
 // Copyright 2020 DXOS.org
 //
 
-import debug from 'debug';
-import leveljs from 'level-js';
-import React from 'react';
-import ReactDOM from 'react-dom';
-
-import { Client } from '@dxos/client';
-import { Keyring, KeyStore } from '@dxos/credentials';
-import { createStorage } from '@dxos/random-access-multi-storage';
-import { Registry } from '@wirelineio/registry-client';
-
 import { loadConfig } from './config';
-import Root from './containers/Root';
 
 (async () => {
   const cfg = await loadConfig();
 
-  const {
-    client: { feedStorage, keyStorage, swarm },
-    services: { wns: { server, chainId } },
-    ...config
-  } = cfg.values;
+  if (cfg.get('sentry.dsn')) {
+    const Sentry = require('@sentry/react');
+    const sentryDns = cfg.get('sentry.dsn');
+    Sentry.init({ dsn: sentryDns, environment: cfg.get('sentry.environment') || process.env.NODE_ENV });
+  }
 
-  const keyring = new Keyring(new KeyStore(leveljs(`${keyStorage.root}/keystore`)));
-
-  const client = new Client({
-    storage: createStorage(feedStorage.root, feedStorage.type),
-    keyring,
-    swarm,
-    registry: new Registry(server, chainId)
-  });
-  await client.initialize();
-
-  debug.enable(cfg.get('debug.logging'));
-
-  ReactDOM.render(
-    <Root
-      config={config}
-      client={client}
-    />,
-    document.getElementById(cfg.get('app.rootElement'))
-  );
+  // We have this two-stage init process so that sentry can report errors that happen during module imports.
+  const { initApp } = require('./init');
+  // @ts-ignore
+  initApp(cfg);
 })();

@@ -7,7 +7,11 @@ import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/styles';
 
-import { AppContainer, PartyCard, PartyCardContainer } from '@dxos/react-appkit';
+import {
+  AppContainer,
+  PartyCard,
+  PartyCardContainer
+} from '@dxos/react-appkit';
 import { useClient, useParties } from '@dxos/react-client';
 
 const useStyles = makeStyles(theme => ({
@@ -51,7 +55,7 @@ const Home = () => {
     setInProgress(true);
 
     try {
-      await client.partyManager.createParty();
+      await client.echo.createParty();
     } catch (err) {
       console.error(err);
       throw new Error('Unable to create a party');
@@ -77,12 +81,15 @@ const Home = () => {
     <AppContainer>
       <Grid container spacing={4} alignItems="stretch" className={classes.grid}>
         {parties.sort(sortBySubscribedAndName).map((party) => (
-          <Grid key={party.publicKey.toString()} item zeroMinWidth>
+          <Grid key={party.key.toString()} item zeroMinWidth>
             <PartyCardContainer party={party} />
           </Grid>
         ))}
         <Grid item zeroMinWidth>
-          <PartyCard onNewParty={createParty} />
+          <PartyCard
+            onNewParty={createParty}
+            client={client}
+          />
         </Grid>
       </Grid>
     </AppContainer>

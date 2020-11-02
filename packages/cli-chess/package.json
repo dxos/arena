@@ -12,7 +12,7 @@
     "@dxos/chess-core": "^1.1.0-beta.5",
     "@dxos/cli-core": "^2.0.3",
     "@dxos/crypto": "^1.0.0-beta.1",
-    "@dxos/debug": "^1.0.0-beta.56",
+    "@dxos/debug": "^1.0.0-beta.73",
     "@dxos/model-adapter": "^2.1.0",
     "chance": "^1.1.4",
     "chess.js": "^0.11.0",
