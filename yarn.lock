@@ -1247,10 +1247,10 @@
     yargs-parser "^18.1.2"
     yargs-unparser "1.5.0"
 
-"@dxos/cli-core@^2.0.3":
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/@dxos/cli-core/-/cli-core-2.0.3.tgz#545ef0da06f558aaca2512da6511a8759b500c9c"
-  integrity sha512-jTkOa9dTf0wySsf3BRwg+xA7IKFzdmuEXQ05hiyRv4krAuB2I8fKwxoQF6fJE6EVp1N+C7wWYzI53Rr1Fsz/Sw==
+"@dxos/cli-core@^2.0.4-alpha.0":
+  version "2.0.4-alpha.0"
+  resolved "https://registry.yarnpkg.com/@dxos/cli-core/-/cli-core-2.0.4-alpha.0.tgz#77948d3e53536266ccf374361d4aa8dc9e5c567a"
+  integrity sha512-pi5wi+bFtXQVthicwjV7Ihc2PnVghxIuglh61rUGR3fmDMGVWyKsJlXdVThRvkFIS77nBzz9EDZCi3QtQEycUw==
   dependencies:
     "@babel/runtime" "7.7.2"
     "@dxos/config" "^1.0.0-beta.67"
