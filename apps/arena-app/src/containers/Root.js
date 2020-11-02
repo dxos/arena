@@ -6,6 +6,8 @@ import React from 'react';
 import { HashRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 // import ChessPad from '@dxos/chess-pad';
+import primary from '@material-ui/core/colors/deepOrange';
+
 import { ErrorHandler } from '@dxos/debug';
 import GamePad from '@dxos/game-pad';
 // import MessengerPad from '@dxos/messenger-pad';
@@ -32,7 +34,7 @@ const initialState = {
 };
 
 const pads = [
-  GamePad,
+  GamePad
   // ChessPad,
   // MessengerPad
 ];
@@ -44,17 +46,8 @@ const Root = ({ clientConfig }) => {
   const { routes } = router;
 
   const themeBase = {
-    // https://material-ui.com/customization/breakpoints/
-    breakpoints: {
-      values: {
-        subMbp: 1600,
-        // defaults:
-        xs: 0,
-        sm: 600,
-        md: 960,
-        lg: 1280,
-        xl: 1920
-      }
+    palette: {
+      primary
     }
   };
 
