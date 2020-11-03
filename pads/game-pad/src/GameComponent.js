@@ -39,7 +39,7 @@ const GameComponent = ({ game, onMove, title, className, ...cardProps }) => {
     const move = game.move + 1;
 
     if (game.set(position, turn, move)) {
-      onMove({ position, turn, move });
+      onMove({ position, piece: turn, move });
     }
   };
 
