@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import MessengerPad from '@dxos/messenger-pad';
+// import MessengerPad from '@dxos/messenger-pad';
 
 import ChessPad from '../components/ChessPad';
 import { useChessModel } from '../model';
@@ -41,7 +41,7 @@ const Game = ({ party, topic, itemId }) => {
         party={party}
         onToggleMessenger={() => setMessengerOpen(oldValue => !oldValue)}
       />
-      {messengerOpen && (
+      {/* {messengerOpen && (
         <div className={classes.messengerContainer}>
           <MessengerPad.main
             party={party}
@@ -49,7 +49,7 @@ const Game = ({ party, topic, itemId }) => {
             itemId={itemId}
           />
         </div>
-      )}
+      )} */}
     </div>
   );
 };

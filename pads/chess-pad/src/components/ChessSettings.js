@@ -12,7 +12,9 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { useTheme } from '@material-ui/styles';
 
 import { humanize } from '@dxos/crypto';
-import { MemberAvatar, getAvatarStyle } from '@dxos/react-appkit';
+import { MemberAvatar, useMembers } from '@dxos/react-appkit';
+// Temporarily ugly import, react-appkit does not export the function nicely at the moment
+import { getAvatarStyle } from '@dxos/react-appkit/dist/src/components/MemberAvatar';
 
 const sorter = (a, b) => (a.displayName < b.displayName ? -1 : a.displayName > b.displayName ? 1 : 0);
 
@@ -60,7 +62,7 @@ const PlayerSelector = ({ value, members, label, onSelect, disabled }) => {
         { value ? (
           <MemberAvatar member={value} />
         ) : (
-          <Avatar style={getAvatarStyle(theme)}>
+          <Avatar style={getAvatarStyle(theme, undefined)}>
             <FaceIcon />
           </Avatar>
         )
@@ -77,7 +79,7 @@ const PlayerSelector = ({ value, members, label, onSelect, disabled }) => {
 const ChessSettings = ({ party, white, black, setPlayers, playerSelectDisabled }) => {
   const classes = useStyles();
 
-  const members = [...party.members].sort(sorter);
+  const members = useMembers(party).sort(sorter);
 
   return (
     <div className={classes.root}>
