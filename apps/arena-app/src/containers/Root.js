@@ -5,9 +5,9 @@
 import React from 'react';
 import { HashRouter, Redirect, Route, Switch } from 'react-router-dom';
 
-// import ChessPad from '@dxos/chess-pad';
 import primary from '@material-ui/core/colors/deepOrange';
 
+import ChessPad from '@dxos/chess-pad';
 import { ErrorHandler } from '@dxos/debug';
 import GamePad from '@dxos/game-pad';
 // import MessengerPad from '@dxos/messenger-pad';
@@ -34,8 +34,8 @@ const initialState = {
 };
 
 const pads = [
-  GamePad
-  // ChessPad,
+  GamePad,
+  ChessPad
   // MessengerPad
 ];
 

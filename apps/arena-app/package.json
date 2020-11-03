@@ -22,6 +22,7 @@
     "@dxos/async": "^1.0.0-beta.1",
     "@dxos/botkit-client": "^2.7.3-alpha.0",
     "@dxos/chess-pad": "^1.1.0-beta.5",
+    "@dxos/client": "^2.7.3-alpha.0",
     "@dxos/config": "^1.0.0-beta.73",
     "@dxos/credentials": "^2.0.0",
     "@dxos/crypto": "^1.0.0-beta.1",
