@@ -7,10 +7,8 @@ import Chance from 'chance';
 
 import { asyncHandler } from '@dxos/cli-core';
 import { log } from '@dxos/debug';
-import { DefaultModel } from '@dxos/client';
-
+import { GameModel, GAME_TYPE_GAME, GAME_TYPE_MOVE } from '@dxos/game-model';
 import { ObjectModel } from '@dxos/object-model';
-import { GameModel, GAME_PAD, GAME_TYPE_GAME, GAME_TYPE_MOVE } from '@dxos/game-model';
 
 const chance = new Chance();
 
@@ -40,8 +38,8 @@ export const GameModule = ({ getClient, stateManager }) => ({
 
         const party = stateManager.party;
         const result = party.database.queryItems({ type: GAME_TYPE_GAME });
-        const games = result.value.map(record => ({id: record.id, name: record.model.getProperty('title') || 'untitled'}))
-        return JSON.stringify(games)
+        const games = result.value.map(record => ({ id: record.id, name: record.model.getProperty('title') || 'untitled' }));
+        return JSON.stringify(games);
       })
     })
 
@@ -58,7 +56,7 @@ export const GameModule = ({ getClient, stateManager }) => ({
         assert(topic, 'Invalid party.');
         const party = stateManager.party;
 
-        const createdTitle = title || 'untitled'
+        const createdTitle = title || 'untitled';
         const game = await party.database.createItem({
           type: GAME_TYPE_GAME,
           model: ObjectModel,

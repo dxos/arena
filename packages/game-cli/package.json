@@ -15,7 +15,7 @@
     "build": "babel ./src --out-dir ./dist/es --ignore \"**/*.test.js\" --copy-files",
     "clean": "rm -rf ./dist",
     "cli": "BABEL_CACHE_PATH=./dist/babel-cache.json babel-node ./src/index.js",
-    "lint": "eslint **/*.js --ignore-path ../../.eslintignore",
+    "lint": "eslint '**/*.js' --ignore-path ../../.eslintignore",
     "prepublishOnly": "npm run clean && npm run build && npm run test",
     "test": "jest --rootDir ./src --verbose --passWithNoTests"
   },
@@ -27,7 +27,6 @@
     "@babel/runtime": "^7.0.0",
     "@dxos/async": "^1.0.0-beta.1",
     "@dxos/cli-core": "^2.0.4-alpha.0",
-    "@dxos/client": "^2.7.3-alpha.0",
     "@dxos/crypto": "^1.0.0-beta.1",
     "@dxos/debug": "^1.0.0-beta.73",
     "@dxos/game-model": "^1.1.0-beta.5",
