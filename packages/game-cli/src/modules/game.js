@@ -5,13 +5,12 @@
 import assert from 'assert';
 import Chance from 'chance';
 
-import { asyncHandler } from '@dxos/async';
+import { asyncHandler } from '@dxos/cli-core';
 import { log } from '@dxos/debug';
-import { GameModel } from '@dxos/game-model';
 import { DefaultModel } from '@dxos/client';
 
-const MODEL_TYPE_GAME = 'testing.game.Game';
-const MODEL_TYPE_MOVE = 'testing.game.Move';
+import { ObjectModel } from '@dxos/object-model';
+import { GameModel, GAME_PAD, GAME_TYPE_GAME, GAME_TYPE_MOVE } from '@dxos/game-model';
 
 const chance = new Chance();
 
@@ -39,9 +38,10 @@ export const GameModule = ({ getClient, stateManager }) => ({
         const topic = stateManager.currentParty;
         assert(topic, 'Invalid party.');
 
-        const client = await getClient();
-        const model = await client.modelFactory.createModel(DefaultModel, { type: MODEL_TYPE_GAME, topic });
-        await stateManager.setModel(model);
+        const party = stateManager.party;
+        const result = party.database.queryItems({ type: GAME_TYPE_GAME });
+        const games = result.value.map(record => ({id: record.id, name: record.model.getProperty('title') || 'untitled'}))
+        return JSON.stringify(games)
       })
     })
 
@@ -56,21 +56,16 @@ export const GameModule = ({ getClient, stateManager }) => ({
 
         const topic = stateManager.currentParty;
         assert(topic, 'Invalid party.');
+        const party = stateManager.party;
 
-        const gameId = Date.now();
-
-        const client = await getClient();
-        const model = await client.modelFactory.createModel(DefaultModel, { type: MODEL_TYPE_GAME, topic });
-        model.appendMessage({
-          __type_url: MODEL_TYPE_GAME,
-          gameId,
-          title
+        const createdTitle = title || 'untitled'
+        const game = await party.database.createItem({
+          type: GAME_TYPE_GAME,
+          model: ObjectModel,
+          props: { title: createdTitle }
         });
 
-        const gameModel = await client.modelFactory.createModel(GameModel, { type: MODEL_TYPE_MOVE, topic, gameId });
-        await stateManager.setModel(gameModel, gameUpdateHandler);
-
-        return JSON.stringify({ gameId });
+        return JSON.stringify({ id: game.id, title: createdTitle });
       })
     })
 
@@ -87,7 +82,7 @@ export const GameModule = ({ getClient, stateManager }) => ({
         assert(topic, 'Invalid party.');
 
         const client = await getClient();
-        const gameModel = await client.modelFactory.createModel(GameModel, { type: MODEL_TYPE_MOVE, topic, gameId });
+        const gameModel = await client.modelFactory.createModel(GameModel, { type: GAME_TYPE_MOVE, topic, gameId });
         await stateManager.setModel(gameModel, gameUpdateHandler);
 
         return JSON.stringify({ gameId });
@@ -109,7 +104,7 @@ export const GameModule = ({ getClient, stateManager }) => ({
 
         const move = gameModel.state.game.move + 1;
         gameModel.appendMessage({
-          __type_url: MODEL_TYPE_MOVE,
+          __type_url: GAME_TYPE_MOVE,
           position,
           piece,
           move

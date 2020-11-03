@@ -2,5 +2,6 @@ name: dxos/game-cli
 version: 0.0.1
 displayName: game-cli
 description: Game operations.
+initRequired: true
 command:
   - game

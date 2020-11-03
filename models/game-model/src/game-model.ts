@@ -8,9 +8,13 @@ import { MutationMeta } from '@dxos/echo-protocol';
 import { GameMove, schema } from './proto';
 import { Game } from './game';
 
+export const GAME_PAD = 'dxos.org/pad/game';
+export const GAME_TYPE_GAME = 'dxos.org/type/game/game';
+export const GAME_TYPE_MOVE = 'dxos.org/type/game/move';
+
 export class GameModel extends Model<GameMove> {
   static meta: ModelMeta = {
-    type: 'wrn://protocol.dxos.org/teamwork/messenger',
+    type: 'wrn://protocol.dxos.org/arena/game',
     mutation: schema.getCodecForType('dxos.arena.game.GameMove')
   };
 

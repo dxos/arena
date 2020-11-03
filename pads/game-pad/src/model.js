@@ -5,11 +5,8 @@
 import assert from 'assert';
 
 import { createId, keyToBuffer } from '@dxos/crypto';
+import { GAME_TYPE_MOVE } from '@dxos/game-model';
 import { useItems } from '@dxos/react-client';
-
-export const GAME_PAD = 'dxos.org/pad/game';
-export const GAME_TYPE_GAME = 'dxos.org/type/game/game';
-export const MESSENGER_TYPE_MOVE = 'dxos.org/type/game/move';
 
 /**
  * Provides game model.
@@ -22,7 +19,7 @@ export const useGameModel = (topic, gameId) => {
   assert(gameId);
   const partyKey = keyToBuffer(topic);
 
-  const [gameModel] = useItems({ partyKey, parent: gameId, type: MESSENGER_TYPE_MOVE });
+  const [gameModel] = useItems({ partyKey, parent: gameId, type: GAME_TYPE_MOVE });
 
   if (!gameModel) {
     return [null, () => {}];
