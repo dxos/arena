@@ -1711,7 +1711,7 @@
     y-protocols "^1.0.1"
     yjs "^13.3.2"
 
-"@dxos/eslint-plugin@^1.0.8":
+"@dxos/eslint-plugin@^1.0.5", "@dxos/eslint-plugin@^1.0.8":
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/@dxos/eslint-plugin/-/eslint-plugin-1.0.8.tgz#8c233c78a314167d13978a1ad1b4f79aa5c41b4f"
   integrity sha512-VjPgvcAqrXYB+OL4iMKHRvBSoB7k+pjDkhX04oNwmouwvaFUbbzOlTt+4TdPBZmBxEGSIKz04uX4t99EobuCiA==

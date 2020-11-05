@@ -5,11 +5,11 @@
 import assert from 'assert';
 import ChessJs, { ShortMove, Square } from 'chess.js';
 
+import { PublicKey } from '@dxos/crypto';
 import { MutationMeta } from '@dxos/echo-protocol';
 import { ModelMeta, Model } from '@dxos/model-factory';
 
 import { ChessContent, schema, ChessPlayerSelection, ChessMove } from './proto';
-import { keyToString, PublicKey } from '@dxos/crypto';
 
 // const Chess = (typeof define !== 'undefined') ? ChessJs : ChessJs.Chess;
 const Chess = ChessJs.Chess;
@@ -33,10 +33,10 @@ export class ChessModel extends Model<ChessContent> {
         }
       };
     }
-  };
+  }
 
-  private _game = new ChessJs.Chess()
   private _whitePubKey = ''
+  private _game = new ChessJs.Chess();
   private _blackPubKey = ''
 
   /**
@@ -58,31 +58,34 @@ export class ChessModel extends Model<ChessContent> {
     return this._blackPubKey;
   }
 
-  async makeMove(move: ChessMove) {
-    const receipt = await this.write({move});
+  async makeMove (move: ChessMove) {
+    const receipt = await this.write({ move });
     await receipt.waitToBeProcessed();
   }
 
   async _processMessage (meta: MutationMeta, message: ChessContent) {
     if (message.selection) {
-      return await this._processSelection(message.selection)
-    }
-    else if (message.move) {
-      return await this._processMove(meta, message.move)
+      return await this._processSelection(message.selection);
+    } else if (message.move) {
+      return await this._processMove(meta, message.move);
     }
     return false;
   }
 
-  private async _processSelection(selection: ChessPlayerSelection) {
-    if (this.isInitialized) return false;
-    if (!selection.blackPlayerPublicKey || !selection.blackPlayerPublicKey) return false;
+  private async _processSelection (selection: ChessPlayerSelection) {
+    if (this.isInitialized) {
+      return false;
+    }
+    if (!selection.blackPlayerPublicKey || !selection.blackPlayerPublicKey) {
+      return false;
+    }
     this._whitePubKey = selection.whitePlayerPublicKey;
     this._blackPubKey = selection.blackPlayerPublicKey;
     assert(this.isInitialized, 'initialization not successful');
     return true;
   }
 
-  private async _processMove(meta: MutationMeta, move: ChessMove) {
+  private async _processMove (meta: MutationMeta, move: ChessMove) {
     if (!this.isInitialized) {
       return false;
     }
@@ -100,7 +103,7 @@ export class ChessModel extends Model<ChessContent> {
       from: move.from as Square,
       to: move.to as Square,
       promotion: move.promotion as ShortMove['promotion']
-    }
+    };
     if (!new Chess(this.game.fen()).move(shortMove)) {
       return false;
     }
