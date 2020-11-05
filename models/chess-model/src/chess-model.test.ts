@@ -18,7 +18,6 @@ const WHITE = 'w';
 const BLACK = 'b';
 
 test('initial state', async () => {
-  console.log('ChessModel', ChessModel);
   const [player1, player2] = await createModelTestBench({ model: ChessModel });
   // const model = new ChessModel(ChessModel.meta, itemId);
   // await model._processMessage({ memberKey: PLAYER_1, feedKey: PLAYER_1, seq: 0 }, { selection: { blackPlayerPublicKey: PLAYER_1, whitePlayerPublicKey: PLAYER_2 } });
@@ -26,12 +25,10 @@ test('initial state', async () => {
   //   genesisMessage(PLAYER_1, PLAYER_2)
   // ]);
 
-  // expect(player1.model.game.turn()).toEqual(WHITE);
-  // expect(player2.model.game.turn()).toEqual(WHITE);
-  // expect(player1.model.game.history().length).toEqual(0);
-  // expect(player2.model.game.history().length).toEqual(0);
-  expect(true).toEqual(true);
-  return true;
+  expect(player1.model.game.turn()).toEqual(WHITE);
+  expect(player2.model.game.turn()).toEqual(WHITE);
+  expect(player1.model.game.history().length).toEqual(0);
+  expect(player2.model.game.history().length).toEqual(0);
 });
 
 // test('applies moves with with matching keys', () => {

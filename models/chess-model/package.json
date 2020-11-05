@@ -30,7 +30,6 @@
   "jest": {
     "rootDir": "./src",
     "verbose": true,
-    "passWithNoTests": true,
     "testEnvironment": "node",
     "preset": "ts-jest/presets/js-with-ts",
     "testTimeout": 10000
