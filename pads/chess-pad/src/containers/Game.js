@@ -28,7 +28,7 @@ const Game = ({ party, topic, itemId }) => {
   const [game, makeMove, gameModel] = useChessModel(topic, itemId);
   const [messengerOpen, setMessengerOpen] = useState(false);
   if (!gameModel || !gameModel.isInitialized) {
-    return null;
+    return <p>{`Game model is ${!gameModel ? 'not loaded' : 'not initialized'}.`}</p>;
   }
 
   return (

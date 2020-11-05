@@ -4,7 +4,7 @@
 
 import { sleep } from '@dxos/async';
 import { Bot } from '@dxos/botkit';
-import { TYPE_CHESS_GAME, ChessModel } from '@dxos/chess-core';
+import { TYPE_CHESS_GAME, ChessModel } from '@dxos/chess-model';
 import { keyToString, keyToBuffer } from '@dxos/crypto';
 import { createModelAdapter } from '@dxos/model-adapter';
 

@@ -1549,7 +1549,7 @@
     humanhash "^1.0.4"
     hypercore-crypto "^1.0.0"
 
-"@dxos/crypto@^1.0.0-beta.3", "@dxos/crypto@^1.0.0-beta.7":
+"@dxos/crypto@^1.0.0-beta.10", "@dxos/crypto@^1.0.0-beta.3", "@dxos/crypto@^1.0.0-beta.7":
   version "1.0.0-beta.10"
   resolved "https://registry.yarnpkg.com/@dxos/crypto/-/crypto-1.0.0-beta.10.tgz#32933955012b3c5e8de62792affaadee1c257f7c"
   integrity sha512-ydf+xE28BLISWcH+CrrzOHCwCPg8nc8Hi3GgglTzJcpLwbcsirbPzpfdVqJbtlc5XWiw3zou4r/b8naHHcnaBA==
@@ -5062,6 +5062,11 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@types/chance/-/chance-1.1.0.tgz#7d8e6bd0506344d94c042f692d59d20f8eb7d66d"
   integrity sha512-j/9aaLU6JaaN2iFiSZgvD+G0nju1Fi2/f2WM+WwS+8+cpTdzFhXFH3+SHZgfjgum6wNW80sfcawUx+Rx7tH26w==
+
+"@types/chess.js@^0.10.1":
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/@types/chess.js/-/chess.js-0.10.1.tgz#441f0c379ef6d37e3991dcbf3d5db00b44fdb891"
+  integrity sha512-cuFMyrUYOWpKm5PRayvk22jLV3BOuWs7iJ7Q4PZJXMWoF7uhjWEojMS4GPk441gn4Ki9BHxbKsll7mrwJ3KT3g==
 
 "@types/color-name@^1.1.1":
   version "1.1.1"

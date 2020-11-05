@@ -5,7 +5,7 @@
 import assert from 'assert';
 import React, { useState, useEffect } from 'react';
 
-import { TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT, ChessModel } from '@dxos/chess-core';
+import { TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT, ChessModel } from '@dxos/chess-model';
 import { keyToString, keyToBuffer } from '@dxos/crypto';
 import { ItemSettings } from '@dxos/react-appkit';
 import { useModel, useParty } from '@dxos/react-client';

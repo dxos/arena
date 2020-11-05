@@ -2,7 +2,7 @@
 // Copyright 2020 DXOS.org
 //
 
-import { TYPE_CHESS_GAME, ChessModel } from '@dxos/chess-core';
+import { TYPE_CHESS_GAME, ChessModel } from '@dxos/chess-model';
 import { createCLI } from '@dxos/cli-core';
 import { createModelAdapter } from '@dxos/model-adapter';
 

@@ -5,8 +5,9 @@
 import assert from 'assert';
 import Chess from 'chess.js';
 
-import { TYPE_CHESS_GAME, TYPE_CHESS_MOVE, TYPE_CHESS_PLAYERSELECT, ChessModel } from '@dxos/chess-core';
+import { TYPE_CHESS_GAME, TYPE_CHESS_MOVE, TYPE_CHESS_PLAYERSELECT, ChessModel } from '@dxos/chess-model';
 import { useModel } from '@dxos/react-client';
+import { useItems } from '@dxos/react-client';
 
 /**
  * Provides game state and a way to make moves.
@@ -18,19 +19,22 @@ export const useChessModel = (topic, itemId) => {
   assert(topic);
   assert(itemId);
 
+  const [gameModel] = useItems({ partyKey, parent: gameId, type: GAME_TYPE_MOVE });
   // TODO(rzadp,marik-d,rburdon) Use ECHO.
-  const model = useModel({
-    model: ChessModel,
-    options: {
-      type: [TYPE_CHESS_MOVE, TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT],
-      topic,
-      itemId
-    }
-  });
+  // const model = useModel({
+  //   model: ChessModel,
+  //   options: {
+  //     type: [TYPE_CHESS_MOVE, TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT],
+  //     topic,
+  //     itemId
+  //   }
+  // });
 
-  return [
-    model?.game ?? new Chess(), // TODO(burdon): Defensive: should assert if null.
-    move => model.makeMove(move),
-    model
-  ];
+  return []
+
+  // return [
+  //   model?.game ?? new Chess(), // TODO(burdon): Defensive: should assert if null.
+  //   move => model.makeMove(move),
+  //   model
+  // ];
 };

@@ -6,7 +6,7 @@ import assert from 'assert';
 import Chance from 'chance';
 import set from 'lodash.set';
 
-import { TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT, ChessModel } from '@dxos/chess-core';
+import { TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT, ChessModel } from '@dxos/chess-model';
 import { print, asyncHandler } from '@dxos/cli-core';
 import { keyToString, keyToBuffer } from '@dxos/crypto';
 import { log } from '@dxos/debug';
