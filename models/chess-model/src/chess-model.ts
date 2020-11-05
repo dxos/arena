@@ -83,20 +83,25 @@ export class ChessModel extends Model<ChessContent> {
   }
 
   private async _processMove(meta: MutationMeta, move: ChessMove) {
-    if (!this.isInitialized) return false;
+    if (!this.isInitialized) {
+      return false;
+    }
 
-    if (this.game.moves.length !== move.turn) return false;
+    if (this.game.history().length !== move.turn) {
+      return false;
+    }
 
-    const expectedPubKey = this.game.moves.length % 2 === 1 ? this._whitePubKey : this._blackPubKey;
-    if (PublicKey.equals(expectedPubKey, meta.memberKey)) return false;
+    const expectedPubKey = this.game.history().length % 2 === 0 ? this._whitePubKey : this._blackPubKey;
+    if (!PublicKey.equals(expectedPubKey, meta.memberKey)) {
+      return false;
+    }
 
     const shortMove: ChessJs.ShortMove = {
       from: move.from as Square,
-      to: move.from as Square,
+      to: move.to as Square,
       promotion: move.promotion as ShortMove['promotion']
     }
     if (!new Chess(this.game.fen()).move(shortMove)) {
-      console.log('not a valid move', shortMove.from, shortMove.to);
       return false;
     }
     this._game.move(shortMove);
