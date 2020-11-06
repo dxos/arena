@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@dxos/codec-protobuf": "^0.2.0",
-    "@dxos/model-factory": "^2.5.2-alpha.0",
+    "@dxos/model-factory": "^2.6.1-alpha.0",
     "@dxos/util": "^2.1.0",
     "debug": "^4.2.0"
   },
