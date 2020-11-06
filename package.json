@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/dxos/arena.git"
   },
-  "license": "GPL-3.0",
+  "license": "AGPL-3.0",
   "author": "DXOS.org",
   "workspaces": {
     "packages": [
