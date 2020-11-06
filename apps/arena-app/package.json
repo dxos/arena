@@ -19,7 +19,7 @@
   "dependencies": {
     "@babel/runtime": "7.11.2",
     "@date-io/moment": "^1.3.11",
-    "@dxos/async": "^1.0.0-beta.1",
+    "@dxos/async": "^1.0.0-beta.10",
     "@dxos/botkit-client": "^2.7.4-alpha.0",
     "@dxos/chess-pad": "^1.1.0-beta.5",
     "@dxos/client": "^2.7.4-alpha.0",

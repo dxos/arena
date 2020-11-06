@@ -8,7 +8,7 @@
     "lint": "eslint ./src --ignore-path ../../.eslintignore"
   },
   "dependencies": {
-    "@dxos/async": "^1.0.0-beta.2",
+    "@dxos/async": "^1.0.0-beta.10",
     "@dxos/chess-model": "^1.1.0-beta.5",
     "@dxos/cli-core": "^2.0.4-alpha.0",
     "@dxos/crypto": "^1.0.0-beta.1",
