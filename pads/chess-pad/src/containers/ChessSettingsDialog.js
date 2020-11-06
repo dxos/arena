@@ -3,12 +3,11 @@
 //
 
 import assert from 'assert';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-import { TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT, ChessModel } from '@dxos/chess-model';
 import { keyToString, keyToBuffer } from '@dxos/crypto';
 import { ItemSettings } from '@dxos/react-appkit';
-import { useModel, useParty } from '@dxos/react-client';
+import { useParty } from '@dxos/react-client';
 
 import ChessSettings from '../components/ChessSettings';
 import KingWhite from '../icons/KingWhite';
@@ -17,53 +16,17 @@ const ChessSettingsDialog = ({ topic, open, onClose, onCancel, item }) => {
   const [{ white, black }, setPlayers] = useState({});
   const party = useParty(keyToBuffer(topic));
 
-  // TODO(rzadp) this is hacky. gameModel is created because chessGameModel is only available in App, not when creating the item
-  // const gameModel = useModel({
-  //   model: ChessModel,
-  //   options: {
-  //     type: [TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT],
-  //     topic
-  //   }
-  // });
-
-  // TODO(rzadp) and this shouldn't be needed once we have the genesis in the itemModel
-  // useEffect(() => {
-  //   if (!item) return;
-  //   assert(chessGameModel);
-  //   assert(chessGameModel.whitePubKey);
-  //   assert(chessGameModel.blackPubKey);
-  //   setPlayers({
-  //     white: party.members.find(m => keyToString(m.publicKey) === keyToString(chessGameModel.whitePubKey)),
-  //     black: party.members.find(m => keyToString(m.publicKey) === keyToString(chessGameModel.blackPubKey))
-  //   });
-  // }, [chessGameModel, item]);
-
   const handleClose = ({ name }) => {
     assert(white);
     assert(black);
 
-    console.log('handle close,', name, white, black);
-
-    const initializeGame = () => { console.warn('cut out for now'); };
-    // const initializeGame = (itemId) => {
-    //   gameModel.appendMessage({
-    //     __type_url: TYPE_CHESS_PLAYERSELECT,
-    //     itemId: itemId,
-    //     ...ChessModel.createGenesisMessage('', white.publicKey, black.publicKey)
-    //   });
-    // };
-
-    // if (item) {
-    //   itemModel.renameItem(item.itemId, name);
-    //   initializeGame(item.itemId);
-    // }
     const metadata = {
       selection: {
         whitePlayerPublicKey: keyToString(white.publicKey),
         blackPlayerPublicKey: keyToString(black.publicKey)
       }
     };
-    onClose({ name }, metadata, initializeGame);
+    onClose({ name }, metadata);
   };
 
   return (
@@ -72,7 +35,7 @@ const ChessSettingsDialog = ({ topic, open, onClose, onCancel, item }) => {
       onClose={handleClose}
       onCancel={onCancel}
       item={item}
-      closingDisabled={!white || !black}
+      closingDisabled={!item && (!white || !black)} // User has to select players, unless the game already exists
       icon={<KingWhite />}
     >
       <ChessSettings playerSelectDisabled={!!item} party={party} white={white} black={black} setPlayers={setPlayers} />

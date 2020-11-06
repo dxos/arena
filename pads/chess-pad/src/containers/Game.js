@@ -2,7 +2,7 @@
 // Copyright 2020 DXOS.org
 //
 
-import React, { useState } from 'react';
+import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -26,12 +26,12 @@ const useStyles = makeStyles(() => ({
 const Game = ({ topic, itemId }) => {
   const classes = useStyles();
   const chessModel = useChessModel(topic, itemId);
-  const [messengerOpen, setMessengerOpen] = useState(false);
+  // const [messengerOpen, setMessengerOpen] = useState(false);
   if (!chessModel) {
     return <p>{'Game model is not loaded'}</p>;
   }
 
-  const makeMove = () => console.warn('not yet implemented');
+  const makeMove = (move) => chessModel.model.makeMove(move);
 
   return (
     <div className={classes.root}>

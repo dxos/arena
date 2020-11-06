@@ -59,6 +59,10 @@ export class ChessModel extends Model<ChessContent> {
     return this._blackPubKey;
   }
 
+  get length () {
+    return this.game.history().length;
+  }
+
   async makeMove (move: ChessMove) {
     const receipt = await this.write({ move });
     await receipt.waitToBeProcessed();
@@ -91,11 +95,11 @@ export class ChessModel extends Model<ChessContent> {
       return false;
     }
 
-    if (this.game.history().length !== move.turn) {
+    if (this.length !== move.turn) {
       return false;
     }
 
-    const expectedPubKey = this.game.history().length % 2 === 0 ? this._whitePubKey : this._blackPubKey;
+    const expectedPubKey = this.length % 2 === 0 ? this._whitePubKey : this._blackPubKey;
     if (!PublicKey.equals(expectedPubKey, meta.memberKey)) {
       return false;
     }

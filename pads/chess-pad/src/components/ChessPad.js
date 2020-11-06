@@ -136,7 +136,7 @@ const ChessPad = ({ partyKey, chessModel, onMove, maxWidth, transitionDuration =
       }
     }
 
-    onMove({ from: sourceSquare, to: targetSquare, promotion });
+    onMove({ from: sourceSquare, to: targetSquare, promotion, turn: chessModel.model.length });
   };
 
   const calcWidth = () => {
