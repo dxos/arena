@@ -67,9 +67,7 @@ const ChessPad = ({ partyKey, chessModel, onMove, maxWidth, transitionDuration =
   const lengthRef = useRef(-1);
   const [whitePlayerName, setWhitePlayerName] = React.useState('White player');
   const [blackPlayerName, setBlackPlayerName] = React.useState('Black player');
-  console.log('partyKey', partyKey);
   const party = useParty(keyToBuffer(partyKey));
-  console.log('party', party);
   const members = useMembers(party);
 
   const length = chessModel.model.length;
@@ -85,9 +83,6 @@ const ChessPad = ({ partyKey, chessModel, onMove, maxWidth, transitionDuration =
     setWhitePlayerName(
       () => members.find(m => PublicKey.equals(m.publicKey, chessModel.model.whitePubKey))?.displayName
     );
-    console.log(members);
-    console.log(chessModel.model.whitePubKey);
-    console.log('white', members.find(m => PublicKey.equals(m.publicKey, chessModel.model.whitePubKey)));
     setBlackPlayerName(
       () => members.find(m => PublicKey.equals(m.publicKey, chessModel.model.blackPubKey))?.displayName
     );

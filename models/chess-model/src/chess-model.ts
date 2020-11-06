@@ -25,7 +25,6 @@ export class ChessModel extends Model<ChessContent> {
     mutation: schema.getCodecForType('dxos.arena.chess.ChessContent'),
 
     async getInitMutation (props: ChessModelProps): Promise<ChessContent> {
-      console.log('getInitMutation props', props);
       assert(props && props.whitePlayerPublicKey && props.blackPlayerPublicKey, 'Players not selected');
       return {
         selection: {

@@ -80,7 +80,6 @@ export class ChessBot extends Bot {
    */
   async playMove (game, isWhite, isBlack) {
     const model = game.model.model;
-    console.log(`\nGame '${game.id}':\n${model.game.ascii()}`);
 
     if ((model.game.turn() === 'b' && isBlack) || (model.game.turn() === 'w' && isWhite)) {
       const move = await this.getNextMove(model.game);
