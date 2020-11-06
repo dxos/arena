@@ -5,7 +5,7 @@ name: Build and Publish to WNS
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   publish:
@@ -29,10 +29,12 @@ jobs:
 
           # Uncomment for NPM publishing.
           npm whoami
-          yarn lerna publish -y prerelease --dist-tag="beta" --force-publish
+          yarn lerna publish -y prerelease --dist-tag="alpha" --force-publish
 
           # Publish to WNS
           yarn wire profile init --name $WIRE_PROFILE --template-url https://apollo1.kube.moon.dxos.network/dxos/ipfs/gateway/QmcVUWB3a5JAhc8nJD1UYoWpkPXiqpuXWCBzemyBvzUCXD
+
+          export PKG_CHANNEL="@alpha"
           scripts/deploy_apps_to_wns.sh
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
