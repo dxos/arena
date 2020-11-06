@@ -2,22 +2,42 @@
 // Copyright 2020 DXOS.org
 //
 
-import { TYPE_CHESS_GAME } from '@dxos/chess-core';
+import assert from 'assert';
+
+import { ChessModel, CHESS_PAD, CHESS_TYPE_CONTENT } from '@dxos/chess-model';
+import { ObjectModel } from '@dxos/object-model';
 
 import ChessSettingsDialog from './containers/ChessSettingsDialog';
 import Game from './containers/Game';
 import KingWhite from './icons/KingWhite';
 
-export Game from './containers/Game';
-
 export default {
-  // TODO(elmasse): READ THIS FROM PAD.YML
   name: 'example.com/chess',
   displayName: 'Chess',
-  description: 'Chess',
-  type: TYPE_CHESS_GAME,
-
+  type: CHESS_PAD,
+  contentType: CHESS_TYPE_CONTENT,
   icon: KingWhite,
   main: Game,
-  settings: ChessSettingsDialog
+  settings: ChessSettingsDialog,
+  register: async (client) => {
+    await client.registerModel(ChessModel);
+  },
+  create: async ({ client, party }, { name }, metadata) => {
+    const item = await party.database.createItem({
+      model: ObjectModel,
+      type: CHESS_PAD,
+      props: { title: name || 'untitled' }
+    });
+
+    assert(metadata.selection, 'Attempted to create chess pad without selecting players');
+
+    await party.database.createItem({
+      model: ChessModel,
+      type: CHESS_TYPE_CONTENT,
+      parent: item.id,
+      props: { ...metadata.selection }
+    });
+
+    return item;
+  }
 };

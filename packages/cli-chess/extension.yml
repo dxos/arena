@@ -2,5 +2,6 @@ name: dxos/cli-chess
 version: 0.0.1
 displayName: cli-chess
 description: Chess operations.
+initRequired: true
 command:
   - chess

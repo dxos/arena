@@ -2,11 +2,11 @@
 // Copyright 2020 DXOS.org
 //
 
-import React, { useState } from 'react';
+import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import MessengerPad from '@dxos/messenger-pad';
+// import MessengerPad from '@dxos/messenger-pad';
 
 import ChessPad from '../components/ChessPad';
 import { useChessModel } from '../model';
@@ -23,25 +23,25 @@ const useStyles = makeStyles(() => ({
 }));
 
 // TODO(burdon): Remove (ChessPad should be outer container.)
-const Game = ({ party, topic, itemId }) => {
+const Game = ({ topic, itemId }) => {
   const classes = useStyles();
-  const [game, makeMove, gameModel] = useChessModel(topic, itemId);
-  const [messengerOpen, setMessengerOpen] = useState(false);
-  if (!gameModel || !gameModel.isInitialized) {
-    return null;
+  const chessModel = useChessModel(topic, itemId);
+  // const [messengerOpen, setMessengerOpen] = useState(false);
+  if (!chessModel) {
+    return <p>{'Game model is not loaded'}</p>;
   }
+
+  const makeMove = (move) => chessModel.model.makeMove(move);
 
   return (
     <div className={classes.root}>
       <ChessPad
-        gameId={itemId}
-        game={game}
-        gameModel={gameModel}
+        partyKey={topic}
+        chessModel={chessModel}
         onMove={makeMove}
-        party={party}
-        onToggleMessenger={() => setMessengerOpen(oldValue => !oldValue)}
+        // onToggleMessenger={() => setMessengerOpen(oldValue => !oldValue)}
       />
-      {messengerOpen && (
+      {/* {messengerOpen && (
         <div className={classes.messengerContainer}>
           <MessengerPad.main
             party={party}
@@ -49,7 +49,7 @@ const Game = ({ party, topic, itemId }) => {
             itemId={itemId}
           />
         </div>
-      )}
+      )} */}
     </div>
   );
 };

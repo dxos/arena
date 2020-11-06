@@ -3,10 +3,10 @@
 //
 
 import assert from 'assert';
-import Chess from 'chess.js';
 
-import { TYPE_CHESS_GAME, TYPE_CHESS_MOVE, TYPE_CHESS_PLAYERSELECT, ChessModel } from '@dxos/chess-core';
-import { useModel } from '@dxos/react-client';
+import { CHESS_TYPE_CONTENT } from '@dxos/chess-model';
+import { keyToBuffer } from '@dxos/crypto';
+import { useItems } from '@dxos/react-client';
 
 /**
  * Provides game state and a way to make moves.
@@ -17,20 +17,10 @@ import { useModel } from '@dxos/react-client';
 export const useChessModel = (topic, itemId) => {
   assert(topic);
   assert(itemId);
+  assert(CHESS_TYPE_CONTENT);
+  const partyKey = keyToBuffer(topic);
 
-  // TODO(rzadp,marik-d,rburdon) Use ECHO.
-  const model = useModel({
-    model: ChessModel,
-    options: {
-      type: [TYPE_CHESS_MOVE, TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT],
-      topic,
-      itemId
-    }
-  });
+  const [chessModel] = useItems({ partyKey, parent: itemId, type: CHESS_TYPE_CONTENT });
 
-  return [
-    model?.game ?? new Chess(), // TODO(burdon): Defensive: should assert if null.
-    move => model.makeMove(move),
-    model
-  ];
+  return chessModel;
 };

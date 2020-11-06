@@ -7,6 +7,9 @@
   "plugins": [
     "eslint-plugin-local-rules"
   ],
+  "env": {
+    "jest": true
+  },
   "rules": {
     "indent": "off",
     "local-rules/header": ["error"],

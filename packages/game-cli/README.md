@@ -10,14 +10,26 @@ List existing games:
 
 ```
 [wire]> game list
-[wire]> [{"__type_url":"testing.game.Game","gameId":1588200329869,"title":"Vaw."}]
+[wire]> [{"id":1588200329869,"title":"Vaw."}]
 ```
 
 Create new game:
 
 ```
-[wire]> game create
-{"gameId":1588200460978}
+[wire]> game create <title>
+{"id":1588200460978, "title": "your title"}
+```
+
+Join a game:
+
+```
+[wire]> game join <id>
+
+ | | 
+-+-+-
+ | | 
+-+-+-
+ | | 
 ```
 
 Play moves:

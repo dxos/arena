@@ -1,5 +1,0 @@
-//
-// Copyright 2020 DXOS.org
-//
-
-export { ChessModel, TYPE_CHESS_GAME, TYPE_CHESS_MOVE, TYPE_CHESS_PLAYERSELECT, CHESS_WHITE_ROLE, CHESS_BLACK_ROLE } from './ChessModel';

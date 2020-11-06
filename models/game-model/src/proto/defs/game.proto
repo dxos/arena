@@ -1,0 +1,14 @@
+//
+// Copyright 2020 DXOS.org
+//
+
+syntax = "proto3";
+
+package dxos.arena.game;
+
+message GameMove {
+  required string    id               = 1;
+  required string position = 2;
+  required int32 piece = 3;
+  required int32 move = 4;
+}

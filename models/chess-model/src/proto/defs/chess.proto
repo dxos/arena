@@ -1,0 +1,27 @@
+//
+// Copyright 2020 DXOS.org
+//
+
+syntax = "proto3";
+
+package dxos.arena.chess;
+
+message ChessPlayerSelection {
+  required string    whitePlayerPublicKey               = 1;
+  required string    blackPlayerPublicKey               = 2;
+}
+
+
+message ChessMove {
+  required string    from             = 1;
+  required string    to               = 2;
+  string             promotion        = 3;
+  required int32    turn              = 4;
+}
+
+message ChessContent {
+  oneof content {
+    ChessPlayerSelection selection = 1;
+    ChessMove move = 2;
+  }
+}

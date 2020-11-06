@@ -1,0 +1,41 @@
+{
+  "name": "@dxos/chess-model",
+  "version": "1.1.0-beta.5",
+  "main": "dist/src/index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "yarn build:protobuf && tsc --build",
+    "build:protobuf": "mkdir -p src/proto/gen && build-protobuf src/proto/defs/chess.proto -o src/proto/gen",
+    "lint": "eslint './src/**/*.{js,ts}' --ignore-path ../../.eslintignore",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@dxos/codec-protobuf": "^0.2.0",
+    "@dxos/crypto": "^1.0.0-beta.10",
+    "@dxos/model-factory": "^2.6.1-alpha.0",
+    "@dxos/util": "^2.1.0",
+    "assert": "^2.0.0",
+    "chess.js": "^0.11.0",
+    "debug": "^4.2.0"
+  },
+  "devDependencies": {
+    "@dxos/eslint-plugin": "^1.0.5",
+    "@dxos/protobuf-compiler": "^0.2.0",
+    "@types/jest": "^26.0.15",
+    "eslint": "^7.11.0",
+    "jest": "^26.6.1",
+    "ts-jest": "^26.4.3",
+    "typescript": "^4.0.3"
+  },
+  "jest": {
+    "rootDir": "./src",
+    "verbose": true,
+    "testEnvironment": "node",
+    "preset": "ts-jest/presets/js-with-ts",
+    "testTimeout": 10000
+  },
+  "private": "true",
+  "eslintConfig": {
+    "extends": "plugin:@dxos/recomended"
+  }
+}

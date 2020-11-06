@@ -78,3 +78,5 @@ bin/
 **/*.test.js
 
 stockfish.js
+
+**/proto/gen
