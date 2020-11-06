@@ -1535,19 +1535,10 @@
     humanhash "^1.0.4"
     hypercore-crypto "^1.0.0"
 
-"@dxos/crypto@^1.0.0-beta.0", "@dxos/crypto@^1.0.0-beta.1":
-  version "1.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@dxos/crypto/-/crypto-1.0.0-beta.2.tgz#39477a8825d501aed851aee3ed0923ef3040a95b"
-  integrity sha512-wM7bYWd+XHSmlHJ92hMmKULs+EU9GdP5Wz0ENMFQ1RW6smrkjpFtbIA+2k8Ft2la78Lt2txavWuQnr+9xpNveA==
-  dependencies:
-    crypto-js "^3.1.9-1"
-    humanhash "^1.0.4"
-    hypercore-crypto "^1.0.0"
-
-"@dxos/crypto@^1.0.0-beta.10", "@dxos/crypto@^1.0.0-beta.3", "@dxos/crypto@^1.0.0-beta.7":
-  version "1.0.0-beta.10"
-  resolved "https://registry.yarnpkg.com/@dxos/crypto/-/crypto-1.0.0-beta.10.tgz#32933955012b3c5e8de62792affaadee1c257f7c"
-  integrity sha512-ydf+xE28BLISWcH+CrrzOHCwCPg8nc8Hi3GgglTzJcpLwbcsirbPzpfdVqJbtlc5XWiw3zou4r/b8naHHcnaBA==
+"@dxos/crypto@^1.0.0-beta.0", "@dxos/crypto@^1.0.0-beta.1", "@dxos/crypto@^1.0.0-beta.10", "@dxos/crypto@^1.0.0-beta.3", "@dxos/crypto@^1.0.0-beta.7":
+  version "1.0.0-beta.12"
+  resolved "https://registry.yarnpkg.com/@dxos/crypto/-/crypto-1.0.0-beta.12.tgz#6459639ac717d2c5c83db930ee754b470f23df85"
+  integrity sha512-dq6b0RJ92EzpxO5i0kyXstNWGjlHjtL13Ef2vWS+ROB+om6jZ/zVRC7+WIwgCbA7re1aIME3os0T/dY2sjGVIA==
   dependencies:
     crypto-js "^3.1.9-1"
     humanhash "^1.0.4"
