@@ -23,23 +23,23 @@ const useStyles = makeStyles(() => ({
 }));
 
 // TODO(burdon): Remove (ChessPad should be outer container.)
-const Game = ({ party, topic, itemId }) => {
+const Game = ({ topic, itemId }) => {
   const classes = useStyles();
-  const [game, makeMove, gameModel] = useChessModel(topic, itemId);
+  const chessModel = useChessModel(topic, itemId);
   const [messengerOpen, setMessengerOpen] = useState(false);
-  if (!gameModel || !gameModel.isInitialized) {
-    return <p>{`Game model is ${!gameModel ? 'not loaded' : 'not initialized'}.`}</p>;
+  if (!chessModel) {
+    return <p>{'Game model is not loaded'}</p>;
   }
+
+  const makeMove = () => console.warn('not yet implemented');
 
   return (
     <div className={classes.root}>
       <ChessPad
-        gameId={itemId}
-        game={game}
-        gameModel={gameModel}
+        partyKey={topic}
+        chessModel={chessModel}
         onMove={makeMove}
-        party={party}
-        onToggleMessenger={() => setMessengerOpen(oldValue => !oldValue)}
+        // onToggleMessenger={() => setMessengerOpen(oldValue => !oldValue)}
       />
       {/* {messengerOpen && (
         <div className={classes.messengerContainer}>

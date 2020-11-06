@@ -5,9 +5,9 @@
 import assert from 'assert';
 import Chess from 'chess.js';
 
-import { TYPE_CHESS_GAME, TYPE_CHESS_MOVE, TYPE_CHESS_PLAYERSELECT, ChessModel } from '@dxos/chess-model';
-import { useModel } from '@dxos/react-client';
-import { useItems } from '@dxos/react-client';
+import { CHESS_TYPE_CONTENT } from '@dxos/chess-model';
+import { keyToBuffer } from '@dxos/crypto';
+import { useModel, useItems } from '@dxos/react-client';
 
 /**
  * Provides game state and a way to make moves.
@@ -18,8 +18,10 @@ import { useItems } from '@dxos/react-client';
 export const useChessModel = (topic, itemId) => {
   assert(topic);
   assert(itemId);
+  assert(CHESS_TYPE_CONTENT);
+  const partyKey = keyToBuffer(topic);
 
-  const [gameModel] = useItems({ partyKey, parent: gameId, type: GAME_TYPE_MOVE });
+  const [chessModel] = useItems({ partyKey, parent: itemId, type: CHESS_TYPE_CONTENT });
   // TODO(rzadp,marik-d,rburdon) Use ECHO.
   // const model = useModel({
   //   model: ChessModel,
@@ -30,7 +32,7 @@ export const useChessModel = (topic, itemId) => {
   //   }
   // });
 
-  return []
+  return chessModel;
 
   // return [
   //   model?.game ?? new Chess(), // TODO(burdon): Defensive: should assert if null.

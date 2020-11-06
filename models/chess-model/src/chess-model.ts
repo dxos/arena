@@ -3,7 +3,7 @@
 //
 
 import assert from 'assert';
-import ChessJs, { ShortMove, Square } from 'chess.js';
+import ChessJs from 'chess.js';
 
 import { PublicKey } from '@dxos/crypto';
 import { MutationMeta } from '@dxos/echo-protocol';
@@ -11,8 +11,8 @@ import { ModelMeta, Model } from '@dxos/model-factory';
 
 import { ChessContent, schema, ChessPlayerSelection, ChessMove } from './proto';
 
-// const Chess = (typeof define !== 'undefined') ? ChessJs : ChessJs.Chess;
-const Chess = ChessJs.Chess;
+declare let define: any;
+const Chess = (typeof define !== 'undefined') ? ChessJs : ChessJs.Chess; // ChessJs behaving differently in Node and in the browser
 
 export interface ChessModelProps {
   whitePlayerPublicKey: string,
@@ -25,6 +25,7 @@ export class ChessModel extends Model<ChessContent> {
     mutation: schema.getCodecForType('dxos.arena.chess.ChessContent'),
 
     async getInitMutation (props: ChessModelProps): Promise<ChessContent> {
+      console.log('getInitMutation props', props);
       assert(props && props.whitePlayerPublicKey && props.blackPlayerPublicKey, 'Players not selected');
       return {
         selection: {
@@ -36,7 +37,7 @@ export class ChessModel extends Model<ChessContent> {
   }
 
   private _whitePubKey = ''
-  private _game = new ChessJs.Chess();
+  private _game = new Chess();
   private _blackPubKey = ''
 
   /**
@@ -99,10 +100,10 @@ export class ChessModel extends Model<ChessContent> {
       return false;
     }
 
-    const shortMove: ChessJs.ShortMove = {
-      from: move.from as Square,
-      to: move.to as Square,
-      promotion: move.promotion as ShortMove['promotion']
+    const shortMove = {
+      from: move.from,
+      to: move.to,
+      promotion: move.promotion
     };
     if (!new Chess(this.game.fen()).move(shortMove)) {
       return false;

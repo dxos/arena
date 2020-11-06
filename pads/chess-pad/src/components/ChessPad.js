@@ -9,12 +9,15 @@ import { HotKeys } from 'react-hotkeys';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import { keyToString } from '@dxos/crypto';
+import { keyToBuffer, PublicKey } from '@dxos/crypto';
+import { useMembers } from '@dxos/react-appkit';
+import { useParty } from '@dxos/react-client';
 
 import ChessPanel from './ChessPanel';
 import PromotionSelect from './PromotionSelect';
 
 const useStyles = makeStyles((theme) => ({
+  board: {},
   root: {
     display: 'flex',
     flex: 1,
@@ -54,7 +57,7 @@ const getCaption = (game) => {
 /**
  * Chess board wrapper.
  */
-const ChessPad = ({ party, game, gameModel, onMove, maxWidth, transitionDuration = 150, showPanel: initShowPanel = true, onToggleMessenger = undefined }) => {
+const ChessPad = ({ partyKey, chessModel, onMove, maxWidth, transitionDuration = 150, showPanel: initShowPanel = true, onToggleMessenger = undefined }) => {
   const classes = useStyles();
   const board = useRef();
   const [orientation, setOrientation] = useState('white'); // TODO(burdon): Constants.
@@ -64,8 +67,12 @@ const ChessPad = ({ party, game, gameModel, onMove, maxWidth, transitionDuration
   const lengthRef = useRef(-1);
   const [whitePlayerName, setWhitePlayerName] = React.useState('White player');
   const [blackPlayerName, setBlackPlayerName] = React.useState('Black player');
+  console.log('partyKey', partyKey);
+  const party = useParty(keyToBuffer(partyKey));
+  console.log('party', party);
+  const members = useMembers(party);
 
-  const length = !game ? -1 : game.history().length;
+  const length = chessModel.model.length;
   useEffect(() => {
     if (position === lengthRef.current) {
       setPosition(length);
@@ -74,19 +81,17 @@ const ChessPad = ({ party, game, gameModel, onMove, maxWidth, transitionDuration
   }, [position, length]);
 
   useEffect(() => {
-    if (party?.members && gameModel) {
-      setWhitePlayerName(
-        () => party.members.find(m => keyToString(m.publicKey) === keyToString(gameModel.whitePubKey)).displayName
-      );
-      setBlackPlayerName(
-        () => party.members.find(m => keyToString(m.publicKey) === keyToString(gameModel.blackPubKey)).displayName
-      );
-    }
-  }, []);
-
-  if (!game) {
-    return null;
-  }
+    if (!members) return;
+    setWhitePlayerName(
+      () => members.find(m => PublicKey.equals(m.publicKey, chessModel.model.whitePubKey))?.displayName
+    );
+    console.log(members);
+    console.log(chessModel.model.whitePubKey);
+    console.log('white', members.find(m => PublicKey.equals(m.publicKey, chessModel.model.whitePubKey)));
+    setBlackPlayerName(
+      () => members.find(m => PublicKey.equals(m.publicKey, chessModel.model.blackPubKey))?.displayName
+    );
+  }, [members, party]);
 
   // alt + ... -> wont work on macos
   const keyMap = {
@@ -105,8 +110,8 @@ const ChessPad = ({ party, game, gameModel, onMove, maxWidth, transitionDuration
   };
 
   // Get game position.
-  let fen = game.fen();
-  const history = game.history();
+  let fen = chessModel.model.game.fen();
+  const history = chessModel.model.game.history();
   if (position !== -1 && position !== history.length) {
     const tempGame = new Chess();
     for (let i = 0; i < position; i++) {
@@ -123,7 +128,7 @@ const ChessPad = ({ party, game, gameModel, onMove, maxWidth, transitionDuration
 
   const handleDrop = async ({ sourceSquare, targetSquare }) => {
     let promotion;
-    const { type: piece } = game.get(sourceSquare);
+    const { type: piece } = chessModel.model.game.get(sourceSquare);
     if ((targetSquare.endsWith('8') || targetSquare.endsWith('1')) && piece === 'p') {
       promotion = await askForPromotion();
       if (!promotion) {
@@ -143,7 +148,7 @@ const ChessPad = ({ party, game, gameModel, onMove, maxWidth, transitionDuration
     return maxWidth ? Math.max(size, maxWidth) : size;
   };
 
-  const caption = getCaption(game);
+  const caption = getCaption(chessModel.model.game);
 
   // TODO(burdon): Fix flicker game move bug?
   return (
@@ -170,8 +175,7 @@ const ChessPad = ({ party, game, gameModel, onMove, maxWidth, transitionDuration
             <div className={classes.captionContainer} />
 
             <ChessPanel
-              party={party}
-              game={game}
+              game={chessModel.model.game}
               position={position}
               onSetPosition={setPosition}
               orientation={orientation}

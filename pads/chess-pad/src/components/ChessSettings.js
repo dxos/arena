@@ -57,7 +57,6 @@ const PlayerSelector = ({ value, members, label, onSelect, disabled }) => {
         }}
       />
 
-      {/* TODO(burdon): Show player avatar. */}
       <div className={classes.icon}>
         { value ? (
           <MemberAvatar member={value} />
@@ -65,11 +64,7 @@ const PlayerSelector = ({ value, members, label, onSelect, disabled }) => {
           <Avatar style={getAvatarStyle(theme, undefined)}>
             <FaceIcon />
           </Avatar>
-        )
-
-        }
-
-        {/* <SecurityIcon fontSize='large' /> */}
+        )}
       </div>
     </div>
   );

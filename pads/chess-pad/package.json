@@ -33,7 +33,6 @@
     "@dxos/debug": "^1.0.0-beta.73",
     "@dxos/echo-db": "^2.5.2-alpha.0",
     "@dxos/messenger-pad": "^1.0.1-beta.11",
-    "@dxos/model-adapter": "^2.1.0",
     "@dxos/react-appkit": "^2.7.3-alpha.0",
     "@dxos/react-router": "^2.7.3-alpha.0",
     "@dxos/react-ux": "^2.7.3-alpha.0",

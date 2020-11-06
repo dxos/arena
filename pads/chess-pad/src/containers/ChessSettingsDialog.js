@@ -42,6 +42,8 @@ const ChessSettingsDialog = ({ topic, open, onClose, onCancel, item }) => {
     assert(white);
     assert(black);
 
+    console.log('handle close,', name, white, black);
+
     const initializeGame = () => { console.warn('cut out for now'); };
     // const initializeGame = (itemId) => {
     //   gameModel.appendMessage({
@@ -55,7 +57,13 @@ const ChessSettingsDialog = ({ topic, open, onClose, onCancel, item }) => {
     //   itemModel.renameItem(item.itemId, name);
     //   initializeGame(item.itemId);
     // }
-    onClose({ name }, undefined, initializeGame);
+    const metadata = {
+      selection: {
+        whitePlayerPublicKey: keyToString(white.publicKey),
+        blackPlayerPublicKey: keyToString(black.publicKey)
+      }
+    };
+    onClose({ name }, metadata, initializeGame);
   };
 
   return (

@@ -2,38 +2,40 @@
 // Copyright 2020 DXOS.org
 //
 
-import { ChessModel, TYPE_CHESS_GAME, TYPE_CHESS_MOVE } from '@dxos/chess-model';
-import { createModelAdapter } from '@dxos/model-adapter';
+import assert from 'assert';
+
+import { ChessModel, CHESS_PAD, CHESS_TYPE_CONTENT } from '@dxos/chess-model';
 import { ObjectModel } from '@dxos/object-model';
 
 import ChessSettingsDialog from './containers/ChessSettingsDialog';
 import Game from './containers/Game';
 import KingWhite from './icons/KingWhite';
 
-const adaptedModel = createModelAdapter(TYPE_CHESS_GAME, ChessModel);
-
 export default {
   name: 'example.com/chess',
   displayName: 'Chess',
-  type: TYPE_CHESS_GAME,
-  contentType: TYPE_CHESS_MOVE,
+  type: CHESS_PAD,
+  contentType: CHESS_TYPE_CONTENT,
   icon: KingWhite,
   main: Game,
   settings: ChessSettingsDialog,
   register: async (client) => {
-    await client.registerModel(adaptedModel);
+    await client.registerModel(ChessModel);
   },
-  create: async ({ client, party }, { name }) => {
+  create: async ({ client, party }, { name }, metadata) => {
     const item = await party.database.createItem({
       model: ObjectModel,
-      type: TYPE_CHESS_GAME,
+      type: CHESS_PAD,
       props: { title: name || 'untitled' }
     });
 
+    assert(metadata.selection, 'Attempted to create chess pad without selecting players');
+
     await party.database.createItem({
-      model: adaptedModel,
-      type: TYPE_CHESS_MOVE,
-      parent: item.id
+      model: ChessModel,
+      type: CHESS_TYPE_CONTENT,
+      parent: item.id,
+      props: { ...metadata.selection }
     });
 
     return item;
