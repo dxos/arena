@@ -44,9 +44,6 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface }) =
 
         const members = party.queryMembers().value.sort(sorter);
 
-        const client = await getClient();
-        await client.registerModel(ChessModel);
-
         const result = party.database.queryItems({ type: CHESS_TYPE_CONTENT });
         const games = result.value.map(item => {
           const game = {
@@ -81,7 +78,6 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface }) =
         assert(party, 'Invalid party.');
 
         const client = await getClient();
-        await client.registerModel(ChessModel);
 
         const members = party.queryMembers().value.sort(sorter);
 
