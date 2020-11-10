@@ -49,10 +49,22 @@
 ### Chess game (player vs player):
 - [ ] Create new chess game from Machine A (A white, B black)
 - [ ] Play 4 moves each machine
-??? End game?
+- [ ] Revind game and then return to current state on Machine A
+- [ ] Play 2 more moves from each machine 
 
 ### Messenger inside game
-TODO(Chris):Add steps
+- [ ] Open messenger and send a message from Machine A
+- [ ] Open messenger and reply from Machine B
+- [ ] Verify that both user names are displayed correctly
+- [ ] Join video/audio chat from Machine A
+- [ ] Join video/audio chat from Machine B
+- [ ] Verify that chat layout fits on single screen for both machines
+- [ ] Verify that video/audio chat works well on both machines
+- [ ] Leave audio/video chat on Machine A
+- [ ] Leave audio/video chat on Machine B
+- [ ] Close messenger view on Machine A
+- [ ] Close messenger view on Machine B
+- [ ] Reopen messenger view on Machine A and confirm that all the messages and names are still there
 
 ### Bots:
 - [ ] Invite chess bot to party
