@@ -3,36 +3,31 @@
 //
 
 import assert from 'assert';
-import Chance from 'chance';
 import set from 'lodash.set';
 
-import { TYPE_CHESS_GAME, TYPE_CHESS_PLAYERSELECT, ChessModel } from '@dxos/chess-model';
+import { ChessModel, CHESS_TYPE_CONTENT, CHESS_PAD } from '@dxos/chess-model';
 import { print, asyncHandler } from '@dxos/cli-core';
-import { keyToString, keyToBuffer } from '@dxos/crypto';
+import { keyToString, keyToBuffer, PublicKey } from '@dxos/crypto';
 import { log } from '@dxos/debug';
+import { ObjectModel } from '@dxos/object-model';
 
-const chance = new Chance();
-
-// TODO(egorgripasov): Factor out.
-const sorter = (a, b) => (a.displayName < b.displayName ? -1 : a.displayName > b.displayName ? 1 : a.isMe ? -1 : 1);
+import { sorter } from '../utils';
 
 const getGameUpdateHandler = (members) => {
   return item => {
-    const model = item.model.model;
-    if (model.orderedMessages.length > 0) {
-      log(`\n${model.game.ascii()}`);
+    const chessModel = item.model;
+    log(`\n${chessModel.game.ascii()}`);
 
-      const nextMovePublicKey = model.game.turn() === 'w' ? model.whitePubKey : model.blackPubKey;
-      if (nextMovePublicKey) {
-        const nextMove = members.find(member => member.publicKey.equals(nextMovePublicKey)).displayName;
-        log(`Next move: \x1b[1m${nextMove}\x1b[0m`);
-      }
-      return true;
+    const nextMovePublicKey = chessModel.game.turn() === 'w' ? chessModel.whitePubKey : chessModel.blackPubKey;
+    if (nextMovePublicKey) {
+      const nextMove = members.find(member => PublicKey.equals(member.publicKey, nextMovePublicKey)).displayName;
+      log(`Next move: \x1b[1m${nextMove}\x1b[0m`);
     }
+    return true;
   };
 };
 
-export const ChessModule = ({ getClient, stateManager, getReadlineInterface, chessModel }) => ({
+export const ChessModule = ({ getClient, stateManager, getReadlineInterface }) => ({
   command: ['$0', 'chess'],
   describe: 'Chess CLI.',
   builder: yargs => yargs
@@ -50,18 +45,18 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface, che
 
         const members = party.queryMembers().value.sort(sorter);
 
-        const result = party.database.queryItems({ type: TYPE_CHESS_GAME });
+        const result = party.database.queryItems({ type: CHESS_TYPE_CONTENT });
         const games = result.value.map(item => {
           const game = {
             id: item.id
           };
 
-          set(game, json ? 'white.displayName' : 'white', members.find(member => item.model.model.whitePubKey.equals(member.publicKey))?.displayName);
-          set(game, json ? 'black.displayName' : 'black', members.find(member => item.model.model.blackPubKey.equals(member.publicKey))?.displayName);
+          set(game, json ? 'white.displayName' : 'white', members.find(member => PublicKey.equals(item.model.whitePubKey, member.publicKey))?.displayName);
+          set(game, json ? 'black.displayName' : 'black', members.find(member => PublicKey.equals(item.model.blackPubKey, member.publicKey))?.displayName);
 
           if (json) {
-            set(game, 'white.publicKey', keyToString(item.model.model.whitePubKey));
-            set(game, 'black.publicKey', keyToString(item.model.model.blackPubKey));
+            set(game, 'white.publicKey', keyToString(item.model.whitePubKey));
+            set(game, 'black.publicKey', keyToString(item.model.blackPubKey));
           }
 
           return game;
@@ -81,7 +76,7 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface, che
         .option('demo', { type: 'boolean' }),
 
       handler: asyncHandler(async argv => {
-        const { title: gameTitle } = argv;
+        const { title } = argv;
 
         const party = stateManager.party;
         assert(party, 'Invalid party.');
@@ -125,21 +120,24 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface, che
           black = self;
         }
 
-        const title = !gameTitle ? `item-${chance.word()}` : gameTitle;
-
-        log(`Game \x1b[1m${title}\x1b[0m.`);
+        log(`Game \x1b[1m${title}\x1b[0m created.`);
         log(`\x1b[1m${white.displayName}\x1b[0m selected to play white.`);
         log(`\x1b[1m${black.displayName}\x1b[0m selected to play black.\n`);
 
-        const game = await party.database.createItem({
-          type: TYPE_CHESS_GAME,
-          model: chessModel,
-          displayName: title
+        const padItem = await party.database.createItem({
+          model: ObjectModel,
+          type: CHESS_PAD,
+          props: { title: title || 'untitled' }
         });
 
-        game.model.model.appendMessage({
-          __type_url: TYPE_CHESS_PLAYERSELECT,
-          ...ChessModel.createGenesisMessage(title, white.publicKey, black.publicKey)
+        const game = await party.database.createItem({
+          model: ChessModel,
+          type: CHESS_TYPE_CONTENT,
+          parent: padItem.id,
+          props: {
+            whitePlayerPublicKey: keyToString(white.publicKey),
+            blackPlayerPublicKey: keyToString(black.publicKey)
+          }
         });
 
         await stateManager.setItem(game, getGameUpdateHandler(members));
@@ -172,7 +170,7 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface, che
 
     .command({
       command: ['move <from> <to>'],
-      describe: 'Create game.',
+      describe: 'Make a move.',
       builder: yargs => yargs
         .option('from', { type: 'string' })
         .option('to', { type: 'string' }),
@@ -180,10 +178,10 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface, che
       handler: asyncHandler(async argv => {
         const { from, to } = argv;
 
-        const game = stateManager.item;
-        assert(game, 'Invalid game.');
+        const chessModel = stateManager.item;
+        assert(chessModel, 'Invalid game.');
 
-        game.model.model.makeMove({ from, to });
+        chessModel.model.makeMove({ from, to, turn: chessModel.model.length });
       })
     })
 });
