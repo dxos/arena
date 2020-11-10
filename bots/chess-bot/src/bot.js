@@ -4,9 +4,8 @@
 
 import { sleep } from '@dxos/async';
 import { Bot } from '@dxos/botkit';
-import { TYPE_CHESS_GAME, ChessModel } from '@dxos/chess-model';
-import { keyToString, keyToBuffer } from '@dxos/crypto';
-import { createModelAdapter } from '@dxos/model-adapter';
+import { ChessModel, CHESS_TYPE_CONTENT } from '@dxos/chess-model';
+import { keyToString, keyToBuffer, PublicKey } from '@dxos/crypto';
 
 /**
  * Chess bot.
@@ -27,9 +26,7 @@ export class ChessBot extends Bot {
 
   async start () {
     await super.start();
-
-    const model = createModelAdapter(TYPE_CHESS_GAME, ChessModel);
-    this._client.registerModel(model);
+    this._client.registerModel(ChessModel);
 
     this._self = keyToBuffer(this._client.getProfile().publicKey);
   }
@@ -43,7 +40,7 @@ export class ChessBot extends Bot {
 
     const party = this._client.echo.getParty(key);
 
-    const result = party.database.queryItems({ type: TYPE_CHESS_GAME });
+    const result = party.database.queryItems({ type: CHESS_TYPE_CONTENT });
     result.subscribe(async () => {
       await this.readGames(result.value);
     });
@@ -52,8 +49,8 @@ export class ChessBot extends Bot {
 
   async readGames (games) {
     for await (const game of games) {
-      const isWhite = game.model.model.whitePubKey.equals(this._self);
-      const isBlack = game.model.model.blackPubKey.equals(this._self);
+      const isWhite = PublicKey.equals(game.model.whitePubKey, this._self);
+      const isBlack = PublicKey.equals(game.model.blackPubKey, this._self);
 
       if (isWhite || isBlack) {
         if (!this._games.has(game.id)) {
@@ -79,14 +76,14 @@ export class ChessBot extends Bot {
    * @param {Boolean} isBlack
    */
   async playMove (game, isWhite, isBlack) {
-    const model = game.model.model;
+    const model = game.model;
 
     if ((model.game.turn() === 'b' && isBlack) || (model.game.turn() === 'w' && isWhite)) {
       const move = await this.getNextMove(model.game);
       if (move) {
         console.log(`Making move: ${JSON.stringify(move)}`);
         await sleep(1200);
-        model.makeMove(move);
+        model.makeMove({ ...move, turn: model.length });
       }
     }
   }
