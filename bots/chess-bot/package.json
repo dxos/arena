@@ -1,6 +1,6 @@
 {
   "name": "@dxos/chess-bot",
-  "version": "1.1.0-beta.8",
+  "version": "1.1.0-beta.9",
   "description": "Chess Bot",
   "keywords": [],
   "license": "GPL-3.0",
@@ -32,7 +32,7 @@
   "dependencies": {
     "@dxos/async": "^1.0.0-beta.10",
     "@dxos/botkit": "^2.7.4-alpha.0",
-    "@dxos/chess-model": "^1.1.0-beta.8",
+    "@dxos/chess-model": "^1.1.0-beta.9",
     "@dxos/crypto": "^1.0.0-beta.10"
   },
   "devDependencies": {
