@@ -5,10 +5,11 @@
 import assert from 'assert';
 import set from 'lodash.set';
 
-import { ChessModel, CHESS_TYPE_CONTENT } from '@dxos/chess-model';
+import { ChessModel, CHESS_TYPE_CONTENT, CHESS_PAD } from '@dxos/chess-model';
 import { print, asyncHandler } from '@dxos/cli-core';
 import { keyToString, keyToBuffer, PublicKey } from '@dxos/crypto';
 import { log } from '@dxos/debug';
+import { ObjectModel } from '@dxos/object-model';
 
 import { sorter } from '../utils';
 
@@ -66,14 +67,17 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface }) =
     })
 
     .command({
-      command: ['create'],
+      command: ['create [title]'],
       describe: 'Create game.',
       builder: yargs => yargs
+        .option('title')
         .option('count', { type: 'number' })
         .option('auto-assign', { type: 'boolean' })
         .option('demo', { type: 'boolean' }),
 
       handler: asyncHandler(async argv => {
+        const { title } = argv;
+
         const party = stateManager.party;
         assert(party, 'Invalid party.');
 
@@ -116,13 +120,20 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface }) =
           black = self;
         }
 
-        log('Game created.');
+        log(`Game \x1b[1m${title}\x1b[0m created.`);
         log(`\x1b[1m${white.displayName}\x1b[0m selected to play white.`);
         log(`\x1b[1m${black.displayName}\x1b[0m selected to play black.\n`);
+
+        const padItem = await party.database.createItem({
+          model: ObjectModel,
+          type: CHESS_PAD,
+          props: { title: title || 'untitled' }
+        });
 
         const game = await party.database.createItem({
           model: ChessModel,
           type: CHESS_TYPE_CONTENT,
+          parent: padItem.id,
           props: {
             whitePlayerPublicKey: keyToString(white.publicKey),
             blackPlayerPublicKey: keyToString(black.publicKey)
