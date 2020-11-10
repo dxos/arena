@@ -29,7 +29,7 @@
     "@dxos/debug": "^1.0.0-beta.73",
     "@dxos/echo-db": "^2.6.1-alpha.0",
     "@dxos/game-pad": "^1.1.0-beta.8",
-    "@dxos/messenger-pad": "^1.0.1-beta.11",
+    "@dxos/messenger-pad": "^1.0.1-beta.17",
     "@dxos/random-access-multi-storage": "^1.1.0-beta.4",
     "@dxos/react-appkit": "^2.7.4-alpha.0",
     "@dxos/react-client": "^2.7.4-alpha.0",
