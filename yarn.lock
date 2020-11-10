@@ -1613,32 +1613,6 @@
     source-map-support "^0.5.12"
     stream-buffers "^3.0.2"
 
-"@dxos/echo-protocol@^2.4.0":
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/@dxos/echo-protocol/-/echo-protocol-2.4.0.tgz#f6c048f22495e8cf9d311032ce4ffef6962d3184"
-  integrity sha512-L2cQaLfoPNHNhoHx5TdiimUbeF6yrmAumRmhWOpC8XfI21b4TLzBeozqos7rfhup9i1Lkgb2e+CWf9vltl10EQ==
-  dependencies:
-    "@dxos/async" "^1.0.0-beta.8"
-    "@dxos/codec-protobuf" "^0.2.0"
-    "@dxos/credentials" "^2.0.0"
-    "@dxos/crypto" "^1.0.0-beta.7"
-    "@dxos/feed-store" "^1.2.0-beta.30"
-    "@dxos/util" "^2.4.0"
-    "@types/debug" "^4.1.1"
-    "@types/end-of-stream" "^1.4.0"
-    "@types/lodash" "^4.14.159"
-    "@types/node" "^14.0.9"
-    "@types/readable-stream" "^2.3.9"
-    "@types/stream-buffers" "^3.0.2"
-    "@types/through2" "^2.0.36"
-    debug "^4.1.1"
-    hypercore "^7.7.1"
-    js-data-structs "^1.1.2"
-    lodash.merge "^4.6.2"
-    protobufjs "^6.9.0"
-    readable-stream "^3.6.0"
-    source-map-support "^0.5.12"
-
 "@dxos/echo-protocol@^2.6.1-alpha.0":
   version "2.6.1-alpha.0"
   resolved "https://registry.yarnpkg.com/@dxos/echo-protocol/-/echo-protocol-2.6.1-alpha.0.tgz#13e05eb44ff423f5fc969f444f9013dd1bbd769b"
@@ -1790,33 +1764,6 @@
     lodash.set "^4.3.2"
     lodash.unset "^4.5.2"
 
-"@dxos/model-adapter@^2.1.0":
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/@dxos/model-adapter/-/model-adapter-2.4.0.tgz#c4f10b9415ebe439f63ec5963c4d6b5214b2c63a"
-  integrity sha512-rTzn0eKYdEWs0HVqu+H33Gfjbolevbryp8JH/eMt7taAqqmsirn+MZrq+NjGhgRY3kUZXxH66v6/9hHHs/Iz8A==
-  dependencies:
-    "@dxos/async" "^1.0.0-beta.8"
-    "@dxos/codec-protobuf" "^0.2.0"
-    "@dxos/crypto" "^1.0.0-beta.7"
-    "@dxos/echo-protocol" "^2.4.0"
-    "@dxos/feed-store" "^1.2.0-beta.30"
-    "@dxos/model-factory" "^2.4.0"
-    "@dxos/util" "^2.4.0"
-    "@types/buffer-json" "^2.0.0"
-    "@types/debug" "^4.1.1"
-    "@types/end-of-stream" "^1.4.0"
-    "@types/lodash" "^4.14.159"
-    "@types/node" "^14.0.9"
-    "@types/stream-buffers" "^3.0.2"
-    "@types/through2" "^2.0.36"
-    buffer-json "^2.0.0"
-    debug "^4.1.1"
-    hypercore "^7.7.1"
-    js-data-structs "^1.1.2"
-    lodash.merge "^4.6.2"
-    protobufjs "^6.9.0"
-    source-map-support "^0.5.12"
-
 "@dxos/model-factory@1.0.0-beta.28", "@dxos/model-factory@^1.0.0-beta.27", "@dxos/model-factory@^1.0.0-beta.28":
   version "1.0.0-beta.28"
   resolved "https://registry.yarnpkg.com/@dxos/model-factory/-/model-factory-1.0.0-beta.28.tgz#8fa142731e1b94a8d1228d399e37f31192d44ea0"
@@ -1862,30 +1809,6 @@
     signal-promise "^1.0.3"
     source-map-support "^0.5.12"
     through2 "^3.0.1"
-
-"@dxos/model-factory@^2.4.0":
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/@dxos/model-factory/-/model-factory-2.4.0.tgz#6a142a19493301cb27087fefeb727add46e68401"
-  integrity sha512-Glr66wy4PY2EkkTRmdG2l5zTyGM3DiU5E9ZA1WHBAzQXPF//S0KbFYprNl1VgzMtXcWBiovw465+OxAw5ieacA==
-  dependencies:
-    "@dxos/async" "^1.0.0-beta.8"
-    "@dxos/codec-protobuf" "^0.2.0"
-    "@dxos/crypto" "^1.0.0-beta.7"
-    "@dxos/echo-protocol" "^2.4.0"
-    "@dxos/feed-store" "^1.2.0-beta.30"
-    "@dxos/util" "^2.4.0"
-    "@types/debug" "^4.1.1"
-    "@types/end-of-stream" "^1.4.0"
-    "@types/lodash" "^4.14.159"
-    "@types/node" "^14.0.9"
-    "@types/stream-buffers" "^3.0.2"
-    "@types/through2" "^2.0.36"
-    debug "^4.1.1"
-    hypercore "^7.7.1"
-    js-data-structs "^1.1.2"
-    lodash.merge "^4.6.2"
-    protobufjs "^6.9.0"
-    source-map-support "^0.5.12"
 
 "@dxos/model-factory@^2.6.1-alpha.0":
   version "2.6.1-alpha.0"
@@ -2349,7 +2272,7 @@
     lodash.isplainobject "^4.0.6"
     uuid "^3.3.3"
 
-"@dxos/util@^2.1.0", "@dxos/util@^2.4.0":
+"@dxos/util@^2.1.0":
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@dxos/util/-/util-2.4.0.tgz#4b71e34ca8bf17a1a0b904718f732c4fdbc7e4b7"
   integrity sha512-lXYAUoFFsFQhyWdoQfLQVl1rKXzs3q/EJqIti7KadaBQfyL7VvxRM7ecXBFMX2GsMfq2lASUSdvQmIHqyKQMGA==
@@ -5039,11 +4962,6 @@
   integrity sha512-Pzh9O3sTK8V6I1olsXpCfj2k/ygO2q1X0vhhnDrEQyYLHZesWz+zMZMVcwXLCYf0U36EtmyYaFGPfXlTtDHe3A==
   dependencies:
     "@babel/types" "^7.3.0"
-
-"@types/buffer-json@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@types/buffer-json/-/buffer-json-2.0.0.tgz#6ec0ee9ba7334a378a9c1d849bccc1b079a33554"
-  integrity sha512-nFKOrY93Tvv5Tobws+YbkGlPOJsn1nVpZah3BlSyQ4EniFm97KLvSr54tZ5xQp8mlf/XxbYwskNCYQB9EdrPlQ==
 
 "@types/chance@^1.1.0":
   version "1.1.0"

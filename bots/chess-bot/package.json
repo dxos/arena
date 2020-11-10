@@ -33,8 +33,7 @@
     "@dxos/async": "^1.0.0-beta.10",
     "@dxos/botkit": "^2.7.4-alpha.0",
     "@dxos/chess-model": "^1.1.0-beta.7",
-    "@dxos/crypto": "^1.0.0-beta.10",
-    "@dxos/model-adapter": "^2.1.0"
+    "@dxos/crypto": "^1.0.0-beta.10"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
