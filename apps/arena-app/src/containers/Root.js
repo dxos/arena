@@ -10,7 +10,7 @@ import primary from '@material-ui/core/colors/deepOrange';
 import ChessPad from '@dxos/chess-pad';
 import { ErrorHandler } from '@dxos/debug';
 import GamePad from '@dxos/game-pad';
-// import MessengerPad from '@dxos/messenger-pad';
+import MessengerPad from '@dxos/messenger-pad';
 import {
   SET_LAYOUT,
   AppKitProvider,
@@ -35,8 +35,8 @@ const initialState = {
 
 const pads = [
   GamePad,
-  ChessPad
-  // MessengerPad
+  ChessPad,
+  MessengerPad
 ];
 
 const Root = ({ clientConfig }) => {

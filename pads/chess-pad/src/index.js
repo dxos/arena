@@ -5,6 +5,7 @@
 import assert from 'assert';
 
 import { ChessModel, CHESS_PAD, CHESS_TYPE_CONTENT } from '@dxos/chess-model';
+import { MessengerModel, MESSENGER_TYPE_MESSAGE } from '@dxos/messenger-model';
 import { ObjectModel } from '@dxos/object-model';
 
 import ChessSettingsDialog from './containers/ChessSettingsDialog';
@@ -36,6 +37,12 @@ export default {
       type: CHESS_TYPE_CONTENT,
       parent: item.id,
       props: { ...metadata.selection }
+    });
+
+    await party.database.createItem({
+      model: MessengerModel,
+      type: MESSENGER_TYPE_MESSAGE,
+      parent: item.id
     });
 
     return item;

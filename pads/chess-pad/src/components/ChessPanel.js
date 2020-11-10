@@ -23,7 +23,7 @@ import ForwardIcon from '@material-ui/icons/NavigateNext';
 import EndIcon from '@material-ui/icons/SkipNext';
 import StartIcon from '@material-ui/icons/SkipPrevious';
 
-// import MessengerPad from '@dxos/messenger-pad';
+import MessengerPad from '@dxos/messenger-pad';
 
 const useStyles = makeStyles(theme => ({
   table: ({ rows }) => ({
@@ -132,9 +132,9 @@ const ChessPanel = ({
                 </IconButton>
               </TableCell>
               <TableCell style={{ width: 80 }}>
-                {/* <IconButton size="small" onClick={onToggleMessenger}>
+                <IconButton size="small" onClick={onToggleMessenger}>
                   <MessengerPad.icon />
-                </IconButton> */}
+                </IconButton>
               </TableCell>
             </TableRow>
           </TableHead>
