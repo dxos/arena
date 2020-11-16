@@ -24,10 +24,10 @@
     "verbose": false
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0",
+    "@babel/runtime": "7.11.2",
     "@dxos/async": "^1.0.0-beta.10",
     "@dxos/cli-core": "^2.0.4-alpha.0",
-    "@dxos/crypto": "^1.0.0-beta.1",
+    "@dxos/crypto": "^1.0.0-beta.10",
     "@dxos/debug": "^1.0.0-beta.73",
     "@dxos/game-model": "^1.1.0-beta.13",
     "assert": "^2.0.0",
@@ -38,22 +38,22 @@
     "yargs": "^11.0.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0",
-    "@babel/core": "^7.0.0",
-    "@babel/node": "^7.2.2",
-    "@babel/plugin-proposal-class-properties": "^7.3.0",
-    "@babel/plugin-transform-runtime": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/plugin-proposal-class-properties": "^7.10.1",
+    "@babel/plugin-transform-runtime": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
     "@dxos/eslint-plugin": "^1.0.8",
     "babel-jest": "^25.1.0",
-    "babel-loader": "^8.0.0",
-    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-add-module-exports": "^1.0.2",
     "babel-plugin-inline-import": "^3.0.0",
     "eslint": "^7.11.0",
-    "jest": "^25.1.0",
+    "jest": "^26.6.1",
     "prettier": "^1.14.2",
     "typescript": "^4.0.5",
-    "uuid": "^3.3.3"
+    "uuid": "^7.0.3"
   },
   "eslintConfig": {
     "extends": "plugin:@dxos/recomended"
