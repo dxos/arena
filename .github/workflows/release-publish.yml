@@ -1,7 +1,7 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: release - Build and Publish to WNS
+name: release - Build and Publish
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - name: Build and WNS publish
         run: |
-          git config --global user.email "npm@dxos.network"
+          git config --global user.email "npm@dxos.org"
           git config --global user.name "DXOS"
           
           yarn install
@@ -28,12 +28,16 @@ jobs:
           yarn lint
 
           # Uncomment for NPM publishing.
-          # npm whoami
-          # yarn lerna publish --force-publish
+          VERSION="`cat lerna.json | grep '"version":' | awk '{ print $2 }' | sed 's/[",]//g' | cut -d'-' -f1`"
+          yarn lerna version $VERSION --no-git-tag-version -y
+          git commit -am "v$VERSION"
+          git push
+          git tag -f "v$VERSION"
+          git push --tags -f
+          yarn lerna publish from-package --force-publish -y
 
           # Publish to WNS
           yarn wire profile init --name $WIRE_PROFILE --template-url https://apollo1.kube.moon.dxos.network/dxos/ipfs/gateway/QmcVUWB3a5JAhc8nJD1UYoWpkPXiqpuXWCBzemyBvzUCXD
-
           scripts/deploy_apps_to_wns.sh
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
