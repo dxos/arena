@@ -28,6 +28,8 @@
     "dist": "lerna run dist",
     "clean": "lerna run clean",
     "lint": "lerna run lint --",
+    "lint:lockfile": "lockfile-lint --path yarn.lock --allowed-hosts yarn npm codeload.github.com --validate-https",
+    "lint:version": "lint-version",
     "lint:fix": "lerna run lint -- --fix",
     "lint:staged": "lint-staged",
     "sort-package-json": "lerna exec npx sort-package-json",
@@ -44,6 +46,7 @@
     "@dxos/cli": "^2.0.4-alpha.0",
     "@dxos/cli-app": "^2.0.4-alpha.0",
     "@dxos/cli-wns": "^2.0.4-alpha.0",
+    "@dxos/lint-version": "^0.1.2",
     "babel-eslint": "^10.0.3",
     "eslint": "^6.7.2",
     "eslint-config-airbnb": "^18.0.0",
@@ -59,6 +62,7 @@
     "eslint-plugin-standard": "^4.0.1",
     "lerna": "^3.19.0",
     "lint-staged": "^9.5.0",
+    "lockfile-lint": "^4.3.7",
     "pre-commit": "^1.2.2"
   }
 }
