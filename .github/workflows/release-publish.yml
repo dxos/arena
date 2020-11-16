@@ -29,7 +29,7 @@ jobs:
 
           # Uncomment for NPM publishing.
           VERSION="`cat lerna.json | grep '"version":' | awk '{ print $2 }' | sed 's/[",]//g' | cut -d'-' -f1`"
-          git push --delete origin "v$VERSION"
+          git push --delete origin "v$VERSION" || true
           yarn lerna version $VERSION --no-git-tag-version -y
           git commit -am "v$VERSION"
           git push
