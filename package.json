@@ -43,9 +43,9 @@
     "*.js": "eslint --ignore-path .eslintignore"
   },
   "devDependencies": {
-    "@dxos/cli": "^2.0.4-alpha.0",
-    "@dxos/cli-app": "^2.0.4-alpha.0",
-    "@dxos/cli-wns": "^2.0.4-alpha.0",
+    "@dxos/cli": "^2.0.8",
+    "@dxos/cli-app": "^2.0.8",
+    "@dxos/cli-wns": "^2.0.8",
     "@dxos/lint-version": "^0.1.2",
     "babel-eslint": "^10.0.3",
     "eslint": "^6.7.2",

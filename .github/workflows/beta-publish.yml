@@ -1,0 +1,44 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: beta - Build and Publish to WNS
+
+on:
+  push:
+    branches: [ beta ]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
+      - name: Build and WNS publish
+        run: |
+          git config --global user.email "npm@dxos.network"
+          git config --global user.name "DXOS"
+
+          
+          yarn install
+          yarn build
+          yarn test
+          yarn lint
+
+          # Uncomment for NPM publishing.
+          # npm whoami
+          # yarn lerna publish -y prerelease --dist-tag="beta" --force-publish
+
+          # Publish to WNS
+          yarn wire profile init --name $WIRE_PROFILE --template-url https://apollo1.kube.moon.dxos.network/dxos/ipfs/gateway/QmcVUWB3a5JAhc8nJD1UYoWpkPXiqpuXWCBzemyBvzUCXD
+
+          export PKG_CHANNEL="@beta"
+          scripts/deploy_apps_to_wns.sh
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          WIRE_WNS_USER_KEY: ${{secrets.wns_user_key}}
+          WIRE_WNS_BOND_ID: ${{secrets.wns_bond_id}}
+          WIRE_PROFILE: ci
