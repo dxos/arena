@@ -5,6 +5,7 @@
   "keywords": [],
   "license": "GPL-3.0",
   "author": "DXOS.org",
+  "repository": "https://github.com/dxos/arena",
   "private": true,
   "scripts": {
     "analyzer": "webpack --config webpack-analyzer.config.js",
