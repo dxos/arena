@@ -1,6 +1,6 @@
 ### Instructions:
 * You should be testing using 2 machines with 2 different browsers (Brave / Chrome / Firefox are initial targets).
-* If that's no possible, use two different profiles of Chrome / Brave on a single machine.
+* If that's not possible, use two different profiles of Chrome / Brave on a single machine.
 * Reset browser local storage between test runs.
 * Each daily run should be a separate issue in Github https://github.com/dxos/arena/issues with the form below filled out. This issue should
 * Each person on the QA duty should attach at least one screen recording per week.
@@ -49,7 +49,7 @@
 ### Chess game (player vs player):
 - [ ] Create new chess game from Machine A (A white, B black)
 - [ ] Play 4 moves each machine
-- [ ] Revind game and then return to current state on Machine A
+- [ ] Rewind the game and then return to current state on Machine A
 - [ ] Play 2 more moves from each machine 
 
 ### Messenger inside game
@@ -67,8 +67,11 @@
 - [ ] Reopen messenger view on Machine A and confirm that all the messages and names are still there
 
 ### Bots:
-- [ ] Invite chess bot to party
+- [ ] Invite chess bot to party (use dxos/bot/chess)
 - [ ] Start new chess game between machine A and chess bot
+- [ ] Invite multiple chess bots to party
+- [ ] Complete a game, attempt to start a second game
+- [ ] Start 3 simultaneous games with chess bot. Cycle through the games and make sure that chess bot responds with each turn.
 
 ### Parties operations:
 - [ ] Rename party
