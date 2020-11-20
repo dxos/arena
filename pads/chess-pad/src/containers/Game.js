@@ -39,7 +39,7 @@ const Game = ({ topic, itemId }) => {
         onToggleMessenger={() => setMessengerOpen(oldValue => !oldValue)}
       />
       {messengerOpen && (
-        <div className={classes.messengerContainer}>
+        <div>
           <MessengerPad.main
             topic={topic}
             itemId={itemId}
