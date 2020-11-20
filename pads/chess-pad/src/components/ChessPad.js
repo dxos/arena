@@ -17,7 +17,9 @@ import ChessPanel from './ChessPanel';
 import PromotionSelect from './PromotionSelect';
 
 const useStyles = makeStyles((theme) => ({
-  board: {},
+  board: {
+    position: 'relative'
+  },
   root: {
     display: 'flex',
     flex: 1,

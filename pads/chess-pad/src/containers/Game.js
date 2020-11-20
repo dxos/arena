@@ -15,10 +15,7 @@ const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
     flex: 1,
-    overflow: 'hidden'
-  },
-  messengerContainer: {
-    maxWidth: 700
+    overflowX: 'auto'
   }
 }));
 
