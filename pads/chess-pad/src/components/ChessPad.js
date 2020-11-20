@@ -7,9 +7,12 @@ import Chessboard from 'chessboardjsx';
 import React, { useEffect, useRef, useState } from 'react';
 import { HotKeys } from 'react-hotkeys';
 
+import { Fab } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import SpeakerNotesOffIcon from '@material-ui/icons/SpeakerNotesOff';
 
 import { keyToBuffer, PublicKey } from '@dxos/crypto';
+import MessengerPad from '@dxos/messenger-pad';
 import { useMembers } from '@dxos/react-appkit';
 import { useParty } from '@dxos/react-client';
 
@@ -17,7 +20,10 @@ import ChessPanel from './ChessPanel';
 import PromotionSelect from './PromotionSelect';
 
 const useStyles = makeStyles((theme) => ({
-  board: {},
+  board: {
+    position: 'relative',
+    marginLeft: theme.spacing(6)
+  },
   root: {
     display: 'flex',
     flex: 1,
@@ -25,13 +31,14 @@ const useStyles = makeStyles((theme) => ({
     outline: 'none'
   },
   container: {
+    flex: 1,
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   panel: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-around',
     alignItems: 'center',
     marginLeft: theme.spacing(6)
   },
@@ -41,6 +48,20 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center'
+  },
+  messengerContainer: {
+    flex: 1,
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  fab: {
+    position: 'fixed',
+    bottom: 0,
+    left: 0,
+    marginBottom: theme.spacing(6),
+    marginLeft: theme.spacing(6)
   }
 }));
 
@@ -57,7 +78,15 @@ const getCaption = (game) => {
 /**
  * Chess board wrapper.
  */
-const ChessPad = ({ partyKey, chessModel, onMove, maxWidth, transitionDuration = 150, showPanel: initShowPanel = true, onToggleMessenger = undefined }) => {
+const ChessPad = ({
+  partyKey,
+  messengerItemId,
+  chessModel,
+  onMove,
+  maxWidth,
+  transitionDuration = 150,
+  showPanel: initShowPanel = true
+}) => {
   const classes = useStyles();
   const board = useRef();
   const [orientation, setOrientation] = useState('white'); // TODO(burdon): Constants.
@@ -177,7 +206,7 @@ const ChessPad = ({ partyKey, chessModel, onMove, maxWidth, transitionDuration =
               whitePlayerName={whitePlayerName}
               blackPlayerName={blackPlayerName}
               onToggleOrientation={() => setOrientation(previous => (previous === 'white' ? 'black' : 'white'))}
-              onToggleMessenger={onToggleMessenger}
+              onToggleMessenger={() => setShowPanel(prev => !prev)}
             />
 
             <div className={classes.captionContainer}>
@@ -185,8 +214,19 @@ const ChessPad = ({ partyKey, chessModel, onMove, maxWidth, transitionDuration =
             </div>
           </div>
         )}
+        { !showPanel && (
+          <div className={classes.messengerContainer}>
+            <MessengerPad.main
+              topic={partyKey}
+              itemId={messengerItemId}
+            />
+          </div>
+        )}
         <PromotionSelect isVisible={!!promotionSelectCallback} onSelect={promotionSelectCallback} />
       </div>
+      <Fab className={classes.fab} title='Hide chat' color='primary' onClick={() => setShowPanel(prev => !prev)}>
+        { showPanel ? <MessengerPad.icon></MessengerPad.icon> : <SpeakerNotesOffIcon></SpeakerNotesOffIcon>}
+      </Fab>
     </HotKeys>
   );
 };
