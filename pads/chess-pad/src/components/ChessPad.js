@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
   panel: {
     display: 'flex',
     flexDirection: 'column',
-    // justifyContent: 'space-around',
     alignItems: 'center',
     marginLeft: theme.spacing(6)
   },
