@@ -7,8 +7,9 @@ import Chessboard from 'chessboardjsx';
 import React, { useEffect, useRef, useState } from 'react';
 import { HotKeys } from 'react-hotkeys';
 
-import { IconButton } from '@material-ui/core';
+import { Fab } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import SpeakerNotesOffIcon from '@material-ui/icons/SpeakerNotesOff';
 
 import { keyToBuffer, PublicKey } from '@dxos/crypto';
 import MessengerPad from '@dxos/messenger-pad';
@@ -54,6 +55,13 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between'
+  },
+  fab: {
+    position: 'fixed',
+    bottom: 0,
+    left: 0,
+    marginBottom: theme.spacing(6),
+    marginLeft: theme.spacing(6)
   }
 }));
 
@@ -208,9 +216,6 @@ const ChessPad = ({
         )}
         { !showPanel && (
           <div className={classes.messengerContainer}>
-            <IconButton title='Hide chat' onClick={() => setShowPanel(true)}>
-              <MessengerPad.icon></MessengerPad.icon>
-            </IconButton>
             <MessengerPad.main
               topic={partyKey}
               itemId={messengerItemId}
@@ -219,6 +224,9 @@ const ChessPad = ({
         )}
         <PromotionSelect isVisible={!!promotionSelectCallback} onSelect={promotionSelectCallback} />
       </div>
+      <Fab className={classes.fab} title='Hide chat' color='primary' onClick={() => setShowPanel(prev => !prev)}>
+        { showPanel ? <MessengerPad.icon></MessengerPad.icon> : <SpeakerNotesOffIcon></SpeakerNotesOffIcon>}
+      </Fab>
     </HotKeys>
   );
 };
