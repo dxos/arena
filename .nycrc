@@ -1,0 +1,37 @@
+{
+  "all": true,
+  "check-coverage": true,
+  "reporter": [
+    "text-summary",
+    "html",
+    "lcovonly"
+  ],
+  "lines": 5,
+  "branches": 10,
+  "statements": 5,
+  "comment": "unfortunately, with c8 we cannot have config in JS and import the defaults for overriding. that's why we copy-paste them here, and add our own",
+  "exclude": [
+    "coverage/**",
+    "packages/*/test{,s}/**",
+    "**/*.d.ts",
+    "test{,s}/**",
+    "**/__tests__/**",
+    "**/{ava,babel,nyc}.config.{js,cjs,mjs}",
+    "**/jest.config.{js,cjs,mjs,ts}",
+    "**/{karma,rollup,webpack}.config.js",
+    "**/.{eslint,mocha}rc.{js,cjs}",
+
+    "**/dist",
+    "**/proto/gen",
+    "**/storybook-static",
+    "**/.storybook",
+    "**/stories",
+    "**/playwright",
+    "**/docs",
+    "**/proto",
+    "**/index.{js,ts}",
+    "**/*.test.*",
+    "**/icons",
+    "**/bin"
+  ]
+}

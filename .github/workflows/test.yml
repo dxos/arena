@@ -19,3 +19,19 @@ jobs:
           yarn lint:lockfile
           yarn lint:version
           yarn test
+          
+      # jest tests with coverage
+      - run: yarn test:coverage
+      - uses: dxos/jest-reporter-action@0.1.3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          test-command: "yarn --silent c8 report"
+
+      # The c8 tool leaves tmp folder which is large, we don't want it uploaded to artifacts
+      - run: rm -rf coverage/tmp
+      # upload coverage report
+      # zip file: https://github.com/actions/upload-artifact#zipped-artifact-downloads
+      - uses: actions/upload-artifact@v2
+        with:
+          name: coverage-report
+          path: ./coverage
