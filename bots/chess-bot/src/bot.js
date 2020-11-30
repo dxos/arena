@@ -3,9 +3,9 @@
 //
 
 import { sleep } from '@dxos/async';
-import { Bot } from '@dxos/botkit';
+import { Bot } from '@dxos/bot';
 import { ChessModel, CHESS_TYPE_CONTENT } from '@dxos/chess-model';
-import { keyToString, keyToBuffer, PublicKey } from '@dxos/crypto';
+import { keyToString, PublicKey } from '@dxos/crypto';
 
 /**
  * Chess bot.
@@ -28,7 +28,7 @@ export class ChessBot extends Bot {
     await super.start();
     this._client.registerModel(ChessModel);
 
-    this._self = keyToBuffer(this._client.getProfile().publicKey);
+    this._self = this._client.getProfile().publicKey.asUint8Array();
   }
 
   /**
@@ -38,7 +38,7 @@ export class ChessBot extends Bot {
   async joinParty (key) {
     console.log(`Joining party '${keyToString(key)}'.`);
 
-    const party = this._client.echo.getParty(key);
+    const party = this._client.echo.getParty(PublicKey.from(key));
 
     const result = party.database.queryItems({ type: CHESS_TYPE_CONTENT });
     result.subscribe(async () => {

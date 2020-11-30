@@ -1118,6 +1118,21 @@
   resolved "https://registry.yarnpkg.com/@dxos/async/-/async-1.0.2-alpha.0.tgz#cb46d597567a178225e8a67b71cf5e3e5e257a68"
   integrity sha512-d9UgIaLbmuYHP24WASQX8OI1GJbJVy2021VqczIuDF0m3C5tHIqC7yr75L5eC4BAalEQoPGYcpWnzgD6ZpjiBw==
 
+"@dxos/bot@2.7.21-alpha.0":
+  version "2.7.21-alpha.0"
+  resolved "https://registry.yarnpkg.com/@dxos/bot/-/bot-2.7.21-alpha.0.tgz#c87a928ef8f7d1a1e427b36fd7216f3056199482"
+  integrity sha512-r4VDU83xPsTYanwYMPeeUo5n8+MGf/nzfXRRmfXeNEl++FuvVvj7MHUZ/tmH1BE5jg0OMuoPiNNfOH6XKEKrhg==
+  dependencies:
+    "@dxos/async" "1.0.0-beta.10"
+    "@dxos/client" "^2.7.21-alpha.0"
+    "@dxos/config" "^1.0.0-beta.73"
+    "@dxos/crypto" "1.0.5"
+    "@dxos/network-manager" "^1.0.0-beta.108"
+    "@dxos/protocol-plugin-bot" "^2.7.17-alpha.0"
+    assert "^2.0.0"
+    debug "^4.1.1"
+    lodash.defaultsdeep "^4.6.1"
+
 "@dxos/botkit-client@2.7.21-alpha.0", "@dxos/botkit-client@^2.7.21-alpha.0":
   version "2.7.21-alpha.0"
   resolved "https://registry.yarnpkg.com/@dxos/botkit-client/-/botkit-client-2.7.21-alpha.0.tgz#9a42aabfaa1adc2f46f046be6471d9f9851328a8"
