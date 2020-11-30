@@ -17,7 +17,7 @@ jobs:
           yarn build
           yarn lint
           yarn lint:lockfile
-          yarn lint:version
+          yarn version:check
           yarn test
           
       # jest tests with coverage

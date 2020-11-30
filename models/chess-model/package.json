@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@dxos/codec-protobuf": "^0.2.0",
-    "@dxos/crypto": "^1.0.0-beta.10",
+    "@dxos/crypto": "1.0.5",
     "@dxos/model-factory": "^2.6.4-alpha.0",
     "@dxos/util": "^2.1.0",
     "assert": "^2.0.0",
