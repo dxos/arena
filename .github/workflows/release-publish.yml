@@ -38,10 +38,11 @@ jobs:
           yarn lerna publish from-package --force-publish -y
 
           # Publish to WNS
-          yarn wire profile init --name $WIRE_PROFILE --template-url https://apollo1.kube.moon.dxos.network/dxos/ipfs/gateway/QmcVUWB3a5JAhc8nJD1UYoWpkPXiqpuXWCBzemyBvzUCXD
+          yarn wire profile init --name $WIRE_PROFILE --template-url "$WIRE_PROFILE_URL"
           scripts/deploy_apps_to_wns.sh
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
           WIRE_WNS_USER_KEY: ${{secrets.wns_user_key}}
           WIRE_WNS_BOND_ID: ${{secrets.wns_bond_id}}
+          WIRE_PROFILE_URL: ${{secrets.wire_profile_url}}
           WIRE_PROFILE: ci
