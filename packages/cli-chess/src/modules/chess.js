@@ -76,7 +76,7 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface }) =
         .option('demo', { type: 'boolean' }),
 
       handler: asyncHandler(async argv => {
-        const { title } = argv;
+        const { title = 'untitled' } = argv;
 
         const party = stateManager.party;
         assert(party, 'Invalid party.');
@@ -127,7 +127,7 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface }) =
         const padItem = await party.database.createItem({
           model: ObjectModel,
           type: CHESS_PAD,
-          props: { title: title || 'untitled' }
+          props: { title }
         });
 
         const game = await party.database.createItem({
