@@ -11,7 +11,7 @@ import { keyToString, keyToBuffer, PublicKey } from '@dxos/crypto';
 import { log } from '@dxos/debug';
 import { ObjectModel } from '@dxos/object-model';
 
-import { sorter } from '../utils';
+import { memberSorter } from '../utils';
 
 const getGameUpdateHandler = (members) => {
   return item => {
@@ -43,7 +43,7 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface }) =
         const party = stateManager.party;
         assert(party, 'Invalid party.');
 
-        const members = party.queryMembers().value.sort(sorter);
+        const members = party.queryMembers().value.sort(memberSorter);
 
         const result = party.database.queryItems({ type: CHESS_TYPE_CONTENT });
         const games = result.value.map(item => {
@@ -83,7 +83,7 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface }) =
 
         const client = await getClient();
 
-        const members = party.queryMembers().value.sort(sorter);
+        const members = party.queryMembers().value.sort(memberSorter);
 
         let membersStr = '\nParty members:\n';
         members.map((member, index) => {
@@ -159,7 +159,7 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface }) =
         assert(party, 'Invalid party.');
 
         const game = party.database.getItem(itemId);
-        const members = party.queryMembers().value.sort(sorter);
+        const members = party.queryMembers().value.sort(memberSorter);
 
         assert(game, 'Invalid game.');
         await stateManager.setItem(game, getGameUpdateHandler(members));
