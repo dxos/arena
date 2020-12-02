@@ -5,7 +5,7 @@
 import { sleep } from '@dxos/async';
 import { Bot } from '@dxos/bot';
 import { ChessModel, CHESS_TYPE_CONTENT } from '@dxos/chess-model';
-import { keyToString, PublicKey } from '@dxos/crypto';
+import { PublicKey } from '@dxos/crypto';
 
 /**
  * Chess bot.
@@ -36,9 +36,9 @@ export class ChessBot extends Bot {
    * @param {Buffer} key
    */
   async joinParty (key) {
-    console.log(`Joining party '${keyToString(key)}'.`);
+    console.log(`Joining party '${key.toHex()}'.`);
 
-    const party = this._client.echo.getParty(PublicKey.from(key));
+    const party = this._client.echo.getParty(key);
 
     const result = party.database.queryItems({ type: CHESS_TYPE_CONTENT });
     result.subscribe(async () => {
