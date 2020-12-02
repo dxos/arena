@@ -5,8 +5,9 @@
 
 app:
   name: Arena
-storagePath: dxos/arena-local
-storageType: persistent
+storage:
+  persistent: true
+  path: dxos/arena-local
 wns:
   server: "https://wns1.kube.moon.dxos.network/api"
   chainId: "devnet-2"

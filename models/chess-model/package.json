@@ -11,12 +11,14 @@
   },
   "dependencies": {
     "@dxos/codec-protobuf": "^0.2.0",
-    "@dxos/crypto": "^1.0.0-beta.10",
-    "@dxos/model-factory": "^2.6.4-alpha.0",
+    "@dxos/crypto": "1.0.5",
     "@dxos/util": "^2.1.0",
     "assert": "^2.0.0",
     "chess.js": "^0.11.0",
     "debug": "^4.2.0"
+  },
+  "peerDependencies": {
+    "@dxos/model-factory": "*"
   },
   "devDependencies": {
     "@dxos/eslint-plugin": "^1.0.8",
