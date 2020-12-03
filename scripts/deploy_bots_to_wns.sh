@@ -10,8 +10,11 @@ for botdir in `find ./bots -name 'chess-bot' -type d | grep -v node_modules`; do
   PKG_NAME=`cat package.json | jq -r '.name' | cut -d'/' -f2- | sed 's/-bot$//'`
   WNS_NAME="$WNS_ORG/$PKG_NAME"
   WNS_ARCH="${WNS_ARCH:-linux-x64}"
-  WNS_VERSION=`cat lerna.json | grep version | awk '{print $2}' | sed 's/[",]//g'`
-  
+  WNS_VERSION="1.0.0"
+  if [ -f "package.json" ]; then
+    WNS_VERSION=`cat package.json | grep version | awk '{print $2}' | sed 's/[",]//g'`
+  fi
+
   cat <<EOF > bot.yml
 name: $PKG_NAME
 version: $WNS_VERSION
