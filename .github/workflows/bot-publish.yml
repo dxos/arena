@@ -1,0 +1,33 @@
+name: Publish bots
+
+on:
+  workflow_dispatch
+
+jobs:
+  publish-bot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
+      - name: Build and WNS publish
+        run: |
+          git config --global user.email "npm@dxos.org"
+          git config --global user.name "DXOS"
+          
+          yarn install
+          yarn build
+          yarn test
+          yarn lint
+
+          export PKG_CHANNEL="@alpha"
+          scripts/deploy_bots_to_wns.sh
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          WIRE_WNS_USER_KEY: ${{secrets.wns_user_key}}
+          WIRE_WNS_BOND_ID: ${{secrets.wns_bond_id}}
+          WIRE_PROFILE_URL: ${{secrets.wire_profile_url}}
+          WIRE_PROFILE: ci

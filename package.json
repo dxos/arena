@@ -44,9 +44,11 @@
     "*.js": "eslint --ignore-path .eslintignore"
   },
   "devDependencies": {
-    "@dxos/cli": "^2.0.8",
-    "@dxos/cli-app": "^2.0.8",
-    "@dxos/cli-wns": "^2.0.8",
+    "@dxos/cli": "^2.0.20",
+    "@dxos/cli-app": "^2.0.20",
+    "@dxos/cli-bot": "^2.0.20",
+    "@dxos/cli-data": "^2.0.20",
+    "@dxos/cli-wns": "^2.0.20",
     "@dxos/version-check": "^0.1.10",
     "babel-eslint": "^10.0.3",
     "c8": "^7.3.5",
