@@ -16,8 +16,8 @@ for botdir in `find ./bots -name 'chess-bot' -type d | grep -v node_modules`; do
   fi
 
   cat <<EOF > bot.yml
-name: $PKG_NAME
-version: $WNS_VERSION
+name: "$PKG_NAME"
+version: "$WNS_VERSION"
 EOF
 
   cat bot.yml
