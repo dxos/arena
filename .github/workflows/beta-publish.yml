@@ -10,7 +10,7 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 6
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -40,6 +40,7 @@ jobs:
           yarn wire profile init --name $WIRE_PROFILE --template-url "$WIRE_PROFILE_URL"
           export PKG_CHANNEL="@beta"
           scripts/deploy_apps_to_wns.sh
+          scripts/deploy_bots_to_wns.sh
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
           WIRE_WNS_USER_KEY: ${{secrets.wns_user_key}}
