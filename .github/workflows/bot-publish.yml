@@ -24,6 +24,7 @@ jobs:
           yarn lint
 
           export PKG_CHANNEL="@alpha"
+          yarn wire profile init --name $WIRE_PROFILE --template-url "$WIRE_PROFILE_URL"
           scripts/deploy_bots_to_wns.sh
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
