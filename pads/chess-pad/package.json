@@ -34,7 +34,7 @@
     "@dxos/echo-db": "^2.6.4-alpha.0",
     "@dxos/messenger-model": "1.2.0-alpha.18",
     "@dxos/messenger-pad": "1.2.0-alpha.18",
-    "@dxos/react-appkit": "2.7.21-alpha.0",
+    "@dxos/react-appkit": "2.7.26-alpha.0",
     "@dxos/react-router": "2.7.21-alpha.0",
     "@dxos/react-ux": "2.7.21-alpha.0",
     "@material-ui/lab": "^4.0.0-alpha.42",

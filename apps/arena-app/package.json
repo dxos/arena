@@ -32,7 +32,7 @@
     "@dxos/game-pad": "^1.2.0-alpha.14",
     "@dxos/messenger-pad": "1.2.0-alpha.18",
     "@dxos/random-access-multi-storage": "^1.1.0-beta.4",
-    "@dxos/react-appkit": "2.7.21-alpha.0",
+    "@dxos/react-appkit": "2.7.26-alpha.0",
     "@dxos/react-client": "2.7.21-alpha.0",
     "@dxos/react-router": "2.7.21-alpha.0",
     "@dxos/react-ux": "2.7.21-alpha.0",
