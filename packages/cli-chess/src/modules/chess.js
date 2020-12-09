@@ -7,7 +7,7 @@ import set from 'lodash.set';
 
 import { ChessModel, CHESS_TYPE_CONTENT, CHESS_PAD } from '@dxos/chess-model';
 import { print, asyncHandler } from '@dxos/cli-core';
-import { keyToString, keyToBuffer, PublicKey } from '@dxos/crypto';
+import { keyToString, PublicKey } from '@dxos/crypto';
 import { log } from '@dxos/debug';
 import { ObjectModel } from '@dxos/object-model';
 
@@ -104,7 +104,7 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface }) =
         let black;
 
         const self = {
-          publicKey: keyToBuffer(client.getProfile().publicKey),
+          publicKey: client.getProfile().publicKey,
           displayName: 'Yourself'
         };
 
@@ -135,8 +135,8 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface }) =
           type: CHESS_TYPE_CONTENT,
           parent: padItem.id,
           props: {
-            whitePlayerPublicKey: keyToString(white.publicKey),
-            blackPlayerPublicKey: keyToString(black.publicKey)
+            whitePlayerPublicKey: white.publicKey.toHex(),
+            blackPlayerPublicKey: black.publicKey.toHex()
           }
         });
 
