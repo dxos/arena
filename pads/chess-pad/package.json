@@ -23,7 +23,8 @@
     "@dxos/react-client": "2.7.26-alpha.0",
     "@material-ui/core": "^4.9.0",
     "@material-ui/icons": "^4.5.1",
-    "react": "*"
+    "react": "*",
+    "@dxos/react-appkit": "*"
   },
   "dependencies": {
     "@babel/runtime": "7.11.2",
@@ -31,10 +32,9 @@
     "@dxos/async": "1.0.2-alpha.0",
     "@dxos/chess-model": "^1.2.0-alpha.19",
     "@dxos/debug": "1.0.0-beta.73",
-    "@dxos/echo-db": "2.6.9-alpha.0",
-    "@dxos/messenger-model": "1.2.0-alpha.27",
-    "@dxos/messenger-pad": "1.2.0-alpha.27",
-    "@dxos/react-appkit": "2.7.31-alpha.0",
+    "@dxos/echo-db": "2.6.10-alpha.0",
+    "@dxos/messenger-model": "1.2.0-alpha.28",
+    "@dxos/messenger-pad": "1.2.0-alpha.28",
     "@dxos/react-router": "2.7.31-alpha.0",
     "@dxos/react-ux": "2.7.31-alpha.0",
     "@material-ui/lab": "^4.0.0-alpha.42",
