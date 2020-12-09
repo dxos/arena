@@ -30,5 +30,5 @@ debug:
   mode: 'development'
   logging: '*:warn,*:error'
 
-# sentry:
-#   dsn: http://c4520c11e2c14d799a2802f59495ac49@134.122.22.117:9000/2
+sentry:
+  dsn: http://c4520c11e2c14d799a2802f59495ac49@sentry.kube.dxos.network/2

@@ -39,7 +39,7 @@ const pads = [
   MessengerPad
 ];
 
-const Root = ({ clientConfig }) => {
+const Root = ({ clientConfig, messageLog }) => {
   const publicUrl = window.location.pathname;
 
   const router = { ...DefaultRouter, publicUrl };
@@ -64,6 +64,8 @@ const Root = ({ clientConfig }) => {
           router={router}
           pads={pads}
           issuesLink='https://github.com/dxos/arena/issues/new'
+          keywords={['arena']}
+          messageLog={messageLog}
         >
             <HashRouter>
               <Switch>
