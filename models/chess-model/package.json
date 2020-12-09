@@ -10,9 +10,9 @@
     "test": "jest"
   },
   "dependencies": {
-    "@dxos/codec-protobuf": "^0.2.0",
+    "@dxos/codec-protobuf": "1.1.1",
     "@dxos/crypto": "1.0.5",
-    "@dxos/util": "^2.1.0",
+    "@dxos/util": "2.4.0",
     "assert": "^2.0.0",
     "chess.js": "^0.11.0",
     "debug": "^4.2.0"
@@ -21,8 +21,8 @@
     "@dxos/model-factory": "*"
   },
   "devDependencies": {
-    "@dxos/eslint-plugin": "^1.0.8",
-    "@dxos/protobuf-compiler": "^0.2.0",
+    "@dxos/eslint-plugin": "1.0.10",
+    "@dxos/protobuf-compiler": "1.1.1",
     "@types/jest": "^26.0.15",
     "eslint": "^7.11.0",
     "jest": "^26.6.1",
