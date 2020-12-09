@@ -12,5 +12,5 @@ wns:
   server: "https://wns1.kube.moon.dxos.network/api"
   chainId: "devnet-2"
 sentry:
-  dsn: http://c4520c11e2c14d799a2802f59495ac49@sentry.kube.dxos.network/2
+  dsn: https://c4520c11e2c14d799a2802f59495ac49@sentry.kube.dxos.network/2
   environment: development
