@@ -31,9 +31,9 @@
   },
   "dependencies": {
     "@dxos/async": "1.0.2-alpha.0",
-    "@dxos/bot": "2.7.34-alpha.0",
-    "@dxos/botkit": "2.7.34-alpha.0",
-    "@dxos/chess-model": "^1.2.0-alpha.28",
+    "@dxos/bot": "2.7.37-alpha.0",
+    "@dxos/botkit": "2.7.37-alpha.0",
+    "@dxos/chess-model": "1.2.0-alpha.28",
     "@dxos/crypto": "1.0.5"
   },
   "devDependencies": {
