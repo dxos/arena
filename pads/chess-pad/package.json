@@ -68,6 +68,7 @@
     "@babel/preset-env": "^7.10.2",
     "@babel/preset-react": "^7.10.1",
     "@babel/preset-typescript": "^7.10.1",
+    "@dxos/eslint-plugin": "1.0.10",
     "@rollup/plugin-commonjs": "^13.0.0",
     "@storybook/addon-actions": "^5.2.5",
     "@storybook/addon-knobs": "^5.2.5",
@@ -89,5 +90,12 @@
     "webpack-merge": "^4.2.2",
     "webpack-version-file-plugin": "^0.4.0",
     "yaml-loader": "^0.5.0"
+  },
+  "eslintConfig": {
+    "extends": "plugin:@dxos/react",
+    "rules": {
+      "react/prop-types": "off",
+      "react/display-name": "off"
+    }
   }
 }

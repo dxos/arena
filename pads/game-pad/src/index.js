@@ -19,7 +19,7 @@ export default {
   register: async (client) => {
     await client.registerModel(GameModel);
   },
-  create: async ({ client, party }, { name }) => {
+  create: async ({ party }, { name }) => {
     const item = await party.database.createItem({
       model: ObjectModel,
       type: GAME_TYPE_GAME,

@@ -23,6 +23,7 @@ export default {
   register: async (client) => {
     await client.registerModel(ChessModel);
   },
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   create: async ({ client, party }, { name }, metadata) => {
     const item = await party.database.createItem({
       model: ObjectModel,

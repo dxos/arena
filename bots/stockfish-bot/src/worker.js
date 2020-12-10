@@ -38,7 +38,9 @@ class StockfishWorker {
       store,
       maxTimeout: this._moveTimeout,
       maxRetries: this._maxRetries,
-      precondition: cb => { cb(null, this._initialized); }
+      precondition: cb => {
+        cb(null, this._initialized);
+      }
     });
 
     this._queue.on('task_failed', () => {
@@ -79,7 +81,7 @@ class StockfishWorker {
   /**
    * @param {...String} commands - Commands to process.
    */
-  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async processRequest (...commands) {}
 
   /**

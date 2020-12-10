@@ -26,10 +26,14 @@
     "@babel/plugin-transform-runtime": "^7.10.1",
     "@babel/preset-env": "^7.10.2",
     "@babel/preset-react": "^7.10.1",
+    "@dxos/eslint-plugin": "1.0.10",
     "babel-loader": "^8.1.0",
     "babel-plugin-add-module-exports": "^1.0.2",
     "babel-plugin-inline-import": "^3.0.0",
     "wait-for-expect": "^3.0.2"
+  },
+  "eslintConfig": {
+    "extends": "plugin:@dxos/recomended"
   },
   "publishConfig": {
     "access": "public"

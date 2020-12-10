@@ -36,7 +36,7 @@ const Grid = () => {
               .filter(item => !item.deleted && item.type === 'testing.chess.Game')
               .slice(0, 9)
           }
-      />
+        />
       </AppContainer>
     </>
   );
