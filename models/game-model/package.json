@@ -1,6 +1,6 @@
 {
   "name": "@dxos/game-model",
-  "version": "1.2.0-alpha.24",
+  "version": "1.2.0-alpha.25",
   "main": "dist/src/index.js",
   "license": "MIT",
   "scripts": {
