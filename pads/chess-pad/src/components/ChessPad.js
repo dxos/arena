@@ -7,7 +7,7 @@ import Chessboard from 'chessboardjsx';
 import React, { useEffect, useRef, useState } from 'react';
 import { HotKeys } from 'react-hotkeys';
 
-import { Fab } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import SpeakerNotesOffIcon from '@material-ui/icons/SpeakerNotesOff';
 
@@ -56,8 +56,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'space-between'
   },
-  fab: {
+  closeChat: {
     alignSelf: 'flex-end',
+    padding: theme.spacing(2),
     marginBottom: theme.spacing(2),
     marginLeft: theme.spacing(2)
   }
@@ -210,17 +211,13 @@ const ChessPad = ({
             <div className={classes.captionContainer}>
               {caption}
             </div>
-
-            <Fab className={classes.fab} title='Toggle chat' color='primary' onClick={() => setShowPanel(prev => !prev)}>
-              <MessengerPad.icon></MessengerPad.icon>
-            </Fab>
           </div>
         )}
         { !showPanel && (
           <div className={classes.messengerContainer}>
-            <Fab className={classes.fab} title='Toggle chat' color='primary' onClick={() => setShowPanel(prev => !prev)}>
+            <IconButton className={classes.closeChat} title='Close chat' onClick={() => setShowPanel(prev => !prev)}>
               <SpeakerNotesOffIcon></SpeakerNotesOffIcon>
-            </Fab>
+            </IconButton>
             <MessengerPad.main
               topic={partyKey}
               itemId={messengerItemId}
