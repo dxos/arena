@@ -36,7 +36,6 @@
     "preset": "ts-jest/presets/js-with-ts",
     "testTimeout": 10000
   },
-  "private": "true",
   "eslintConfig": {
     "extends": "plugin:@dxos/recomended"
   }
