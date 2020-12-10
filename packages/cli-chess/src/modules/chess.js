@@ -143,6 +143,7 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface }) =
         await stateManager.setItem(game, getGameUpdateHandler(members));
 
         log(`Game ID: ${game.id}`);
+        getGameUpdateHandler(members)(game);
       })
     })
 
