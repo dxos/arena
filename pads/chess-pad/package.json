@@ -1,6 +1,6 @@
 {
   "name": "@dxos/chess-pad",
-  "version": "1.2.0-alpha.25",
+  "version": "1.2.0-alpha.26",
   "private": true,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -30,7 +30,7 @@
     "@babel/runtime": "7.11.2",
     "@date-io/moment": "^1.3.11",
     "@dxos/async": "1.0.2-alpha.0",
-    "@dxos/chess-model": "^1.2.0-alpha.25",
+    "@dxos/chess-model": "^1.2.0-alpha.26",
     "@dxos/debug": "1.0.0-beta.73",
     "@dxos/echo-db": "2.6.10-alpha.0",
     "@dxos/messenger-model": "1.2.0-alpha.28",
