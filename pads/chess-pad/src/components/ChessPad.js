@@ -57,11 +57,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between'
   },
   fab: {
-    position: 'fixed',
-    bottom: 0,
-    left: 0,
-    marginBottom: theme.spacing(6),
-    marginLeft: theme.spacing(6)
+    alignSelf: 'flex-end',
+    marginBottom: theme.spacing(2),
+    marginLeft: theme.spacing(2)
   }
 }));
 
@@ -212,10 +210,17 @@ const ChessPad = ({
             <div className={classes.captionContainer}>
               {caption}
             </div>
+
+            <Fab className={classes.fab} title='Toggle chat' color='primary' onClick={() => setShowPanel(prev => !prev)}>
+              <MessengerPad.icon></MessengerPad.icon>
+            </Fab>
           </div>
         )}
         { !showPanel && (
           <div className={classes.messengerContainer}>
+            <Fab className={classes.fab} title='Toggle chat' color='primary' onClick={() => setShowPanel(prev => !prev)}>
+              <SpeakerNotesOffIcon></SpeakerNotesOffIcon>
+            </Fab>
             <MessengerPad.main
               topic={partyKey}
               itemId={messengerItemId}
@@ -224,9 +229,6 @@ const ChessPad = ({
         )}
         <PromotionSelect isVisible={!!promotionSelectCallback} onSelect={promotionSelectCallback} />
       </div>
-      <Fab className={classes.fab} title='Hide chat' color='primary' onClick={() => setShowPanel(prev => !prev)}>
-        { showPanel ? <MessengerPad.icon></MessengerPad.icon> : <SpeakerNotesOffIcon></SpeakerNotesOffIcon>}
-      </Fab>
     </HotKeys>
   );
 };

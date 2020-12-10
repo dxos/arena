@@ -14684,7 +14684,7 @@ json5@^1.0.1:
   dependencies:
     minimist "^1.2.0"
 
-jsondown@dxos/jsondown, "jsondown@github:dxos/jsondown":
+jsondown@dxos/jsondown:
   version "1.0.0"
   resolved "https://codeload.github.com/dxos/jsondown/tar.gz/0bec0436f00973e7f2528115c72a5ab96dc45576"
   dependencies:
