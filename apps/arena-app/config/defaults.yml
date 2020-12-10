@@ -28,7 +28,8 @@ ipfs:
 
 debug:
   mode: 'development'
-  logging: '*:warn,*:error'
+  # logging: '*:warn,*:error'
+  logging: '*'
 
 sentry:
   dsn: https://98e1a7982aef43289920a4cdb7961304@sentry.kube.dxos.network/4
