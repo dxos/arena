@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 //
 // Copyright 2020 DXOS.org
 //
@@ -17,6 +18,7 @@ import { loadConfig } from './config';
 
   // We have this two-stage init process so that sentry can report errors that happen during module imports.
   const { initApp } = require('./init');
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   initApp(cfg, messageLog);
 })();

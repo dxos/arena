@@ -107,7 +107,9 @@ const ChessPad = ({
   }, [position, length]);
 
   useEffect(() => {
-    if (!members) return;
+    if (!members) {
+      return;
+    }
     setWhitePlayerName(
       () => members.find(m => PublicKey.equals(m.publicKey, chessModel.model.whitePubKey))?.displayName
     );

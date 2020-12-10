@@ -33,6 +33,6 @@ export const useGameModel = (topic, gameId) => {
         position,
         piece,
         move
-    });
-  }];
+      });
+    }];
 };
