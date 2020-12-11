@@ -1,6 +1,6 @@
 {
   "name": "@dxos/chess-bot",
-  "version": "1.2.0-alpha.18",
+  "version": "1.2.0-alpha.29",
   "description": "Chess Bot",
   "keywords": [],
   "license": "GPL-3.0",
@@ -31,9 +31,9 @@
   },
   "dependencies": {
     "@dxos/async": "1.0.2-alpha.0",
-    "@dxos/bot": "2.7.26-alpha.0",
-    "@dxos/botkit": "2.7.26-alpha.0",
-    "@dxos/chess-model": "^1.2.0-alpha.18",
+    "@dxos/bot": "2.7.37-alpha.0",
+    "@dxos/botkit": "2.7.37-alpha.0",
+    "@dxos/chess-model": "^1.2.0-alpha.29",
     "@dxos/crypto": "1.0.5"
   },
   "devDependencies": {
@@ -44,6 +44,7 @@
     "@babel/plugin-proposal-export-default-from": "^7.10.1",
     "@babel/plugin-transform-runtime": "^7.10.1",
     "@babel/preset-env": "^7.10.2",
+    "@dxos/eslint-plugin": "1.0.10",
     "babel-jest": "^25.1.0",
     "babel-loader": "^8.1.0",
     "babel-plugin-add-module-exports": "^1.0.2",
@@ -55,5 +56,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "eslintConfig": {
+    "extends": "plugin:@dxos/recomended"
   }
 }

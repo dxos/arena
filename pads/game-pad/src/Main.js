@@ -27,7 +27,9 @@ const TicTacToePad = (props) => {
 
   const [gameModel, makeMove] = useGameModel(topic, itemId);
 
-  if (!gameModel) return null;
+  if (!gameModel) {
+    return null;
+  }
 
   return (
     <Card className={clsx(classes.root, className)} {...cardProps}>
