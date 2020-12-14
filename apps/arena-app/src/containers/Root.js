@@ -55,6 +55,10 @@ const Root = ({ clientConfig, sentry }) => {
     pads.forEach(pad => pad.register?.(client));
   };
 
+  if (sentry) {
+    sentry.captureMessage('Application loaded.');
+  }
+
   return (
     <Theme base={themeBase}>
       <ClientInitializer config={clientConfig} preInitialize={preInit}>
