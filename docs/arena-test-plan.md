@@ -35,7 +35,7 @@
 - [ ] Create new party on Machine A
 - [ ] Invite Machine B from Machine A
 - [ ] Join the party from Machine B
-- [ ] Create another party from Machine A and verify Machine B is stated as 'connected'
+- [ ] Create another party from Machine A and verify Machine B is stated as 'contact'
 - [ ] Redeem invitation from Machine B checking offline
 
 ### Messenger:
