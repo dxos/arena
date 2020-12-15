@@ -9,9 +9,9 @@
   },
   "dependencies": {
     "@dxos/async": "1.0.2-alpha.0",
-    "@dxos/chess-model": "^1.2.0-alpha.33",
-    "@dxos/cli-core": "2.0.24-alpha.0",
-    "@dxos/crypto": "1.0.5",
+    "@dxos/chess-model": "1.2.0-alpha.33",
+    "@dxos/cli-core": "2.0.28-alpha.0",
+    "@dxos/crypto": "1.0.7",
     "@dxos/debug": "1.0.0-beta.73",
     "chess.js": "^0.11.0",
     "lodash.defaultsdeep": "^4.6.1",

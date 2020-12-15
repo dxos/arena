@@ -31,10 +31,10 @@
   },
   "dependencies": {
     "@dxos/async": "1.0.2-alpha.0",
-    "@dxos/bot": "2.7.39-alpha.0",
-    "@dxos/botkit": "2.7.39-alpha.0",
-    "@dxos/chess-model": "^1.2.0-alpha.33",
-    "@dxos/crypto": "1.0.5"
+    "@dxos/bot": "2.7.41-alpha.0",
+    "@dxos/botkit": "2.7.41-alpha.0",
+    "@dxos/chess-model": "1.2.0-alpha.33",
+    "@dxos/crypto": "1.0.7"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
