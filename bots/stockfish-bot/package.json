@@ -1,6 +1,6 @@
 {
   "name": "@dxos/stockfish-bot",
-  "version": "1.2.0-beta.5",
+  "version": "1.2.0-alpha.33",
   "description": "Stockfish Chess Bot",
   "keywords": [],
   "license": "GPL-3.0",
@@ -27,7 +27,7 @@
     "testEnvironment": "node"
   },
   "dependencies": {
-    "@dxos/chess-bot": "^1.2.0-beta.5",
+    "@dxos/chess-bot": "^1.2.0-alpha.33",
     "better-queue": "^3.8.10",
     "better-queue-memory": "^1.0.3",
     "pify": "^4.0.1",
@@ -41,6 +41,7 @@
     "@babel/plugin-proposal-export-default-from": "^7.10.1",
     "@babel/plugin-transform-runtime": "^7.10.1",
     "@babel/preset-env": "^7.10.2",
+    "@dxos/eslint-plugin": "1.0.10",
     "babel-jest": "^25.1.0",
     "babel-loader": "^8.1.0",
     "babel-plugin-add-module-exports": "^1.0.2",
@@ -50,5 +51,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "eslintConfig": {
+    "extends": "plugin:@dxos/recomended"
   }
 }

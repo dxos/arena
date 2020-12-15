@@ -5,7 +5,7 @@
 import assert from 'assert';
 import React, { useState } from 'react';
 
-import { keyToString, keyToBuffer } from '@dxos/crypto';
+import { PublicKey } from '@dxos/crypto';
 import { ItemSettings } from '@dxos/react-appkit';
 import { useParty } from '@dxos/react-client';
 
@@ -14,7 +14,7 @@ import KingWhite from '../icons/KingWhite';
 
 const ChessSettingsDialog = ({ topic, open, onClose, onCancel, item }) => {
   const [{ white, black }, setPlayers] = useState({});
-  const party = useParty(keyToBuffer(topic));
+  const party = useParty(PublicKey.from(topic).asUint8Array());
 
   const handleClose = ({ name }) => {
     assert(white);
@@ -22,8 +22,8 @@ const ChessSettingsDialog = ({ topic, open, onClose, onCancel, item }) => {
 
     const metadata = {
       selection: {
-        whitePlayerPublicKey: keyToString(white.publicKey),
-        blackPlayerPublicKey: keyToString(black.publicKey)
+        whitePlayerPublicKey: white.publicKey.toHex(),
+        blackPlayerPublicKey: black.publicKey.toHex()
       }
     };
     onClose({ name }, metadata);

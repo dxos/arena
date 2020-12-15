@@ -1,8 +1,14 @@
 ### Instructions:
-* You should be testing using 2 machines with 2 different browsers (Brave / Chrome / Firefox are initial targets).
-* If that's no possible, use two different profiles of Chrome / Brave on a single machine.
+* Open a new issue and use the format of 'Manual test run' + app + version in the title.
+* Use the label of 'QA' for the new issue.
+* Update https://github.com/dxos/gravity/blob/main/docs/content/qa/index.md with a link to the new issue.
+* If any bugs are found, open new issues if they don't already exist. Add links into the test issue. Add a comment on the issue of the format "Feature: Name of feature : BROKEN"
+* Update https://github.com/dxos/gravity/blob/main/docs/content/qa/index.md with a list of broken features with links to the issues.
+* When a manual test is added to automation via playwright, remove it from the template.
+* Test using 2 machines with 2 different browsers (Brave / Chrome / Firefox are initial targets).
+* If that's not possible, use two different profiles of Chrome / Brave on a single machine.
 * Reset browser local storage between test runs.
-* Each daily run should be a separate issue in Github https://github.com/dxos/arena/issues with the form below filled out. This issue should
+* Each daily run should be a comment in the testing tracking issue with the form below filled out.
 * Each person on the QA duty should attach at least one screen recording per week.
 
 ### Details:
@@ -49,7 +55,7 @@
 ### Chess game (player vs player):
 - [ ] Create new chess game from Machine A (A white, B black)
 - [ ] Play 4 moves each machine
-- [ ] Revind game and then return to current state on Machine A
+- [ ] Rewind the game and then return to current state on Machine A
 - [ ] Play 2 more moves from each machine 
 
 ### Messenger inside game
@@ -67,8 +73,11 @@
 - [ ] Reopen messenger view on Machine A and confirm that all the messages and names are still there
 
 ### Bots:
-- [ ] Invite chess bot to party
+- [ ] Invite chess bot to party (use dxos/bot/chess)
 - [ ] Start new chess game between machine A and chess bot
+- [ ] Invite multiple chess bots to party
+- [ ] Complete a game, attempt to start a second game
+- [ ] Start 3 simultaneous games with chess bot. Cycle through the games and make sure that chess bot responds with each turn.
 
 ### Parties operations:
 - [ ] Rename party

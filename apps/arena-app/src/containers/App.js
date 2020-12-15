@@ -38,7 +38,9 @@ const App = () => {
   const item = items.find(i => i.id === itemId);
   const [itemSettingsOpen, setItemSettingsOpen] = useState(false);
 
-  if (!item) return null;
+  if (!item) {
+    return null;
+  }
   const pad = pads.find(pad => pad.type === item.type);
   const Settings = (pad && pad.settings) ? pad.settings : DefaultSettingsDialog;
 

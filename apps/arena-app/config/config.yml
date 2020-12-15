@@ -5,11 +5,12 @@
 
 app:
   name: Arena
-storagePath: dxos/arena-local
-storageType: persistent
+storage:
+  persistent: true
+  path: dxos/arena-local
 wns:
   server: "https://wns1.kube.moon.dxos.network/api"
   chainId: "devnet-2"
 sentry:
-  dsn: http://c4520c11e2c14d799a2802f59495ac49@134.122.22.117:9000/2
+  dsn: https://98e1a7982aef43289920a4cdb7961304@sentry.kube.dxos.network/4
   environment: development

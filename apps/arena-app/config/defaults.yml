@@ -9,24 +9,27 @@ app:
 devtools: true
 snapshots: true
 
-storagePath: dxos/arena-v1
-storageType: persistent
+storage:
+  persistent: true
+  path: dxos/arena-v2
 
 swarm:
-  signal: "wss://apollo1.kube.moon.dxos.network/dxos/signal"
+  signal: "wss://apollo2.kube.moon.dxos.network/dxos/signal"
   ice:
-    - urls: "turn:stun.wireline.ninja:3478"
-      username: "wireline"
-      credential: "wireline"
+    - urls: "turn:apollo2.kube.moon.dxos.network:3478"
+      username: "dxos"
+      credential: "dxos"
 wns:
   server: "https://wns1.kube.moon.dxos.network/api"
   chainId: "devnet-2"
 ipfs:
-  server: "https://apollo1.kube.moon.dxos.network/dxos/ipfs/api"
-  gateway: "https://apollo1.kube.moon.dxos.network/dxos/ipfs/gateway/"
+  server: "https://apollo2.kube.moon.dxos.network/dxos/ipfs/api"
+  gateway: "https://apollo2.kube.moon.dxos.network/dxos/ipfs/gateway/"
 
 debug:
-    mode: 'development'
+  mode: 'development'
+  # logging: '*:warn,*:error'
+  logging: 'DXOS*'
 
-# sentry:
-#   dsn: http://c4520c11e2c14d799a2802f59495ac49@134.122.22.117:9000/2
+sentry:
+  dsn: https://98e1a7982aef43289920a4cdb7961304@sentry.kube.dxos.network/4

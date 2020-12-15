@@ -1,16 +1,12 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
-name: alpha - Build and Publish
+name: Publish bots
 
 on:
-  push:
-    branches: [ main ]
+  workflow_dispatch
 
 jobs:
-  publish:
+  publish-bot:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -27,14 +23,8 @@ jobs:
           yarn test
           yarn lint
 
-          # Uncomment for NPM publishing.
-          npm whoami
-          yarn lerna publish -y prerelease --dist-tag="alpha" --force-publish
-
-          # Publish to WNS
-          yarn wire profile init --name $WIRE_PROFILE --template-url "$WIRE_PROFILE_URL"
           export PKG_CHANNEL="@alpha"
-          scripts/deploy_apps_to_wns.sh
+          yarn wire profile init --name $WIRE_PROFILE --template-url "$WIRE_PROFILE_URL"
           scripts/deploy_bots_to_wns.sh
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}

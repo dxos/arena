@@ -7,11 +7,11 @@ import set from 'lodash.set';
 
 import { ChessModel, CHESS_TYPE_CONTENT, CHESS_PAD } from '@dxos/chess-model';
 import { print, asyncHandler } from '@dxos/cli-core';
-import { keyToString, keyToBuffer, PublicKey } from '@dxos/crypto';
+import { keyToString, PublicKey } from '@dxos/crypto';
 import { log } from '@dxos/debug';
 import { ObjectModel } from '@dxos/object-model';
 
-import { sorter } from '../utils';
+import { memberSorter } from '../utils';
 
 const getGameUpdateHandler = (members) => {
   return item => {
@@ -43,7 +43,7 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface }) =
         const party = stateManager.party;
         assert(party, 'Invalid party.');
 
-        const members = party.queryMembers().value.sort(sorter);
+        const members = party.queryMembers().value.sort(memberSorter);
 
         const result = party.database.queryItems({ type: CHESS_TYPE_CONTENT });
         const games = result.value.map(item => {
@@ -76,14 +76,14 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface }) =
         .option('demo', { type: 'boolean' }),
 
       handler: asyncHandler(async argv => {
-        const { title } = argv;
+        const { title = 'untitled' } = argv;
 
         const party = stateManager.party;
         assert(party, 'Invalid party.');
 
         const client = await getClient();
 
-        const members = party.queryMembers().value.sort(sorter);
+        const members = party.queryMembers().value.sort(memberSorter);
 
         let membersStr = '\nParty members:\n';
         members.map((member, index) => {
@@ -104,7 +104,7 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface }) =
         let black;
 
         const self = {
-          publicKey: keyToBuffer(client.getProfile().publicKey),
+          publicKey: client.getProfile().publicKey,
           displayName: 'Yourself'
         };
 
@@ -127,7 +127,7 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface }) =
         const padItem = await party.database.createItem({
           model: ObjectModel,
           type: CHESS_PAD,
-          props: { title: title || 'untitled' }
+          props: { title }
         });
 
         const game = await party.database.createItem({
@@ -135,14 +135,15 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface }) =
           type: CHESS_TYPE_CONTENT,
           parent: padItem.id,
           props: {
-            whitePlayerPublicKey: keyToString(white.publicKey),
-            blackPlayerPublicKey: keyToString(black.publicKey)
+            whitePlayerPublicKey: white.publicKey.toHex(),
+            blackPlayerPublicKey: black.publicKey.toHex()
           }
         });
 
         await stateManager.setItem(game, getGameUpdateHandler(members));
 
         log(`Game ID: ${game.id}`);
+        getGameUpdateHandler(members)(game);
       })
     })
 
@@ -159,7 +160,7 @@ export const ChessModule = ({ getClient, stateManager, getReadlineInterface }) =
         assert(party, 'Invalid party.');
 
         const game = party.database.getItem(itemId);
-        const members = party.queryMembers().value.sort(sorter);
+        const members = party.queryMembers().value.sort(memberSorter);
 
         assert(game, 'Invalid game.');
         await stateManager.setItem(game, getGameUpdateHandler(members));

@@ -111,3 +111,5 @@ dist
 out
 
 .DS_Store
+.yalc
+yalc.lock

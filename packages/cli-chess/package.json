@@ -1,6 +1,6 @@
 {
   "name": "@dxos/cli-chess",
-  "version": "1.2.0-beta.5",
+  "version": "1.2.0-alpha.33",
   "main": "dist/index.js",
   "scripts": {
     "build": "babel src -d dist",
@@ -8,11 +8,11 @@
     "lint": "eslint ./src --ignore-path ../../.eslintignore"
   },
   "dependencies": {
-    "@dxos/async": "^1.0.0-beta.10",
-    "@dxos/chess-model": "^1.2.0-beta.5",
-    "@dxos/cli-core": "^2.0.4-alpha.0",
-    "@dxos/crypto": "^1.0.0-beta.10",
-    "@dxos/debug": "^1.0.0-beta.73",
+    "@dxos/async": "1.0.2-alpha.0",
+    "@dxos/chess-model": "^1.2.0-alpha.33",
+    "@dxos/cli-core": "2.0.24-alpha.0",
+    "@dxos/crypto": "1.0.5",
+    "@dxos/debug": "1.0.0-beta.73",
     "chess.js": "^0.11.0",
     "lodash.defaultsdeep": "^4.6.1",
     "lodash.set": "^4.3.2"
@@ -26,10 +26,14 @@
     "@babel/plugin-transform-runtime": "^7.10.1",
     "@babel/preset-env": "^7.10.2",
     "@babel/preset-react": "^7.10.1",
+    "@dxos/eslint-plugin": "1.0.10",
     "babel-loader": "^8.1.0",
     "babel-plugin-add-module-exports": "^1.0.2",
     "babel-plugin-inline-import": "^3.0.0",
     "wait-for-expect": "^3.0.2"
+  },
+  "eslintConfig": {
+    "extends": "plugin:@dxos/recomended"
   },
   "publishConfig": {
     "access": "public"
