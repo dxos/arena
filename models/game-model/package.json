@@ -10,16 +10,16 @@
     "test": "jest --rootDir ./src --verbose --passWithNoTests"
   },
   "dependencies": {
-    "@dxos/codec-protobuf": "1.1.1",
-    "@dxos/util": "2.4.0",
+    "@dxos/codec-protobuf": "~1.1.1",
+    "@dxos/util": "~2.6.17",
     "debug": "^4.2.0"
   },
   "peerDependencies": {
     "@dxos/model-factory": "*"
   },
   "devDependencies": {
-    "@dxos/eslint-plugin": "1.0.10",
-    "@dxos/protobuf-compiler": "1.1.1",
+    "@dxos/eslint-plugin": "~1.0.10",
+    "@dxos/protobuf-compiler": "~1.1.1",
     "@types/jest": "^26.0.15",
     "jest": "^26.6.1",
     "ts-jest": "^26.4.3",
