@@ -2039,7 +2039,7 @@
     source-map-support "^0.5.12"
     through2 "^3.0.1"
 
-"@dxos/messenger-model@^1.2.0-beta.36", "@dxos/messenger-model@~1.2.0-alpha.45":
+"@dxos/messenger-model@^1.2.0-beta.36", "@dxos/messenger-model@~1.2.0-alpha.47":
   version "1.2.0-beta.36"
   resolved "https://registry.yarnpkg.com/@dxos/messenger-model/-/messenger-model-1.2.0-beta.36.tgz#afc5784a76e05f15fe1df30842c16e4a44e176b7"
   integrity sha512-a7cqk8JWkT2C1iyzCM+VO+nM2eNOqn4yLbMJ8lbcVEsB0Rq0KYhOXK4y++FTPXrhXFbj3L8C0vNEhSLHMMnixA==
@@ -2048,7 +2048,7 @@
     "@dxos/util" "2.4.0"
     debug "^4.2.0"
 
-"@dxos/messenger-pad@~1.2.0-alpha.45":
+"@dxos/messenger-pad@~1.2.0-alpha.47":
   version "1.2.0-beta.36"
   resolved "https://registry.yarnpkg.com/@dxos/messenger-pad/-/messenger-pad-1.2.0-beta.36.tgz#759b4df667e62900610dcb37dc7ef9f0255be4f5"
   integrity sha512-3fH14OWcD1u+XbvjTp+Z+br+7QyEhqPz1GpTC1FezenPwIdF96LMTDkaIzAr8njkLxowRxHIyJvdy0s5Na4yWQ==
