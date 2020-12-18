@@ -1746,10 +1746,10 @@
   dependencies:
     debug "^4.1.1"
 
-"@dxos/debug@~1.0.0-beta.74":
-  version "1.0.0-beta.74"
-  resolved "https://registry.yarnpkg.com/@dxos/debug/-/debug-1.0.0-beta.74.tgz#fbc8d8daa7778adcae4850daa3c677b301ca3f23"
-  integrity sha512-QdCFp241wBlMwG2U3kaVTMhlSOyGdHME4pd95V3+8sYr4RiSVyvwTyOY6RpiPpy0oQIIDwUAnlbiluV4g+XjxA==
+"@dxos/debug@~1.0.0-beta.75":
+  version "1.0.0-beta.75"
+  resolved "https://registry.yarnpkg.com/@dxos/debug/-/debug-1.0.0-beta.75.tgz#4ea85a2d41c1c146ebc56650db0e223c42c91207"
+  integrity sha512-jXrmGNjq6GhtMxADaiR9hlfx7RJ1OB7Dq7WOWbW8XxFHLZXHzjOp6Ko28fJieu9iy/f9rWwuZkhbkYnjCWs16Q==
   dependencies:
     debug "^4.1.1"
 

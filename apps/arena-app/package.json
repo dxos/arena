@@ -27,7 +27,7 @@
     "@dxos/config": "~1.0.0-beta.74",
     "@dxos/credentials": "~2.1.16-alpha.0",
     "@dxos/crypto": "~1.0.7",
-    "@dxos/debug": "~1.0.0-beta.74",
+    "@dxos/debug": "~1.0.0-beta.75",
     "@dxos/echo-db": "~2.6.15-alpha.0",
     "@dxos/game-pad": "^1.2.0-alpha.37",
     "@dxos/messenger-pad": "~1.2.0-alpha.47",
