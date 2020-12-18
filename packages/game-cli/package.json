@@ -26,7 +26,7 @@
   "dependencies": {
     "@babel/runtime": "7.11.2",
     "@dxos/async": "~1.0.2-alpha.0",
-    "@dxos/cli-core": "~2.0.33-alpha.0",
+    "@dxos/cli-core": "~2.0.34-alpha.0",
     "@dxos/crypto": "~1.0.7",
     "@dxos/debug": "~1.0.0-beta.75",
     "@dxos/game-model": "^1.2.0-alpha.37",
