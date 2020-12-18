@@ -12,7 +12,7 @@
     "@dxos/chess-model": "~1.2.0-alpha.37",
     "@dxos/cli-core": "~2.0.33-alpha.0",
     "@dxos/crypto": "~1.0.7",
-    "@dxos/debug": "~1.0.0-beta.73",
+    "@dxos/debug": "~1.0.0-beta.74",
     "chess.js": "^0.11.0",
     "lodash.defaultsdeep": "^4.6.1",
     "lodash.set": "^4.3.2"

@@ -1739,10 +1739,17 @@
     humanhash "^1.0.4"
     hypercore-crypto "^1.0.0"
 
-"@dxos/debug@1.0.0-beta.73", "@dxos/debug@^1.0.0-beta.67", "@dxos/debug@~1.0.0-beta.73":
+"@dxos/debug@1.0.0-beta.73", "@dxos/debug@^1.0.0-beta.67":
   version "1.0.0-beta.73"
   resolved "https://registry.yarnpkg.com/@dxos/debug/-/debug-1.0.0-beta.73.tgz#0bbc4d4a5f48bde79394c78d323d62255ec2fb26"
   integrity sha512-wiDCYA+stgNyhXZUNj5xGxWxyKFbJw3pwrzU9PGnmYh0J0DXrJwvJ8dkBITxDXQRLESKFW1SW5ixb/7kmTl77w==
+  dependencies:
+    debug "^4.1.1"
+
+"@dxos/debug@~1.0.0-beta.74":
+  version "1.0.0-beta.74"
+  resolved "https://registry.yarnpkg.com/@dxos/debug/-/debug-1.0.0-beta.74.tgz#fbc8d8daa7778adcae4850daa3c677b301ca3f23"
+  integrity sha512-QdCFp241wBlMwG2U3kaVTMhlSOyGdHME4pd95V3+8sYr4RiSVyvwTyOY6RpiPpy0oQIIDwUAnlbiluV4g+XjxA==
   dependencies:
     debug "^4.1.1"
 
