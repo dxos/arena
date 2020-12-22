@@ -2761,10 +2761,31 @@
     protobufjs "^6.9.0"
     source-map-support "^0.5.12"
 
-"@dxos/util@^2.6.15-alpha.0", "@dxos/util@^2.6.17", "@dxos/util@~2.6.17":
+"@dxos/util@^2.6.15-alpha.0", "@dxos/util@^2.6.17":
   version "2.6.17"
   resolved "https://registry.yarnpkg.com/@dxos/util/-/util-2.6.17.tgz#99161941b89779b5353a2d0c764012de67522d5a"
   integrity sha512-EayWyXpvjILG0GO1XLliPmvdgi45zW1Z5MAG/4gbZPGbvv39cOhmAcc0hAhoWiVMwgyKFrx03Fr5Y+uRlEBV9w==
+  dependencies:
+    "@dxos/async" "~1.0.0-beta.10"
+    "@dxos/codec-protobuf" "~1.1.1"
+    "@dxos/crypto" "~1.0.7"
+    "@types/debug" "^4.1.1"
+    "@types/end-of-stream" "^1.4.0"
+    "@types/lodash" "^4.14.159"
+    "@types/node" "^14.0.9"
+    "@types/stream-buffers" "^3.0.2"
+    "@types/through2" "^2.0.36"
+    debug "^4.1.1"
+    hypercore "^7.7.1"
+    js-data-structs "^1.1.2"
+    lodash.merge "^4.6.2"
+    protobufjs "^6.9.0"
+    source-map-support "^0.5.12"
+
+"@dxos/util@~2.6.19":
+  version "2.6.19"
+  resolved "https://registry.yarnpkg.com/@dxos/util/-/util-2.6.19.tgz#4d9910c4a98cad3250779441e49dab83d14456a4"
+  integrity sha512-h8+s3Ct2Tsmrig/+Sz5+yym5fxX/i5x/OFFwuvnG5YN2W8AwO8Vi14UlHP7+zFt4ib7E3CFC8D8gR3QrFYoqEA==
   dependencies:
     "@dxos/async" "~1.0.0-beta.10"
     "@dxos/codec-protobuf" "~1.1.1"

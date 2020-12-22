@@ -12,7 +12,7 @@
   "dependencies": {
     "@dxos/codec-protobuf": "~1.1.1",
     "@dxos/crypto": "~1.0.7",
-    "@dxos/util": "~2.6.17",
+    "@dxos/util": "~2.6.19",
     "assert": "^2.0.0",
     "chess.js": "^0.11.0",
     "debug": "^4.2.0"
