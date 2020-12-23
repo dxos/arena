@@ -32,7 +32,7 @@
     "@dxos/async": "~1.0.2-alpha.0",
     "@dxos/chess-model": "^1.2.0-alpha.38",
     "@dxos/debug": "~1.0.0-beta.75",
-    "@material-ui/lab": "^4.0.0-alpha.42",
+    "@material-ui/lab": "^4.0.0-alpha.55",
     "@dxos/echo-db": "~2.6.15",
     "@dxos/messenger-model": "~1.2.0",
     "@dxos/messenger-pad": "~1.2.0",
