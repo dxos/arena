@@ -59,7 +59,7 @@
     "extends": "plugin:@dxos/recomended"
   },
   "peerDependencies": {
-    "@dxos/cli": "^2.0.4-alpha.0"
+    "@dxos/cli": "^2.0.4"
   },
   "publishConfig": {
     "access": "public"
