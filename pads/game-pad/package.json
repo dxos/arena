@@ -22,8 +22,8 @@
     "lodash.flowright": "^3.5.0"
   },
   "peerDependencies": {
-    "@dxos/crypto": "1.0.5",
-    "@dxos/react-client": "2.7.26",
+    "@dxos/crypto": "*",
+    "@dxos/react-client": "*",
     "@material-ui/core": "^4.9.0",
     "@material-ui/icons": "^4.5.1",
     "react": "^16.13.1",
