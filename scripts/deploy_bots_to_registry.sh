@@ -23,11 +23,11 @@ keywords:
 EOF
 
   cat bot.yml
-  echo "wrn://${REGISTRY_ORG}/bot/${PKG_NAME}${PKG_CHANNEL}"
+  echo "dxn://${REGISTRY_ORG}/bot/${PKG_NAME}${PKG_CHANNEL}"
 
   yarn package:${REGISTRY_ARCH}
   yarn -s dx bot publish
-  yarn -s dx bot register --name "wrn://${REGISTRY_ORG}/bot/${PKG_NAME}${PKG_CHANNEL}"
+  yarn -s dx bot register --name "dxn://${REGISTRY_ORG}/bot/${PKG_NAME}${PKG_CHANNEL}"
 
   popd
 done

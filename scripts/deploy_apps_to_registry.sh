@@ -16,9 +16,9 @@ build: yarn dist
 EOF
 
   cat app.yml
-  echo "wrn://${REGISTRY_ORG}/application/${PKG_NAME}${PKG_CHANNEL}"
+  echo "dxn://${REGISTRY_ORG}/application/${PKG_NAME}${PKG_CHANNEL}"
 
-  yarn -s dx app deploy --name "wrn://${REGISTRY_ORG}/application/${PKG_NAME}${PKG_CHANNEL}"
+  yarn -s dx app deploy --name "dxn://${REGISTRY_ORG}/application/${PKG_NAME}${PKG_CHANNEL}"
 
   popd
 done

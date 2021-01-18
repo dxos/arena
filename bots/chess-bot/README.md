@@ -40,7 +40,7 @@ chess join 1588764145416
 4. Spawn the bot:
 
 ```bash
-bot spawn --bot-id="wrn:bot:dxos.org/chess" --topic <bot-factory-topic> --spec='{"id":1588764145416}'
+bot spawn --bot-id="dxn:bot:dxos.org/chess" --topic <bot-factory-topic> --spec='{"id":1588764145416}'
 ```
 
 4. Keep playing as a white player, as using [CLI](../../packages/chess-cli/README.md) or [App](../../apps/chess-app/README.md)

@@ -10,4 +10,4 @@ yarn dx app register
 
 yarn dx app query --name DXOS.io/arena
 
-yarn run dx app serve --app wrn:app:DXOS.io/arena --path /arena --port 8080
+yarn run dx app serve --app dxn:app:dxos.org/arena --path /arena --port 8080
