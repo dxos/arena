@@ -2487,6 +2487,33 @@
     lodash.isplainobject "^4.0.6"
     uuid "^3.3.3"
 
+"@dxos/registry-client@~1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@dxos/registry-client/-/registry-client-1.1.0.tgz#097791e1321a891b6f43cfb06493cf9b823d6137"
+  integrity sha512-MqqOsY86qNXNa5ICg1qvul5n8/lu1vrubONOnBWVlrRY71Rtxw1RMXQZn2jja6bLFZqTS1S/VoJzlsTfDz3NMQ==
+  dependencies:
+    "@babel/runtime" "^7.0.0"
+    "@graphql-tools/schema" "^6.0.16"
+    "@wirelineio/wns-schema" "^0.3.2"
+    bech32 "^1.1.3"
+    bip32 "^2.0.5"
+    bip39 "^2.5.0"
+    canonical-json "^0.0.4"
+    cids "^0.7.1"
+    debug "^4.1.1"
+    graphql "^15.3.0"
+    graphql.js "^0.6.1"
+    hdkey "^1.1.1"
+    is-url "1.2.4"
+    js-sha256 "^0.9.0"
+    jsonschema "^1.2.4"
+    lodash.get "^4.4.2"
+    lodash.isequal "^4.5.0"
+    lodash.set "^4.3.2"
+    multihashing-async "^0.8.0"
+    ripemd160 "^2.0.2"
+    secp256k1 "^3.6.2"
+
 "@dxos/util@2.4.0":
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@dxos/util/-/util-2.4.0.tgz#4b71e34ca8bf17a1a0b904718f732c4fdbc7e4b7"

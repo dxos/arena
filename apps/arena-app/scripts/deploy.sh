@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Ensure ~/.wireline/config.yml is set-up correctly.
+# Ensure ~/.dxos/config.yml is set-up correctly.
 
 set -x
 
