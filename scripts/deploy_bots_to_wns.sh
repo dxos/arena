@@ -26,8 +26,8 @@ EOF
   echo "wrn://${WNS_ORG}/bot/${PKG_NAME}${PKG_CHANNEL}"
 
   yarn package:${WNS_ARCH}
-  yarn -s wire bot publish
-  yarn -s wire bot register --name "wrn://${WNS_ORG}/bot/${PKG_NAME}${PKG_CHANNEL}"
+  yarn -s dx bot publish
+  yarn -s dx bot register --name "wrn://${WNS_ORG}/bot/${PKG_NAME}${PKG_CHANNEL}"
 
   popd
 done

@@ -24,11 +24,11 @@ jobs:
           yarn lint
 
           export PKG_CHANNEL="@alpha"
-          yarn wire profile init --name $WIRE_PROFILE --template-url "$WIRE_PROFILE_URL"
+          yarn dx profile init --name $DX_PROFILE --template-url "$DX_PROFILE_URL"
           scripts/deploy_bots_to_wns.sh
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
-          WIRE_WNS_USER_KEY: ${{secrets.wns_user_key}}
-          WIRE_WNS_BOND_ID: ${{secrets.wns_bond_id}}
-          WIRE_PROFILE_URL: ${{secrets.wire_profile_url}}
-          WIRE_PROFILE: ci
+          DX_WNS_USER_KEY: ${{secrets.wns_user_key}}
+          DX_WNS_BOND_ID: ${{secrets.wns_bond_id}}
+          DX_PROFILE_URL: ${{secrets.dx_profile_url}}
+          DX_PROFILE: ci

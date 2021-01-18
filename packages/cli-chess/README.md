@@ -26,7 +26,7 @@ yarn link "@dxos/cli-chess"
 Chess CLI is operable within a party, so one needs to create or join a party:
 
 ```bash
-yarn wire party create
+yarn dx party create
 ```
 
 ### Connecting to a browser party
@@ -37,7 +37,7 @@ yarn wire party create
 4. Join the party from CLI:
 
 ```bash
-yarn wire party join --invitation-url <copied invite URL>
+yarn dx party join --invitation-url <copied invite URL>
 ```
 
 ## Available commands
@@ -47,7 +47,7 @@ yarn wire party join --invitation-url <copied invite URL>
 Create new game:
 
 ```bash
-[wire]> chess create <title>
+[dx]> chess create <title>
 {"id":1588255463315}
 ```
 
@@ -56,8 +56,8 @@ Create new game:
 List existing games:
 
 ```bash
-[wire]> chess list
-[wire]> [{"__type_url":"testing.chess.Game","id":1588255463315,"title":"Sef."}]
+[dx]> chess list
+[dx]> [{"__type_url":"testing.chess.Game","id":1588255463315,"title":"Sef."}]
 ```
 
 ### Join
@@ -65,8 +65,8 @@ List existing games:
 Join an existing game:
 
 ```bash
-[wire]> chess join 1588255463315
-[wire]> [{"__type_url":"testing.chess.Game","id":1588255463315,"title":"Sef."}]
+[dx]> chess join 1588255463315
+[dx]> [{"__type_url":"testing.chess.Game","id":1588255463315,"title":"Sef."}]
 ```
 
 ### Move
@@ -78,8 +78,8 @@ Make a move:
 Example:
 
 ```bash
-[wire]> chess move a2 a3
-[wire]> 
+[dx]> chess move a2 a3
+[dx]> 
    +------------------------+
  8 | r  n  b  q  k  b  n  r |
  7 | p  p  p  p  p  p  p  p |

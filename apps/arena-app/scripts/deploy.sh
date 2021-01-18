@@ -4,10 +4,10 @@
 
 set -x
 
-yarn wire app build
-yarn wire app publish
-yarn wire app register
+yarn dx app build
+yarn dx app publish
+yarn dx app register
 
-yarn wire app query --name DXOS.io/arena
+yarn dx app query --name DXOS.io/arena
 
-yarn run wire app serve --app wrn:app:DXOS.io/arena --path /arena --port 8080
+yarn run dx app serve --app wrn:app:DXOS.io/arena --path /arena --port 8080

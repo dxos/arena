@@ -1,6 +1,6 @@
 #
 # This config file is loadded **ONLY** in local development.
-# It will be replaced by a config/config.json request when served with wire app serve.
+# It will be replaced by a config/config.json request when served with dx app serve.
 #
 
 app:

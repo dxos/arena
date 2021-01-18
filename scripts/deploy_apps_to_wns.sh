@@ -18,7 +18,7 @@ EOF
   cat app.yml
   echo "wrn://${WNS_ORG}/application/${PKG_NAME}${PKG_CHANNEL}"
 
-  yarn -s wire app deploy --name "wrn://${WNS_ORG}/application/${PKG_NAME}${PKG_CHANNEL}"
+  yarn -s dx app deploy --name "wrn://${WNS_ORG}/application/${PKG_NAME}${PKG_CHANNEL}"
 
   popd
 done
