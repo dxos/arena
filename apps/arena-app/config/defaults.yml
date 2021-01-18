@@ -19,7 +19,7 @@ swarm:
     - urls: "turn:apollo2.kube.moon.dxos.network:3478"
       username: "dxos"
       credential: "dxos"
-wns:
+registry:
   server: "https://wns1.kube.moon.dxos.network/api"
   chainId: "devnet-2"
 ipfs:

@@ -13,7 +13,7 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
-      - name: Build and WNS publish
+      - name: Build and Registry publish
         run: |
           git config --global user.email "npm@dxos.org"
           git config --global user.name "DXOS"
@@ -25,10 +25,10 @@ jobs:
 
           export PKG_CHANNEL="@alpha"
           yarn dx profile init --name $DX_PROFILE --template-url "$DX_PROFILE_URL"
-          scripts/deploy_bots_to_wns.sh
+          scripts/deploy_bots_to_registry.sh
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
-          DX_WNS_USER_KEY: ${{secrets.wns_user_key}}
-          DX_WNS_BOND_ID: ${{secrets.wns_bond_id}}
+          DX_REGISTRY_USER_KEY: ${{secrets.registry_user_key}}
+          DX_REGISTRY_BOND_ID: ${{secrets.registry_bond_id}}
           DX_PROFILE_URL: ${{secrets.dx_profile_url}}
           DX_PROFILE: ci

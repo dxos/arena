@@ -72,4 +72,4 @@ cd examples/chess-bot
 yarn dx bot factory start
 ```
 
-4. Spawn the bot as before. It will be downloaded from WNS/IPFS
+4. Spawn the bot as before. It will be downloaded from Registry/IPFS

@@ -17,7 +17,7 @@ Then we can publish the dist folder using the `dx app` cli.
 yarn dx app publish
 ```
 
-Register the version on the WNS
+Register the version on the Registry
 
 ```
 yarn dx register
