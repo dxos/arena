@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@dxos/async": "~1.0.2-alpha.0",
-    "@dxos/chess-model": "^1.2.0-alpha.42",
+    "@dxos/chess-model": "~1.2.0-alpha.42",
     "@dxos/cli-core": "~2.0.34-alpha.0",
     "@dxos/crypto": "~1.0.7",
     "@dxos/debug": "~1.0.0-beta.75",

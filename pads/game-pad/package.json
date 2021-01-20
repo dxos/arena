@@ -2,10 +2,11 @@
   "name": "@dxos/game-pad",
   "version": "1.2.0-alpha.42",
   "description": "DXOS oxo game pad",
-  "main": "dist/es/index.js",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "private": true,
   "scripts": {
-    "build": "npm run clean && node_modules/.bin/babel ./src --out-dir ./dist/es --ignore \\\"**/*.test.js\\\" --source-maps inline",
+    "build": "npm run clean && tsc",
     "build:watch": "yarn run build --watch",
     "clean": "rm -rf dist",
     "dist": "node_modules/.bin/rollup -c",
