@@ -109,27 +109,9 @@ module.exports = {
       // js & ts
       {
         test: /\.[jt]sx?$/,
+        include: path.resolve(__dirname, './src'),
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            cacheDirectory: true,
-            babelrc: false,
-            presets: [
-              [
-                '@babel/preset-env',
-                { targets: { browsers: '> 5%, not IE <= 11' } }
-              ],
-              '@babel/preset-react'
-            ],
-            plugins: [
-              ['@babel/plugin-proposal-class-properties', { loose: true }],
-              '@babel/plugin-proposal-nullish-coalescing-operator',
-              '@babel/plugin-proposal-optional-chaining',
-              'babel-plugin-styled-components'
-            ].filter(Boolean)
-          }
-        }
+        loader: 'ts-loader'
       },
 
       // config
