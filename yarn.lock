@@ -2527,7 +2527,7 @@
     ripemd160 "^2.0.2"
     secp256k1 "^3.6.2"
 
-"@dxos/util@2.6.7-alpha.0", "@dxos/util@^2.6.7-alpha.0":
+"@dxos/util@2.6.7-alpha.0":
   version "2.6.7-alpha.0"
   resolved "https://registry.yarnpkg.com/@dxos/util/-/util-2.6.7-alpha.0.tgz#b558111b526714433d80afe88ba15cdae0f9f55b"
   integrity sha512-C0IanUZaoRA8h3iV1xUj/WkYCdMoUWuefYGuhEjPmCOK5mt+kNZSc3QaEMTRJuQ1IErStWWJoQ2BY89wlwMNrg==
@@ -2569,7 +2569,7 @@
     protobufjs "^6.9.0"
     source-map-support "^0.5.12"
 
-"@dxos/util@^2.6.21", "@dxos/util@~2.6.20", "@dxos/util@~2.6.21":
+"@dxos/util@^2.6.21", "@dxos/util@^2.6.7-alpha.0", "@dxos/util@~2.6.20", "@dxos/util@~2.6.21":
   version "2.6.21"
   resolved "https://registry.yarnpkg.com/@dxos/util/-/util-2.6.21.tgz#8dd80824636e27d225169d45c4d5bffcca6cd98c"
   integrity sha512-Ox1Ie3gKQAPzrf/rjuDI+WkANBE7PhC0eTRYU6gO8dDYiSoNlKos5s2TjtjBQ1hApk+6cciEYnlF2jNyBjw37A==

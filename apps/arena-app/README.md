@@ -11,20 +11,20 @@ Each build will be targeted for a specific public url or deploy path. The env va
 PUBLIC_URL=/teamwork yarn webpack -p
 ```
 
-Then we can publish the dist folder using the `wire app` cli. 
+Then we can publish the dist folder using the `dx app` cli. 
 
 ```
-yarn wire app publish
+yarn dx app publish
 ```
 
-Register the version on the WNS
+Register the version on the Registry
 
 ```
-yarn wire register
+yarn dx register
 ```
 
 And finally test locally:
 
 ```
-yarn wire app serve --app wrn:app:DXOS.io/arena --path /teamwork
+yarn dx app serve --app dxn:app:dxos.org/arena --path /teamwork
 ```

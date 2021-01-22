@@ -21,7 +21,7 @@ export interface ChessModelProps {
 
 export class ChessModel extends Model<ChessContent> {
   static meta: ModelMeta = {
-    type: 'wrn://protocol.dxos.org/arena/chess',
+    type: 'dxn://protocol.dxos.org/arena/chess',
     mutation: schema.getCodecForType('dxos.arena.chess.ChessContent'),
 
     async getInitMutation (props: ChessModelProps): Promise<ChessContent> {
