@@ -20,7 +20,7 @@ swarm:
       username: "dxos"
       credential: "dxos"
 registry:
-  server: "https://wns1.kube.moon.dxos.network/api"
+  server: "https://apollo1.kube.moon.dxos.network/dxos/wns/api"
   chainId: "devnet-2"
 ipfs:
   server: "https://apollo2.kube.moon.dxos.network/dxos/ipfs/api"

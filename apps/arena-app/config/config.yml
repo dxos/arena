@@ -9,7 +9,7 @@ storage:
   persistent: true
   path: dxos/arena-local
 registry:
-  server: "https://wns1.kube.moon.dxos.network/api"
+  server: "https://apollo1.kube.moon.dxos.network/dxos/wns/api"
   chainId: "devnet-2"
 sentry:
   dsn: https://98e1a7982aef43289920a4cdb7961304@sentry.kube.dxos.network/4
