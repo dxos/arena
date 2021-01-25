@@ -12,8 +12,8 @@
     "src",
     "dist/version.json"
   ],
-  "ignore": [
+  "exclude": [
     "/node_modules/",
-    "dist"
+    "dist/*.js"
   ],
 }
