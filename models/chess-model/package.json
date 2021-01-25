@@ -1,6 +1,6 @@
 {
   "name": "@dxos/chess-model",
-  "version": "1.2.0-alpha.46",
+  "version": "1.2.0-alpha.47",
   "main": "dist/src/index.js",
   "license": "MIT",
   "scripts": {

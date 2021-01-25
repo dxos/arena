@@ -1,6 +1,6 @@
 {
   "name": "@dxos/stockfish-bot",
-  "version": "1.2.0-alpha.46",
+  "version": "1.2.0-alpha.47",
   "description": "Stockfish Chess Bot",
   "keywords": [],
   "license": "GPL-3.0",
@@ -27,7 +27,7 @@
     "testEnvironment": "node"
   },
   "dependencies": {
-    "@dxos/chess-bot": "^1.2.0-alpha.46",
+    "@dxos/chess-bot": "^1.2.0-alpha.47",
     "better-queue": "^3.8.10",
     "better-queue-memory": "^1.0.3",
     "pify": "^4.0.1",
