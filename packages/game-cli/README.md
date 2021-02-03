@@ -3,27 +3,27 @@
 Game CLI is operable within a party, so one needs to create or join the party:
 
 ```
-$ dx party create
+$ wire party create
 ```
 
 List existing games:
 
 ```
-[dx]> game list
-[dx]> [{"id":1588200329869,"title":"Vaw."}]
+[wire]> game list
+[wire]> [{"id":1588200329869,"title":"Vaw."}]
 ```
 
 Create new game:
 
 ```
-[dx]> game create <title>
+[wire]> game create <title>
 {"id":1588200460978, "title": "your title"}
 ```
 
 Join a game:
 
 ```
-[dx]> game join <id>
+[wire]> game join <id>
 
  | | 
 -+-+-
@@ -35,8 +35,8 @@ Join a game:
 Play moves:
 
 ```
-[dx]> game move a1 0
-[dx]>
+[wire]> game move a1 0
+[wire]>
 
 o| |
 -+-+-
@@ -44,8 +44,8 @@ o| |
 -+-+-
  | |
 
-[dx]> game move a2 1
-[dx]>
+[wire]> game move a2 1
+[wire]>
 
 o|x|
 -+-+-
@@ -53,8 +53,8 @@ o|x|
 -+-+-
  | |
 
-[dx]> game move b1 0
-[dx]>
+[wire]> game move b1 0
+[wire]>
 
 o|x|
 -+-+-

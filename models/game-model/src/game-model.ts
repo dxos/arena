@@ -14,7 +14,7 @@ export const GAME_TYPE_MOVE = 'dxos.org/type/game/move';
 
 export class GameModel extends Model<GameMove> {
   static meta: ModelMeta = {
-    type: 'dxn://protocol.dxos.org/arena/game',
+    type: 'wrn://protocol.dxos.org/arena/game',
     mutation: schema.getCodecForType('dxos.arena.game.GameMove')
   };
 

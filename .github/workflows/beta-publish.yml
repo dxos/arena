@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
-      - name: Build and REGISTRY publish
+      - name: Build and WNS publish
         run: |
           git config --global user.email "npm@dxos.org"
           git config --global user.name "DXOS"
@@ -36,14 +36,14 @@ jobs:
           git push --tags -f
           yarn lerna publish from-package --force-publish -y
 
-          # Publish to REGISTRY
-          yarn dx profile init --name $DX_PROFILE --template-url "$DX_PROFILE_URL"
+          # Publish to WNS
+          yarn wire profile init --name $WIRE_PROFILE --template-url "$WIRE_PROFILE_URL"
           export PKG_CHANNEL="@beta"
-          scripts/deploy_apps_to_registry.sh
-          scripts/deploy_bots_to_registry.sh
+          scripts/deploy_apps_to_wns.sh
+          scripts/deploy_bots_to_wns.sh
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
-          DX_REGISTRY_USER_KEY: ${{secrets.registry_user_key}}
-          DX_REGISTRY_BOND_ID: ${{secrets.registry_bond_id}}
-          DX_PROFILE_URL: ${{secrets.dx_profile_url}}
-          DX_PROFILE: ci
+          WIRE_WNS_USER_KEY: ${{secrets.wns_user_key}}
+          WIRE_WNS_BOND_ID: ${{secrets.wns_bond_id}}
+          WIRE_PROFILE_URL: ${{secrets.wire_profile_url}}
+          WIRE_PROFILE: ci
