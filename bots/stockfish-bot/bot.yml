@@ -1,4 +1,4 @@
-id: 'dxn:bot:dxos.org/stockfish'
+id: 'wrn:bot:dxos.org/stockfish'
 name: StockfishChessBot
 version: 0.0.1
 package:

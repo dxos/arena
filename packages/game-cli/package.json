@@ -5,7 +5,7 @@
   "main": "dist/es/index.js",
   "private": true,
   "bin": {
-    "dx-game": "bin/dx-game.js"
+    "wire-game": "bin/wire-game.js"
   },
   "files": [
     "bin/",

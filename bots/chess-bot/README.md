@@ -14,7 +14,7 @@ Use two terminals.
 
 ```bash
 cd examples/chess-bot
-yarn dx bot factory start --local-dev
+yarn wire bot factory start --local-dev
 ```
 
 Copy the bot factory topic.
@@ -24,9 +24,9 @@ Copy the bot factory topic.
 1. Create or join a party:
 
 ```bash
-yarn dx party create
+yarn wire party create
 // or
-yarn dx party join <party ID> --url <copied invite URL>
+yarn wire party join <party ID> --url <copied invite URL>
 ```
 
 2. Create or join a chess game:
@@ -40,7 +40,7 @@ chess join 1588764145416
 4. Spawn the bot:
 
 ```bash
-bot spawn --bot-id="dxn:bot:dxos.org/chess" --topic <bot-factory-topic> --spec='{"id":1588764145416}'
+bot spawn --bot-id="wrn:bot:dxos.org/chess" --topic <bot-factory-topic> --spec='{"id":1588764145416}'
 ```
 
 4. Keep playing as a white player, as using [CLI](../../packages/chess-cli/README.md) or [App](../../apps/chess-app/README.md)
@@ -55,21 +55,21 @@ bot spawn --bot-id="dxn:bot:dxos.org/chess" --topic <bot-factory-topic> --spec='
 
 ```bash
 yarn package:macos-x64
-yarn dx bot publish
-yarn dx bot register
+yarn wire bot publish
+yarn wire bot register
 ```
 
 2. Query to make sure it's there
 
 ```bash
-yarn dx bot query --name 'dxos.org/chess'
+yarn wire bot query --name 'dxos.org/chess'
 ```
 
 3. Run the bot factory NOT-locally:
 
 ```bash
 cd examples/chess-bot
-yarn dx bot factory start
+yarn wire bot factory start
 ```
 
-4. Spawn the bot as before. It will be downloaded from Registry/IPFS
+4. Spawn the bot as before. It will be downloaded from WNS/IPFS
