@@ -33,7 +33,7 @@
     "@dxos/async": "~1.0.2-alpha.0",
     "@dxos/bot": "~2.9.0",
     "@dxos/botkit": "~2.9.0",
-    "@dxos/chess-model": "^1.2.0-alpha.49",
+    "@dxos/chess-model": "~1.2.0-alpha.49",
     "@dxos/crypto": "~1.0.7"
   },
   "devDependencies": {
