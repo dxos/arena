@@ -21,6 +21,7 @@
     "@braneframe/types": "0.3.5-main.caaa612",
     "@dxos/app-framework": "0.3.5-main.caaa612",
     "@dxos/config": "0.3.5-main.caaa612",
+    "@dxos/echo-schema": "0.3.5-main.caaa612",
     "@dxos/react-ui": "0.3.5-main.caaa612",
     "@dxos/react-client": "0.3.5-main.caaa612",
     "@dxos/vault": "0.3.5-main.caaa612",
