@@ -1,0 +1,47 @@
+{
+  "name": "dxos-templates",
+  "version": "0.1.0",
+  "description": "dxos-templates - a DXOS application",
+  "private": true,
+  "scripts": {
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "serve": "vite"
+  },
+  "dependencies": {
+    "@braneframe/plugin-client": "0.3.5-main.caaa612",
+    "@braneframe/plugin-graph": "0.3.5-main.caaa612",
+    "@braneframe/plugin-error": "0.3.5-main.caaa612",
+    "@braneframe/plugin-layout": "0.3.5-main.caaa612",
+    "@braneframe/plugin-metadata": "0.3.5-main.caaa612",
+    "@braneframe/plugin-navtree": "0.3.5-main.caaa612",
+    "@braneframe/plugin-space": "0.3.5-main.caaa612",
+    "@braneframe/plugin-stack": "0.3.5-main.caaa612",
+    "@braneframe/plugin-theme": "0.3.5-main.caaa612",
+    "@braneframe/types": "0.3.5-main.caaa612",
+    "@dxos/app-framework": "0.3.5-main.caaa612",
+    "@dxos/config": "0.3.5-main.caaa612",
+    "@dxos/react-ui": "0.3.5-main.caaa612",
+    "@dxos/react-client": "0.3.5-main.caaa612",
+    "@dxos/vault": "0.3.5-main.caaa612",
+    "@phosphor-icons/react": "^2.0.5",
+    "@preact/signals-react": "^1.3.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.4.0"
+  },
+  "devDependencies": {
+    "@dxos/react-ui-theme": "0.3.5-main.caaa612",
+    "@types/node": "^18.11.9",
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
+    "@vitejs/plugin-react": "^3.0.1",
+    "autoprefixer": "^10.4.12",
+    "postcss": "^8.4.21",
+    "tailwindcss": "~3.2.7",
+    "typescript": "^5.0.4",
+    "vite": "^4.3.9",
+    "vite-plugin-pwa": "^0.14.1",
+    "workbox-window": "^6.5.4"
+  }
+}
