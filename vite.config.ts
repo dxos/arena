@@ -10,7 +10,8 @@ export default defineConfig({
   server: {
     host: true,
   },
-  build: { outDir: "out/dxos-templates" },
+  build: { outDir: "out/dxos-templates", target: "esnext" },
+  optimizeDeps: { esbuildOptions: { target: "esnext" } },
   define: {
     process: {
       env: {

@@ -1,10 +1,3 @@
-//Base Plugins could have:
-// - Adding an object to the graph
-// - Providing a component to a surface
-// - Throwing an intent
-// - Handling an intent
-// - could have other functionality in it, just commented out with no additional comments to explain how it works
-
 import { CompassTool, IconProps, Palette } from "@phosphor-icons/react";
 import { effect } from "@preact/signals-react";
 import React, { FC } from "react";
@@ -33,7 +26,13 @@ type MyPluginProvides = SurfaceProvides &
   TranslationsProvides &
   StackProvides;
 
-const PLUGIN_ID = "color-plugin";
+const PLUGIN_ID = "/color-plugin";
+
+export const MyPluginMeta = {
+  id: PLUGIN_ID,
+  name: "Color Plugin",
+  iconComponent: (props: IconProps) => <Palette {...props} />,
+};
 
 // prettier-ignore
 const niceColors = [ "royalblue", "skyblue", "lightblue", "deepskyblue", "cadetblue", "palevioletred", "orchid", "mediumorchid", "violet", "mediumpurple", "rebeccapurple", "mediumseagreen", "seagreen", "limegreen", "palegreen", "springgreen", "darkseagreen", "olive", "darkolivegreen", "goldenrod", "darkgoldenrod", "chocolate", "saddlebrown", "firebrick", "tomato", ];
@@ -115,9 +114,7 @@ const isColor = (object: TypedObject): boolean => {
 
 const MyPlugin = (): PluginDefinition<MyPluginProvides> => {
   return {
-    meta: {
-      id: PLUGIN_ID,
-    },
+    meta: MyPluginMeta,
     provides: {
       metadata: {
         records: {
@@ -156,15 +153,13 @@ const MyPlugin = (): PluginDefinition<MyPluginProvides> => {
                 intentPlugin.provides.intent.dispatch([
                   {
                     plugin: PLUGIN_ID,
-                    action: PluginAction.CREATE,
+                    action: PLUGIN_ACTION,
                   },
                   {
                     action: SpaceAction.ADD_OBJECT,
-                    data: { folder: parent.data },
+                    data: { target: parent.data },
                   },
-                  {
-                    action: LayoutAction.ACTIVATE,
-                  },
+                  { action: LayoutAction.ACTIVATE },
                 ]),
             });
           } else if (isTypedObject(parent.data) && isColor(parent.data)) {
@@ -192,19 +187,18 @@ const MyPlugin = (): PluginDefinition<MyPluginProvides> => {
         ],
       },
       surface: {
-        component: (data, role) => {
-          // console.log(role);
-          // switch (role) {
-          //   case "main":
-          //     return isTypedObject(data.active) && isColor(data.active) ? (
-          //       <ColorMain object={data.active} />
-          //     ) : null;
+        component: ({ data, role }) => {
+          switch (role) {
+            case "main":
+              return isTypedObject(data.active) && isColor(data.active) ? (
+                <ColorMain object={data.active} />
+              ) : null;
 
-          //   case "section":
-          //     return isTypedObject(data.object) && isColor(data.object) ? (
-          //       <ColorSection object={data.object} />
-          //     ) : null;
-          // }
+            case "section":
+              return isTypedObject(data.object) && isColor(data.object) ? (
+                <ColorSection object={data.object} />
+              ) : null;
+          }
 
           return null;
         },
@@ -225,12 +219,6 @@ const MyPlugin = (): PluginDefinition<MyPluginProvides> => {
       },
     },
   };
-};
-
-export const MyPluginMeta = {
-  id: PLUGIN_ID,
-  name: "Color Plugin",
-  iconComponent: (props: IconProps) => <Palette {...props} />,
 };
 
 export default MyPlugin;
