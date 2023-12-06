@@ -5,7 +5,7 @@
 // - Handling an intent
 // - could have other functionality in it, just commented out with no additional comments to explain how it works
 
-import { CompassTool, Palette } from "@phosphor-icons/react";
+import { CompassTool, IconProps, Palette } from "@phosphor-icons/react";
 import { effect } from "@preact/signals-react";
 import React, { FC } from "react";
 
@@ -26,8 +26,7 @@ import {
 import { Expando, TypedObject, isTypedObject } from "@dxos/react-client/echo";
 import { Button } from "@dxos/react-ui";
 
-type MyPluginProvides =
-  SurfaceProvides &
+type MyPluginProvides = SurfaceProvides &
   IntentResolverProvides &
   GraphBuilderProvides &
   MetadataRecordsProvides &
@@ -114,7 +113,7 @@ const isColor = (object: TypedObject): boolean => {
   );
 };
 
-export const MyPlugin = (): PluginDefinition<MyPluginProvides> => {
+const MyPlugin = (): PluginDefinition<MyPluginProvides> => {
   return {
     meta: {
       id: PLUGIN_ID,
@@ -125,8 +124,8 @@ export const MyPlugin = (): PluginDefinition<MyPluginProvides> => {
           [TYPE]: {
             placeholder: ["color title placeholder", { ns: PLUGIN_ID }],
             icon: (props) => <Palette {...props} />,
-          }
-        }
+          },
+        },
       },
       translations: [
         {
@@ -153,23 +152,27 @@ export const MyPlugin = (): PluginDefinition<MyPluginProvides> => {
                 testId: "spacePlugin.createDocument",
                 disposition: "toolbar",
               },
-              invoke: () => intentPlugin.provides.intent.dispatch([
-                {
-                  plugin: PLUGIN_ID,
-                  action: PluginAction.CREATE,
-                },
-                {
-                  action: SpaceAction.ADD_TO_FOLDER,
-                  data: { folder: parent.data },
-                },
-                {
-                  action: LayoutAction.ACTIVATE,
-                },
-              ]),
+              invoke: () =>
+                intentPlugin.provides.intent.dispatch([
+                  {
+                    plugin: PLUGIN_ID,
+                    action: PluginAction.CREATE,
+                  },
+                  {
+                    action: SpaceAction.ADD_OBJECT,
+                    data: { folder: parent.data },
+                  },
+                  {
+                    action: LayoutAction.ACTIVATE,
+                  },
+                ]),
             });
           } else if (isTypedObject(parent.data) && isColor(parent.data)) {
             return effect(() => {
-              parent.label = parent.data.color || ["color title placeholder", { ns: PLUGIN_ID }];
+              parent.label = parent.data.color || [
+                "color title placeholder",
+                { ns: PLUGIN_ID },
+              ];
             });
           }
         },
@@ -190,13 +193,18 @@ export const MyPlugin = (): PluginDefinition<MyPluginProvides> => {
       },
       surface: {
         component: (data, role) => {
-          switch (role) {
-            case "main":
-              return isTypedObject(data.active) && isColor(data.active) ? <ColorMain object={data.active} /> : null;
-    
-            case "section":
-              return isTypedObject(data.object) && isColor(data.object) ? <ColorSection object={data.object} /> : null;
-          }
+          // console.log(role);
+          // switch (role) {
+          //   case "main":
+          //     return isTypedObject(data.active) && isColor(data.active) ? (
+          //       <ColorMain object={data.active} />
+          //     ) : null;
+
+          //   case "section":
+          //     return isTypedObject(data.object) && isColor(data.object) ? (
+          //       <ColorSection object={data.object} />
+          //     ) : null;
+          // }
 
           return null;
         },
@@ -218,3 +226,11 @@ export const MyPlugin = (): PluginDefinition<MyPluginProvides> => {
     },
   };
 };
+
+export const MyPluginMeta = {
+  id: PLUGIN_ID,
+  name: "Color Plugin",
+  iconComponent: (props: IconProps) => <Palette {...props} />,
+};
+
+export default MyPlugin;
