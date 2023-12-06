@@ -11,6 +11,13 @@ export default defineConfig({
     host: true,
   },
   build: { outDir: "out/dxos-templates" },
+  define: {
+    process: {
+      env: {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+      },
+    },
+  },
   plugins: [
     VaultPlugin(),
     ConfigPlugin(),
