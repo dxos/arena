@@ -4,6 +4,7 @@ import { VaultPlugin } from "@dxos/vault/vite-plugin";
 import react from "@vitejs/plugin-react";
 import { ThemePlugin } from "@dxos/react-ui-theme/plugin";
 import { resolve } from "path";
+const { osThemeExtension } = require("@dxos/react-shell/theme-extensions");
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -24,6 +25,7 @@ export default defineConfig({
     ConfigPlugin(),
     react({ jsxRuntime: "classic" }),
     ThemePlugin({
+      extensions: [osThemeExtension],
       content: [
         resolve(__dirname, "./index.html"),
         resolve(__dirname, "./src/**/*.{js,ts,jsx,tsx}"),
