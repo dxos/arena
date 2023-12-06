@@ -19,23 +19,11 @@ import {
 import { Expando, TypedObject, isTypedObject } from "@dxos/react-client/echo";
 import { Button } from "@dxos/react-ui";
 
-type MyPluginProvides = SurfaceProvides &
-  IntentResolverProvides &
-  GraphBuilderProvides &
-  MetadataRecordsProvides &
-  TranslationsProvides &
-  StackProvides;
-
-const PLUGIN_ID = "/color-plugin";
-
-export const MyPluginMeta = {
-  id: PLUGIN_ID,
-  name: "Color Plugin",
-  iconComponent: (props: IconProps) => <Palette {...props} />,
-};
+// --- View -------------------------------------------------------------------
 
 // prettier-ignore
 const niceColors = [ "royalblue", "skyblue", "lightblue", "deepskyblue", "cadetblue", "palevioletred", "orchid", "mediumorchid", "violet", "mediumpurple", "rebeccapurple", "mediumseagreen", "seagreen", "limegreen", "palegreen", "springgreen", "darkseagreen", "olive", "darkolivegreen", "goldenrod", "darkgoldenrod", "chocolate", "saddlebrown", "firebrick", "tomato", ];
+
 const getRandomColor = () => {
   return niceColors[Math.floor(Math.random() * niceColors.length)];
 };
@@ -47,12 +35,6 @@ const getPositiveExclamation = () => {
     Math.floor(Math.random() * positiveExclamations.length)
   ];
 };
-
-const PLUGIN_ACTION = `${PLUGIN_ID}/action`;
-
-export enum PluginAction {
-  CREATE = `${PLUGIN_ACTION}/create`,
-}
 
 const ColorMain: FC<{ object: Expando }> = ({ object }) => {
   const changeColor = (object: Expando) => {
@@ -102,6 +84,7 @@ const ColorSection: FC<{ object: Expando }> = ({ object }) => {
   );
 };
 
+// --- Helpers ----------------------------------------------------------------
 const TYPE = "color";
 
 const isColor = (object: TypedObject): boolean => {
@@ -112,7 +95,29 @@ const isColor = (object: TypedObject): boolean => {
   );
 };
 
-const MyPlugin = (): PluginDefinition<MyPluginProvides> => {
+// --- Plugin Definition ------------------------------------------------------
+type MyPluginProvides = SurfaceProvides &
+  IntentResolverProvides &
+  GraphBuilderProvides &
+  MetadataRecordsProvides &
+  TranslationsProvides &
+  StackProvides;
+
+const PLUGIN_ID = "/color-plugin";
+
+export const MyPluginMeta = {
+  id: PLUGIN_ID,
+  name: "Color Plugin",
+  iconComponent: (props: IconProps) => <Palette {...props} />,
+};
+
+const PLUGIN_ACTION_NAME = `${PLUGIN_ID}/action`;
+
+export enum MyPluginAction {
+  CREATE = `${PLUGIN_ACTION_NAME}/create`,
+}
+
+export default function MyPlugin(): PluginDefinition<MyPluginProvides> {
   return {
     meta: MyPluginMeta,
     provides: {
@@ -153,7 +158,7 @@ const MyPlugin = (): PluginDefinition<MyPluginProvides> => {
                 intentPlugin.provides.intent.dispatch([
                   {
                     plugin: PLUGIN_ID,
-                    action: PluginAction.CREATE,
+                    action: MyPluginAction.CREATE,
                   },
                   {
                     action: SpaceAction.ADD_OBJECT,
@@ -181,7 +186,7 @@ const MyPlugin = (): PluginDefinition<MyPluginProvides> => {
             icon: (props: any) => <CompassTool {...props} />,
             intent: {
               plugin: PLUGIN_ID,
-              action: PluginAction.CREATE,
+              action: MyPluginAction.CREATE,
             },
           },
         ],
@@ -206,7 +211,7 @@ const MyPlugin = (): PluginDefinition<MyPluginProvides> => {
       intent: {
         resolver: (intent) => {
           switch (intent.action) {
-            case PluginAction.CREATE:
+            case MyPluginAction.CREATE:
               return {
                 object: new Expando({
                   type: "color",
@@ -219,6 +224,4 @@ const MyPlugin = (): PluginDefinition<MyPluginProvides> => {
       },
     },
   };
-};
-
-export default MyPlugin;
+}
