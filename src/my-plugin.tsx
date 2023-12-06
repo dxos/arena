@@ -153,7 +153,7 @@ const MyPlugin = (): PluginDefinition<MyPluginProvides> => {
                 intentPlugin.provides.intent.dispatch([
                   {
                     plugin: PLUGIN_ID,
-                    action: PLUGIN_ACTION,
+                    action: PluginAction.CREATE,
                   },
                   {
                     action: SpaceAction.ADD_OBJECT,
