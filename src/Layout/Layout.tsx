@@ -1,13 +1,12 @@
 import { Surface, useIntent } from "@dxos/app-framework";
 import { Button } from "@dxos/react-ui";
-import React, { PropsWithChildren } from "react";
+import React from "react";
 import { useValue } from "signia-react";
+import { GradientBackground } from "./GradientBackground";
 import { Nav } from "./Nav";
 import { LayoutIntent, layoutIntent, layoutStateAtom } from "./layout-plugin";
-import { GradientBackground } from "./GradientBackground";
-import { ChessGame } from "./ChessGame";
 
-export const Layout = ({ children }: PropsWithChildren) => {
+export const Layout = () => {
   const layoutState = useValue(layoutStateAtom);
 
   const intent = useIntent();
@@ -16,7 +15,6 @@ export const Layout = ({ children }: PropsWithChildren) => {
     <div className="h-full w-full">
       <Nav />
       <GradientBackground />
-      {children}
       {layoutState.mode}
       <Button
         onClick={() => intent.dispatch(layoutIntent(LayoutIntent.PLAY_GAME, { gameId: "123" }))}
@@ -30,7 +28,7 @@ export const Layout = ({ children }: PropsWithChildren) => {
       >
         Back to lobby
       </Button>
-      <ChessGame />
+      <Surface role="game" data={{}} fallback={() => <>Fallback</>} />
     </div>
   );
 };

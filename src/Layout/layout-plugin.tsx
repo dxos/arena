@@ -3,12 +3,11 @@ import {
   PluginDefinition,
   Surface,
   SurfaceProvides,
-  useIntent,
 } from "@dxos/app-framework";
 import React, { PropsWithChildren } from "react";
+import { atom } from "signia";
 import { mkIntentBuilder } from "../lib";
 import { Layout } from "./Layout";
-import { atom } from "signia";
 
 // --- Layout Constants and Metadata -------------------------------------------
 export const LayoutPluginMeta = { id: "layout", name: "Layout Plugin" };
@@ -71,16 +70,17 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
         },
       },
       surface: {
-        component: (props) => {
-          console.log("Surface props", props);
-          return <Layout {...props} />;
+        component: ({ role }) => {
+          if (role === "main") {
+            return <Layout />;
+          }
+
+          return null;
         },
       },
-      root: ({ children }: PropsWithChildren) => {
+      root: () => {
         // Note: Here is where we can inject data into the rendered surface.
-        const data = "test";
-
-        return <Surface children={children} data={data} />;
+        return <Surface role="main" />;
       },
     },
   };

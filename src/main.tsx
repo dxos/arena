@@ -9,13 +9,12 @@ import GraphMeta from "@braneframe/plugin-graph/meta";
 import MetadataMeta from "@braneframe/plugin-metadata/meta";
 import SpaceMeta from "@braneframe/plugin-space/meta";
 import ThemeMeta from "@braneframe/plugin-theme/meta";
-import { MyPluginMeta } from "./my-plugin";
 
 import { types } from "@braneframe/types";
-import { createApp, Layout, Plugin } from "@dxos/app-framework";
-import { ThemeProvider } from "@dxos/react-ui";
+import { createApp, Plugin } from "@dxos/app-framework";
+import { Status, ThemeProvider } from "@dxos/react-ui";
 import { defaultTx } from "@dxos/react-ui-theme";
-import { Status } from "@dxos/react-ui";
+import { ChessPluginMeta } from "./Chess/chess-plugin";
 import { LayoutPluginMeta } from "./Layout/layout-plugin";
 
 const App = createApp({
@@ -40,7 +39,7 @@ const App = createApp({
     [SpaceMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-space")),
 
     [LayoutPluginMeta.id]: Plugin.lazy(() => import("./Layout/layout-plugin")),
-    [MyPluginMeta.id]: Plugin.lazy(() => import("./my-plugin")),
+    [ChessPluginMeta.id]: Plugin.lazy(() => import("./Chess/chess-plugin")),
   },
   order: [
     // Outside of error boundary so error dialog is styled.
@@ -52,7 +51,7 @@ const App = createApp({
     GraphMeta,
     MetadataMeta,
     LayoutPluginMeta,
-    MyPluginMeta,
+    ChessPluginMeta,
   ],
 });
 

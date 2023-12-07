@@ -8,10 +8,10 @@ import { Chessboard } from "react-chessboard";
 import { match } from "ts-pattern";
 import { FirstIcon, LastIcon, NextIcon, PreviousIcon, ResignIcon } from "../icons";
 import { arrayToPairs } from "../lib/array";
-import { GameAction, GameState, Move, exec, zeroState } from "../Chess/game";
-import { InGameCursor, useInGameCursor } from "../Chess/useInGameCursor";
+import { GameAction, GameState, Move, exec, zeroState } from "./game";
+import { InGameCursor, useInGameCursor } from "./useInGameCursor";
 import { useMutatingStore } from "../hooks/useStore";
-import { blackTimeAtom, useTimeControl, useTimeOut, whiteTimeAtom } from "../Chess/useTimeControl";
+import { blackTimeAtom, useTimeControl, useTimeOut, whiteTimeAtom } from "./useTimeControl";
 import { cn } from "../lib/css";
 
 const Timer = ({ color }: { color: "White" | "Black" }) => {
