@@ -34,7 +34,7 @@ export const Nav = () => {
 
   return (
     <nav className="p-4 flex justify-between items-center">
-      <div className="bg-gradient-to-r from-indigo-500 to-blue-500 fit-content text-slate-50 px-2">
+      <div className="bg-gradient-to-r from-indigo-500 to-blue-500 fit-content text-slate-50 px-2 border border-gray-900 rounded-sm shadow-md	">
         <h1 className="font-bold text-3xl">Arena App</h1>
       </div>
       <Avatar onClick={onClick} />

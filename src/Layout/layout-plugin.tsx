@@ -3,6 +3,7 @@ import {
   PluginDefinition,
   Surface,
   SurfaceProvides,
+  useIntent,
 } from "@dxos/app-framework";
 import React, { PropsWithChildren } from "react";
 import { mkIntentBuilder } from "../lib";
@@ -10,17 +11,12 @@ import { Layout } from "./Layout";
 import { atom } from "signia";
 
 // --- Layout Constants and Metadata -------------------------------------------
-export const LayoutPluginMeta = {
-  id: "layout",
-  name: "Layout Plugin",
-};
+export const LayoutPluginMeta = { id: "layout", name: "Layout Plugin" };
 
 // --- Layout State ------------------------------------------------------------
 type LayoutModes = "lobby" | "playing";
 
-type LayoutState = {
-  mode: LayoutModes;
-};
+type LayoutState = { mode: LayoutModes };
 
 export const layoutStateAtom = atom<LayoutState>("layout", { mode: "lobby" });
 
@@ -45,8 +41,7 @@ type LayoutIntents = {
 export const layoutIntent = mkIntentBuilder<LayoutIntents>(LayoutPluginMeta.id);
 
 // --- Plugin Definition ------------------------------------------------------
-type LayoutPluginProvidesCapabilities = IntentResolverProvides &
-  SurfaceProvides;
+type LayoutPluginProvidesCapabilities = IntentResolverProvides & SurfaceProvides;
 
 export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCapabilities> {
   return {
@@ -55,7 +50,7 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
     provides: {
       context: (props: PropsWithChildren) => <>{props.children}</>, // TODO(Zan): Add MOSAIC root?
       intent: {
-        resolver(intent, plugins) {
+        resolver(intent, _plugins) {
           console.log(intent);
 
           switch (intent.action) {
