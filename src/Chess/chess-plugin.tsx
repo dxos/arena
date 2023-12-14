@@ -18,24 +18,17 @@ export const chessIntent = mkIntentBuilder<ChessIntents>(ChessPluginMeta.id);
 // --- Plugin Definition ------------------------------------------------------
 type ChessPluginProvidesCapabilities = IntentResolverProvides & SurfaceProvides;
 
-export default function LayoutPlugin(): PluginDefinition<ChessPluginProvidesCapabilities> {
+export default function ChessPlugin(): PluginDefinition<ChessPluginProvidesCapabilities> {
   return {
     meta: ChessPluginMeta,
 
     provides: {
       context: (props: PropsWithChildren) => <>{props.children}</>,
-      intent: {
-        resolver(intent, _plugins) {
-          console.log(intent);
-
-          switch (intent.action) {
-          }
-        },
-      },
+      intent: { resolver: (intent, _plugins) => console.log(intent) },
       surface: {
         component: ({ data, role }) => {
-          if (role === "game") {
-            return <ChessGame />;
+          if (role === "game" && data?.id !== undefined && typeof data.id === "string") {
+            return <ChessGame id={data.id} />;
           }
 
           return null;

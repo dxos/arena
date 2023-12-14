@@ -16,6 +16,7 @@ import { Status, ThemeProvider } from "@dxos/react-ui";
 import { defaultTx } from "@dxos/react-ui-theme";
 import { ChessPluginMeta } from "./Chess/chess-plugin";
 import { LayoutPluginMeta } from "./Layout/layout-plugin";
+import { InvitationPluginMeta } from "./Invitation/invitation-plugin";
 
 const App = createApp({
   fallback: (
@@ -39,6 +40,7 @@ const App = createApp({
     [SpaceMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-space")),
 
     [LayoutPluginMeta.id]: Plugin.lazy(() => import("./Layout/layout-plugin")),
+    [InvitationPluginMeta.id]: Plugin.lazy(() => import("./Invitation/invitation-plugin")),
     [ChessPluginMeta.id]: Plugin.lazy(() => import("./Chess/chess-plugin")),
   },
   order: [
@@ -51,6 +53,7 @@ const App = createApp({
     GraphMeta,
     MetadataMeta,
     LayoutPluginMeta,
+    InvitationPluginMeta,
     ChessPluginMeta,
   ],
 });

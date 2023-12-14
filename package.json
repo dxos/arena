@@ -32,15 +32,17 @@
     "chess.js": "1.0.0-beta.6",
     "clsx": "^2.0.0",
     "date-fns": "^2.30.0",
+    "path-to-regexp": "^6.2.1",
     "react": "^18.2.0",
     "react-chessboard": "^4.3.2",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.4.0",
+    "react-router-dom": "^6.20.1",
     "rxjs": "^7.8.1",
     "signia": "^0.1.4",
     "signia-react": "^0.1.4",
     "tailwind-merge": "^2.1.0",
     "ts-pattern": "^5.0.6",
+    "uuid": "^9.0.1",
     "vitest": "^1.0.2"
   },
   "devDependencies": {

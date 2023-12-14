@@ -334,11 +334,13 @@ const InnerChessGame = ({
 
 const DevControls = () => {
   const space = useSpace();
-  const [dbGame] = useQuery(space, { type: "chess" });
+  const dbGame = useQuery(space, { type: "chess" });
 
   const onDelete = useCallback(() => {
     if (!space) return;
-    space.db.remove(dbGame);
+    for (let game of dbGame) {
+      space.db.remove(game);
+    }
   }, [space, dbGame]);
 
   return (
@@ -353,7 +355,7 @@ const DevControls = () => {
   );
 };
 
-export const ChessGame = () => {
+export const ChessGame = ({ id }: { id: string }) => {
   const identity = useIdentity();
   const space = useSpace();
 
@@ -362,7 +364,7 @@ export const ChessGame = () => {
     console.log("Identity", identity);
   }, [space, identity]);
 
-  let [dbGame] = useQuery(space, { type: "chess" });
+  let [dbGame] = useQuery(space, { type: "chess", gameId: id });
   const { send } = useMutatingStore(dbGame as any as GameState, exec);
 
   useEffect(() => {
@@ -370,7 +372,7 @@ export const ChessGame = () => {
 
     if (!dbGame) {
       console.log("Creating game object");
-      let expando = new Expando({ type: "chess", ...zeroState() });
+      let expando = new Expando({ type: "chess", gameId: id, ...zeroState() });
       space.db.add(expando);
     } else {
       console.log("Loaded game object from db", dbGame);

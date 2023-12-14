@@ -71,6 +71,9 @@ dependencies:
   date-fns:
     specifier: ^2.30.0
     version: 2.30.0
+  path-to-regexp:
+    specifier: ^6.2.1
+    version: 6.2.1
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -81,7 +84,7 @@ dependencies:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
   react-router-dom:
-    specifier: ^6.4.0
+    specifier: ^6.20.1
     version: 6.20.1(react-dom@18.2.0)(react@18.2.0)
   rxjs:
     specifier: ^7.8.1
@@ -98,6 +101,9 @@ dependencies:
   ts-pattern:
     specifier: ^5.0.6
     version: 5.0.6
+  uuid:
+    specifier: ^9.0.1
+    version: 9.0.1
   vitest:
     specifier: ^1.0.2
     version: 1.0.2(@types/node@18.19.2)
@@ -9547,6 +9553,10 @@ packages:
     dependencies:
       lru-cache: 10.1.0
       minipass: 7.0.4
+
+  /path-to-regexp@6.2.1:
+    resolution: {integrity: sha512-JLyh7xT1kizaEvcaXOQwOc2/Yhw6KZOvPf1S8401UyLk86CU79LN3vl7ztXGm/pZ+YjoyAJ4rxmHwbkBXJX+yw==}
+    dev: false
 
   /path-type@1.1.0:
     resolution: {integrity: sha512-S4eENJz1pkiQn9Znv33Q+deTOKmbl+jj1Fl+qiP/vYezj+S8x+J3Uo0ISrx/QoEvIlOaDWJhPaRd1flJ9HXZqg==}

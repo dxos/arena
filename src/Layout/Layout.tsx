@@ -1,34 +1,35 @@
-import { Surface, useIntent } from "@dxos/app-framework";
-import { Button } from "@dxos/react-ui";
+import { Surface } from "@dxos/app-framework";
 import React from "react";
 import { useValue } from "signia-react";
 import { GradientBackground } from "./GradientBackground";
 import { Nav } from "./Nav";
-import { LayoutIntent, layoutIntent, layoutStateAtom } from "./layout-plugin";
+import { layoutStateAtom } from "./layout-plugin";
+import { P, match } from "ts-pattern";
+import { Lobby } from "./Lobby";
 
 export const Layout = () => {
   const layoutState = useValue(layoutStateAtom);
 
-  const intent = useIntent();
+  const layoutStateToView = (state: typeof layoutState) => {
+    console.log("layout state", state);
+
+    return match(state)
+      .with({ type: "uninitialized" }, () => null)
+      .with({ type: "lobby" }, () => <Lobby />)
+      .with({ type: "invitation", invitationId: P.select("id") }, ({ id }) => (
+        <Surface role="invitation" data={{ id }} />
+      ))
+      .with({ type: "game", gameId: P.select("id") }, ({ id }) => (
+        <Surface role="game" data={{ id }} />
+      ))
+      .exhaustive();
+  };
 
   return (
     <div className="h-full w-full">
       <Nav />
       <GradientBackground />
-      {layoutState.mode}
-      <Button
-        onClick={() => intent.dispatch(layoutIntent(LayoutIntent.PLAY_GAME, { gameId: "123" }))}
-      >
-        Play Game
-      </Button>
-      <Button
-        onClick={() =>
-          intent.dispatch(layoutIntent(LayoutIntent.RETURN_TO_LOBBY, { lobbyParam: "123" }))
-        }
-      >
-        Back to lobby
-      </Button>
-      <Surface role="game" data={{}} fallback={() => <>Fallback</>} />
+      {layoutStateToView(layoutState)}
     </div>
   );
 };
