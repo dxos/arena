@@ -4,14 +4,12 @@ import {
   Plugin,
   PluginDefinition,
   SurfaceProvides,
-  useIntent,
 } from "@dxos/app-framework";
 import { PublicKey } from "@dxos/react-client";
-import { Expando, useQuery, useSpace } from "@dxos/react-client/echo";
-import { useIdentity } from "@dxos/react-client/halo";
-import React, { PropsWithChildren, useEffect } from "react";
+import React, { PropsWithChildren } from "react";
 import { atom } from "signia";
 import { mkIntentBuilder } from "../lib";
+import { InvitationView } from "./Invitation";
 
 // --- Constants and Metadata -------------------------------------------------
 export const InvitationPluginMeta = { id: "Invitation", name: "Invitation plugin" };
@@ -19,11 +17,12 @@ export const InvitationPluginMeta = { id: "Invitation", name: "Invitation plugin
 // --- State ------------------------------------------------------------------
 
 // TODO(Zan): Add game type / variant here
-type Invitation = {
+export type Invitation = {
   invitationId: string;
   creatorId: string;
   joiningPlayerId?: PublicKey;
   finalised: boolean;
+  cancelled: boolean;
 };
 
 export const invitationIdAtom = atom<Invitation | undefined>("invitation-id", undefined);
@@ -70,7 +69,7 @@ export default function InvitationPlugin(): PluginDefinition<InvitationPluginPro
         component: ({ data, role }) => {
           console.log("Invitation Surface", data, role);
           if (role === "invitation" && typeof data.id === "string") {
-            return <Invitation id={data.id} />;
+            return <InvitationView id={data.id} />;
           }
 
           return null;
@@ -79,34 +78,3 @@ export default function InvitationPlugin(): PluginDefinition<InvitationPluginPro
     },
   };
 }
-
-const Invitation = ({ id }: { id: string }) => {
-  const { dispatch } = useIntent();
-
-  const space = useSpace();
-  const [invitation] = useQuery(space, { type: "invitation", invitationId: id });
-  const identity = useIdentity();
-
-  useEffect(() => {
-    if (!identity || !space) return;
-    if (!invitation) {
-      const newInvitation: Invitation = {
-        invitationId: id,
-        creatorId: identity.identityKey.toHex(),
-        finalised: false,
-      };
-
-      space.db.add(new Expando({ type: "invitation", ...newInvitation }));
-    } else {
-      console.log("We are", identity.identityKey.toHex());
-      console.log("Creator is", invitation.creatorId);
-      console.log("Equal?", invitation.creatorId === identity.identityKey.toHex());
-
-      if (invitation.creatorId !== identity.identityKey.toHex()) {
-        console.log("We are the second player");
-      }
-    }
-  }, [invitation, identity, space]);
-
-  return <div>Invitation! {id}</div>;
-};
