@@ -1,11 +1,19 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 import { cn } from "../lib";
 
 export const GradientBackground = () => {
   const commonClasses = "absolute left-0 top-0 h-screen w-screen blur-3xl";
 
+  const styles: CSSProperties = {
+    backgroundImage: "url('/images/noise.png')",
+    backgroundSize: "80px 80px",
+  };
+
   return (
-    <div className="absolute pointer-events-none inset-0 overflow-hidden z-[-100] opacity-[0.2]">
+    <div
+      className="absolute pointer-events-none inset-0 overflow-hidden z-[-100] opacity-[0.2]"
+      style={styles}
+    >
       <div
         className={cn(commonClasses)}
         style={{
