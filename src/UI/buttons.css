@@ -1,0 +1,82 @@
+.button {
+  font-family: "Jetbrains Mono", sans-serif;
+  font-weight: 400;
+  font-size: 0.9rem;
+  border: 2px solid transparent;
+  border-radius: 2px;
+  background-color: #010101;
+  box-shadow: 1px 1px 1px rgb(255 255 255 / 0.6);
+}
+
+.button-inside {
+  --text-color: #fff;
+
+  display: inline-block;
+  position: relative;
+  border-radius: 7px;
+  padding: 10px 12px 7px;
+
+  background-color: var(--background-color);
+  background-image: url("/images/noise.png");
+  background-size: 80px 80px;
+
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--text-color);
+
+  box-shadow: inset 1px 1px 1px var(--light-shadow-color),
+    inset -1px -1px 1px var(--dark-shadow-color), 2px 2px 4px #000;
+
+  transition-property: transform, background-color, box-shadow;
+  transition-duration: 0.1s;
+  transition-timing-function: cubic-bezier(0.25, 0.5, 0.5, 1);
+
+  .button:active & {
+    transform: scale(0.98);
+    background-color: var(--background-color-active);
+    box-shadow: inset 0 0 4px #000, inset 1px 1px 1px transparent, inset -1px -1px 1px transparent,
+      2px 2px 4px transparent;
+  }
+
+  .button:disabled & {
+    opacity: 0.8;
+    /* box-shadow: none; */
+    pointer-events: none;
+  }
+
+  &.button-primary {
+    --background-color: #fafafa;
+    --background-color-active: #b9b5b3;
+    --light-shadow-color: #fafafa;
+    --dark-shadow-color: #646464;
+    --text-color: #010101;
+  }
+
+  &.button-secondary {
+    --background-color: #353535;
+    --background-color-active: #313030;
+    --light-shadow-color: #a7a7a7;
+    --dark-shadow-color: #1c1c1c;
+  }
+
+  &.button-danger {
+    --background-color: #f05a22;
+    --background-color-active: #ee5529;
+    --light-shadow-color: #ffb147;
+    --dark-shadow-color: #d72d12;
+  }
+
+  &.light-gray {
+    --background-color: #bcbcbc;
+    --background-color-active: #b1adad;
+    --light-shadow-color: #f7f7f7;
+    --dark-shadow-color: #646464;
+  }
+
+  &. {
+    --background-color: #676767;
+    --background-color-active: #575454;
+    --light-shadow-color: #b8b7b5;
+    --dark-shadow-color: #383838;
+  }
+}
