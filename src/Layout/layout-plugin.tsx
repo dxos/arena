@@ -23,7 +23,8 @@ type ViewState =
   | { type: "uninitialized" }
   | { type: "lobby" }
   | { type: "invitation"; invitationId: string }
-  | { type: "game"; gameId: string };
+  | { type: "game"; gameId: string }
+  | { type: "not-found" };
 
 export const layoutStateAtom = atom<ViewState>("layout", { type: "lobby" });
 
@@ -34,18 +35,21 @@ export enum LayoutIntent {
   OPEN_LOBBY = `${actionPrefix}/open-lobby`,
   OPEN_INVITATION = `${actionPrefix}/open-invitation`,
   OPEN_GAME = `${actionPrefix}/open-game`,
+  PRESENT_404 = `${actionPrefix}/present-404`,
 }
 
 export namespace LayoutIntent {
   export type OpenLobby = undefined;
   export type OpenInvitation = { invitationId: string };
   export type OpenGame = { gameId: string };
+  export type Present404 = undefined;
 }
 
 type LayoutIntents = {
   [LayoutIntent.OPEN_LOBBY]: LayoutIntent.OpenLobby;
   [LayoutIntent.OPEN_INVITATION]: LayoutIntent.OpenInvitation;
   [LayoutIntent.OPEN_GAME]: LayoutIntent.OpenGame;
+  [LayoutIntent.PRESENT_404]: LayoutIntent.Present404;
 };
 
 export const layoutIntent = mkIntentBuilder<LayoutIntents>(LayoutPluginMeta.id);
@@ -75,6 +79,10 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
             }
             case LayoutIntent.OPEN_GAME: {
               layoutStateAtom.set({ type: "game", gameId: intent.data.gameId });
+              return true;
+            }
+            case LayoutIntent.PRESENT_404: {
+              layoutStateAtom.set({ type: "not-found" });
               return true;
             }
           }
@@ -134,6 +142,7 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
               .with("game", () => dispatch(layoutIntent(LayoutIntent.OPEN_GAME, { gameId: id })))
               .exhaustive();
           } else {
+            dispatch(layoutIntent(LayoutIntent.PRESENT_404));
           }
         };
 

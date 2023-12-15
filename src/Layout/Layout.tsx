@@ -6,6 +6,7 @@ import { Nav } from "./Nav";
 import { layoutStateAtom } from "./layout-plugin";
 import { P, match } from "ts-pattern";
 import { Lobby } from "./Lobby";
+import { NotFound } from "./NotFound";
 
 export const Layout = () => {
   const layoutState = useValue(layoutStateAtom);
@@ -22,13 +23,14 @@ export const Layout = () => {
       .with({ type: "game", gameId: P.select("id") }, ({ id }) => (
         <Surface role="game" data={{ id }} />
       ))
+      .with({ type: "not-found" }, () => <NotFound />)
       .exhaustive();
   };
 
   return (
     <div className="h-full w-full">
-      <Nav />
       <GradientBackground />
+      <Nav />
       {layoutStateToView(layoutState)}
     </div>
   );
