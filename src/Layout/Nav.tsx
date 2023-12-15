@@ -1,9 +1,14 @@
 import { useClient } from "@dxos/react-client";
-import React from "react";
+import { useSpace } from "@dxos/react-client/echo";
+import React, { PropsWithChildren } from "react";
 import { PersonIcon } from "../icons";
 import { cn } from "../lib";
 
-const Avatar = ({ onClick }: { onClick: () => void }) => {
+const RoundButton = ({
+  children,
+  label,
+  onClick,
+}: PropsWithChildren<{ label: string; onClick: () => void }>) => {
   const classNames = cn(
     "p-2",
     "flex items-center justify-center",
@@ -11,21 +16,31 @@ const Avatar = ({ onClick }: { onClick: () => void }) => {
     "bg-gray-50",
     "rounded-full border border-gray-200 shadow-sm",
     "hover:bg-gray-100 hover:border-gray-300",
-    "active:scale-90"
+    "active:scale-90",
+    "text-xs",
+    "h-8"
   );
+
   return (
-    <button type="button" className={classNames} aria-label="Manage user" onClick={onClick}>
-      <PersonIcon />
+    <button type="button" className={classNames} onClick={onClick} aria-label={label}>
+      {children}
     </button>
+  );
+};
+
+const Avatar = ({ onClick }: { onClick: () => void }) => {
+  return (
+    <RoundButton label="Manage user" onClick={onClick}>
+      <PersonIcon />
+    </RoundButton>
   );
 };
 
 export const Nav = () => {
   const client = useClient();
-  const onClick = () => {
-    console.log("clicked");
-    client.shell.open();
-  };
+  const space = useSpace();
+
+  if (!space) return null;
 
   return (
     <nav className="p-4 flex justify-between items-center">
@@ -35,7 +50,15 @@ export const Nav = () => {
           <h1 className="font-bold text-3xl">Arena App</h1>
         </div>
       </a>
-      <Avatar onClick={onClick} />
+      <div className="flex items-center gap-2">
+        <RoundButton
+          label="Invite to space"
+          onClick={() => client.shell.shareSpace({ spaceKey: space.key })}
+        >
+          Invite to space
+        </RoundButton>
+        <Avatar onClick={() => client.shell.open()} />
+      </div>
     </nav>
   );
 };
