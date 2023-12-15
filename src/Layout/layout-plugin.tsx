@@ -33,16 +33,19 @@ const actionPrefix = "@arena.dxos.org/layout";
 export enum LayoutIntent {
   OPEN_LOBBY = `${actionPrefix}/open-lobby`,
   OPEN_INVITATION = `${actionPrefix}/open-invitation`,
+  OPEN_GAME = `${actionPrefix}/open-game`,
 }
 
 export namespace LayoutIntent {
   export type OpenLobby = undefined;
   export type OpenInvitation = { invitationId: string };
+  export type OpenGame = { gameId: string };
 }
 
 type LayoutIntents = {
   [LayoutIntent.OPEN_LOBBY]: LayoutIntent.OpenLobby;
   [LayoutIntent.OPEN_INVITATION]: LayoutIntent.OpenInvitation;
+  [LayoutIntent.OPEN_GAME]: LayoutIntent.OpenGame;
 };
 
 export const layoutIntent = mkIntentBuilder<LayoutIntents>(LayoutPluginMeta.id);
@@ -68,6 +71,10 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
             }
             case LayoutIntent.OPEN_LOBBY: {
               layoutStateAtom.set({ type: "lobby" });
+              return true;
+            }
+            case LayoutIntent.OPEN_GAME: {
+              layoutStateAtom.set({ type: "game", gameId: intent.data.gameId });
               return true;
             }
           }
@@ -124,7 +131,9 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
               .with("invitation", () =>
                 dispatch(layoutIntent(LayoutIntent.OPEN_INVITATION, { invitationId: id }))
               )
-              .run();
+              .with("game", () => dispatch(layoutIntent(LayoutIntent.OPEN_GAME, { gameId: id })))
+              .exhaustive();
+          } else {
           }
         };
 
