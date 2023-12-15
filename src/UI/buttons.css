@@ -44,8 +44,13 @@
     pointer-events: none;
   }
 
+  .button:hover:enabled & {
+    --background-color: var(--hover-color)
+  }
+
   &.button-primary {
     --background-color: #fafafa;
+    --hover-color: #f0f0f0;
     --background-color-active: #b9b5b3;
     --light-shadow-color: #fafafa;
     --dark-shadow-color: #646464;
@@ -54,6 +59,7 @@
 
   &.button-secondary {
     --background-color: #353535;
+    --hover-color: #2e2e2e;
     --background-color-active: #313030;
     --light-shadow-color: #a7a7a7;
     --dark-shadow-color: #1c1c1c;
@@ -61,6 +67,7 @@
 
   &.button-danger {
     --background-color: #f05a22;
+    --hover-color: #ee5529;
     --background-color-active: #ee5529;
     --light-shadow-color: #ffb147;
     --dark-shadow-color: #d72d12;
@@ -68,13 +75,15 @@
 
   &.light-gray {
     --background-color: #bcbcbc;
+    --hover-color: #b1adad;
     --background-color-active: #b1adad;
     --light-shadow-color: #f7f7f7;
     --dark-shadow-color: #646464;
   }
 
-  &. {
+  &.gray {
     --background-color: #676767;
+    --hover-color: #5e5e5e;
     --background-color-active: #575454;
     --light-shadow-color: #b8b7b5;
     --dark-shadow-color: #383838;
