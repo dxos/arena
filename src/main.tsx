@@ -17,45 +17,58 @@ import { defaultTx } from "@dxos/react-ui-theme";
 import { ChessPluginMeta } from "./Chess/chess-plugin";
 import { LayoutPluginMeta } from "./Layout/layout-plugin";
 import { InvitationPluginMeta } from "./Invitation/invitation-plugin";
+import { Config, Remote, Envs, Defaults, Local, createClientServices } from "@dxos/react-client";
 
-const App = createApp({
-  fallback: (
-    <ThemeProvider tx={defaultTx}>
-      <div className="flex bs-[100dvh] justify-center items-center">
-        <Status indeterminate aria-label="Intitialising" />
-      </div>
-    </ThemeProvider>
-  ),
-  plugins: {
-    [ThemeMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-theme"), {
-      appName: "Arena App",
-    }),
-    [ErrorMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-error")),
-    [GraphMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-graph")),
-    [MetadataMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-metadata")),
-    [ClientMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-client"), {
-      appKey: "schrodie.dxos.network",
-      types,
-    }),
-    [SpaceMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-space")),
+const main = async () => {
+  const config = new Config(Envs(), Local(), Defaults());
 
-    [LayoutPluginMeta.id]: Plugin.lazy(() => import("./Layout/layout-plugin")),
-    [InvitationPluginMeta.id]: Plugin.lazy(() => import("./Invitation/invitation-plugin")),
-    [ChessPluginMeta.id]: Plugin.lazy(() => import("./Chess/chess-plugin")),
-  },
-  order: [
-    // Outside of error boundary so error dialog is styled.
-    ThemeMeta,
-    ErrorMeta,
+  const services = await createClientServices(config);
+  const debugIdentity = config?.values.runtime?.app?.env?.DX_DEBUG;
 
-    ClientMeta,
-    SpaceMeta,
-    GraphMeta,
-    MetadataMeta,
-    LayoutPluginMeta,
-    InvitationPluginMeta,
-    ChessPluginMeta,
-  ],
-});
+  const App = createApp({
+    fallback: (
+      <ThemeProvider tx={defaultTx}>
+        <div className="flex bs-[100dvh] justify-center items-center">
+          <Status indeterminate aria-label="Intitialising" />
+        </div>
+      </ThemeProvider>
+    ),
+    plugins: {
+      [ThemeMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-theme"), {
+        appName: "Arena App",
+      }),
+      [ErrorMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-error")),
+      [GraphMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-graph")),
+      [MetadataMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-metadata")),
+      [ClientMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-client"), {
+        appKey: "schrodie.dxos.network",
+        types,
+        services,
+        config,
+        debugIdentity,
+      }),
+      [SpaceMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-space")),
 
-createRoot(document.getElementById("root")!).render(<App />);
+      [LayoutPluginMeta.id]: Plugin.lazy(() => import("./Layout/layout-plugin")),
+      [InvitationPluginMeta.id]: Plugin.lazy(() => import("./Invitation/invitation-plugin")),
+      [ChessPluginMeta.id]: Plugin.lazy(() => import("./Chess/chess-plugin")),
+    },
+    order: [
+      // Outside of error boundary so error dialog is styled.
+      ThemeMeta,
+      ErrorMeta,
+
+      ClientMeta,
+      SpaceMeta,
+      GraphMeta,
+      MetadataMeta,
+      LayoutPluginMeta,
+      InvitationPluginMeta,
+      ChessPluginMeta,
+    ],
+  });
+
+  createRoot(document.getElementById("root")!).render(<App />);
+};
+
+void main();

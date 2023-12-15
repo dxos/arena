@@ -12,6 +12,8 @@ import { useValue } from "signia-react";
 import { match } from "ts-pattern";
 import { mkIntentBuilder } from "../lib";
 import { Layout } from "./Layout";
+import { useClient } from "@dxos/react-client";
+import { useSpace } from "@dxos/react-client/echo";
 
 // --- Layout Constants and Metadata -------------------------------------------
 export const LayoutPluginMeta = { id: "layout", name: "Layout Plugin" };
@@ -76,6 +78,8 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
         const layoutState = useValue(layoutStateAtom);
         const { dispatch } = useIntent();
 
+        const client = useClient();
+
         const appPaths = [
           ["lobby", "/"],
           ["invitation", "/play-with-me/:id"],
@@ -85,6 +89,18 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
         const handleNavigation = () => {
           // console.log("handleNavigation", window.location);
           const path = window.location.pathname;
+
+          const search = new URLSearchParams(window.location.search);
+
+          if (search.has("spaceInvitationCode")) {
+            const invitationCode = search.get("spaceInvitationCode")!;
+
+            console.log("Joining space with invitation code", invitationCode);
+
+            client.shell.joinSpace({ invitationCode }).then((space) => {
+              console.log("Join space result", space);
+            });
+          }
 
           // Iterate through app paths and find the first match.
           const foundMatch = appPaths
