@@ -1,18 +1,18 @@
 import { Expando, useQuery, useSpace } from "@dxos/react-client/echo";
 import { useIdentity } from "@dxos/react-client/halo";
-import { Button } from "@dxos/react-ui";
+import { Button } from "../UI/Buttons";
 import { Chess, Color, Piece, PieceSymbol, Square } from "chess.js";
-import { useValue } from "signia-react";
 import React, { useCallback, useEffect, useMemo } from "react";
 import { Chessboard } from "react-chessboard";
+import { useValue } from "signia-react";
 import { match } from "ts-pattern";
+import { useMutatingStore } from "../hooks/useStore";
 import { FirstIcon, LastIcon, NextIcon, PreviousIcon, ResignIcon } from "../icons";
 import { arrayToPairs } from "../lib/array";
+import { cn } from "../lib/css";
 import { GameAction, GameState, Move, exec, zeroState } from "./game";
 import { InGameCursor, useInGameCursor } from "./useInGameCursor";
-import { useMutatingStore } from "../hooks/useStore";
 import { blackTimeAtom, useTimeControl, useTimeOut, whiteTimeAtom } from "./useTimeControl";
-import { cn } from "../lib/css";
 
 const Timer = ({ color }: { color: "White" | "Black" }) => {
   const atom = useMemo(() => (color === "White" ? whiteTimeAtom : blackTimeAtom), [color]);
@@ -166,7 +166,7 @@ const Controls = ({
       >
         <LastIcon />
       </Button>
-      <Button onClick={onResign} disabled={!playing} aria-label="Resign">
+      <Button onClick={onResign} disabled={!playing} aria-label="Resign" variant="danger">
         <ResignIcon />
       </Button>
       {!drawOffered ? (
@@ -300,15 +300,17 @@ const InnerChessGame = ({
         />
         <div className="flex flex-col gap-3">
           <PlayerInfo color={"Black"} game={game} />
-          <div className="p-1 w-[480px] h-[480px] bg-gray-50 aspect-ratio-1 shadow-sm border border-gray-200 rounded-sm">
-            <Chessboard
-              customSquareStyles={squareStyles}
-              position={cursor.board}
-              onPieceDrop={onDrop}
-              areArrowsAllowed
-              id={"main"}
-              animationDuration={50}
-            />
+          <div className="p-1 aspect-ratio-1 bg-stone-700 rounded-sm">
+            <div className="rounded-sm border border-stone-300">
+              <Chessboard
+                customSquareStyles={squareStyles}
+                position={cursor.board}
+                onPieceDrop={onDrop}
+                areArrowsAllowed
+                id={"main"}
+                animationDuration={50}
+              />
+            </div>
           </div>
           <PlayerInfo color="White" game={game} />
 
@@ -347,7 +349,7 @@ const DevControls = () => {
     <div className="pl-4 font-mono">
       <p>Dev Controls</p>
       <div className="flex flex-row gap-1">
-        <Button variant="outline" onClick={onDelete}>
+        <Button variant="danger" aria-label="Delete all games" onClick={onDelete}>
           Delete Games
         </Button>
       </div>

@@ -10,8 +10,8 @@ const customPanelStyles: CSSProperties = {
 export const Panel = ({ children }: PropsWithChildren<{}>) => {
   const classNames = cn(
     "flex flex-col items-center justify-center",
-    "text-gray-800",
-    "bg-gray-50 p-8",
+    "text-gray-800 dark:text-gray-200",
+    "bg-gray-50 dark:bg-gray-900",
     "rounded-sm"
   );
 
