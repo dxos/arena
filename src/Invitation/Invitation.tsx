@@ -55,7 +55,7 @@ export const InvitationView = ({ id }: { id: string }) => {
       <div className="p-4 flex flex-col items-center gap-4">
         <p className="text-lg">The first person who joins this link will enter the game.</p>
         <code>{window.location.href}</code>
-        <Button onClick={handleCancelInvitation} aria-label="Cancel invitation">
+        <Button onClick={handleCancelInvitation} aria-label="Cancel invitation" variant="danger">
           Cancel Invitation
         </Button>
       </div>
