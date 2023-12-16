@@ -1,20 +1,22 @@
 import { Expando, useQuery, useSpace } from "@dxos/react-client/echo";
 import { useIdentity } from "@dxos/react-client/halo";
-import { Button } from "../UI/Buttons";
-import { Chess, Color, Piece, PieceSymbol, Square } from "chess.js";
+import { Chess } from "chess.js";
 import React, { useCallback, useEffect, useMemo } from "react";
 import { Chessboard } from "react-chessboard";
 import { useValue } from "signia-react";
 import { match } from "ts-pattern";
+import { Button } from "../UI/Buttons";
+import { Panel } from "../UI/Panel";
 import { useMutatingStore } from "../hooks/useStore";
 import { FirstIcon, LastIcon, NextIcon, PreviousIcon, ResignIcon } from "../icons";
 import { arrayToPairs } from "../lib/array";
 import { cn } from "../lib/css";
 import { GameAction, GameState, Move, exec, zeroState } from "./game";
+import { useGameSounds } from "./useGameSounds";
 import { InGameCursor, useInGameCursor } from "./useInGameCursor";
 import { blackTimeAtom, useTimeControl, useTimeOut, whiteTimeAtom } from "./useTimeControl";
 import { findPiece } from "./utils";
-import { useGameSounds } from "./useGameSounds";
+import useMeasure from "react-use-measure";
 
 const Timer = ({ color }: { color: "White" | "Black" }) => {
   const atom = useMemo(() => (color === "White" ? whiteTimeAtom : blackTimeAtom), [color]);
@@ -57,18 +59,15 @@ const PlayerInfo = ({ color, game }: { color: "White" | "Black"; game: GameState
     )
     .exhaustive();
 
-  const turnIndicatorClasses = turn ? "ring-1 ring-offset-2 ring-green-300" : "";
   const textColor = turn ? "text-green-600" : "text-red-600";
 
   return (
-    <div
+    <Panel
       className={cn(
         "p-4",
         "flex flex-row justify-between items-center",
-        "bg-gray-50  text-gray-800 font-mono",
-        "border border-gray-200 rounded-sm shadow-sm",
-        "transition-all duration-100 ease-in-out",
-        turnIndicatorClasses
+        "font-mono",
+        "transition-all duration-100 ease-in-out"
       )}
     >
       <div>
@@ -76,7 +75,7 @@ const PlayerInfo = ({ color, game }: { color: "White" | "Black"; game: GameState
         <div className={cn("text-sm", textColor)}>{statusText}</div>
       </div>
       <Timer color={color} />
-    </div>
+    </Panel>
   );
 };
 
@@ -222,36 +221,32 @@ const MoveList = ({
   const gridClass = "grid grid-cols-[2fr_4fr_4fr] gap-x-3 gap-y-1";
 
   return (
-    <div className="p-4 rounded-sm border border-gray-200 shadow-sm bg-gray-50 font-mono">
-      <div className={cn(gridClass)}>
-        <div>#</div>
-        <div>White</div>
-        <div>Black</div>
-      </div>
-      <div className={gridClass}>
-        {movePairs.map((pair, pairIdx) => (
-          // The fragment should have a unique key, which is the moveNumber here.
-          <React.Fragment key={pairIdx}>
-            <div>{pairIdx + 1}.</div>
-            {pair.map((move, idx) => {
-              const moveNumber = pairIdx * 2 + idx + 1;
+    <div className={cn("p-4", "font-mono", gridClass)}>
+      <div>#</div>
+      <div>White</div>
+      <div>Black</div>
+      {movePairs.map((pair, pairIdx) => (
+        // The fragment should have a unique key, which is the moveNumber here.
+        <React.Fragment key={pairIdx}>
+          <div>{pairIdx + 1}.</div>
+          {pair.map((move, idx) => {
+            const moveNumber = pairIdx * 2 + idx + 1;
 
-              return (
-                // Each move within a pair gets its own cell in the grid.
-                <MoveBadge
-                  onClick={() => onSelectMove(moveNumber)}
-                  current={currentMove === pairIdx * 2 + idx}
-                  key={idx}
-                >
-                  {move}
-                </MoveBadge>
-              );
-            })}
-            {/* This checks for a pair with only one move and adds an empty cell if needed */}
-            {pair.length === 1 ? <div></div> : null}
-          </React.Fragment>
-        ))}
-      </div>
+            return (
+              // Each move within a pair gets its own cell in the grid.
+              <MoveBadge
+                onClick={() => onSelectMove(moveNumber)}
+                current={currentMove === pairIdx * 2 + idx}
+                key={idx}
+              >
+                {move}
+              </MoveBadge>
+            );
+          })}
+          {/* This checks for a pair with only one move and adds an empty cell if needed */}
+          {pair.length === 1 ? <div></div> : null}
+        </React.Fragment>
+      ))}
     </div>
   );
 };
@@ -285,46 +280,49 @@ const InnerChessGame = ({
     [cursor.__index]
   );
 
+  const [ref, bounds] = useMeasure();
+
   return (
-    <div>
-      <div className="p-4 flex flex-row justify-center gap-3">
+    <div className="p-4 grid grid-cols-[auto_auto] grid-rows-[1fr] gap-3 justify-center items-start">
+      <div ref={ref} className="flex flex-col gap-3">
+        <PlayerInfo color={"Black"} game={game} />
+        <div className="flex-1 p-1 aspect-ratio-1 bg-stone-700 rounded-sm">
+          <div className="rounded-sm border border-stone-300">
+            <Chessboard
+              customSquareStyles={squareStyles}
+              position={cursor.board}
+              onPieceDrop={onDrop}
+              areArrowsAllowed
+              id={"main"}
+              animationDuration={50}
+            />
+          </div>
+        </div>
+        <PlayerInfo color="White" game={game} />
+
+        {/* TODO(Zan): Chess game should be player aware (don't play both sides) */}
+        <Controls
+          cursor={cursor}
+          playing={game.status === "in-progress"}
+          drawOffered={game.drawOffer !== undefined}
+          takebackRequested={
+            game.takebackRequest.black !== undefined || game.takebackRequest.white !== undefined
+          }
+          onResign={() => send({ type: "player-resigned", player: "white" })}
+          onOfferDraw={() => send({ type: "offer-draw", player: "white" })}
+          onAcceptDraw={() => send({ type: "accept-draw" })}
+          onRequestTakeback={() => send({ type: "request-takeback", player: "white" })}
+          onAcceptTakeback={() => send({ type: "accept-takeback", acceptingPlayer: "black" })}
+        />
+      </div>
+
+      <Panel className="w-fit overflow-auto" style={{ height: bounds.height }}>
         <MoveList
           currentMove={cursor.__index - 1}
           movesWithNotation={game.movesWithNotation}
           onSelectMove={(move) => cursor.dispatch({ type: "select-move", move: move })}
         />
-        <div className="flex flex-col gap-3">
-          <PlayerInfo color={"Black"} game={game} />
-          <div className="p-1 aspect-ratio-1 bg-stone-700 rounded-sm">
-            <div className="rounded-sm border border-stone-300">
-              <Chessboard
-                customSquareStyles={squareStyles}
-                position={cursor.board}
-                onPieceDrop={onDrop}
-                areArrowsAllowed
-                id={"main"}
-                animationDuration={50}
-              />
-            </div>
-          </div>
-          <PlayerInfo color="White" game={game} />
-
-          {/* TODO(Zan): Chess game should be player aware (don't play both sides) */}
-          <Controls
-            cursor={cursor}
-            playing={game.status === "in-progress"}
-            drawOffered={game.drawOffer !== undefined}
-            takebackRequested={
-              game.takebackRequest.black !== undefined || game.takebackRequest.white !== undefined
-            }
-            onResign={() => send({ type: "player-resigned", player: "white" })}
-            onOfferDraw={() => send({ type: "offer-draw", player: "white" })}
-            onAcceptDraw={() => send({ type: "accept-draw" })}
-            onRequestTakeback={() => send({ type: "request-takeback", player: "white" })}
-            onAcceptTakeback={() => send({ type: "accept-takeback", acceptingPlayer: "black" })}
-          />
-        </div>
-      </div>
+      </Panel>
     </div>
   );
 };

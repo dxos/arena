@@ -38,6 +38,7 @@
     "react-chessboard": "^4.3.2",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.20.1",
+    "react-use-measure": "^2.1.1",
     "rxjs": "^7.8.1",
     "signia": "^0.1.4",
     "signia-react": "^0.1.4",

@@ -1,8 +1,8 @@
+import { useIntent } from "@dxos/app-framework";
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import { Button } from "../UI/Buttons";
-import { useIntent } from "@dxos/app-framework";
 import { SynthIntent, synthIntent } from "../Synth/synth-plugin";
+import { Button } from "../UI/Buttons";
 
 export const Lobby = () => {
   const { dispatch } = useIntent();
@@ -19,7 +19,7 @@ export const Lobby = () => {
   };
 
   return (
-    <div className="m-8">
+    <div>
       <div className="p-8 flex flex-col items-center gap-4">
         <h2 className="text-3xl">Lobby</h2>
         <Button onClick={handlePlayWithMe} aria-label={"Play with a friend"}>
