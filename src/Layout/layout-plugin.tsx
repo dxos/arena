@@ -5,6 +5,7 @@ import {
   SurfaceProvides,
   useIntent,
 } from "@dxos/app-framework";
+import { useClient } from "@dxos/react-client";
 import { match as pathMatch } from "path-to-regexp";
 import React, { PropsWithChildren, useEffect } from "react";
 import { atom } from "signia";
@@ -12,8 +13,6 @@ import { useValue } from "signia-react";
 import { match } from "ts-pattern";
 import { mkIntentBuilder } from "../lib";
 import { Layout } from "./Layout";
-import { useClient } from "@dxos/react-client";
-import { useSpace } from "@dxos/react-client/echo";
 
 // --- Layout Constants and Metadata -------------------------------------------
 export const LayoutPluginMeta = { id: "layout", name: "Layout Plugin" };

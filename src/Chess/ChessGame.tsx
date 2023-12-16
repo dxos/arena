@@ -13,6 +13,8 @@ import { cn } from "../lib/css";
 import { GameAction, GameState, Move, exec, zeroState } from "./game";
 import { InGameCursor, useInGameCursor } from "./useInGameCursor";
 import { blackTimeAtom, useTimeControl, useTimeOut, whiteTimeAtom } from "./useTimeControl";
+import { findPiece } from "./utils";
+import { useGameSounds } from "./useGameSounds";
 
 const Timer = ({ color }: { color: "White" | "Black" }) => {
   const atom = useMemo(() => (color === "White" ? whiteTimeAtom : blackTimeAtom), [color]);
@@ -76,14 +78,6 @@ const PlayerInfo = ({ color, game }: { color: "White" | "Black"; game: GameState
       <Timer color={color} />
     </div>
   );
-};
-
-const findPiece = (game: Chess, piece: Piece) => {
-  return game
-    .board()
-    .flat()
-    .filter((p): p is { square: Square; type: PieceSymbol; color: Color } => p !== null)
-    .find((p) => p.color === piece.color && p.type === piece.type);
 };
 
 const computeSquareStyles = (lastMove: Move | undefined, fen: string) => {
@@ -272,6 +266,7 @@ const InnerChessGame = ({
   const cursor = useInGameCursor(game);
   useTimeControl(game.timeControl, game.moveTimes, game.status, game.completedAt);
   useTimeOut(send, game.status);
+  useGameSounds(game.boards[game.boards.length - 1], game.status);
 
   const onDrop = useCallback(
     (source: string, target: string) => {
@@ -385,9 +380,9 @@ export const ChessGame = ({ id }: { id: string }) => {
   if (!dbGame) return null;
 
   return (
-    <>
+    <div>
       <InnerChessGame game={dbGame as any as GameState} send={send} />
       <DevControls />
-    </>
+    </div>
   );
 };

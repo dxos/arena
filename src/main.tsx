@@ -12,12 +12,13 @@ import ThemeMeta from "@braneframe/plugin-theme/meta";
 
 import { types } from "@braneframe/types";
 import { createApp, Plugin } from "@dxos/app-framework";
+import { Config, createClientServices, Defaults, Envs, Local } from "@dxos/react-client";
 import { Status, ThemeProvider } from "@dxos/react-ui";
 import { defaultTx } from "@dxos/react-ui-theme";
 import { ChessPluginMeta } from "./Chess/chess-plugin";
-import { LayoutPluginMeta } from "./Layout/layout-plugin";
 import { InvitationPluginMeta } from "./Invitation/invitation-plugin";
-import { Config, Remote, Envs, Defaults, Local, createClientServices } from "@dxos/react-client";
+import { LayoutPluginMeta } from "./Layout/layout-plugin";
+import { SynthPluginMeta } from "./Synth/synth-plugin";
 
 const main = async () => {
   const config = new Config(Envs(), Local(), Defaults());
@@ -49,6 +50,7 @@ const main = async () => {
       }),
       [SpaceMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-space")),
 
+      [SynthPluginMeta.id]: Plugin.lazy(() => import("./Synth/synth-plugin")),
       [LayoutPluginMeta.id]: Plugin.lazy(() => import("./Layout/layout-plugin")),
       [InvitationPluginMeta.id]: Plugin.lazy(() => import("./Invitation/invitation-plugin")),
       [ChessPluginMeta.id]: Plugin.lazy(() => import("./Chess/chess-plugin")),
@@ -62,6 +64,7 @@ const main = async () => {
       SpaceMeta,
       GraphMeta,
       MetadataMeta,
+      SynthPluginMeta,
       LayoutPluginMeta,
       InvitationPluginMeta,
       ChessPluginMeta,

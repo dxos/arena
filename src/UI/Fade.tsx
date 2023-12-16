@@ -6,7 +6,7 @@ export const Fade = (props: FadeProps) => (
   <motion.div
     animate={{ opacity: 1 }}
     initial={{ opacity: 0 }}
-    transition={{ duration: 0.15 }}
+    transition={{ duration: 0.25 }}
     exit={{ opacity: 0 }}
   >
     {props.children}
