@@ -128,7 +128,7 @@ export const useTimeControl = (
   React.useEffect(() => {
     if (status === "waiting") {
       const milliseconds = ms({ minutes: timeControl.baseMinutes });
-      ({ white: milliseconds, black: milliseconds });
+      timerAtom.set({ white: milliseconds, black: milliseconds });
     }
 
     if (status === "complete") {
