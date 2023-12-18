@@ -14,12 +14,7 @@ const customPanelStyles: CSSProperties = {
 type PanelProps = HTMLAttributes<HTMLDivElement>;
 
 export const Panel = ({ ...props }: PanelProps) => {
-  const classNames = cn(
-    "text-gray-800 dark:text-gray-200",
-    "bg-gray-50 dark:bg-gray-900",
-    "rounded-sm",
-    props.className
-  );
+  const classNames = cn("text-gray-800", "bg-stone-50", "rounded-sm", props.className);
 
   return <div {...props} className={classNames} style={{ ...customPanelStyles, ...props.style }} />;
 };

@@ -1,8 +1,8 @@
 import { Chess } from "chess.js";
-import { GameStatus, Move } from "./game";
+import { GameStatus, Move } from "../game";
 import { useEffect } from "react";
 import { useIntent } from "@dxos/app-framework";
-import { SynthIntent, synthIntent } from "../Synth/synth-plugin";
+import { SynthIntent, synthIntent } from "../../Synth/synth-plugin";
 
 export const useGameSounds = (fen: string, status: GameStatus) => {
   const { dispatch } = useIntent();

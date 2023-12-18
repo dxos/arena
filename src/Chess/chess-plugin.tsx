@@ -1,7 +1,7 @@
 import { IntentResolverProvides, PluginDefinition, SurfaceProvides } from "@dxos/app-framework";
 import React, { PropsWithChildren } from "react";
 import { mkIntentBuilder } from "../lib";
-import { ChessGame } from "./ChessGame";
+import { ChessGame } from "./components/ChessGame";
 
 // --- Chess Constants and Metadata -------------------------------------------
 export const ChessPluginMeta = { id: "chess", name: "Chess plugin" };

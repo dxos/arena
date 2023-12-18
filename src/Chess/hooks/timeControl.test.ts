@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { thinkingTime, timeRemaining } from "./useTimeControl";
-import { TimeControl } from "./game";
-import { ms } from "../lib/time";
+import { TimeControl } from "../game";
+import { ms } from "../../lib/time";
 
 describe("thinkingTime", () => {
   it("should correctly calculate thinking time for both players, including ongoing time", () => {
@@ -31,10 +31,7 @@ describe("thinkingTime", () => {
     ];
     const currentTime = "2023-11-23T10:01:30.000Z";
 
-    const { whiteThinkingTime, blackThinkingTime } = thinkingTime(
-      moveTimes,
-      currentTime
-    );
+    const { whiteThinkingTime, blackThinkingTime } = thinkingTime(moveTimes, currentTime);
 
     expect(whiteThinkingTime).toBe(ms({ seconds: 30 }));
     expect(blackThinkingTime).toBe(ms({ seconds: 60 }));
@@ -44,10 +41,7 @@ describe("thinkingTime", () => {
     const moveTimes: string[] = [];
     const currentTime = "2023-11-23T10:00:00.000Z";
 
-    const { whiteThinkingTime, blackThinkingTime } = thinkingTime(
-      moveTimes,
-      currentTime
-    );
+    const { whiteThinkingTime, blackThinkingTime } = thinkingTime(moveTimes, currentTime);
     expect(whiteThinkingTime).toBe(0);
     expect(blackThinkingTime).toBe(0);
   });
@@ -60,10 +54,7 @@ describe("thinkingTime", () => {
     ];
     const currentTime = "2023-11-23T10:01:10.000Z";
 
-    const { whiteThinkingTime, blackThinkingTime } = thinkingTime(
-      moveTimes,
-      currentTime
-    );
+    const { whiteThinkingTime, blackThinkingTime } = thinkingTime(moveTimes, currentTime);
 
     expect(whiteThinkingTime).toBe(ms({ seconds: 30 }));
     expect(blackThinkingTime).toBe(ms({ seconds: 40 }));
@@ -72,22 +63,14 @@ describe("thinkingTime", () => {
 
 describe("timeRemaining", () => {
   it("should calculate remaining time correctly", () => {
-    const moveTimes = [
-      "2022-03-01T00:00:00Z",
-      "2022-03-01T00:01:00Z",
-      "2022-03-01T00:02:00Z",
-    ];
+    const moveTimes = ["2022-03-01T00:00:00Z", "2022-03-01T00:01:00Z", "2022-03-01T00:02:00Z"];
     const timeControl: TimeControl = { baseMinutes: 5, incrementSeconds: 3 };
     const currentTime = "2022-03-01T00:03:00Z";
 
     const result = timeRemaining(timeControl, moveTimes, currentTime);
 
     // NOTE: White does not get the increment on the first move
-    expect(result.whiteRemainingTime).toEqual(
-      ms({ minutes: 5 - 1, seconds: 3 })
-    );
-    expect(result.blackRemainingTime).toEqual(
-      ms({ minutes: 5 - 2, seconds: 3 })
-    );
+    expect(result.whiteRemainingTime).toEqual(ms({ minutes: 5 - 1, seconds: 3 }));
+    expect(result.blackRemainingTime).toEqual(ms({ minutes: 5 - 2, seconds: 3 }));
   });
 });

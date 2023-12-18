@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { GameState } from "./game";
+import { GameState } from "../game";
 
 type InGameCursorAction =
   | { type: "move-forward" }
