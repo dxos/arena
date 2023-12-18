@@ -7,13 +7,13 @@ import {
 } from "@dxos/app-framework";
 import { useClient } from "@dxos/react-client";
 import { match as pathMatch } from "path-to-regexp";
-import React, { PropsWithChildren, useEffect } from "react";
+import React, { PropsWithChildren, useCallback, useEffect } from "react";
 import { atom } from "signia";
 import { useValue } from "signia-react";
 import { match } from "ts-pattern";
+import { SpaceManagerIntent, spaceManagerIntent } from "../SpaceManager/space-manager-plugin";
 import { mkIntentBuilder } from "../lib";
 import { Layout } from "./components/Layout";
-import { SpaceManagerIntent, spaceManagerIntent } from "../SpaceManager/space-manager-plugin";
 
 // --- Layout Constants and Metadata -------------------------------------------
 export const LayoutPluginMeta = { id: "layout", name: "Layout Plugin" };
@@ -110,8 +110,8 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
 
         const client = useClient();
 
-        const handleNavigation = () => {
-          // console.log("handleNavigation", window.location);
+        const handleNavigation = useCallback(() => {
+          console.log("handleNavigation", window.location);
           const path = window.location.pathname;
 
           const search = new URLSearchParams(window.location.search);
@@ -161,7 +161,7 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
           } else {
             dispatch(layoutIntent(LayoutIntent.PRESENT_404));
           }
-        };
+        }, [client, dispatch]);
 
         // Update selection based on browser navigation.
         useEffect(() => {
@@ -187,11 +187,11 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
             window.history.pushState = originalPushState;
             window.history.replaceState = originalReplaceState;
           };
-        }, [layoutState]);
+        }, [handleNavigation]);
 
         useEffect(() => {
           handleNavigation();
-        }, []);
+        }, [handleNavigation]);
 
         // Note: Here is where we can inject data into the rendered surface.
         return <Surface role="main" />;
