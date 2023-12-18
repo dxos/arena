@@ -5,7 +5,6 @@ import {
   PluginDefinition,
   SurfaceProvides,
 } from "@dxos/app-framework";
-import { PublicKey } from "@dxos/react-client";
 import React, { PropsWithChildren } from "react";
 import { atom } from "signia";
 import { mkIntentBuilder } from "../lib";
@@ -20,9 +19,10 @@ export const InvitationPluginMeta = { id: "Invitation", name: "Invitation plugin
 export type Invitation = {
   invitationId: string;
   creatorId: string;
-  joiningPlayerId?: PublicKey;
+  joiningPlayerId?: string;
   finalised: boolean;
   cancelled: boolean;
+  newEntityId: string;
 };
 
 export const invitationIdAtom = atom<Invitation | undefined>("invitation-id", undefined);

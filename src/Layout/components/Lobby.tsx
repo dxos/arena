@@ -11,12 +11,12 @@ export const Lobby = () => {
   const handlePlayWithMe = () => {
     const uuid = uuidv4();
 
-    history.pushState({}, "", `/play-with-me/${uuid}`);
+    window.history.pushState({}, "", `/play-with-me/${uuid}`);
   };
 
   const handlePlayGame = () => {
     const uuid = uuidv4();
-    history.pushState({}, "", `/game/${uuid}`);
+    window.history.pushState({}, "", `/game/${uuid}`);
   };
 
   return (

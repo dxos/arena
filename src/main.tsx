@@ -65,13 +65,10 @@ const main = async () => {
       SpaceMeta,
       GraphMeta,
       MetadataMeta,
-      SpaceManagerPluginMeta,
-
-      SynthPluginMeta,
-
       LayoutPluginMeta,
+      SpaceManagerPluginMeta,
+      SynthPluginMeta,
       InvitationPluginMeta,
-
       ChessPluginMeta,
     ],
   });
