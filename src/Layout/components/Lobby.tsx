@@ -1,8 +1,8 @@
 import { useIntent } from "@dxos/app-framework";
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import { SynthIntent, synthIntent } from "../Synth/synth-plugin";
-import { Button } from "../UI/Buttons";
+import { SynthIntent, synthIntent } from "../../Synth/synth-plugin";
+import { Button } from "../../UI/Buttons";
 
 export const Lobby = () => {
   const { dispatch } = useIntent();

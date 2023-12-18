@@ -12,7 +12,7 @@ import { atom } from "signia";
 import { useValue } from "signia-react";
 import { match } from "ts-pattern";
 import { mkIntentBuilder } from "../lib";
-import { Layout } from "./Layout";
+import { Layout } from "./components/Layout";
 
 // --- Layout Constants and Metadata -------------------------------------------
 export const LayoutPluginMeta = { id: "layout", name: "Layout Plugin" };

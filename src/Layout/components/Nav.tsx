@@ -1,8 +1,8 @@
 import { useClient } from "@dxos/react-client";
 import { useSpace } from "@dxos/react-client/echo";
 import React, { PropsWithChildren } from "react";
-import { PersonIcon } from "../icons";
-import { cn } from "../lib";
+import { PersonIcon } from "../../icons";
+import { cn } from "../../lib";
 import { Link } from "./Link";
 
 const RoundButton = ({

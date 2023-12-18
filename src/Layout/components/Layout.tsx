@@ -3,11 +3,11 @@ import React from "react";
 import { useValue } from "signia-react";
 import { GradientBackground } from "./GradientBackground";
 import { Nav } from "./Nav";
-import { layoutStateAtom } from "./layout-plugin";
+import { layoutStateAtom } from "../layout-plugin";
 import { P, match } from "ts-pattern";
 import { Lobby } from "./Lobby";
 import { NotFound } from "./NotFound";
-import { Fade } from "../UI/Fade";
+import { Fade } from "../../UI/Fade";
 import { AnimatePresence } from "framer-motion";
 
 export const Layout = () => {
