@@ -56,17 +56,19 @@ const main = async () => {
       [ChessPluginMeta.id]: Plugin.lazy(() => import("./Chess/chess-plugin")),
     },
     order: [
-      // Outside of error boundary so error dialog is styled.
-      ThemeMeta,
-      ErrorMeta,
+      ThemeMeta, // Outside of error boundary so error dialog is styled.
 
+      ErrorMeta,
       ClientMeta,
       SpaceMeta,
       GraphMeta,
       MetadataMeta,
+
       SynthPluginMeta,
+
       LayoutPluginMeta,
       InvitationPluginMeta,
+
       ChessPluginMeta,
     ],
   });

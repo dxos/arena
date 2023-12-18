@@ -3,6 +3,7 @@ import { useSpace } from "@dxos/react-client/echo";
 import React, { PropsWithChildren } from "react";
 import { PersonIcon } from "../icons";
 import { cn } from "../lib";
+import { Link } from "./Link";
 
 const RoundButton = ({
   children,
@@ -45,11 +46,11 @@ export const Nav = () => {
   return (
     <nav className="p-4 flex justify-between items-center">
       {/* TODO(Zan): Don't reload the page */}
-      <a href="/">
-        <div className="bg-gradient-to-r from-indigo-500 to-blue-500 fit-content text-slate-50 px-2 border border-gray-900 rounded-sm shadow-md	">
+      <Link href="/">
+        <div className="px-2 border border-gray-900 rounded-sm shadow-sm">
           <h1 className="font-bold text-3xl">Arena App</h1>
         </div>
-      </a>
+      </Link>
       <div className="flex items-center gap-2">
         <RoundButton
           label="Invite to space"
