@@ -1,6 +1,6 @@
 import { useClient } from "@dxos/react-client";
-import { useSpace } from "@dxos/react-client/echo";
 import React, { PropsWithChildren } from "react";
+import { useActiveSpace } from "../../SpaceManager/useActiveSpace";
 import { PersonIcon } from "../../icons";
 import { cn } from "../../lib";
 import { Link } from "./Link";
@@ -39,14 +39,14 @@ const Avatar = ({ onClick }: { onClick: () => void }) => {
 
 export const Nav = () => {
   const client = useClient();
-  const space = useSpace();
+  const space = useActiveSpace();
 
   if (!space) return null;
 
   return (
     <nav className="p-4 flex justify-between items-center">
       {/* TODO(Zan): Don't reload the page */}
-      <Link href="/">
+      <Link to="/">
         <div className="px-2 border border-gray-900 rounded-sm shadow-sm">
           <h1 className="font-bold text-3xl">Arena App</h1>
         </div>

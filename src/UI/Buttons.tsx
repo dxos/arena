@@ -6,7 +6,7 @@ type ButtonVariant = "primary" | "danger" | "secondary";
 
 type ButtonProps = React.PropsWithChildren<{
   "aria-label": string;
-  onClick: () => void;
+  onClick?: () => void;
   disabled?: boolean;
   variant?: ButtonVariant;
 }>;
@@ -32,16 +32,5 @@ export const Button = ({
     >
       <span className={insideClasses}>{children}</span>
     </button>
-  );
-};
-
-export const Examples = () => {
-  return (
-    <div className="p-2">
-      <h2>Examples</h2>
-      <Button aria-label="Invite to space" onClick={() => {}}>
-        Invite to space
-      </Button>
-    </div>
   );
 };

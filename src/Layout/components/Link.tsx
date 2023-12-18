@@ -1,10 +1,12 @@
 import React from "react";
 
-export const Link = (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
+type LinkProps = { to: string } & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href">;
+
+export const Link = (props: LinkProps) => {
   const handleNavigation = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     event.preventDefault();
-    window.history.pushState({}, "", props.href || "");
+    window.history.pushState({}, "", props.to || "");
   };
 
-  return <a {...props} onClick={handleNavigation} />;
+  return <a href={props.to} {...props} onClick={handleNavigation} />;
 };

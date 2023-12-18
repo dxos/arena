@@ -3,6 +3,7 @@ import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import { SynthIntent, synthIntent } from "../../Synth/synth-plugin";
 import { Button } from "../../UI/Buttons";
+import { Link } from "./Link";
 
 export const Lobby = () => {
   const { dispatch } = useIntent();
@@ -36,6 +37,9 @@ export const Lobby = () => {
         >
           Play Sound
         </Button>
+        <Link to="/choose-space">
+          <Button aria-label="Choose space">Choose space</Button>
+        </Link>
       </div>
     </div>
   );

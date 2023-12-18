@@ -23,7 +23,7 @@ export const sfxAtlas = {
 };
 
 export enum SynthIntent {
-  PLAY_SOUND_FROM_ATLAS = `${actionPrefix}/synth`,
+  PLAY_SOUND_FROM_ATLAS = `${actionPrefix}/play-sound-from-atlas`,
 }
 
 export namespace SynthIntent {
@@ -52,7 +52,7 @@ const intentResolver = (intent: Intent, _plugins: Plugin[]) => {
 // --- Plugin Definition ------------------------------------------------------
 type SynthPluginProvidesCapabilities = IntentResolverProvides;
 
-export default function InvitationPlugin(): PluginDefinition<SynthPluginProvidesCapabilities> {
+export default function SynthPlugin(): PluginDefinition<SynthPluginProvidesCapabilities> {
   return {
     meta: SynthPluginMeta,
 

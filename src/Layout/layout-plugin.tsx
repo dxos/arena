@@ -13,6 +13,7 @@ import { useValue } from "signia-react";
 import { match } from "ts-pattern";
 import { mkIntentBuilder } from "../lib";
 import { Layout } from "./components/Layout";
+import { SpaceManagerIntent, spaceManagerIntent } from "../SpaceManager/space-manager-plugin";
 
 // --- Layout Constants and Metadata -------------------------------------------
 export const LayoutPluginMeta = { id: "layout", name: "Layout Plugin" };
@@ -23,6 +24,7 @@ type ViewState =
   | { type: "lobby" }
   | { type: "invitation"; invitationId: string }
   | { type: "game"; gameId: string }
+  | { type: "choose-space" }
   | { type: "not-found" };
 
 export const layoutStateAtom = atom<ViewState>("layout", { type: "lobby" });
@@ -34,6 +36,7 @@ export enum LayoutIntent {
   OPEN_LOBBY = `${actionPrefix}/open-lobby`,
   OPEN_INVITATION = `${actionPrefix}/open-invitation`,
   OPEN_GAME = `${actionPrefix}/open-game`,
+  CHOOSE_SPACE = `${actionPrefix}/choose-space`,
   PRESENT_404 = `${actionPrefix}/present-404`,
 }
 
@@ -41,6 +44,7 @@ export namespace LayoutIntent {
   export type OpenLobby = undefined;
   export type OpenInvitation = { invitationId: string };
   export type OpenGame = { gameId: string };
+  export type ChooseSpace = undefined;
   export type Present404 = undefined;
 }
 
@@ -48,10 +52,18 @@ type LayoutIntents = {
   [LayoutIntent.OPEN_LOBBY]: LayoutIntent.OpenLobby;
   [LayoutIntent.OPEN_INVITATION]: LayoutIntent.OpenInvitation;
   [LayoutIntent.OPEN_GAME]: LayoutIntent.OpenGame;
+  [LayoutIntent.CHOOSE_SPACE]: LayoutIntent.ChooseSpace;
   [LayoutIntent.PRESENT_404]: LayoutIntent.Present404;
 };
 
 export const layoutIntent = mkIntentBuilder<LayoutIntents>(LayoutPluginMeta.id);
+
+const appPaths = [
+  ["lobby", "/"],
+  ["invitation", "/play-with-me/:id"],
+  ["game", "/game/:id"],
+  ["choose-space", "/choose-space"],
+] as const;
 
 // --- Plugin Definition ------------------------------------------------------
 type LayoutPluginProvidesCapabilities = IntentResolverProvides & SurfaceProvides;
@@ -80,6 +92,10 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
               layoutStateAtom.set({ type: "game", gameId: intent.data.gameId });
               return true;
             }
+            case LayoutIntent.CHOOSE_SPACE: {
+              layoutStateAtom.set({ type: "choose-space" });
+              return true;
+            }
             case LayoutIntent.PRESENT_404: {
               layoutStateAtom.set({ type: "not-found" });
               return true;
@@ -94,12 +110,6 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
 
         const client = useClient();
 
-        const appPaths = [
-          ["lobby", "/"],
-          ["invitation", "/play-with-me/:id"],
-          ["game", "/game/:id"],
-        ] as const;
-
         const handleNavigation = () => {
           // console.log("handleNavigation", window.location);
           const path = window.location.pathname;
@@ -111,8 +121,15 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
 
             console.log("Joining space with invitation code", invitationCode);
 
-            client.shell.joinSpace({ invitationCode }).then((space) => {
-              console.log("Join space result", space);
+            client.shell.joinSpace({ invitationCode }).then((joinSpaceResult) => {
+              console.log("Join space result", joinSpaceResult);
+              const space = joinSpaceResult.space;
+
+              if (space) {
+                dispatch(
+                  spaceManagerIntent(SpaceManagerIntent.JOIN_SPACE, { spaceKey: space.key })
+                );
+              }
             });
           }
 
@@ -139,6 +156,7 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
                 dispatch(layoutIntent(LayoutIntent.OPEN_INVITATION, { invitationId: id }))
               )
               .with("game", () => dispatch(layoutIntent(LayoutIntent.OPEN_GAME, { gameId: id })))
+              .with("choose-space", () => dispatch(layoutIntent(LayoutIntent.CHOOSE_SPACE)))
               .exhaustive();
           } else {
             dispatch(layoutIntent(LayoutIntent.PRESENT_404));

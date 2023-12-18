@@ -9,6 +9,7 @@ import { Lobby } from "./Lobby";
 import { NotFound } from "./NotFound";
 import { Fade } from "../../UI/Fade";
 import { AnimatePresence } from "framer-motion";
+import { ChooseSpace } from "./ChooseSpace";
 
 export const Layout = () => {
   const layoutState = useValue(layoutStateAtom);
@@ -24,9 +25,13 @@ export const Layout = () => {
         <Surface role="game" data={{ id }} />
       ))
       .with({ type: "not-found" }, () => <NotFound />)
+      .with({ type: "choose-space" }, () => <ChooseSpace />)
       .exhaustive();
 
-  const FadeView = () => <Fade>{layoutStateToView(layoutState)}</Fade>;
+  const FadeView = React.useMemo(
+    () => () => <Fade>{layoutStateToView(layoutState)}</Fade>,
+    [layoutState]
+  );
 
   return (
     <div className="h-full w-full">

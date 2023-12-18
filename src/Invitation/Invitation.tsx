@@ -1,11 +1,12 @@
-import { Expando, useQuery, useSpace } from "@dxos/react-client/echo";
+import { Expando, useQuery } from "@dxos/react-client/echo";
 import { useIdentity } from "@dxos/react-client/halo";
 import React, { useEffect } from "react";
+import { useActiveSpace } from "../SpaceManager/useActiveSpace";
 import { Button } from "../UI/Buttons";
 import { Invitation } from "./invitation-plugin";
 
 export const InvitationView = ({ id }: { id: string }) => {
-  const space = useSpace();
+  const space = useActiveSpace();
   const [invitation] = useQuery(space, { type: "invitation", invitationId: id });
   const identity = useIdentity();
 
