@@ -11,16 +11,29 @@ const last = <T>(arr: T[]) => arr[arr.length - 1];
 
 test("Can create a game", () => {
   const state = applyMany(zeroState(), [
-    { type: "game-created", players: { white: "zan", black: "zhenya" } },
+    { type: "player-joined", player: "zan" },
+    { type: "player-joined", player: "zhenya" },
   ]);
 
-  expect(state.players?.white).toBe("zan");
-  expect(state.players?.black).toBe("zhenya");
+  const players = Object.values(state.players);
+
+  expect(players).toContain("zan");
+  expect(players).toContain("zhenya");
+});
+
+test("Cannot start game until both players have joined", () => {
+  const state = applyMany(zeroState(), [
+    { type: "player-joined", player: "only one player" },
+    { type: "move-made", move: { source: "e2", target: "e4" } },
+  ]);
+
+  expect(state.moves).toHaveLength(0);
 });
 
 test("Can play a move", () => {
   const state = applyMany(zeroState(), [
-    { type: "game-created", players: { white: "zan", black: "zhenya" } },
+    { type: "player-joined", player: "zan" },
+    { type: "player-joined", player: "zhenya" },
     { type: "move-made", move: { source: "e2", target: "e4" } },
   ]);
 
@@ -31,7 +44,8 @@ test("Can play a move", () => {
 
 test("White can resign", () => {
   const state = applyMany(zeroState(), [
-    { type: "game-created", players: { white: "zan", black: "zhenya" } },
+    { type: "player-joined", player: "zan" },
+    { type: "player-joined", player: "zhenya" },
     { type: "move-made", move: { source: "e2", target: "e4" } },
     { type: "move-made", move: { source: "e7", target: "e5" } },
     { type: "player-resigned", player: "white" },
@@ -43,7 +57,8 @@ test("White can resign", () => {
 
 test("Moves after game over should be ignored", () => {
   const state = applyMany(zeroState(), [
-    { type: "game-created", players: { white: "zan", black: "zhenya" } },
+    { type: "player-joined", player: "zan" },
+    { type: "player-joined", player: "zhenya" },
     { type: "move-made", move: { source: "e2", target: "e4" } },
     { type: "move-made", move: { source: "e7", target: "e5" } },
     { type: "player-resigned", player: "white" },
@@ -58,7 +73,8 @@ test("Moves after game over should be ignored", () => {
 
 test("Scholars mate should end the game in checkmate", () => {
   const state = applyMany(zeroState(), [
-    { type: "game-created", players: { white: "zan", black: "zhenya" } },
+    { type: "player-joined", player: "zan" },
+    { type: "player-joined", player: "zhenya" },
     { type: "move-made", move: { source: "e2", target: "e4" } },
     { type: "move-made", move: { source: "e7", target: "e5" } },
     { type: "move-made", move: { source: "f1", target: "c4" } },
@@ -74,7 +90,8 @@ test("Scholars mate should end the game in checkmate", () => {
 
 test("White Kingside Castle", () => {
   const state = applyMany(zeroState(), [
-    { type: "game-created", players: { white: "zan", black: "zhenya" } },
+    { type: "player-joined", player: "zan" },
+    { type: "player-joined", player: "zhenya" },
     { type: "move-made", move: { source: "e2", target: "e4" } },
     { type: "move-made", move: { source: "e7", target: "e5" } },
     { type: "move-made", move: { source: "g1", target: "f3" } },
@@ -90,7 +107,8 @@ test("White Kingside Castle", () => {
 
 test("Black Kingside Castle", () => {
   const state = applyMany(zeroState(), [
-    { type: "game-created", players: { white: "zan", black: "zhenya" } },
+    { type: "player-joined", player: "zan" },
+    { type: "player-joined", player: "zhenya" },
     { type: "move-made", move: { source: "e2", target: "e4" } }, // White's first move
     { type: "move-made", move: { source: "e7", target: "e5" } }, // Black's first move
     { type: "move-made", move: { source: "g1", target: "f3" } }, // White's second move
@@ -106,7 +124,8 @@ test("Black Kingside Castle", () => {
 
 test("En Passant", () => {
   const state = applyMany(zeroState(), [
-    { type: "game-created", players: { white: "zan", black: "zhenya" } },
+    { type: "player-joined", player: "zan" },
+    { type: "player-joined", player: "zhenya" },
     { type: "move-made", move: { source: "e2", target: "e4" } },
     { type: "move-made", move: { source: "a7", target: "a6" } }, // Black's waiting move
     { type: "move-made", move: { source: "e4", target: "e5" } },
@@ -120,7 +139,8 @@ test("En Passant", () => {
 
 test("Can request a takeback", () => {
   const state = applyMany(zeroState(), [
-    { type: "game-created", players: { white: "zan", black: "zhenya" } },
+    { type: "player-joined", player: "zan" },
+    { type: "player-joined", player: "zhenya" },
     { type: "move-made", move: { source: "e2", target: "e4" } },
     { type: "request-takeback", player: "white" },
   ]);
@@ -130,7 +150,8 @@ test("Can request a takeback", () => {
 
 test("Black can't request takeback if they haven't played a move", () => {
   const state = applyMany(zeroState(), [
-    { type: "game-created", players: { white: "zan", black: "zhenya" } },
+    { type: "player-joined", player: "zan" },
+    { type: "player-joined", player: "zhenya" },
     { type: "move-made", move: { source: "e2", target: "e4" } },
     { type: "request-takeback", player: "black" },
   ]);
@@ -140,7 +161,8 @@ test("Black can't request takeback if they haven't played a move", () => {
 
 test("Can accept a takeback", () => {
   const state = applyMany(zeroState(), [
-    { type: "game-created", players: { white: "zan", black: "zhenya" } },
+    { type: "player-joined", player: "zan" },
+    { type: "player-joined", player: "zhenya" },
     { type: "move-made", move: { source: "e2", target: "e4" } },
     { type: "request-takeback", player: "white" },
     { type: "accept-takeback", acceptingPlayer: "black" },
@@ -151,7 +173,8 @@ test("Can accept a takeback", () => {
 
 test("Can decline a takeback", () => {
   const state = applyMany(zeroState(), [
-    { type: "game-created", players: { white: "zan", black: "zhenya" } },
+    { type: "player-joined", player: "zan" },
+    { type: "player-joined", player: "zhenya" },
     { type: "move-made", move: { source: "e2", target: "e4" } },
     { type: "request-takeback", player: "white" },
     { type: "decline-takeback", decliningPlayer: "black" },
@@ -162,7 +185,8 @@ test("Can decline a takeback", () => {
 
 test("Can offer a draw", () => {
   const state = applyMany(zeroState(), [
-    { type: "game-created", players: { white: "zan", black: "zhenya" } },
+    { type: "player-joined", player: "zan" },
+    { type: "player-joined", player: "zhenya" },
     { type: "move-made", move: { source: "e2", target: "e4" } },
     { type: "offer-draw", player: "white" },
   ]);
@@ -172,7 +196,8 @@ test("Can offer a draw", () => {
 
 test("Can accept a draw offer", () => {
   const state = applyMany(zeroState(), [
-    { type: "game-created", players: { white: "zan", black: "zhenya" } },
+    { type: "player-joined", player: "zan" },
+    { type: "player-joined", player: "zhenya" },
     { type: "move-made", move: { source: "e2", target: "e4" } },
     { type: "offer-draw", player: "white" },
     { type: "accept-draw" },
@@ -185,7 +210,8 @@ test("Can accept a draw offer", () => {
 
 test("Can decline a draw offer", () => {
   const state = applyMany(zeroState(), [
-    { type: "game-created", players: { white: "zan", black: "zhenya" } },
+    { type: "player-joined", player: "zan" },
+    { type: "player-joined", player: "zhenya" },
     { type: "move-made", move: { source: "e2", target: "e4" } },
     { type: "offer-draw", player: "white" },
     { type: "decline-draw" },

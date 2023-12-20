@@ -31,19 +31,14 @@ const DevControls = () => {
 };
 
 export const ChessGame = ({ id }: { id: string }) => {
-  const identity = useIdentity();
   const space = useActiveRoom();
-
-  useEffect(() => {
-    console.log("Space", space);
-    console.log("Identity", identity);
-  }, [space, identity]);
+  const identity = useIdentity();
 
   let [dbGame] = useQuery(space, { type: "chess", gameId: id });
   const { send } = useMutatingStore(dbGame as any as GameState, exec);
 
   useEffect(() => {
-    if (!space) return;
+    if (!space || !identity) return;
 
     if (!dbGame) {
       console.log("Creating game object");
@@ -52,8 +47,9 @@ export const ChessGame = ({ id }: { id: string }) => {
     } else {
       console.log("Loaded game object from db", dbGame);
       console.log(dbGame.toJSON());
+      send({ type: "player-joined", player: identity?.identityKey.toHex() });
     }
-  }, [space, dbGame]);
+  }, [space, identity, dbGame]);
 
   if (!dbGame) return null;
 
