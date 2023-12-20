@@ -1,7 +1,7 @@
 import { Expando, Space, TypedObject, useQuery } from "@dxos/react-client/echo";
 import { useIdentity } from "@dxos/react-client/halo";
 import React, { useEffect } from "react";
-import { useActiveSpace } from "../SpaceManager/useActiveSpace";
+import { useActiveRoom } from "../SpaceManager/useActiveRoom";
 import { Button } from "../UI/Buttons";
 import { Invitation } from "./invitation-plugin";
 import { v4 as uuid } from "uuid";
@@ -56,7 +56,7 @@ function useRedirectToGame(finalised: boolean | undefined, newEntityId: string |
 }
 
 export const InvitationView = ({ id }: { id: string }) => {
-  const space = useActiveSpace();
+  const space = useActiveRoom();
   const [invitation] = useQuery(space, { type: "invitation", invitationId: id });
   const identity = useIdentity();
 

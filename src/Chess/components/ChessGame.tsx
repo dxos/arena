@@ -1,14 +1,14 @@
 import { Expando, useQuery } from "@dxos/react-client/echo";
 import { useIdentity } from "@dxos/react-client/halo";
 import React, { useCallback, useEffect } from "react";
-import { useActiveSpace } from "../../SpaceManager/useActiveSpace";
+import { useActiveRoom } from "../../SpaceManager/useActiveRoom";
 import { Button } from "../../UI/Buttons";
 import { useMutatingStore } from "../../hooks/useStore";
 import { GameState, exec, zeroState } from "../game";
 import { InnerChessGame } from "./InnerChessGame";
 
 const DevControls = () => {
-  const space = useActiveSpace();
+  const space = useActiveRoom();
   const dbGame = useQuery(space, { type: "chess" });
 
   const onDelete = useCallback(() => {
@@ -32,7 +32,7 @@ const DevControls = () => {
 
 export const ChessGame = ({ id }: { id: string }) => {
   const identity = useIdentity();
-  const space = useActiveSpace();
+  const space = useActiveRoom();
 
   useEffect(() => {
     console.log("Space", space);

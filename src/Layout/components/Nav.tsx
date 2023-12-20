@@ -1,6 +1,6 @@
 import { useClient } from "@dxos/react-client";
 import React, { PropsWithChildren } from "react";
-import { useActiveSpace } from "../../SpaceManager/useActiveSpace";
+import { useActiveRoom } from "../../SpaceManager/useActiveRoom";
 import { PersonIcon } from "../../icons";
 import { cn } from "../../lib";
 import { Link } from "./Link";
@@ -39,7 +39,7 @@ const Avatar = ({ onClick }: { onClick: () => void }) => {
 
 export const Nav = () => {
   const client = useClient();
-  const space = useActiveSpace();
+  const space = useActiveRoom();
 
   if (!space) return null;
 
@@ -53,10 +53,10 @@ export const Nav = () => {
       </Link>
       <div className="flex items-center gap-2">
         <RoundButton
-          label="Invite to space"
+          label="Invite to room"
           onClick={() => client.shell.shareSpace({ spaceKey: space.key })}
         >
-          Invite to space
+          Invite to room
         </RoundButton>
         <Avatar onClick={() => client.shell.open()} />
       </div>

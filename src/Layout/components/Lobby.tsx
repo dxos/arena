@@ -14,7 +14,7 @@ export const Lobby = () => {
           <Button aria-label={"Play with a friend"}>Play with a friend</Button>
         </Link>
         <Link to="/choose-space">
-          <Button aria-label="Choose space">Choose space</Button>
+          <Button aria-label="Choose room">Choose room</Button>
         </Link>
       </div>
     </div>

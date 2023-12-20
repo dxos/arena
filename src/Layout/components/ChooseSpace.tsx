@@ -4,13 +4,13 @@ import React from "react";
 import { SpaceManagerIntent, spaceManagerIntent } from "../../SpaceManager/space-manager-plugin";
 import { useSpaceList } from "../../SpaceManager/useSpaceList";
 import { Button } from "../../UI/Buttons";
-import { useActiveSpace } from "../../SpaceManager/useActiveSpace";
+import { useActiveRoom } from "../../SpaceManager/useActiveRoom";
 
 export const ChooseSpace = () => {
   const spaceList = useSpaceList();
   const { dispatch } = useIntent();
 
-  const activeSpace = useActiveSpace();
+  const activeSpace = useActiveRoom();
 
   const onJoinSpace = (key: PublicKey) => {
     dispatch(spaceManagerIntent(SpaceManagerIntent.JOIN_SPACE, { spaceKey: key }));
@@ -18,7 +18,7 @@ export const ChooseSpace = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-full gap-2">
-      <h2>Choose a space to join</h2>
+      <h2>Choose a room to join</h2>
       {spaceList.map((spaceKey) => {
         const keyHex = spaceKey.toHex();
         const isActive = activeSpace?.key.toHex() === keyHex;
