@@ -13,7 +13,7 @@ export const Lobby = () => {
         <Link to={`/play-with-me/${inviteUUID}`}>
           <Button aria-label={"Play with a friend"}>Play with a friend</Button>
         </Link>
-        <Link to="/choose-space">
+        <Link to="/choose-room">
           <Button aria-label="Choose room">Choose room</Button>
         </Link>
       </div>

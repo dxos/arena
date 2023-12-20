@@ -24,7 +24,7 @@ type ViewState =
   | { type: "lobby" }
   | { type: "invitation"; invitationId: string }
   | { type: "game"; gameId: string }
-  | { type: "choose-space" }
+  | { type: "choose-room" }
   | { type: "not-found" };
 
 export const layoutStateAtom = atom<ViewState>("layout", { type: "lobby" });
@@ -36,7 +36,7 @@ export enum LayoutIntent {
   OPEN_LOBBY = `${actionPrefix}/open-lobby`,
   OPEN_INVITATION = `${actionPrefix}/open-invitation`,
   OPEN_GAME = `${actionPrefix}/open-game`,
-  CHOOSE_SPACE = `${actionPrefix}/choose-space`,
+  CHOOSE_ROOM = `${actionPrefix}/choose-room`,
   PRESENT_404 = `${actionPrefix}/present-404`,
 }
 
@@ -44,7 +44,7 @@ export namespace LayoutIntent {
   export type OpenLobby = undefined;
   export type OpenInvitation = { invitationId: string };
   export type OpenGame = { gameId: string };
-  export type ChooseSpace = undefined;
+  export type ChooseRoom = undefined;
   export type Present404 = undefined;
 }
 
@@ -52,7 +52,7 @@ type LayoutIntents = {
   [LayoutIntent.OPEN_LOBBY]: LayoutIntent.OpenLobby;
   [LayoutIntent.OPEN_INVITATION]: LayoutIntent.OpenInvitation;
   [LayoutIntent.OPEN_GAME]: LayoutIntent.OpenGame;
-  [LayoutIntent.CHOOSE_SPACE]: LayoutIntent.ChooseSpace;
+  [LayoutIntent.CHOOSE_ROOM]: LayoutIntent.ChooseRoom;
   [LayoutIntent.PRESENT_404]: LayoutIntent.Present404;
 };
 
@@ -62,7 +62,7 @@ const appPaths = [
   ["lobby", "/"],
   ["invitation", "/play-with-me/:id"],
   ["game", "/game/:id"],
-  ["choose-space", "/choose-space"],
+  ["choose-room", "/choose-room"],
 ] as const;
 
 // --- Plugin Definition ------------------------------------------------------
@@ -79,28 +79,28 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
         resolver(intent, _plugins) {
           console.log("Layout Intent Resolver", intent);
 
-          switch (intent.action) {
-            case LayoutIntent.OPEN_INVITATION: {
+          return match(intent.action as LayoutIntent)
+            .with(LayoutIntent.OPEN_INVITATION, () => {
               layoutStateAtom.set({ type: "invitation", invitationId: intent.data.invitationId });
               return true;
-            }
-            case LayoutIntent.OPEN_LOBBY: {
+            })
+            .with(LayoutIntent.OPEN_LOBBY, () => {
               layoutStateAtom.set({ type: "lobby" });
               return true;
-            }
-            case LayoutIntent.OPEN_GAME: {
+            })
+            .with(LayoutIntent.OPEN_GAME, () => {
               layoutStateAtom.set({ type: "game", gameId: intent.data.gameId });
               return true;
-            }
-            case LayoutIntent.CHOOSE_SPACE: {
-              layoutStateAtom.set({ type: "choose-space" });
+            })
+            .with(LayoutIntent.CHOOSE_ROOM, () => {
+              layoutStateAtom.set({ type: "choose-room" });
               return true;
-            }
-            case LayoutIntent.PRESENT_404: {
+            })
+            .with(LayoutIntent.PRESENT_404, () => {
               layoutStateAtom.set({ type: "not-found" });
               return true;
-            }
-          }
+            })
+            .exhaustive();
         },
       },
       surface: { component: ({ role }) => (role === "main" ? <Layout /> : null) },
@@ -156,7 +156,7 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
                 dispatch(layoutIntent(LayoutIntent.OPEN_INVITATION, { invitationId: id }))
               )
               .with("game", () => dispatch(layoutIntent(LayoutIntent.OPEN_GAME, { gameId: id })))
-              .with("choose-space", () => dispatch(layoutIntent(LayoutIntent.CHOOSE_SPACE)))
+              .with("choose-room", () => dispatch(layoutIntent(LayoutIntent.CHOOSE_ROOM)))
               .exhaustive();
           } else {
             dispatch(layoutIntent(LayoutIntent.PRESENT_404));

@@ -113,6 +113,9 @@ dependencies:
   vitest:
     specifier: ^1.0.2
     version: 1.0.2(@types/node@18.19.2)
+  zod:
+    specifier: ^3.22.4
+    version: 3.22.4
   zzfx:
     specifier: ^1.2.1
     version: 1.2.1

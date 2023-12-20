@@ -25,7 +25,7 @@ export const Layout = () => {
         <Surface role="game" data={{ id }} />
       ))
       .with({ type: "not-found" }, () => <NotFound />)
-      .with({ type: "choose-space" }, () => <ChooseSpace />)
+      .with({ type: "choose-room" }, () => <ChooseSpace />)
       .exhaustive();
 
   const FadeView = React.useMemo(

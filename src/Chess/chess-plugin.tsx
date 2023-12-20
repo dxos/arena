@@ -2,6 +2,7 @@ import { IntentResolverProvides, PluginDefinition, SurfaceProvides } from "@dxos
 import React, { PropsWithChildren } from "react";
 import { mkIntentBuilder } from "../lib";
 import { ChessGame } from "./components/ChessGame";
+import { GameProvides } from "../GameProvides";
 
 // --- Chess Constants and Metadata -------------------------------------------
 export const ChessPluginMeta = { id: "chess", name: "Chess plugin" };
@@ -16,7 +17,7 @@ type ChessIntents = {};
 export const chessIntent = mkIntentBuilder<ChessIntents>(ChessPluginMeta.id);
 
 // --- Plugin Definition ------------------------------------------------------
-type ChessPluginProvidesCapabilities = IntentResolverProvides & SurfaceProvides;
+type ChessPluginProvidesCapabilities = IntentResolverProvides & SurfaceProvides & GameProvides;
 
 export default function ChessPlugin(): PluginDefinition<ChessPluginProvidesCapabilities> {
   return {
@@ -33,6 +34,11 @@ export default function ChessPlugin(): PluginDefinition<ChessPluginProvidesCapab
 
           return null;
         },
+      },
+      game: {
+        displayName: "Chess",
+        variations: [{ displayName: "Standard", id: "standard" }],
+        timeControlOptions: undefined,
       },
     },
   };

@@ -9,6 +9,7 @@ import React, { PropsWithChildren } from "react";
 import { atom } from "signia";
 import { mkIntentBuilder } from "../lib";
 import { InvitationView } from "./Invitation";
+import { GameProvides } from "../GameProvides";
 
 // --- Constants and Metadata -------------------------------------------------
 export const InvitationPluginMeta = { id: "Invitation", name: "Invitation plugin" };
@@ -61,6 +62,16 @@ type InvitationPluginProvidesCapabilities = IntentResolverProvides & SurfaceProv
 export default function InvitationPlugin(): PluginDefinition<InvitationPluginProvidesCapabilities> {
   return {
     meta: InvitationPluginMeta,
+    ready: async (plugins: Plugin[]) => {
+      console.log("Invitation Plugin Ready", plugins);
+
+      // Collect all provides
+      const gameProvides: GameProvides[] = plugins
+        .map((plugin) => plugin.provides as any)
+        .filter((p): p is GameProvides => GameProvides.Schema.safeParse(p).success);
+
+      console.log("Game provides", gameProvides);
+    },
 
     provides: {
       context: (props: PropsWithChildren) => <>{props.children}</>,
