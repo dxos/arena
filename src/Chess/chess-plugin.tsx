@@ -36,9 +36,14 @@ export default function ChessPlugin(): PluginDefinition<ChessPluginProvidesCapab
         },
       },
       game: {
+        id: "chess",
         displayName: "Chess",
         variations: [{ displayName: "Standard", id: "standard" }],
         timeControlOptions: undefined,
+
+        createGame(id, variation, timeControl, players, ordering) {
+          console.log("createGame", id, variation, timeControl, players, ordering);
+        },
       },
     },
   };
