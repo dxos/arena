@@ -1,7 +1,7 @@
 import { Expando, Space, TypedObject, useQuery } from "@dxos/react-client/echo";
 import { useIdentity } from "@dxos/react-client/halo";
 import React, { useEffect } from "react";
-import { useActiveRoom } from "../SpaceManager/useActiveRoom";
+import { useActiveRoom } from "../RoomManager/useActiveRoom";
 import { Button } from "../UI/Buttons";
 import { Invitation } from "./invitation-plugin";
 import { v4 as uuid } from "uuid";

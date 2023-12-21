@@ -1,19 +1,19 @@
 import { useIntent } from "@dxos/app-framework";
 import { PublicKey } from "@dxos/react-client";
 import React from "react";
-import { SpaceManagerIntent, spaceManagerIntent } from "../../SpaceManager/space-manager-plugin";
-import { useSpaceList } from "../../SpaceManager/useSpaceList";
+import { RoomManagerIntent, roomManagerIntent } from "../../RoomManager/room-manager-plugin";
+import { useRoomList } from "../../RoomManager/useRoomList";
 import { Button } from "../../UI/Buttons";
-import { useActiveRoom } from "../../SpaceManager/useActiveRoom";
+import { useActiveRoom } from "../../RoomManager/useActiveRoom";
 
 export const ChooseSpace = () => {
-  const spaceList = useSpaceList();
+  const spaceList = useRoomList();
   const { dispatch } = useIntent();
 
   const activeSpace = useActiveRoom();
 
   const onJoinSpace = (key: PublicKey) => {
-    dispatch(spaceManagerIntent(SpaceManagerIntent.JOIN_SPACE, { spaceKey: key }));
+    dispatch(roomManagerIntent(RoomManagerIntent.JOIN_ROOM, { spaceKey: key }));
   };
 
   return (

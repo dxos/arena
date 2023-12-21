@@ -1,7 +1,7 @@
 import { Expando, useQuery } from "@dxos/react-client/echo";
 import { useIdentity } from "@dxos/react-client/halo";
 import React, { useCallback, useEffect } from "react";
-import { useActiveRoom } from "../../SpaceManager/useActiveRoom";
+import { useActiveRoom } from "../../RoomManager/useActiveRoom";
 import { Button } from "../../UI/Buttons";
 import { useMutatingStore } from "../../hooks/useStore";
 import { GameState, exec, zeroState } from "../game";

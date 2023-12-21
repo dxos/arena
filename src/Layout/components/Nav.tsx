@@ -1,6 +1,6 @@
 import { useClient } from "@dxos/react-client";
 import React, { PropsWithChildren } from "react";
-import { useActiveRoom } from "../../SpaceManager/useActiveRoom";
+import { useActiveRoom } from "../../RoomManager/useActiveRoom";
 import { PersonIcon } from "../../icons";
 import { cn } from "../../lib";
 import { Link } from "./Link";

@@ -19,7 +19,7 @@ import { ChessPluginMeta } from "./Chess/chess-plugin";
 import { InvitationPluginMeta } from "./Invitation/invitation-plugin";
 import { LayoutPluginMeta } from "./Layout/layout-plugin";
 import { SynthPluginMeta } from "./Synth/synth-plugin";
-import { SpaceManagerPluginMeta } from "./SpaceManager/space-manager-plugin";
+import { RoomManagerPluginMeta } from "./RoomManager/room-manager-plugin";
 
 const main = async () => {
   const config = new Config(Envs(), Local(), Defaults());
@@ -50,7 +50,7 @@ const main = async () => {
         debugIdentity,
       }),
       [SpaceMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-space")),
-      [SpaceManagerPluginMeta.id]: Plugin.lazy(() => import("./SpaceManager/space-manager-plugin")),
+      [RoomManagerPluginMeta.id]: Plugin.lazy(() => import("./RoomManager/room-manager-plugin")),
 
       [SynthPluginMeta.id]: Plugin.lazy(() => import("./Synth/synth-plugin")),
       [LayoutPluginMeta.id]: Plugin.lazy(() => import("./Layout/layout-plugin")),
@@ -66,7 +66,7 @@ const main = async () => {
       GraphMeta,
       MetadataMeta,
       LayoutPluginMeta,
-      SpaceManagerPluginMeta,
+      RoomManagerPluginMeta,
       SynthPluginMeta,
       InvitationPluginMeta,
       ChessPluginMeta,
