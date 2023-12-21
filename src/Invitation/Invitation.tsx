@@ -1,33 +1,9 @@
-import { Expando, Space, TypedObject, useQuery } from "@dxos/react-client/echo";
+import { TypedObject, useQuery } from "@dxos/react-client/echo";
 import { useIdentity } from "@dxos/react-client/halo";
 import React, { useEffect } from "react";
+import { Link } from "../Layout/components/Link";
 import { useActiveRoom } from "../RoomManager/useActiveRoom";
 import { Button } from "../UI/Buttons";
-import { Invitation } from "./invitation-plugin";
-import { v4 as uuid } from "uuid";
-import { Link } from "../Layout/components/Link";
-
-const useCreateInvitation = (space: Space | undefined, invitation: TypedObject, id: string) => {
-  const identity = useIdentity();
-
-  useEffect(() => {
-    if (!identity || !space) return;
-
-    const identityKeyHex = identity.identityKey.toHex();
-
-    if (!invitation) {
-      const newInvitation: Invitation = {
-        invitationId: id,
-        creatorId: identityKeyHex,
-        finalised: false,
-        cancelled: false,
-        newEntityId: uuid(),
-      };
-
-      space.db.add(new Expando({ type: "invitation", ...newInvitation }));
-    }
-  }, [invitation, identity, space]);
-};
 
 const useJoinInvitation = (invitation: TypedObject | undefined) => {
   const identity = useIdentity();
@@ -60,7 +36,6 @@ export const InvitationView = ({ id }: { id: string }) => {
   const [invitation] = useQuery(space, { type: "invitation", invitationId: id });
   const identity = useIdentity();
 
-  useCreateInvitation(space, invitation, id);
   useJoinInvitation(invitation);
   useRedirectToGame(invitation?.finalised, invitation?.newEntityId);
 

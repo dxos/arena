@@ -18,6 +18,7 @@ export const Layout = () => {
     match(state)
       .with({ type: "uninitialized" }, () => null)
       .with({ type: "lobby" }, () => <Lobby />)
+      .with({ type: "create-invitation" }, () => <Surface role="create-invitation" />)
       .with({ type: "invitation", invitationId: P.select("id") }, ({ id }) => (
         <Surface role="invitation" data={{ id }} />
       ))

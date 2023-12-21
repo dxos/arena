@@ -71,7 +71,7 @@ export type RoomManagerProvides = IntentResolverProvides & {
 
 export const parseRoomManagerPlugin = (plugin: Plugin) => {
   if (typeof (plugin.provides as any)?.getActiveRoom === "function") {
-    return plugin.provides as Plugin<RoomManagerProvides>;
+    return plugin as Plugin<RoomManagerProvides>;
   }
 };
 

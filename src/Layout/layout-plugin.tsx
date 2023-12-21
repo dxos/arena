@@ -9,9 +9,8 @@ import { useClient } from "@dxos/react-client";
 import { match as pathMatch } from "path-to-regexp";
 import React, { PropsWithChildren, useCallback, useEffect } from "react";
 import { atom } from "signia";
-import { useValue } from "signia-react";
 import { match } from "ts-pattern";
-import { SpaceManagerIntent, spaceManagerIntent } from "../SpaceManager/space-manager-plugin";
+import { RoomManagerIntent, roomManagerIntent } from "../RoomManager/room-manager-plugin";
 import { mkIntentBuilder } from "../lib";
 import { Layout } from "./components/Layout";
 
@@ -22,6 +21,7 @@ export const LayoutPluginMeta = { id: "layout", name: "Layout Plugin" };
 type ViewState =
   | { type: "uninitialized" }
   | { type: "lobby" }
+  | { type: "create-invitation" }
   | { type: "invitation"; invitationId: string }
   | { type: "game"; gameId: string }
   | { type: "choose-room" }
@@ -34,6 +34,7 @@ const actionPrefix = "@arena.dxos.org/layout";
 
 export enum LayoutIntent {
   OPEN_LOBBY = `${actionPrefix}/open-lobby`,
+  OPEN_CREATE_INVITATION = `${actionPrefix}/navigate-to-create-invitation`,
   OPEN_INVITATION = `${actionPrefix}/open-invitation`,
   OPEN_GAME = `${actionPrefix}/open-game`,
   CHOOSE_ROOM = `${actionPrefix}/choose-room`,
@@ -42,6 +43,7 @@ export enum LayoutIntent {
 
 export namespace LayoutIntent {
   export type OpenLobby = undefined;
+  export type NavigateToCreateInvitation = undefined;
   export type OpenInvitation = { invitationId: string };
   export type OpenGame = { gameId: string };
   export type ChooseRoom = undefined;
@@ -50,6 +52,7 @@ export namespace LayoutIntent {
 
 type LayoutIntents = {
   [LayoutIntent.OPEN_LOBBY]: LayoutIntent.OpenLobby;
+  [LayoutIntent.OPEN_CREATE_INVITATION]: LayoutIntent.NavigateToCreateInvitation;
   [LayoutIntent.OPEN_INVITATION]: LayoutIntent.OpenInvitation;
   [LayoutIntent.OPEN_GAME]: LayoutIntent.OpenGame;
   [LayoutIntent.CHOOSE_ROOM]: LayoutIntent.ChooseRoom;
@@ -58,8 +61,10 @@ type LayoutIntents = {
 
 export const layoutIntent = mkIntentBuilder<LayoutIntents>(LayoutPluginMeta.id);
 
+// --- App Routing -------------------------------------------------------------
 const appPaths = [
   ["lobby", "/"],
+  ["create-invitation", "/create-invitation"],
   ["invitation", "/play-with-me/:id"],
   ["game", "/game/:id"],
   ["choose-room", "/choose-room"],
@@ -80,6 +85,10 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
           console.log("Layout Intent Resolver", intent);
 
           return match(intent.action as LayoutIntent)
+            .with(LayoutIntent.OPEN_CREATE_INVITATION, () => {
+              layoutStateAtom.set({ type: "create-invitation" });
+              return true;
+            })
             .with(LayoutIntent.OPEN_INVITATION, () => {
               layoutStateAtom.set({ type: "invitation", invitationId: intent.data.invitationId });
               return true;
@@ -105,7 +114,6 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
       },
       surface: { component: ({ role }) => (role === "main" ? <Layout /> : null) },
       root: () => {
-        const layoutState = useValue(layoutStateAtom);
         const { dispatch } = useIntent();
 
         const client = useClient();
@@ -126,9 +134,7 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
               const space = joinSpaceResult.space;
 
               if (space) {
-                dispatch(
-                  spaceManagerIntent(SpaceManagerIntent.JOIN_SPACE, { spaceKey: space.key })
-                );
+                dispatch(roomManagerIntent(RoomManagerIntent.JOIN_ROOM, { spaceKey: space.key }));
               }
             });
           }
@@ -152,6 +158,9 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
             // TODO(Zan): Make pattern matching more robust by matching on route and params.
             match(route)
               .with("lobby", () => dispatch(layoutIntent(LayoutIntent.OPEN_LOBBY)))
+              .with("create-invitation", () =>
+                dispatch(layoutIntent(LayoutIntent.OPEN_CREATE_INVITATION))
+              )
               .with("invitation", () =>
                 dispatch(layoutIntent(LayoutIntent.OPEN_INVITATION, { invitationId: id }))
               )
