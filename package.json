@@ -55,6 +55,7 @@
     "@types/node": "^18.11.9",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
+    "@types/uuid": "^9.0.7",
     "@vitejs/plugin-react": "^3.0.1",
     "autoprefixer": "^10.4.12",
     "postcss": "^8.4.21",

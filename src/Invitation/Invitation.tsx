@@ -7,7 +7,7 @@ import { Invitation } from "./invitation-plugin";
 import { v4 as uuid } from "uuid";
 import { Link } from "../Layout/components/Link";
 
-const useCreateInvitation = (space: Space, invitation: TypedObject, id: string) => {
+const useCreateInvitation = (space: Space | undefined, invitation: TypedObject, id: string) => {
   const identity = useIdentity();
 
   useEffect(() => {
@@ -65,7 +65,7 @@ export const InvitationView = ({ id }: { id: string }) => {
   useRedirectToGame(invitation?.finalised, invitation?.newEntityId);
 
   const handleCancelInvitation = () => {
-    if (!space || !invitation) return;
+    if (!space || !invitation || !identity) return;
     if (identity.identityKey.toHex() !== invitation.creatorId) return;
 
     invitation.cancelled = true;

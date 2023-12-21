@@ -1,6 +1,8 @@
 import { Intent, IntentResolverProvides, Plugin, PluginDefinition } from "@dxos/app-framework";
 import React, { PropsWithChildren } from "react";
 import { mkIntentBuilder } from "../lib";
+
+// @ts-ignore-next-line
 import { zzfx } from "zzfx";
 
 // TODO(Zan): Expose settings to disable sound effects
