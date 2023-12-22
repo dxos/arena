@@ -8,13 +8,14 @@ import {
 } from "@dxos/app-framework";
 import React, { PropsWithChildren } from "react";
 import { atom } from "signia";
-import { GameProvides } from "../GameProvides";
+import { GameProvides, PlayerOrdering } from "../GameProvides";
 import { parseRoomManagerPlugin } from "../RoomManager/room-manager-plugin";
 import { mkIntentBuilder } from "../lib";
 import { CreateInvitation } from "./CreateInvitation";
 import { InvitationView } from "./Invitation";
 import { Expando } from "@dxos/react-client/echo";
 import { v4 as uuid } from "uuid";
+import { match } from "ts-pattern";
 
 // --- Constants and Metadata -------------------------------------------------
 export const InvitationPluginMeta = { id: "Invitation", name: "Invitation plugin" };
@@ -27,7 +28,7 @@ export type GameDescription = {
   gameId: string;
   variantId: string;
   timeControl: unknown;
-  playerOrdering: "creator-first" | "creator-second" | "random";
+  playerOrdering: PlayerOrdering;
 };
 
 export type Invitation = {
@@ -48,14 +49,17 @@ const actionPrefix = "@arena.dxos.org/Invitation";
 
 export enum InvitationIntent {
   CREATE_INVITATION = `${actionPrefix}/invite`,
+  CREATE_GAME = `${actionPrefix}/create-game`,
 }
 
 export namespace InvitationIntent {
   export type CreateInvitation = { creatorId: string; gameDescription: GameDescription };
+  export type CreateGame = Invitation;
 }
 
 type InvitationIntents = {
   [InvitationIntent.CREATE_INVITATION]: InvitationIntent.CreateInvitation;
+  [InvitationIntent.CREATE_GAME]: InvitationIntent.CREATE_GAME;
 };
 
 export const invitationIntent = mkIntentBuilder<InvitationIntents>(InvitationPluginMeta.id);
@@ -70,8 +74,8 @@ const intentResolver = (intent: Intent, plugins: Plugin[]) => {
 
   const space = roomManagerPlugin.provides.getActiveRoom();
 
-  switch (intent.action) {
-    case InvitationIntent.CREATE_INVITATION: {
+  match(intent.action as InvitationIntent)
+    .with(InvitationIntent.CREATE_INVITATION, () => {
       const data = intent.data as InvitationIntent.CreateInvitation;
 
       const invitation: Invitation = {
@@ -87,10 +91,38 @@ const intentResolver = (intent: Intent, plugins: Plugin[]) => {
 
       space.db.add(new Expando({ type: "invitation", ...invitation }));
       window.history.pushState({}, "", `/play-with-me/${invitation.invitationId}`);
+    })
+    .with(InvitationIntent.CREATE_GAME, () => {
+      const data = intent.data as InvitationIntent.CreateGame;
 
-      break;
-    }
-  }
+      const gameProvides = gameProvidesAtom.value.find(
+        (game) => game.id === data.gameDescription.gameId
+      );
+
+      if (!gameProvides) {
+        throw new Error(
+          `[${InvitationPluginMeta.id}]: Game provides not found for game id: ${data.gameDescription.gameId}`
+        );
+      }
+
+      if (!data.joiningPlayerId) {
+        throw new Error(
+          `[${InvitationPluginMeta.id}]: No Joining player for invitation id: ${data.invitationId}`
+        );
+      }
+
+      gameProvides.createGame(
+        space,
+        data.newEntityId,
+        data.gameDescription.variantId,
+        data.gameDescription.timeControl,
+        { creatorId: data.creatorId, challengerId: data.joiningPlayerId },
+        data.gameDescription.playerOrdering
+      );
+
+      window.history.pushState({}, "", `/game/${data.newEntityId}`);
+    })
+    .exhaustive();
 };
 
 // --- Plugin Definition ------------------------------------------------------

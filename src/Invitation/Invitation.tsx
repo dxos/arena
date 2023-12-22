@@ -4,9 +4,12 @@ import React, { useEffect } from "react";
 import { Link } from "../Layout/components/Link";
 import { useActiveRoom } from "../RoomManager/useActiveRoom";
 import { Button } from "../UI/Buttons";
+import { useIntent } from "@dxos/app-framework";
+import { InvitationIntent, invitationIntent } from "./invitation-plugin";
 
 const useJoinInvitation = (invitation: TypedObject | undefined) => {
   const identity = useIdentity();
+  const { dispatch } = useIntent();
 
   useEffect(() => {
     if (!identity || !invitation) return;
@@ -19,6 +22,8 @@ const useJoinInvitation = (invitation: TypedObject | undefined) => {
       // We are the second player to join
       invitation.joiningPlayerId = identityKeyHex;
       invitation.finalised = true;
+
+      dispatch(invitationIntent(InvitationIntent.CREATE_GAME, invitation as any));
     }
   }, [invitation, identity]);
 };

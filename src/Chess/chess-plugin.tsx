@@ -3,6 +3,9 @@ import React, { PropsWithChildren } from "react";
 import { mkIntentBuilder } from "../lib";
 import { ChessGame } from "./components/ChessGame";
 import { GameProvides } from "../GameProvides";
+import { exec, zeroState } from "./game";
+import { match } from "ts-pattern";
+import { Expando } from "@dxos/react-client/echo";
 
 // --- Chess Constants and Metadata -------------------------------------------
 export const ChessPluginMeta = { id: "chess", name: "Chess plugin" };
@@ -41,8 +44,31 @@ export default function ChessPlugin(): PluginDefinition<ChessPluginProvidesCapab
         variations: [{ displayName: "Standard", id: "standard" }],
         timeControlOptions: undefined,
 
-        createGame(id, variation, timeControl, players, ordering) {
-          console.log("createGame", id, variation, timeControl, players, ordering);
+        createGame(room, id, variation, timeControl, players, ordering) {
+          const game = zeroState();
+          // TODO(Zan): Apply variation, time control
+
+          const chessPlayers = match(ordering)
+            .with("creator-first", () => ({
+              white: players.creatorId,
+              black: players.challengerId,
+            }))
+            .with("challenger-first", () => ({
+              white: players.challengerId,
+              black: players.creatorId,
+            }))
+            .with("random", () => {
+              const random = Math.random() > 0.5;
+              return {
+                white: random ? players.creatorId : players.challengerId,
+                black: random ? players.challengerId : players.creatorId,
+              };
+            })
+            .exhaustive();
+
+          game.players = chessPlayers;
+
+          room.db.add(new Expando({ type: "game", gameId: id, ...game }));
         },
       },
     },

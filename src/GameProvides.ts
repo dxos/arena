@@ -1,3 +1,4 @@
+import { Space } from "@dxos/react-client/echo";
 import { z } from "zod";
 
 export namespace Variation {
@@ -24,10 +25,11 @@ export type PlayerOrdering = (typeof playerOrdering)[number];
 export type GameProvides = z.infer<typeof GameProvides.Schema> & {
   game: {
     createGame: (
+      room: Space,
       id: string,
       variation: string,
       timeControl: unknown,
-      players: [string, string],
+      players: { creatorId: string; challengerId: string },
       ordering: PlayerOrdering
     ) => void;
   };

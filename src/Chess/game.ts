@@ -49,7 +49,7 @@ export type GameState = {
   completedAt?: string;
 };
 
-export const zeroState = (): GameState => ({
+export const zeroState = (options: Partial<GameState> = {}): GameState => ({
   variant: "standard",
   timeControl: { baseMinutes: 5, incrementSeconds: 3 },
   moves: [],
@@ -60,10 +60,10 @@ export const zeroState = (): GameState => ({
   status: "waiting",
   takebackRequest: {},
   drawOffer: undefined,
+  ...options,
 });
 
 export type GameAction =
-  | { type: "player-joined"; player: string }
   | { type: "move-made"; move: Move }
   | { type: "request-takeback"; player: "white" | "black" }
   | { type: "accept-takeback"; acceptingPlayer: "white" | "black" }
@@ -80,21 +80,6 @@ export const exec = (state: GameState, action: GameAction): [GameState, GameActi
   let actions: GameAction[] = [];
 
   switch (action.type) {
-    case "player-joined": {
-      const playerCount = Object.keys(state.players).length;
-      if (playerCount === 0) {
-        // Pick a random color for the first player
-        const color = Math.random() > 0.5 ? "white" : "black";
-        state.players[color] = action.player;
-      } else if (playerCount === 1) {
-        // Assign the other player the opposite color
-        const color = state.players["white"] ? "black" : "white";
-        state.players[color] = action.player;
-      }
-
-      break;
-    }
-
     case "move-made": {
       if (!state.players["white"] || !state.players["black"]) {
         break;
