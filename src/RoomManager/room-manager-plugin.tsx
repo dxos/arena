@@ -8,6 +8,7 @@ import {
 } from "@dxos/app-framework";
 import { PublicKey } from "@dxos/react-client";
 import { Space } from "@dxos/react-client/echo";
+import { Identity } from "@dxos/react-client/halo";
 import { atom, computed } from "signia";
 import { mkIntentBuilder } from "../lib";
 import { atomWithStorage } from "../lib/atomWithStorage";
@@ -34,6 +35,8 @@ const activeRoomAtom = computed("computedActiveSpace", () => {
 
   return allRoomsAtom.value.find((space) => space.key.equals(activeRoom)) as Space;
 });
+
+export const usersAtom = atom<Identity[]>("users", []);
 
 // --- Intents ----------------------------------------------------------------
 const actionPrefix = "@arena.dxos.org/room-manager";
@@ -96,6 +99,11 @@ export default function RoomManagerPlugin(): PluginDefinition<RoomManagerProvide
         (client.spaces as any).subscribe((spaces: Space[]) => {
           allRoomsAtom.set(spaces);
           availableRoomKeysAtom.set(spaces.map((space) => space.key));
+
+          // Collect all users
+          // TODO(Zan): This probably won't be reactive when a user joins a room
+          const users = spaces.flatMap((space) => space.members.get());
+          usersAtom.set(users.map((u) => u.identity));
         })
       );
     },

@@ -5,7 +5,13 @@ import { cn } from "../../lib/css";
 import { GameState, PlayerColor } from "../game";
 import { Timer } from "./Timer";
 
-export const PlayerInfo = ({ color, game }: { color: PlayerColor; game: GameState }) => {
+type PlayerInfoProps = {
+  color: PlayerColor;
+  game: GameState;
+  name?: string;
+};
+
+export const PlayerInfo = ({ color, game, name }: PlayerInfoProps) => {
   const turn = game.moves.length % 2 === 0 ? color === "white" : color === "black";
 
   const statusText = match(game.status)
@@ -39,7 +45,7 @@ export const PlayerInfo = ({ color, game }: { color: PlayerColor; game: GameStat
       )}
     >
       <div>
-        <div className="text-lg font-bold capitalize">{color}</div>
+        <div className="text-lg font-bold capitalize">{name}</div>
         <div className={cn("text-sm", textColor)}>{statusText}</div>
       </div>
       <Timer color={color} />

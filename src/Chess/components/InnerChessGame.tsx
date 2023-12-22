@@ -12,6 +12,8 @@ import { MoveList } from "./MoveList";
 import { Chess } from "chess.js";
 import { findPiece } from "../utils";
 import { useIdentity } from "@dxos/react-client/halo";
+import { useValue } from "signia-react";
+import { usersAtom } from "../../RoomManager/room-manager-plugin";
 
 const computeSquareStyles = (lastMove: Move | undefined, fen: string) => {
   const game = new Chess(fen);
@@ -47,6 +49,8 @@ export const InnerChessGame = ({
   game: GameState;
   send: (action: GameAction) => void;
 }) => {
+  const users = useValue(usersAtom);
+
   const identity = useIdentity();
   const identityKeyHex = identity?.identityKey.toHex();
 
@@ -84,10 +88,18 @@ export const InnerChessGame = ({
 
   const [ref, bounds] = useMeasure();
 
+  const opponentUsername = users.find(
+    (user) => user.identityKey.toHex() === game.players[oppositePlayerColor(playerColor)]
+  )?.profile?.displayName;
+
   return (
     <div className="p-4 grid grid-cols-[auto_auto] grid-rows-[1fr] gap-3 justify-center items-start">
       <div ref={ref} className="flex flex-col gap-3">
-        <PlayerInfo color={oppositePlayerColor(playerColor)} game={game} />
+        <PlayerInfo
+          name={opponentUsername || "Anonynmous"}
+          color={oppositePlayerColor(playerColor)}
+          game={game}
+        />
         <div className="flex-1 p-1 aspect-ratio-1 bg-stone-600 rounded-sm">
           <div className="rounded-sm border border-stone-300">
             <Chessboard
@@ -101,7 +113,11 @@ export const InnerChessGame = ({
             />
           </div>
         </div>
-        <PlayerInfo color={playerColor} game={game} />
+        <PlayerInfo
+          name={identity?.profile?.displayName || "Anonymous"}
+          color={playerColor}
+          game={game}
+        />
 
         {/* TODO(Zan): Chess game should be player aware (don't play both sides) */}
         <Controls
