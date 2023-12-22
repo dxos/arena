@@ -20,6 +20,16 @@ import { match } from "ts-pattern";
 // --- Constants and Metadata -------------------------------------------------
 export const InvitationPluginMeta = { id: "Invitation", name: "Invitation plugin" };
 
+const errorMsg = (message: string, ...args: any[]) => {
+  message = `[${InvitationPluginMeta.id}]: ${message}`;
+
+  if (args.length !== 0) {
+    message = message + " " + JSON.stringify(args);
+  }
+
+  return message;
+};
+
 // --- State ------------------------------------------------------------------
 export const gameProvidesAtom = atom<GameProvides["game"][]>("game-provides", []);
 
@@ -101,14 +111,12 @@ const intentResolver = (intent: Intent, plugins: Plugin[]) => {
 
       if (!gameProvides) {
         throw new Error(
-          `[${InvitationPluginMeta.id}]: Game provides not found for game id: ${data.gameDescription.gameId}`
+          errorMsg("Game provides not found for game id", data.gameDescription.gameId)
         );
       }
 
       if (!data.joiningPlayerId) {
-        throw new Error(
-          `[${InvitationPluginMeta.id}]: No Joining player for invitation id: ${data.invitationId}`
-        );
+        throw new Error(errorMsg("No joining player for invitation id", data.invitationId));
       }
 
       gameProvides.createGame(
