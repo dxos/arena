@@ -20,16 +20,6 @@ import { match } from "ts-pattern";
 // --- Constants and Metadata -------------------------------------------------
 export const InvitationPluginMeta = { id: "Invitation", name: "Invitation plugin" };
 
-const errorMsg = (message: string, ...args: any[]) => {
-  message = `[${InvitationPluginMeta.id}]: ${message}`;
-
-  if (args.length !== 0) {
-    message = message + " " + JSON.stringify(args);
-  }
-
-  return message;
-};
-
 // --- State ------------------------------------------------------------------
 export const gameProvidesAtom = atom<GameProvides["game"][]>("game-provides", []);
 
@@ -53,6 +43,17 @@ export type Invitation = {
 };
 
 export const invitationIdAtom = atom<Invitation | undefined>("invitation-id", undefined);
+
+// --- Helpers ----------------------------------------------------------------
+const errorMsg = (message: string, ...args: any[]) => {
+  message = `[${InvitationPluginMeta.id}]: ${message}`;
+
+  if (args.length !== 0) {
+    message = message + " " + JSON.stringify(args);
+  }
+
+  return message;
+};
 
 // --- Intents ----------------------------------------------------------------
 const actionPrefix = "@arena.dxos.org/Invitation";

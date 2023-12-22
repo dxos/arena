@@ -64,21 +64,21 @@ export const InnerChessGame = ({
     throw new Error("Player color not found");
   }
 
-  const cursor = useInGameCursor(game);
+  const cursor = useInGameCursor(game.boards);
   useTimeControl(game.timeControl, game.moveTimes, game.status, game.completedAt);
   useTimeOut(send, game.status);
   useGameSounds(game.boards[game.boards.length - 1], game.status);
 
   const onDrop = useCallback(
     (source: string, target: string) => {
-      console.log("onDrop", source, target);
-      if (cursor.canInteractWithBoard) {
+      if (cursor.isOnMostRecentState) {
         send({ type: "move-made", move: { source, target }, playerId: identityKeyHex });
         return true;
       }
+
       return false;
     },
-    [cursor.canInteractWithBoard, send]
+    [cursor.isOnMostRecentState, send]
   );
 
   const squareStyles = useMemo(
@@ -119,7 +119,6 @@ export const InnerChessGame = ({
           game={game}
         />
 
-        {/* TODO(Zan): Chess game should be player aware (don't play both sides) */}
         <Controls
           cursor={cursor}
           playing={game.status === "in-progress"}

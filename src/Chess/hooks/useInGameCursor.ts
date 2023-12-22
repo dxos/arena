@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { GameState } from "../game";
+import { match } from "ts-pattern";
 
 type InGameCursorAction =
   | { type: "move-forward" }
@@ -8,21 +8,21 @@ type InGameCursorAction =
   | { type: "move-to-latest" }
   | { type: "select-move"; move: number };
 
-export const useInGameCursor = ({ boards }: GameState) => {
+export const useInGameCursor = <State>(states: State[]) => {
   const [current, setCurrent] = React.useState(true);
   const [index, setIndex] = React.useState(0);
 
-  const board = boards[index];
-  const numberOfMoves = boards.length - 1;
+  const state = states[index];
+  const numberOfStates = states.length - 1;
 
   React.useEffect(() => {
     if (current) {
-      setIndex(numberOfMoves);
+      setIndex(numberOfStates);
     }
-  }, [current, setIndex, numberOfMoves]);
+  }, [current, setIndex, numberOfStates]);
 
-  const selectBoardByIndex = (index: number) => {
-    const latestIndex = numberOfMoves;
+  const selectStateByIndex = (index: number) => {
+    const latestIndex = numberOfStates;
     const adjustedIndex = Math.max(0, Math.min(index, latestIndex));
 
     setCurrent(adjustedIndex === latestIndex);
@@ -31,35 +31,24 @@ export const useInGameCursor = ({ boards }: GameState) => {
 
   const dispatch = useCallback(
     (action: InGameCursorAction) => {
-      switch (action.type) {
-        case "move-forward":
-          selectBoardByIndex(index + 1);
-          break;
-        case "move-backward":
-          selectBoardByIndex(index - 1);
-          break;
-        case "move-to-beginning":
-          selectBoardByIndex(0);
-          break;
-        case "move-to-latest":
-          selectBoardByIndex(numberOfMoves);
-          break;
-        case "select-move": {
-          selectBoardByIndex(action.move);
-          break;
-        }
-      }
+      match(action)
+        .with({ type: "move-forward" }, () => selectStateByIndex(index + 1))
+        .with({ type: "move-backward" }, () => selectStateByIndex(index - 1))
+        .with({ type: "move-to-beginning" }, () => selectStateByIndex(0))
+        .with({ type: "move-to-latest" }, () => selectStateByIndex(numberOfStates))
+        .with({ type: "select-move" }, ({ move }) => selectStateByIndex(move))
+        .exhaustive();
     },
-    [index, numberOfMoves, selectBoardByIndex]
+    [index, numberOfStates, selectStateByIndex]
   );
 
   return {
     __index: index,
-    can: { moveForward: index < numberOfMoves, moveBackward: index > 0 },
-    board,
-    canInteractWithBoard: current,
+    can: { moveForward: index < numberOfStates, moveBackward: index > 0 },
+    board: state,
+    isOnMostRecentState: current,
     dispatch,
-  };
+  } as const;
 };
 
 export type InGameCursor = ReturnType<typeof useInGameCursor>;
