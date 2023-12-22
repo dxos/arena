@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from "react";
 import { Chessboard } from "react-chessboard";
 import useMeasure from "react-use-measure";
 import { Panel } from "../../UI/Panel";
-import { GameAction, GameState, Move } from "../game";
+import { GameAction, GameState, Move, PlayerColor, oppositePlayerColor } from "../game";
 import { useGameSounds } from "../hooks/useGameSounds";
 import { useInGameCursor } from "../hooks/useInGameCursor";
 import { useTimeControl, useTimeOut } from "../hooks/useTimeControl";
@@ -11,6 +11,7 @@ import { Controls } from "./Controls";
 import { MoveList } from "./MoveList";
 import { Chess } from "chess.js";
 import { findPiece } from "../utils";
+import { useIdentity } from "@dxos/react-client/halo";
 
 const computeSquareStyles = (lastMove: Move | undefined, fen: string) => {
   const game = new Chess(fen);
@@ -46,6 +47,19 @@ export const InnerChessGame = ({
   game: GameState;
   send: (action: GameAction) => void;
 }) => {
+  const identity = useIdentity();
+  const identityKeyHex = identity?.identityKey.toHex();
+
+  const playerColor: PlayerColor | undefined = useMemo(() => {
+    if (identityKeyHex === game.players.white) return "white";
+    if (identityKeyHex === game.players.black) return "black";
+    return undefined;
+  }, [identity, game.players]);
+
+  if (!playerColor) {
+    throw new Error("Player color not found");
+  }
+
   const cursor = useInGameCursor(game);
   useTimeControl(game.timeControl, game.moveTimes, game.status, game.completedAt);
   useTimeOut(send, game.status);
@@ -73,7 +87,7 @@ export const InnerChessGame = ({
   return (
     <div className="p-4 grid grid-cols-[auto_auto] grid-rows-[1fr] gap-3 justify-center items-start">
       <div ref={ref} className="flex flex-col gap-3">
-        <PlayerInfo color={"Black"} game={game} />
+        <PlayerInfo color={oppositePlayerColor(playerColor)} game={game} />
         <div className="flex-1 p-1 aspect-ratio-1 bg-stone-600 rounded-sm">
           <div className="rounded-sm border border-stone-300">
             <Chessboard
@@ -83,10 +97,11 @@ export const InnerChessGame = ({
               areArrowsAllowed
               id={"main"}
               animationDuration={50}
+              boardOrientation={playerColor}
             />
           </div>
         </div>
-        <PlayerInfo color="White" game={game} />
+        <PlayerInfo color={playerColor} game={game} />
 
         {/* TODO(Zan): Chess game should be player aware (don't play both sides) */}
         <Controls

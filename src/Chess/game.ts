@@ -1,9 +1,9 @@
 import { Chess } from "chess.js";
 import { match } from "ts-pattern";
 
-type Player = "white" | "black";
+export type PlayerColor = "white" | "black";
 
-function oppositePlayer(player: Player): Player {
+export function oppositePlayerColor(player: PlayerColor): PlayerColor {
   return player === "white" ? "black" : "white";
 }
 
@@ -13,7 +13,7 @@ export type Move = {
   promotion?: "q" | "r" | "b" | "n";
 };
 
-function whoPlayedTurn(turn: number): Player {
+function whoPlayedTurn(turn: number): PlayerColor {
   return turn % 2 === 0 ? "white" : "black";
 }
 
@@ -163,7 +163,7 @@ export const exec = (state: GameState, action: GameAction): [GameState, GameActi
 
       // TODO: Should this be the player who requested the takeback, or the player accepting?
       // The answer will become more clear when we implement.
-      const moveNumber = state.takebackRequest[oppositePlayer(acceptingPlayer)];
+      const moveNumber = state.takebackRequest[oppositePlayerColor(acceptingPlayer)];
 
       if (moveNumber === undefined) {
         break;
@@ -175,14 +175,14 @@ export const exec = (state: GameState, action: GameAction): [GameState, GameActi
       state.moveTimes = state.moveTimes.slice(0, moveNumber);
       state.boards = state.boards.slice(0, moveNumber + 1);
 
-      state.takebackRequest[oppositePlayer(acceptingPlayer)] = undefined;
+      state.takebackRequest[oppositePlayerColor(acceptingPlayer)] = undefined;
 
       break;
     }
 
     case "decline-takeback": {
       const { decliningPlayer } = action;
-      state.takebackRequest[oppositePlayer(decliningPlayer)] = undefined;
+      state.takebackRequest[oppositePlayerColor(decliningPlayer)] = undefined;
 
       break;
     }

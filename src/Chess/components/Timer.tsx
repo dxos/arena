@@ -1,9 +1,10 @@
 import React, { useMemo } from "react";
 import { useValue } from "signia-react";
 import { blackTimeAtom, whiteTimeAtom } from "../hooks/useTimeControl";
+import { PlayerColor } from "../game";
 
-export const Timer = ({ color }: { color: "White" | "Black" }) => {
-  const atom = useMemo(() => (color === "White" ? whiteTimeAtom : blackTimeAtom), [color]);
+export const Timer = ({ color }: { color: PlayerColor }) => {
+  const atom = useMemo(() => (color === "white" ? whiteTimeAtom : blackTimeAtom), [color]);
   const time = useValue(atom);
 
   // Format the time (ms) into minutes and seconds

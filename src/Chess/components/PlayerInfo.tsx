@@ -2,11 +2,11 @@ import React from "react";
 import { match } from "ts-pattern";
 import { Panel } from "../../UI/Panel";
 import { cn } from "../../lib/css";
-import { GameState } from "../game";
+import { GameState, PlayerColor } from "../game";
 import { Timer } from "./Timer";
 
-export const PlayerInfo = ({ color, game }: { color: "White" | "Black"; game: GameState }) => {
-  const turn = game.moves.length % 2 === 0 ? color === "White" : color === "Black";
+export const PlayerInfo = ({ color, game }: { color: PlayerColor; game: GameState }) => {
+  const turn = game.moves.length % 2 === 0 ? color === "white" : color === "black";
 
   const statusText = match(game.status)
     .with("waiting", () => "Waiting for first move")
@@ -39,7 +39,7 @@ export const PlayerInfo = ({ color, game }: { color: "White" | "Black"; game: Ga
       )}
     >
       <div>
-        <div className="text-lg font-bold">{color}</div>
+        <div className="text-lg font-bold capitalize">{color}</div>
         <div className={cn("text-sm", textColor)}>{statusText}</div>
       </div>
       <Timer color={color} />
