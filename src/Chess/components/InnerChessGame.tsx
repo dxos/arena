@@ -127,11 +127,11 @@ export const InnerChessGame = ({
           takebackRequested={
             game.takebackRequest.black !== undefined || game.takebackRequest.white !== undefined
           }
-          onResign={() => send({ type: "player-resigned", player: "white" })}
-          onOfferDraw={() => send({ type: "offer-draw", player: "white" })}
+          onResign={() => send({ type: "player-resigned", player: playerColor })}
+          onOfferDraw={() => send({ type: "offer-draw", player: playerColor })}
           onAcceptDraw={() => send({ type: "accept-draw" })}
-          onRequestTakeback={() => send({ type: "request-takeback", player: "white" })}
-          onAcceptTakeback={() => send({ type: "accept-takeback", acceptingPlayer: "black" })}
+          onRequestTakeback={() => send({ type: "request-takeback", player: playerColor })}
+          onAcceptTakeback={() => send({ type: "accept-takeback", acceptingPlayer: playerColor })}
         />
       </div>
 

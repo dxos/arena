@@ -47,7 +47,7 @@ export const Nav = () => {
     <nav className="p-4 flex justify-between items-center">
       {/* TODO(Zan): Don't reload the page */}
       <Link to="/">
-        <div className="px-2 border border-gray-900 rounded-sm shadow-sm">
+        <div>
           <h1 className="font-bold text-3xl">Arena App</h1>
         </div>
       </Link>
