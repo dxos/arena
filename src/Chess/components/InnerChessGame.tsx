@@ -69,7 +69,7 @@ export const InnerChessGame = ({
     (source: string, target: string) => {
       console.log("onDrop", source, target);
       if (cursor.canInteractWithBoard) {
-        send({ type: "move-made", move: { source, target } });
+        send({ type: "move-made", move: { source, target }, playerId: identityKeyHex });
         return true;
       }
       return false;

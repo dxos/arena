@@ -13,7 +13,7 @@ export type Move = {
   promotion?: "q" | "r" | "b" | "n";
 };
 
-function whoPlayedTurn(turn: number): PlayerColor {
+function whoPlaysTurn(turn: number): PlayerColor {
   return turn % 2 === 0 ? "white" : "black";
 }
 
@@ -64,7 +64,7 @@ export const zeroState = (options: Partial<GameState> = {}): GameState => ({
 });
 
 export type GameAction =
-  | { type: "move-made"; move: Move }
+  | { type: "move-made"; move: Move; playerId?: string }
   | { type: "request-takeback"; player: "white" | "black" }
   | { type: "accept-takeback"; acceptingPlayer: "white" | "black" }
   | { type: "decline-takeback"; decliningPlayer: "white" | "black" }
@@ -82,6 +82,12 @@ export const exec = (state: GameState, action: GameAction): [GameState, GameActi
   switch (action.type) {
     case "move-made": {
       if (!state.players["white"] || !state.players["black"]) {
+        break;
+      }
+
+      const turn = whoPlaysTurn(state.moves.length);
+      if (action.playerId && action.playerId !== state.players[turn]) {
+        console.log("You are not the player who should be making a move :P");
         break;
       }
 
@@ -145,7 +151,7 @@ export const exec = (state: GameState, action: GameAction): [GameState, GameActi
 
       const { player } = action;
 
-      if (player === whoPlayedTurn(state.moves.length - 1)) {
+      if (player === whoPlaysTurn(state.moves.length - 1)) {
         state.takebackRequest[player] = state.moves.length - 1;
       } else {
         if (state.moves.length < 2) {
