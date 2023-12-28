@@ -70,7 +70,7 @@ export const InvitationView = ({ id }: { id: string }) => {
     <div className="m-8">
       <div className="p-4 flex flex-col items-center gap-4">
         <p className="text-lg">
-          The first person in your space who opens this link will enter the game.
+          The first person <strong>in your room</strong> who opens this link will enter the game.
         </p>
         <code>{window.location.href}</code>
         <Button onClick={handleCancelInvitation} aria-label="Cancel invitation" variant="danger">
