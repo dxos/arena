@@ -20,6 +20,7 @@ import { InvitationPluginMeta } from "./Invitation/invitation-plugin";
 import { LayoutPluginMeta } from "./Layout/layout-plugin";
 import { SynthPluginMeta } from "./Synth/synth-plugin";
 import { RoomManagerPluginMeta } from "./RoomManager/room-manager-plugin";
+import "./fonts/fonts.css";
 
 const main = async () => {
   const config = new Config(Envs(), Local(), Defaults());
