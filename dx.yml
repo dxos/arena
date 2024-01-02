@@ -8,6 +8,7 @@ package:
         outdir: "out/dxos-templates"
 runtime:
   client:
+    remoteSource: https://halo.dxos.org/vault.html
     storage:
       persistent: true
   services:
