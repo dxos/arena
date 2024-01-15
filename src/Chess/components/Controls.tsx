@@ -27,7 +27,7 @@ export const Controls = ({
   onAcceptTakeback,
 }: ControlsProps) => {
   return (
-    <div className="flex flex-row gap-1">
+    <div className="flex flex-row flex-wrap gap-1">
       <Button
         onClick={() => cursor.dispatch({ type: "move-to-beginning" })}
         disabled={!cursor.can.moveBackward}

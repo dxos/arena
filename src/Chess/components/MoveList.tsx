@@ -36,10 +36,13 @@ export const MoveList = ({
 }) => {
   const movePairs = arrayToPairs(movesWithNotation);
 
-  const gridClass = "grid grid-cols-[2fr_4fr_4fr] gap-x-4 gap-y-1";
+  const grids = [
+    "grid-cols-[2fr_4fr_4fr] gap-x-8 gap-y-1",
+    "sm:grid-cols-[2fr_4fr_4fr] sm:gap-x-4 sm:gap-y-1",
+  ];
 
   return (
-    <div className={cn("p-4", "font-mono", gridClass)}>
+    <div className={cn("p-4", "font-mono", "grid", ...grids)}>
       <div>#</div>
       <div>White</div>
       <div>Black</div>

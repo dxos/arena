@@ -38,14 +38,15 @@ export const PlayerInfo = ({ color, game, name }: PlayerInfoProps) => {
   return (
     <Panel
       className={cn(
-        "p-4",
+        "p-3",
+        "sm:p-4",
         "flex flex-row justify-between items-center",
         "font-mono",
         "transition-all duration-100 ease-in-out"
       )}
     >
       <div>
-        <div className="text-lg font-bold capitalize">{name}</div>
+        <div className="text-md sm:text-lg font-bold capitalize">{name}</div>
         <div className={cn("text-sm", textColor)}>{statusText}</div>
       </div>
       <Timer color={color} />

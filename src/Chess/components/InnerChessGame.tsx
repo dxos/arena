@@ -93,8 +93,8 @@ export const InnerChessGame = ({
   )?.profile?.displayName;
 
   return (
-    <div className="p-4 grid grid-cols-[auto_auto] grid-rows-[1fr] gap-3 justify-center items-start">
-      <div ref={ref} className="flex flex-col gap-3">
+    <div className="p-1 sm:p-4 grid grid-cols-1 sm:grid-cols-[auto_auto] grid-rows-[1fr] gap-2 sm:gap-3 justify-center items-start">
+      <div ref={ref} className="flex flex-col gap-2 sm:gap-3">
         <PlayerInfo
           name={opponentUsername || "Anonynmous"}
           color={oppositePlayerColor(playerColor)}
