@@ -59,7 +59,7 @@ export const CreateInvitation = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
-        <div className="max-w-lg mx-auto">
+        <div className="max-w-lg p-1 mx-auto">
           <Panel className="p-4 flex flex-col gap-2">
             <h2 className="text-2xl font-bold">New Game</h2>
             <div className="flex flex-col items-start gap-2">
@@ -106,7 +106,7 @@ export const CreateInvitation = () => {
               </Input.Root>
               <Input.Root>
                 <Input.Label>Player Order</Input.Label>
-                <div className="flex justify-between w-full">
+                <div className="flex flex-col sm:flex-row gap-1 items-center justify-between w-full">
                   {playerOrdering.map((ordering) => (
                     <Button
                       key={ordering}

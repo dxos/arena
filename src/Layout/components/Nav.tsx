@@ -44,11 +44,11 @@ export const Nav = () => {
   if (!space) return null;
 
   return (
-    <nav className="p-4 flex justify-between items-center">
+    <nav className="p-2 sm:p-4 flex justify-between items-center">
       {/* TODO(Zan): Don't reload the page */}
       <Link to="/">
         <div>
-          <h1 className="font-bold text-3xl">Arena App</h1>
+          <h1 className="font-bold text-2xl sm:text-3xl">Arena App</h1>
         </div>
       </Link>
       <div className="flex items-center gap-2">
