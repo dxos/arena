@@ -60,7 +60,7 @@ export const CreateInvitation = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
         <div className="max-w-lg p-1 mx-auto">
-          <Panel className="p-4 flex flex-col gap-2">
+          <Panel className="p-4 flex flex-col gap-3">
             <h2 className="text-2xl font-bold">New Game</h2>
             <div className="flex flex-col items-start gap-2">
               <Input.Root>
@@ -121,9 +121,11 @@ export const CreateInvitation = () => {
                 </div>
               </Input.Root>
               <br />
-              <Button type="submit" aria-label="Create game" variant="secondary">
-                Create game
-              </Button>
+              <div className="w-full flex flex-row-reverse">
+                <Button type="submit" aria-label="Create game" variant="secondary">
+                  Create game
+                </Button>
+              </div>
             </div>
           </Panel>
         </div>
