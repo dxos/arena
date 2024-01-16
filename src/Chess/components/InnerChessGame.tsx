@@ -14,6 +14,8 @@ import { findPiece } from "../utils";
 import { useIdentity } from "@dxos/react-client/halo";
 import { useValue } from "signia-react";
 import { usersAtom } from "../../RoomManager/room-manager-plugin";
+import { useGameActions } from "../hooks/useGameActions";
+import { useGameToasts } from "../hooks/useGameToasts";
 
 const computeSquareStyles = (lastMove: Move | undefined, fen: string) => {
   const game = new Chess(fen);
@@ -64,10 +66,25 @@ export const InnerChessGame = ({
     throw new Error("Player color not found");
   }
 
+  const opponentUsername =
+    users.find(
+      (user) => user.identityKey.toHex() === game.players[oppositePlayerColor(playerColor)]
+    )?.profile?.displayName || "Anonymous";
+
   const cursor = useInGameCursor(game.boards);
+
   useTimeControl(game.timeControl, game.moveTimes, game.status, game.completedAt);
   useTimeOut(send, game.status);
   useGameSounds(game.boards[game.boards.length - 1], game.status);
+  useGameToasts(
+    game.gameOverReason,
+    playerColor,
+    opponentUsername,
+    game.drawOffer,
+    game.takebackRequest
+  );
+
+  const gameActions = useGameActions(send, playerColor);
 
   const onDrop = useCallback(
     (source: string, target: string) => {
@@ -88,18 +105,10 @@ export const InnerChessGame = ({
 
   const [ref, bounds] = useMeasure();
 
-  const opponentUsername = users.find(
-    (user) => user.identityKey.toHex() === game.players[oppositePlayerColor(playerColor)]
-  )?.profile?.displayName;
-
   return (
     <div className="p-1 sm:p-4 grid grid-cols-1 sm:grid-cols-[auto_auto] grid-rows-[1fr] gap-2 sm:gap-3 justify-center items-start">
       <div ref={ref} className="flex flex-col gap-2 sm:gap-3">
-        <PlayerInfo
-          name={opponentUsername || "Anonynmous"}
-          color={oppositePlayerColor(playerColor)}
-          game={game}
-        />
+        <PlayerInfo name={opponentUsername} color={oppositePlayerColor(playerColor)} game={game} />
         <div className="flex-1 p-1 aspect-ratio-1 bg-stone-600 rounded-sm">
           <div className="rounded-sm border border-stone-300">
             <Chessboard
@@ -126,11 +135,7 @@ export const InnerChessGame = ({
           takebackRequested={
             game.takebackRequest.black !== undefined || game.takebackRequest.white !== undefined
           }
-          onResign={() => send({ type: "player-resigned", player: playerColor })}
-          onOfferDraw={() => send({ type: "offer-draw", player: playerColor })}
-          onAcceptDraw={() => send({ type: "accept-draw" })}
-          onRequestTakeback={() => send({ type: "request-takeback", player: playerColor })}
-          onAcceptTakeback={() => send({ type: "accept-takeback", acceptingPlayer: playerColor })}
+          {...gameActions}
         />
       </div>
 

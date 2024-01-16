@@ -4,7 +4,7 @@ import { match } from "ts-pattern";
 export type PlayerColor = "white" | "black";
 
 export function oppositePlayerColor(player: PlayerColor): PlayerColor {
-  return player === "white" ? "black" : "white";
+  return player === "white" ? ("black" as PlayerColor) : ("white" as PlayerColor);
 }
 
 export type Move = {
@@ -45,7 +45,7 @@ export type GameState = {
   status: GameStatus;
   gameOverReason?: GameOverReason;
   takebackRequest: { white?: number; black?: number };
-  drawOffer?: "white" | "black";
+  drawOffer?: PlayerColor;
   completedAt?: string;
 };
 

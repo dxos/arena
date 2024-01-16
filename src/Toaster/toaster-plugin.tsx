@@ -5,13 +5,13 @@ import {
   PluginDefinition,
   useIntent,
 } from "@dxos/app-framework";
-import React, { PropsWithChildren } from "react";
-import { mkIntentBuilder } from "../lib";
-import { atom } from "signia";
-import { v4 as uuid } from "uuid";
 import { Toast } from "@dxos/react-ui";
+import React, { PropsWithChildren } from "react";
+import { atom } from "signia";
 import { useValue } from "signia-react";
 import { match } from "ts-pattern";
+import { v4 as uuid } from "uuid";
+import { mkIntentBuilder } from "../lib";
 
 // --- Constants and Metadata -------------------------------------------------
 export const ToasterPluginMeta = { id: "Toaster", name: "Toaster Plugin" };

@@ -15,13 +15,15 @@ import { createApp, Plugin } from "@dxos/app-framework";
 import { Config, createClientServices, Defaults, Envs, Local } from "@dxos/react-client";
 import { Status, ThemeProvider } from "@dxos/react-ui";
 import { defaultTx } from "@dxos/react-ui-theme";
+
 import { ChessPluginMeta } from "./Chess/chess-plugin";
 import { InvitationPluginMeta } from "./Invitation/invitation-plugin";
 import { LayoutPluginMeta } from "./Layout/layout-plugin";
-import { SynthPluginMeta } from "./Synth/synth-plugin";
 import { RoomManagerPluginMeta } from "./RoomManager/room-manager-plugin";
-import "./fonts/fonts.css";
+import { SynthPluginMeta } from "./Synth/synth-plugin";
 import { ToasterPluginMeta } from "./Toaster/toaster-plugin";
+
+import "./fonts/fonts.css";
 
 const main = async () => {
   const config = new Config(Envs(), Local(), Defaults());
