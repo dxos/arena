@@ -14,12 +14,16 @@ export function useDidTransition<T>(
   toValue: T | ((value: T) => boolean)
 ) {
   const [hasTransitioned, setHasTransitioned] = useState(false);
-  const previousValue = useRef(currentValue);
+  const previousValue = useRef<T>(currentValue);
+
+  // Type guard to check if toValue is a function
+  const isFunction = (functionToCheck: any): functionToCheck is (value: T) => boolean => {
+    return functionToCheck instanceof Function;
+  };
 
   useEffect(() => {
     // Check for the specific transition
-    const toValueValid =
-      typeof toValue === "function" ? (toValue as any)(currentValue) : toValue === currentValue;
+    const toValueValid = isFunction(toValue) ? toValue(currentValue) : toValue === currentValue;
 
     if (previousValue.current === fromValue && toValueValid) {
       setHasTransitioned(true);
