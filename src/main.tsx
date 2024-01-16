@@ -21,6 +21,7 @@ import { LayoutPluginMeta } from "./Layout/layout-plugin";
 import { SynthPluginMeta } from "./Synth/synth-plugin";
 import { RoomManagerPluginMeta } from "./RoomManager/room-manager-plugin";
 import "./fonts/fonts.css";
+import { ToasterPluginMeta } from "./Toaster/toaster-plugin";
 
 const main = async () => {
   const config = new Config(Envs(), Local(), Defaults());
@@ -51,6 +52,7 @@ const main = async () => {
         debugIdentity,
       }),
       [SpaceMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-space")),
+      [ToasterPluginMeta.id]: Plugin.lazy(() => import("./Toaster/toaster-plugin")),
       [RoomManagerPluginMeta.id]: Plugin.lazy(() => import("./RoomManager/room-manager-plugin")),
 
       [SynthPluginMeta.id]: Plugin.lazy(() => import("./Synth/synth-plugin")),
@@ -67,6 +69,7 @@ const main = async () => {
       GraphMeta,
       MetadataMeta,
       LayoutPluginMeta,
+      ToasterPluginMeta,
       RoomManagerPluginMeta,
       SynthPluginMeta,
       InvitationPluginMeta,
