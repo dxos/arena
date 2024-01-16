@@ -8,10 +8,10 @@ import { useRef, useEffect, useState } from "react";
  * @param toValue - The value to which the transition should occur.
  * @returns true if the transition from 'fromValue' to 'toValue' occurred, else false.
  */
-export function useDidTransition(
-  currentValue: any,
-  fromValue: any,
-  toValue: (value: any) => boolean | any
+export function useDidTransition<T>(
+  currentValue: T,
+  fromValue: T,
+  toValue: T | ((value: T) => boolean)
 ) {
   const [hasTransitioned, setHasTransitioned] = useState(false);
   const previousValue = useRef(currentValue);
@@ -19,9 +19,7 @@ export function useDidTransition(
   useEffect(() => {
     // Check for the specific transition
     const toValueValid =
-      typeof toValue === "function" ? toValue(currentValue) : toValue === currentValue;
-
-    console.log(currentValue, fromValue, toValue, toValueValid);
+      typeof toValue === "function" ? (toValue as any)(currentValue) : toValue === currentValue;
 
     if (previousValue.current === fromValue && toValueValid) {
       setHasTransitioned(true);
@@ -44,7 +42,7 @@ export function useDidTransition(
 export function useOnTransition<T>(
   currentValue: T,
   fromValue: T,
-  toValue: (value: T) => boolean | T,
+  toValue: ((value: T) => boolean) | T,
   callback: () => void
 ) {
   const hasTransitioned = useDidTransition(currentValue, fromValue, toValue);

@@ -15,19 +15,14 @@ export const useGameToasts = (
 
   const oppositeColor = oppositePlayerColor(playerColor);
 
-  useOnTransition(
-    drawOffer,
-    undefined,
-    (v) => v === oppositeColor,
-    () => {
-      dispatch(
-        toasterIntent(ToasterIntent.ISSUE_TOAST, {
-          title: `Draw Offer`,
-          description: `${opponentUsername} has offered you a draw`,
-        })
-      );
-    }
-  );
+  useOnTransition(drawOffer, undefined, oppositeColor, () => {
+    dispatch(
+      toasterIntent(ToasterIntent.ISSUE_TOAST, {
+        title: `Draw Offer`,
+        description: `${opponentUsername} has offered you a draw`,
+      })
+    );
+  });
 
   useOnTransition(
     takebackRequest?.[oppositeColor],

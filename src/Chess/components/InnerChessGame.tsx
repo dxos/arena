@@ -1,21 +1,21 @@
+import { useIdentity } from "@dxos/react-client/halo";
+import { Chess } from "chess.js";
 import React, { useCallback, useMemo } from "react";
 import { Chessboard } from "react-chessboard";
 import useMeasure from "react-use-measure";
-import { Panel } from "../../UI/Panel";
-import { GameAction, GameState, Move, PlayerColor, oppositePlayerColor } from "../game";
-import { useGameSounds } from "../hooks/useGameSounds";
-import { useInGameCursor } from "../hooks/useInGameCursor";
-import { useTimeControl, useTimeOut } from "../hooks/useTimeControl";
-import { PlayerInfo } from "./PlayerInfo";
-import { Controls } from "./Controls";
-import { MoveList } from "./MoveList";
-import { Chess } from "chess.js";
-import { findPiece } from "../utils";
-import { useIdentity } from "@dxos/react-client/halo";
 import { useValue } from "signia-react";
 import { usersAtom } from "../../RoomManager/room-manager-plugin";
+import { Panel } from "../../UI/Panel";
+import { GameAction, GameState, Move, PlayerColor, oppositePlayerColor } from "../game";
 import { useGameActions } from "../hooks/useGameActions";
+import { useGameSounds } from "../hooks/useGameSounds";
 import { useGameToasts } from "../hooks/useGameToasts";
+import { useInGameCursor } from "../hooks/useInGameCursor";
+import { useTimeControl, useTimeOut } from "../hooks/useTimeControl";
+import { findPiece } from "../utils";
+import { Controls } from "./Controls";
+import { MoveList } from "./MoveList";
+import { PlayerInfo } from "./PlayerInfo";
 
 const computeSquareStyles = (lastMove: Move | undefined, fen: string) => {
   const game = new Chess(fen);

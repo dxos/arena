@@ -1,8 +1,9 @@
-import { Chess } from "chess.js";
-import { GameStatus, Move } from "../game";
-import { useEffect } from "react";
 import { useIntent } from "@dxos/app-framework";
+import { Chess } from "chess.js";
+import { useEffect } from "react";
 import { SynthIntent, synthIntent } from "../../Synth/synth-plugin";
+import { useOnTransition } from "../../hooks/useTransitions";
+import { GameStatus } from "../game";
 
 export const useGameSounds = (fen: string, status: GameStatus) => {
   const { dispatch } = useIntent();
@@ -17,11 +18,11 @@ export const useGameSounds = (fen: string, status: GameStatus) => {
     }
   }, [fen]);
 
-  useEffect(() => {
-    if (status === "in-progress") {
-      dispatch(synthIntent(SynthIntent.PLAY_SOUND_FROM_ATLAS, { sound: "boot" }));
-    } else if (status === "complete") {
-      dispatch(synthIntent(SynthIntent.PLAY_SOUND_FROM_ATLAS, { sound: "game-over" }));
-    }
-  }, [status]);
+  useOnTransition(status, "in-progress", "complete", () => {
+    dispatch(synthIntent(SynthIntent.PLAY_SOUND_FROM_ATLAS, { sound: "game-over" }));
+  });
+
+  useOnTransition(status, "waiting", "in-progress", () => {
+    dispatch(synthIntent(SynthIntent.PLAY_SOUND_FROM_ATLAS, { sound: "boot" }));
+  });
 };
