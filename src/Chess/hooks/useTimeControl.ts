@@ -76,7 +76,7 @@ export const timeRemaining = (
 };
 
 // --- Atoms -------------------------------------------------------------------
-const timerAtom = atom("timer", { white: 0, black: 0 });
+const timerAtom = atom("timer", { white: 100000, black: 100000 });
 
 export const whiteTimeAtom = computed("white-time-atom", () => timerAtom.value.white);
 export const blackTimeAtom = computed("black-time-atom", () => timerAtom.value.black);
