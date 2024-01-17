@@ -10,7 +10,7 @@ import { useRef, useEffect, useState } from "react";
  */
 export function useDidTransition<T>(
   currentValue: T,
-  fromValue: T,
+  fromValue: T | ((value: T) => boolean),
   toValue: T | ((value: T) => boolean)
 ) {
   const [hasTransitioned, setHasTransitioned] = useState(false);
@@ -24,8 +24,11 @@ export function useDidTransition<T>(
   useEffect(() => {
     // Check for the specific transition
     const toValueValid = isFunction(toValue) ? toValue(currentValue) : toValue === currentValue;
+    const fromValueValid = isFunction(fromValue)
+      ? fromValue(previousValue.current)
+      : fromValue === previousValue.current;
 
-    if (previousValue.current === fromValue && toValueValid) {
+    if (fromValueValid && toValueValid) {
       setHasTransitioned(true);
     } else {
       setHasTransitioned(false);
@@ -45,7 +48,7 @@ export function useDidTransition<T>(
  * When `currentValue` transitions from `fromValue` to `toValue`, the provided `callback` function is executed. */
 export function useOnTransition<T>(
   currentValue: T,
-  fromValue: T,
+  fromValue: T | ((value: T) => boolean),
   toValue: ((value: T) => boolean) | T,
   callback: () => void
 ) {
