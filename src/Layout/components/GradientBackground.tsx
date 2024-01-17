@@ -11,7 +11,7 @@ export const GradientBackground = () => {
 
   return (
     <div
-      className="absolute pointer-events-none inset-0 overflow-hidden z-[-100] opacity-[0.2]"
+      className="absolute pointer-events-none inset-0 overflow-hidden z-[-100] opacity-[0.3]"
       style={styles}
     >
       <div

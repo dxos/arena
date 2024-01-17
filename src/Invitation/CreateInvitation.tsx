@@ -61,7 +61,9 @@ export const CreateInvitation = () => {
       <div>
         <div className="max-w-lg p-1 mx-auto">
           <Panel className="p-4 flex flex-col gap-3">
-            <h2 className="text-2xl font-bold">New Game</h2>
+            <h2 className="text-3xl font-bold" style={{ fontFamily: "EB Garamond" }}>
+              New Game
+            </h2>
             <div className="flex flex-col items-start gap-2">
               <Input.Root>
                 <Input.Label>Game Name</Input.Label>

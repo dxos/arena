@@ -5,7 +5,9 @@ import { Link } from "./Link";
 export const Lobby = () => (
   <div>
     <div className="p-8 flex flex-col items-center gap-4">
-      <h2 className="text-3xl">Lobby</h2>
+      <h2 className="text-3xl" style={{ fontFamily: "EB Garamond" }}>
+        Lobby
+      </h2>
       <Link to={"/create-invitation"}>
         <Button aria-label={"Play with a friend"}>Play with a friend</Button>
       </Link>

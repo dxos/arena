@@ -4,36 +4,13 @@ import { useActiveRoom } from "../../RoomManager/useActiveRoom";
 import { PersonIcon } from "../../icons";
 import { cn } from "../../lib";
 import { Link } from "./Link";
-
-const RoundButton = ({
-  children,
-  label,
-  onClick,
-}: PropsWithChildren<{ label: string; onClick: () => void }>) => {
-  const classNames = cn(
-    "p-2",
-    "flex items-center justify-center",
-    "text-gray-900",
-    "bg-gray-50",
-    "rounded-full border border-gray-200 shadow-sm",
-    "hover:bg-gray-100 hover:border-gray-300",
-    "active:scale-90",
-    "text-xs",
-    "h-8"
-  );
-
-  return (
-    <button type="button" className={classNames} onClick={onClick} aria-label={label}>
-      {children}
-    </button>
-  );
-};
+import { Button } from "../../UI/Buttons";
 
 const Avatar = ({ onClick }: { onClick: () => void }) => {
   return (
-    <RoundButton label="Manage user" onClick={onClick}>
+    <Button aria-label="Manage user" onClick={onClick} size="small" variant="danger">
       <PersonIcon />
-    </RoundButton>
+    </Button>
   );
 };
 
@@ -44,20 +21,41 @@ export const Nav = () => {
   if (!space) return null;
 
   return (
-    <nav className="p-2 sm:p-4 flex justify-between items-center">
+    <nav
+      className="p-4 sm:p-6 flex justify-between items-center"
+      style={{
+        backgroundImage: `linear-gradient(
+      100deg,
+      hsl(240deg 100% 80%) 0%,
+      hsl(278deg 82% 77%) 18%,
+      hsl(314deg 91% 77%) 31%,
+      hsl(329deg 100% 79%) 43%,
+      hsl(347deg 100% 81%) 53%,
+      hsl(10deg 100% 81%) 63%,
+      hsl(28deg 100% 77%) 72%,
+      hsl(40deg 100% 76%) 81%,
+      hsl(50deg 100% 77%) 90%,
+      hsl(66deg 100% 80%) 100%
+    )`,
+      }}
+    >
       {/* TODO(Zan): Don't reload the page */}
       <Link to="/">
         <div>
-          <h1 className="font-bold text-2xl sm:text-3xl">Arena App</h1>
+          <h1 className="text-2xl sm:text-4xl text-white" style={{ fontFamily: "EB Garamond" }}>
+            DXOS Arena App
+          </h1>
         </div>
       </Link>
       <div className="flex items-center gap-2">
-        <RoundButton
-          label="Invite to room"
+        <Button
+          aria-label="Invite to room"
           onClick={() => client.shell.shareSpace({ spaceKey: space.key })}
+          variant={"secondary"}
+          size="small"
         >
           Invite to room
-        </RoundButton>
+        </Button>
         <Avatar onClick={() => client.shell.open()} />
       </div>
     </nav>

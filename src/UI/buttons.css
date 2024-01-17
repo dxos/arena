@@ -1,11 +1,18 @@
 .button {
   font-family: "Jetbrains Mono", sans-serif;
   font-weight: 400;
-  font-size: 0.9rem;
   border: 2px solid transparent;
   border-radius: 2px;
   background-color: #010101;
   box-shadow: 1px 1px 1px rgb(255 255 255 / 0.6);
+}
+
+.button.small {
+  font-size: 0.8rem;
+}
+
+.button.medium {
+  font-size: 0.9rem;
 }
 
 .button-inside {
@@ -33,6 +40,10 @@
   transition-property: transform, background-color, box-shadow;
   transition-duration: 0.1s;
   transition-timing-function: cubic-bezier(0.25, 0.5, 0.5, 1);
+}
+
+.button-inside.small {
+  padding: 8px 10px 5px;
 }
 
 .button:active .button-inside {

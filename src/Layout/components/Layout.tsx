@@ -37,10 +37,13 @@ export const Layout = () => {
   return (
     <div className="h-full w-full">
       <GradientBackground />
+
       <Nav />
-      <AnimatePresence>
-        <FadeView />
-      </AnimatePresence>
+      <div className="h-full w-full mt-4 sm:mt-12">
+        <AnimatePresence>
+          <FadeView />
+        </AnimatePresence>
+      </div>
     </div>
   );
 };
