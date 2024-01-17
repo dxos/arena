@@ -132,3 +132,12 @@ export function checkForWin(cells: Vector3[], winningLines: Vector3[][]) {
 
   return undefined;
 }
+
+export function inWinningLine(cell: Vector3, winningLines: Vector3[][]) {
+  if (!winningLines) return false;
+
+  const id = (x: any) => x;
+
+  const winningCells = winningLines.flatMap(id);
+  return winningCells.some((lineCell) => lineCell.equals(cell));
+}
