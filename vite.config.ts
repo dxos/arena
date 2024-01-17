@@ -34,7 +34,7 @@ export default defineConfig({
   plugins: [
     VaultPlugin(),
     ConfigPlugin(),
-    react({ jsxRuntime: "classic" }),
+    react(),
     ThemePlugin({
       extensions: [osThemeExtension],
       content: [

@@ -2,7 +2,8 @@
   "compilerOptions": {
     "strict": true,
     "esModuleInterop": true,
-    "jsx": "react",
+    "jsx": "preserve",
+    "allowJs": true,
     "emitDeclarationOnly": false,
     "lib": ["DOM", "ESNext"],
     "outDir": "dist",

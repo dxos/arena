@@ -24,6 +24,7 @@ import { SynthPluginMeta } from "./Synth/synth-plugin";
 import { ToasterPluginMeta } from "./Toaster/toaster-plugin";
 
 import "./fonts/fonts.css";
+import { C16dPluginMeta } from "./c16d/c16d-plugin";
 
 const main = async () => {
   const config = new Config(Envs(), Local(), Defaults());
@@ -61,6 +62,7 @@ const main = async () => {
       [LayoutPluginMeta.id]: Plugin.lazy(() => import("./Layout/layout-plugin")),
       [InvitationPluginMeta.id]: Plugin.lazy(() => import("./Invitation/invitation-plugin")),
       [ChessPluginMeta.id]: Plugin.lazy(() => import("./Chess/chess-plugin")),
+      [C16dPluginMeta.id]: Plugin.lazy(() => import("./c16d/c16d-plugin")),
     },
     order: [
       ThemeMeta, // Outside of error boundary so error dialog is styled.
@@ -76,6 +78,7 @@ const main = async () => {
       SynthPluginMeta,
       InvitationPluginMeta,
       ChessPluginMeta,
+      C16dPluginMeta,
     ],
   });
 
