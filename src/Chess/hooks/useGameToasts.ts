@@ -3,6 +3,8 @@ import { GameState, PlayerColor, oppositePlayerColor } from "../game";
 import { ToasterIntent, toasterIntent } from "../../Toaster/toaster-plugin";
 import { useOnTransition } from "../../hooks/useTransitions";
 import { match } from "ts-pattern";
+import { useCallback, useMemo } from "react";
+import { on } from "events";
 
 export const useGameToasts = (
   gameOverReason: GameState["gameOverReason"],
@@ -13,31 +15,33 @@ export const useGameToasts = (
 ) => {
   const { dispatch } = useIntent();
 
-  const oppositeColor = oppositePlayerColor(playerColor);
+  const oppositeColor = useMemo(() => oppositePlayerColor(playerColor), [playerColor]);
 
-  useOnTransition(drawOffer, undefined, oppositeColor, () => {
+  const onDrawOffer = useCallback(() => {
     dispatch(
       toasterIntent(ToasterIntent.ISSUE_TOAST, {
         title: `Draw Offer`,
         description: `${opponentUsername} has offered you a draw`,
       })
     );
-  });
+  }, [dispatch, opponentUsername]);
+
+  useOnTransition(drawOffer, undefined, oppositeColor, onDrawOffer);
+
+  const onTakebackRequest = useCallback(() => {
+    dispatch(
+      toasterIntent(ToasterIntent.ISSUE_TOAST, {
+        title: `Takeback Request`,
+        description: `${opponentUsername} has requested a takeback to move ${takebackRequest[oppositeColor]}.`,
+      })
+    );
+  }, [dispatch, opponentUsername, takebackRequest]);
 
   useOnTransition(
     takebackRequest?.[oppositeColor],
     undefined,
     (v: any) => typeof v === "number",
-    () => {
-      dispatch(
-        toasterIntent(ToasterIntent.ISSUE_TOAST, {
-          title: `Takeback Request`,
-          description: `${opponentUsername} has requested a takeback to move ${
-            takebackRequest[oppositePlayerColor(playerColor)]
-          }.`,
-        })
-      );
-    }
+    onTakebackRequest
   );
 
   useOnTransition(

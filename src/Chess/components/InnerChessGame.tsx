@@ -66,10 +66,13 @@ export const InnerChessGame = ({
     throw new Error("Player color not found");
   }
 
-  const opponentUsername =
-    users.find(
-      (user) => user.identityKey.toHex() === game.players[oppositePlayerColor(playerColor)]
-    )?.profile?.displayName || "Anonymous";
+  const opponentUsername = useMemo(() => {
+    return (
+      users.find(
+        (user) => user.identityKey.toHex() === game.players[oppositePlayerColor(playerColor)]
+      )?.profile?.displayName || "Anonymous"
+    );
+  }, [users, game, playerColor]);
 
   const cursor = useInGameCursor(game.boards);
 

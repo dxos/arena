@@ -1,6 +1,6 @@
 import { useIntent } from "@dxos/app-framework";
 import { Chess } from "chess.js";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { SynthIntent, synthIntent } from "../../Synth/synth-plugin";
 import { useOnTransition } from "../../hooks/useTransitions";
 import { GameStatus } from "../game";
@@ -18,11 +18,14 @@ export const useGameSounds = (fen: string, status: GameStatus) => {
     }
   }, [fen]);
 
-  useOnTransition(status, "in-progress", "complete", () => {
-    dispatch(synthIntent(SynthIntent.PLAY_SOUND_FROM_ATLAS, { sound: "game-over" }));
-  });
-
-  useOnTransition(status, "waiting", "in-progress", () => {
+  const onGameStart = useCallback(() => {
     dispatch(synthIntent(SynthIntent.PLAY_SOUND_FROM_ATLAS, { sound: "boot" }));
-  });
+  }, [dispatch]);
+
+  const onGameComplete = useCallback(() => {
+    dispatch(synthIntent(SynthIntent.PLAY_SOUND_FROM_ATLAS, { sound: "game-over" }));
+  }, [dispatch]);
+
+  useOnTransition(status, "waiting", "in-progress", onGameStart);
+  useOnTransition(status, "in-progress", "complete", onGameComplete);
 };
