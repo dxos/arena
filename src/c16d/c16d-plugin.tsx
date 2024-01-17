@@ -31,7 +31,12 @@ export default function C16dPlugin(): PluginDefinition<C16dPluginProvidesCapabil
       surface: {
         component: ({ data, role }) => {
           console.log(data, role);
-          if (role === "game" && data?.id !== undefined && typeof data.id === "string") {
+
+          if (
+            role === "game" &&
+            data?.gameId === C16dPluginMeta.id &&
+            typeof data?.instanceId === "string"
+          ) {
             return <C16D />;
           }
 
@@ -39,7 +44,7 @@ export default function C16dPlugin(): PluginDefinition<C16dPluginProvidesCapabil
         },
       },
       game: {
-        id: "c16d",
+        id: C16dPluginMeta.id,
         displayName: "Connect4 Advanced",
         variations: [{ displayName: "Standard", id: "standard" }],
         timeControlOptions: undefined,

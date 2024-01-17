@@ -81,7 +81,7 @@ export function C16D() {
 
   return (
     <>
-      <Canvas style={{ height: "100vh", width: "100vw" }}>
+      <Canvas style={{ height: "80vh", width: "100vw" }}>
         <color attach="background" args={["black"]} />
         <PerspectiveCamera makeDefault position={[15, 15, 15]} zoom={2} fov={65} />
         <ambientLight intensity={0.8} />

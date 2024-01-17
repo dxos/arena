@@ -31,15 +31,19 @@ export default function ChessPlugin(): PluginDefinition<ChessPluginProvidesCapab
       intent: { resolver: (intent, _plugins) => console.log(intent) },
       surface: {
         component: ({ data, role }) => {
-          if (role === "game" && data?.id !== undefined && typeof data.id === "string") {
-            return <ChessGame id={data.id} />;
+          if (
+            role === "game" &&
+            typeof data.instanceId === "string" &&
+            data.gameId === ChessPluginMeta.id
+          ) {
+            return <ChessGame id={data.instanceId} />;
           }
 
           return null;
         },
       },
       game: {
-        id: "chess",
+        id: ChessPluginMeta.id,
         displayName: "Chess",
         variations: [{ displayName: "Standard", id: "standard" }],
         timeControlOptions: undefined,

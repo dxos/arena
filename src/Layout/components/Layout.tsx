@@ -22,8 +22,8 @@ export const Layout = () => {
       .with({ type: "invitation", invitationId: P.select("id") }, ({ id }) => (
         <Surface role="invitation" data={{ id }} />
       ))
-      .with({ type: "game", gameId: P.select("id") }, ({ id }) => (
-        <Surface role="game" data={{ id }} />
+      .with({ type: "game" }, ({ gameId, instanceId }) => (
+        <Surface role="game" data={{ gameId, instanceId }} />
       ))
       .with({ type: "not-found" }, () => <NotFound />)
       .with({ type: "choose-room" }, () => <ChooseSpace />)

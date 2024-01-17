@@ -23,7 +23,7 @@ type ViewState =
   | { type: "lobby" }
   | { type: "create-invitation" }
   | { type: "invitation"; invitationId: string }
-  | { type: "game"; gameId: string }
+  | { type: "game"; gameId: string; instanceId: string }
   | { type: "choose-room" }
   | { type: "not-found" };
 
@@ -45,7 +45,7 @@ export namespace LayoutIntent {
   export type OpenLobby = undefined;
   export type NavigateToCreateInvitation = undefined;
   export type OpenInvitation = { invitationId: string };
-  export type OpenGame = { gameId: string };
+  export type OpenGame = { gameId: string; instanceId: string };
   export type ChooseRoom = undefined;
   export type Present404 = undefined;
 }
@@ -66,7 +66,7 @@ const appPaths = [
   ["lobby", "/"],
   ["create-invitation", "/create-invitation"],
   ["invitation", "/play-with-me/:id"],
-  ["game", "/game/:id"],
+  ["game", "/game/:gameId/:id"],
   ["choose-room", "/choose-room"],
 ] as const;
 
@@ -98,7 +98,8 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
               return true;
             })
             .with(LayoutIntent.OPEN_GAME, () => {
-              layoutStateAtom.set({ type: "game", gameId: intent.data.gameId });
+              const { gameId, instanceId } = intent.data;
+              layoutStateAtom.set({ type: "game", gameId, instanceId });
               return true;
             })
             .with(LayoutIntent.CHOOSE_ROOM, () => {
@@ -153,9 +154,10 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
 
           if (foundMatch.length > 0 && foundMatch[0][1] !== false) {
             const [route, { params }] = foundMatch[0];
-            const { id } = params as any as { id: string };
 
-            // TODO(Zan): Make pattern matching more robust by matching on route and params.
+            const { id, gameId } = params as any as { id: string; gameId: string };
+
+            // TODO(Zan): Make pattern matching more robust by matching on route and params!
             match(route)
               .with("lobby", () => dispatch(layoutIntent(LayoutIntent.OPEN_LOBBY)))
               .with("create-invitation", () =>
@@ -164,7 +166,9 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
               .with("invitation", () =>
                 dispatch(layoutIntent(LayoutIntent.OPEN_INVITATION, { invitationId: id }))
               )
-              .with("game", () => dispatch(layoutIntent(LayoutIntent.OPEN_GAME, { gameId: id })))
+              .with("game", () =>
+                dispatch(layoutIntent(LayoutIntent.OPEN_GAME, { gameId: gameId, instanceId: id }))
+              )
               .with("choose-room", () => dispatch(layoutIntent(LayoutIntent.CHOOSE_ROOM)))
               .exhaustive();
           } else {
@@ -198,9 +202,8 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
           };
         }, [handleNavigation]);
 
-        useEffect(() => {
-          handleNavigation();
-        }, [handleNavigation]);
+        // Invoke the navigation handler when the callback is updated. (A bit jank but it works. ¯\_(ツ)_/¯)
+        useEffect(() => handleNavigation(), [handleNavigation]);
 
         // Note: Here is where we can inject data into the rendered surface.
         return <Surface role="main" />;

@@ -129,7 +129,7 @@ const intentResolver = (intent: Intent, plugins: Plugin[]) => {
         data.gameDescription.playerOrdering
       );
 
-      window.history.pushState({}, "", `/game/${data.newEntityId}`);
+      window.history.pushState({}, "", `/game/${gameProvides.id}/${data.newEntityId}`);
     })
     .exhaustive();
 };
