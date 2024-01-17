@@ -4,6 +4,7 @@ import {
   Plugin,
   PluginDefinition,
   SurfaceProvides,
+  parseIntentPlugin,
   resolvePlugin,
 } from "@dxos/app-framework";
 import React, { PropsWithChildren } from "react";
@@ -61,16 +62,19 @@ const actionPrefix = "@arena.dxos.org/Invitation";
 export enum InvitationIntent {
   CREATE_INVITATION = `${actionPrefix}/invite`,
   CREATE_GAME = `${actionPrefix}/create-game`,
+  OPEN_GAME = `${actionPrefix}/open-game`,
 }
 
 export namespace InvitationIntent {
   export type CreateInvitation = { creatorId: string; gameDescription: GameDescription };
   export type CreateGame = Invitation;
+  export type OpenGame = { gameId: string; instanceId: string };
 }
 
 type InvitationIntents = {
   [InvitationIntent.CREATE_INVITATION]: InvitationIntent.CreateInvitation;
-  [InvitationIntent.CREATE_GAME]: InvitationIntent.CREATE_GAME;
+  [InvitationIntent.CREATE_GAME]: InvitationIntent.CreateGame;
+  [InvitationIntent.OPEN_GAME]: InvitationIntent.OpenGame;
 };
 
 export const invitationIntent = mkIntentBuilder<InvitationIntents>(InvitationPluginMeta.id);
@@ -84,6 +88,14 @@ const intentResolver = (intent: Intent, plugins: Plugin[]) => {
   }
 
   const space = roomManagerPlugin.provides.getActiveRoom();
+
+  const intentPlugin = resolvePlugin(plugins, parseIntentPlugin);
+
+  if (!intentPlugin) {
+    throw new Error(`[${InvitationPluginMeta.id}]: Intent plugin not found`);
+  }
+
+  const dispatch = intentPlugin.provides.intent.dispatch;
 
   match(intent.action as InvitationIntent)
     .with(InvitationIntent.CREATE_INVITATION, () => {
@@ -129,7 +141,16 @@ const intentResolver = (intent: Intent, plugins: Plugin[]) => {
         data.gameDescription.playerOrdering
       );
 
-      window.history.pushState({}, "", `/game/${gameProvides.id}/${data.newEntityId}`);
+      dispatch(
+        invitationIntent(InvitationIntent.OPEN_GAME, {
+          gameId: data.gameDescription.gameId,
+          instanceId: data.newEntityId,
+        })
+      );
+    })
+    .with(InvitationIntent.OPEN_GAME, () => {
+      const { gameId, instanceId } = intent.data as InvitationIntent.OpenGame;
+      window.history.pushState({}, "", `/game/${gameId}/${instanceId}`);
     })
     .exhaustive();
 };

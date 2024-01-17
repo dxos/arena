@@ -1,41 +1,12 @@
-import { TypedObject, useQuery } from "@dxos/react-client/echo";
+import { useQuery } from "@dxos/react-client/echo";
 import { useIdentity } from "@dxos/react-client/halo";
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "../Layout/components/Link";
 import { useActiveRoom } from "../RoomManager/useActiveRoom";
 import { Button } from "../UI/Buttons";
-import { useIntent } from "@dxos/app-framework";
-import { InvitationIntent, invitationIntent } from "./invitation-plugin";
 import useClipboard from "../hooks/useClipboard";
-
-const useJoinInvitation = (invitation: TypedObject | undefined) => {
-  const identity = useIdentity();
-  const { dispatch } = useIntent();
-
-  useEffect(() => {
-    if (!identity || !invitation) return;
-
-    const identityKeyHex = identity.identityKey.toHex();
-
-    if (invitation.creatorId !== identityKeyHex) {
-      console.log("We are the second player");
-
-      // We are the second player to join
-      invitation.joiningPlayerId = identityKeyHex;
-      invitation.finalised = true;
-
-      dispatch(invitationIntent(InvitationIntent.CREATE_GAME, invitation as any));
-    }
-  }, [invitation, identity]);
-};
-
-function useRedirectToGame(finalised: boolean | undefined, newEntityId: string | undefined) {
-  useEffect(() => {
-    if (finalised && newEntityId) {
-      window.history.pushState({}, "", `/game/${newEntityId}`);
-    }
-  }, [finalised, newEntityId]);
-}
+import { useJoinInvitation } from "./hooks/useJoinInvitation";
+import { useRedirectToGame } from "./hooks/useRedirectToGame";
 
 export const InvitationView = ({ id }: { id: string }) => {
   const space = useActiveRoom();
@@ -45,7 +16,11 @@ export const InvitationView = ({ id }: { id: string }) => {
   const { isCopied, copy } = useClipboard(window.location.href, { successDuration: 800 });
 
   useJoinInvitation(invitation);
-  useRedirectToGame(invitation?.finalised, invitation?.newEntityId);
+  useRedirectToGame(
+    invitation?.finalised,
+    invitation?.gameDescription.gameId,
+    invitation?.newEntityId
+  );
 
   const handleCancelInvitation = () => {
     if (!space || !invitation || !identity) return;
