@@ -112,7 +112,7 @@ export const InnerChessGame = ({
     <div className="p-1 sm:p-4 grid grid-cols-1 sm:grid-cols-[auto_auto] gap-2 sm:gap-3 justify-center items-start">
       <div ref={ref} className="flex flex-col gap-2 sm:gap-3">
         <PlayerInfo name={opponentUsername} color={oppositePlayerColor(playerColor)} game={game} />
-        <div className="flex-1 p-1 aspect-ratio-1 bg-stone-600 rounded-sm">
+        <div className="flex-1 p-1 aspect-ratio-1 bg-stone-800 rounded-sm">
           <div className="rounded-sm border border-stone-300">
             <Chessboard
               customSquareStyles={squareStyles}
