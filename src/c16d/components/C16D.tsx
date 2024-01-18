@@ -87,7 +87,7 @@ const PlayerIndicator = () => {
 };
 
 export function C16DImpl({ onAddCell }: { onAddCell: (cell: Vector3) => void }) {
-  const { ref, onLeft, onRight } = useCameraControls();
+  const { ref: orbitRef, onLeft, onRight } = useCameraControls();
 
   return (
     <>
@@ -105,7 +105,7 @@ export function C16DImpl({ onAddCell }: { onAddCell: (cell: Vector3) => void }) 
           </group>
         </Suspense>
         <OrbitControls
-          ref={ref}
+          ref={orbitRef}
           enableRotate={true}
           enablePan={false}
           enableDamping={true}
@@ -158,7 +158,7 @@ export function C16D({ id }: { id: string }) {
   const cells = useValue(cellsAtom);
 
   const addCell = useCallback(
-    (selectedCell: Vector3) => {
+    (move: Vector3) => {
       if (!playerColor) {
         console.warn("You cannot play this game");
         console.log(dbGame);
@@ -175,20 +175,20 @@ export function C16D({ id }: { id: string }) {
         if (gameState !== "playing") return cells;
 
         // Must be in bounds of the board
-        if (!cellInBounds(selectedCell, CELL_COUNT)) return cells;
+        if (!cellInBounds(move, CELL_COUNT)) return cells;
 
         // must be above another cell
         if (
-          selectedCell.y > 0 &&
-          !cells.some(({ cell }) => cell.equals(selectedCell.clone().add(new Vector3(0, -1, 0))))
+          move.y > 0 &&
+          !cells.some(({ cell }) => cell.equals(move.clone().add(new Vector3(0, -1, 0))))
         )
           return cells;
 
         // check if already in list
-        if (cells.find(({ cell }) => cell.equals(selectedCell))) {
+        if (cells.find(({ cell }) => cell.equals(move))) {
           return cells;
         } else {
-          return [...cells, { cell: selectedCell, player: playerColor }];
+          return [...cells, { cell: move, player: playerColor }];
         }
       });
     },
