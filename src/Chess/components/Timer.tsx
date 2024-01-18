@@ -14,7 +14,7 @@ export const Timer = ({ color }: { color: PlayerColor }) => {
   const secondsGranular = time / 1000;
 
   return (
-    <div className="h-min p-2 rounded-md sm:rounded-lg text-xl sm:text-2xl leading-none font-mono text-gray-90 bg-gray-50 border border-gray-200 shadow-inner shadow-gray-100">
+    <div className="h-min p-2 rounded-md sm:rounded-lg text-xl sm:text-2xl leading-none font-mono text-gray-90 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 shadow-inner shadow-gray-100 dark:shadow-zinc-900">
       {secondsGranular < 10
         ? `${secondsGranular.toFixed(2)}`
         : `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`}
