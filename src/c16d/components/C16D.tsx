@@ -155,6 +155,8 @@ export function C16D({ id }: { id: string }) {
     [identity, dbGame.players]
   );
 
+  const cells = useValue(cellsAtom);
+
   const addCell = useCallback(
     (selectedCell: Vector3) => {
       if (!playerColor) {
@@ -168,7 +170,7 @@ export function C16D({ id }: { id: string }) {
         return;
       }
 
-      return cellsAtomRaw.update((cells) => {
+      return cellsAtomRaw.update(() => {
         // If game is over, don't add any more cells
         if (gameState !== "playing") return cells;
 
@@ -190,7 +192,7 @@ export function C16D({ id }: { id: string }) {
         }
       });
     },
-    [gameState, identity, turn, playerColor]
+    [gameState, identity, turn, playerColor, cells]
   );
 
   return <C16DImpl onAddCell={addCell} />;
