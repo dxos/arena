@@ -1,6 +1,6 @@
 import { IntentResolverProvides, PluginDefinition, SurfaceProvides } from "@dxos/app-framework";
 import { Expando } from "@dxos/react-client/echo";
-import React, { PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 import { match } from "ts-pattern";
 import { GameProvides } from "../GameProvides";
 import { mkIntentBuilder } from "../lib";
@@ -51,31 +51,31 @@ export default function C16dPlugin(): PluginDefinition<C16dPluginProvidesCapabil
 
         createGame(room, id, variation, timeControl, players, ordering) {
           // TODO(Zan): Initialise the game properly
-
-          const game = {
-            cells: [],
-          } as any;
           // TODO(Zan): Apply variation, time control
+
+          let game = { cells: [] } as any;
 
           const c16dPlayers = match(ordering)
             .with("creator-first", () => ({
-              white: players.creatorId,
-              black: players.challengerId,
+              red: players.creatorId,
+              yellow: players.challengerId,
             }))
             .with("challenger-first", () => ({
-              white: players.challengerId,
-              black: players.creatorId,
+              red: players.challengerId,
+              yellow: players.creatorId,
             }))
             .with("random", () => {
               const random = Math.random() > 0.5;
               return {
-                yellow: random ? players.creatorId : players.challengerId,
-                red: random ? players.challengerId : players.creatorId,
+                red: random ? players.creatorId : players.challengerId,
+                yellow: random ? players.challengerId : players.creatorId,
               };
             })
             .exhaustive();
 
           game.players = c16dPlayers;
+
+          console.log("Creating players", game.players);
 
           room.db.add(new Expando({ type: "game-c16d", gameId: id, ...game }));
         },

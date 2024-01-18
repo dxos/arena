@@ -1,7 +1,7 @@
 import { useQuery } from "@dxos/react-client/echo";
 import { Center, OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { atom, computed, react } from "signia";
 import { useValue } from "signia-react";
 import { Vector3 } from "three";
@@ -13,13 +13,15 @@ import { useCameraControls } from "../hooks/useCameraControls";
 import { enumerateWinningLines } from "../lib/winningLines";
 import { Board } from "./Board";
 import { Plinth } from "./Plinth";
+import { useIdentity } from "@dxos/react-client/halo";
+import { cellInBounds } from "../lib/bounds";
 
 // --- Types ----------------------------------
 export type PlayerColor = "red" | "yellow";
 export type Cell = { cell: Vector3; player: PlayerColor };
 export type GameState = "playing" | "red-won" | "yellow-won" | "draw";
 
-type C16DGame = {
+export type C16DGame = {
   gameId: string;
   variantId: string;
   timeControl: unknown;
@@ -84,7 +86,7 @@ const PlayerIndicator = () => {
   return <div>{turn}'s move</div>;
 };
 
-export function C16DImpl() {
+export function C16DImpl({ onAddCell }: { onAddCell: (cell: Vector3) => void }) {
   const { ref, onLeft, onRight } = useCameraControls();
 
   return (
@@ -97,7 +99,7 @@ export function C16DImpl() {
         <Suspense fallback={null}>
           <group position={[0, -1, 0]}>
             <Center disableY>
-              <Board />
+              <Board onAddCell={onAddCell} />
             </Center>
             <Plinth />
           </group>
@@ -127,35 +129,74 @@ export function C16DImpl() {
 }
 
 export function C16D({ id }: { id: string }) {
-  const [initialised, setInitialised] = useState(false);
-  // Load the game
-  // Initialise the board
-  // Listen to the atoms and update the state
-
   const space = useActiveRoom();
-
+  const identity = useIdentity();
   let [dbGame] = useQuery(space, { type: "game-c16d", gameId: id });
 
-  if (!dbGame) return null;
+  if (!dbGame || !identity) return null;
 
-  // When the dbGame.cells changes, we want to push that change into the local atom
-  // When the local atom changes, we want to push that change into the dbGame.cells
+  // -- Syncing ---------------------------------
+  useGetInitialState(dbGame as any as C16DGame);
+  useSyncLocalChanges(dbGame as any as C16DGame);
+  useSyncIncomingChanges(dbGame as any as C16DGame);
 
-  // Take the dbGame.cells and push it into the local atom
-  useEffect(() => {
-    if (initialised) return;
+  // -- Game Logic ------------------------------
+  const gameState = useValue(gameStateAtom);
+  const turn = useValue(turnAtom);
 
-    cellsAtomRaw.set(dbGame.cells);
-    setInitialised(true);
-  }, [dbGame, initialised, setInitialised]);
+  console.log(dbGame.players);
 
-  useEffect(() => {
-    const stop = react("cellsAtom__reactor", () => {
-      dbGame.cells = cellsAtomRaw.value;
-    });
-    return () => stop();
-  }, [dbGame]);
+  const playerColor = useMemo(
+    () =>
+      match(identity.identityKey.toHex())
+        .with(dbGame.players.red, () => "red")
+        .with(dbGame.players.yellow, () => "yellow")
+        .otherwise(() => undefined),
+    [identity, dbGame.players]
+  );
 
+  const addCell = useCallback(
+    (selectedCell: Vector3) => {
+      if (!playerColor) {
+        console.warn("You cannot play this game");
+        console.log(dbGame);
+        return;
+      }
+
+      if (turn !== playerColor) {
+        console.warn("It's not your turn");
+        return;
+      }
+
+      return cellsAtomRaw.update((cells) => {
+        // If game is over, don't add any more cells
+        if (gameState !== "playing") return cells;
+
+        // Must be in bounds of the board
+        if (!cellInBounds(selectedCell, CELL_COUNT)) return cells;
+
+        // must be above another cell
+        if (
+          selectedCell.y > 0 &&
+          !cells.some(({ cell }) => cell.equals(selectedCell.clone().add(new Vector3(0, -1, 0))))
+        )
+          return cells;
+
+        // check if already in list
+        if (cells.find(({ cell }) => cell.equals(selectedCell))) {
+          return cells;
+        } else {
+          return [...cells, { cell: selectedCell, player: "red" }];
+        }
+      });
+    },
+    [gameState, identity, turn, playerColor]
+  );
+
+  return <C16DImpl onAddCell={addCell} />;
+}
+
+function useSyncIncomingChanges(dbGame: C16DGame) {
   const cells = useValue(cellsAtom);
 
   useEffect(() => {
@@ -167,6 +208,24 @@ export function C16D({ id }: { id: string }) {
 
     cellsAtomRaw.set(dbGame.cells);
   }, [dbGame.cells, cells]);
+}
 
-  return <C16DImpl />;
+function useSyncLocalChanges(dbGame: C16DGame) {
+  useEffect(() => {
+    const stop = react("cellsAtom__reactor", () => {
+      dbGame.cells = cellsAtomRaw.value;
+    });
+    return () => stop();
+  }, [dbGame]);
+}
+
+function useGetInitialState(dbGame: C16DGame) {
+  const [initialised, setInitialised] = useState(false);
+
+  useEffect(() => {
+    if (initialised) return;
+
+    cellsAtomRaw.set(dbGame.cells);
+    setInitialised(true);
+  }, [dbGame, initialised, setInitialised]);
 }

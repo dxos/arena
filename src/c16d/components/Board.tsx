@@ -1,6 +1,5 @@
 import { useValue } from "signia-react";
 import { Vector3 } from "three";
-import { useCells } from "../hooks/useCells";
 import { useTrackGameState } from "../hooks/useTrackGameState";
 import { grid2 } from "../lib/grid2";
 import { checkForWin, inWinningLine } from "../lib/winningLines";
@@ -21,13 +20,11 @@ import { Cell } from "./Cell";
 const upNormal = new Vector3(0, 1, 0);
 const newCellPosition = (clickedCell: Vector3) => clickedCell.clone().add(upNormal);
 
-export function Board() {
-  const { cells, addCell } = useCells();
+export function Board({ onAddCell }: { onAddCell: (selected: Vector3) => void }) {
+  const cells = useValue(cellsAtom);
   const redCells = useValue(redCellsAtom);
   const yellowCells = useValue(yellowCellsAtom);
   const bases = grid2(CELL_COUNT, CELL_COUNT);
-
-  const takingTurn = cells.length % 2 === 0 ? "red" : "yellow";
 
   const redWinningLines = checkForWin(redCells, winningLines);
   const yellowWinningLines = checkForWin(yellowCells, winningLines);
@@ -46,7 +43,7 @@ export function Board() {
             position={pos.clone().multiplyScalar(CELL_SPACING)}
             onClick={(event: any) => {
               const [x, y, z] = pos;
-              addCell(new Vector3(x, y, z), takingTurn);
+              onAddCell(new Vector3(x, y, z));
               event.stopPropagation();
             }}
           />
@@ -62,7 +59,7 @@ export function Board() {
                   .multiplyVectors(v.clone(), new Vector3(CELL_SPACING, 1, CELL_SPACING))
                   .add(new Vector3(0, BASE_OFFSET, 0))}
                 onClick={(event: any) => {
-                  addCell(newCellPosition(v), takingTurn);
+                  onAddCell(newCellPosition(v));
                   event.stopPropagation();
                 }}
                 highlight={
