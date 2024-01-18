@@ -188,7 +188,7 @@ export function C16D({ id }: { id: string }) {
         if (cells.find(({ cell }) => cell.equals(selectedCell))) {
           return cells;
         } else {
-          return [...cells, { cell: selectedCell, player: "red" }];
+          return [...cells, { cell: selectedCell, player: playerColor }];
         }
       });
     },
