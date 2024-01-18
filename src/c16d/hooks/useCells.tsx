@@ -1,13 +1,19 @@
 import { useValue } from "signia-react";
 import { Vector3 } from "three";
-import { cellsAtom, gameStateAtom, PlayerColor, CELL_COUNT } from "../components/C16D";
+import {
+  cellsAtom,
+  gameStateAtom,
+  PlayerColor,
+  CELL_COUNT,
+  cellsAtomRaw,
+} from "../components/C16D";
 
 export const useCells = () => {
   const cells = useValue(cellsAtom);
   const gameState = useValue(gameStateAtom);
 
   const addCell = (move: Vector3, player: PlayerColor) =>
-    cellsAtom.update((cells) => {
+    cellsAtomRaw.update(() => {
       // If game is over, don't add any more cells
       if (gameState !== "playing") return cells;
 

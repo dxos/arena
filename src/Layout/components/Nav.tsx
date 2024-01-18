@@ -43,7 +43,7 @@ export const Nav = () => {
       <Link to="/">
         <div>
           <h1 className="text-2xl sm:text-4xl text-white" style={{ fontFamily: "EB Garamond" }}>
-            DXOS Arena App
+            DXOS Arena
           </h1>
         </div>
       </Link>

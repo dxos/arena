@@ -1,10 +1,12 @@
+import { useQuery } from "@dxos/react-client/echo";
 import { Center, OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { Suspense } from "react";
-import { atom, computed } from "signia";
+import { Suspense, useEffect, useState } from "react";
+import { atom, computed, react } from "signia";
 import { useValue } from "signia-react";
 import { Vector3 } from "three";
 import { match } from "ts-pattern";
+import { useActiveRoom } from "../../RoomManager/useActiveRoom";
 import { Button } from "../../UI/Buttons";
 import { last } from "../../lib/array";
 import { useCameraControls } from "../hooks/useCameraControls";
@@ -17,6 +19,17 @@ export type PlayerColor = "red" | "yellow";
 export type Cell = { cell: Vector3; player: PlayerColor };
 export type GameState = "playing" | "red-won" | "yellow-won" | "draw";
 
+type C16DGame = {
+  gameId: string;
+  variantId: string;
+  timeControl: unknown;
+  players: {
+    red: string;
+    yellow: string;
+  };
+  cells: Cell[];
+};
+
 // --- Constants and Module Scope Variables ---
 export const CELL_COUNT = 4;
 export const CELL_SPACING = 1.66;
@@ -25,7 +38,10 @@ export const winningLines = enumerateWinningLines();
 
 export const gameStateAtom = atom<GameState>("gameStateAtom", "playing");
 
-export const cellsAtom = atom<Cell[]>("cellsAtom", []);
+export const cellsAtomRaw = atom<Cell[]>("cellsAtomRaw", []);
+export const cellsAtom = computed("cellsAtom", () =>
+  cellsAtomRaw.value.map((v) => ({ ...v, cell: new Vector3(v.cell.x, v.cell.y, v.cell.z) }))
+);
 
 export const lastCellAtom = computed("lastCellAtom", () => last(cellsAtom.value));
 
@@ -50,19 +66,11 @@ const GameOverBanner = () => {
     .with("draw", () => "Draw!")
     .run();
 
-  const reset = () => {
-    cellsAtom.set([]);
-    gameStateAtom.set("playing");
-  };
-
   return (
     <div>
       <h2>Game Over</h2>
       <p>{winText}</p>
       {gameState === "draw" && <p>Honestly, I'm impressed.</p>}
-      <Button aria-label="New Game" onClick={reset}>
-        New Game
-      </Button>
     </div>
   );
 };
@@ -76,7 +84,7 @@ const PlayerIndicator = () => {
   return <div>{turn}'s move</div>;
 };
 
-export function C16D() {
+export function C16DImpl() {
   const { ref, onLeft, onRight } = useCameraControls();
 
   return (
@@ -88,7 +96,7 @@ export function C16D() {
         <pointLight position={[-5, 10, 5]} intensity={200} />
         <Suspense fallback={null}>
           <group position={[0, -1, 0]}>
-            <Center>
+            <Center disableY>
               <Board />
             </Center>
             <Plinth />
@@ -116,4 +124,49 @@ export function C16D() {
       <GameOverBanner />
     </>
   );
+}
+
+export function C16D({ id }: { id: string }) {
+  const [initialised, setInitialised] = useState(false);
+  // Load the game
+  // Initialise the board
+  // Listen to the atoms and update the state
+
+  const space = useActiveRoom();
+
+  let [dbGame] = useQuery(space, { type: "game-c16d", gameId: id });
+
+  if (!dbGame) return null;
+
+  // When the dbGame.cells changes, we want to push that change into the local atom
+  // When the local atom changes, we want to push that change into the dbGame.cells
+
+  // Take the dbGame.cells and push it into the local atom
+  useEffect(() => {
+    if (initialised) return;
+
+    cellsAtomRaw.set(dbGame.cells);
+    setInitialised(true);
+  }, [dbGame, initialised, setInitialised]);
+
+  useEffect(() => {
+    const stop = react("cellsAtom__reactor", () => {
+      dbGame.cells = cellsAtomRaw.value;
+    });
+    return () => stop();
+  }, [dbGame]);
+
+  const cells = useValue(cellsAtom);
+
+  useEffect(() => {
+    console.log("Game state changed in db");
+    console.log(dbGame.cells.length);
+    console.log(cells.length);
+
+    if (cells.length === dbGame.cells.length) return;
+
+    cellsAtomRaw.set(dbGame.cells);
+  }, [dbGame.cells, cells]);
+
+  return <C16DImpl />;
 }

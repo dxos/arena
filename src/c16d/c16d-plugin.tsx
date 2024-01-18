@@ -37,7 +37,7 @@ export default function C16dPlugin(): PluginDefinition<C16dPluginProvidesCapabil
             data?.gameId === C16dPluginMeta.id &&
             typeof data?.instanceId === "string"
           ) {
-            return <C16D />;
+            return <C16D id={data.instanceId} />;
           }
 
           return null;
@@ -52,7 +52,9 @@ export default function C16dPlugin(): PluginDefinition<C16dPluginProvidesCapabil
         createGame(room, id, variation, timeControl, players, ordering) {
           // TODO(Zan): Initialise the game properly
 
-          const game = {} as any;
+          const game = {
+            cells: [],
+          } as any;
           // TODO(Zan): Apply variation, time control
 
           const c16dPlayers = match(ordering)
