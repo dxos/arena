@@ -4,8 +4,8 @@ import { cn } from "../lib";
 // TODO: Move this to a theme file
 const customPanelStyles: CSSProperties = {
   boxShadow: `
-    0 0 0 1px rgba(53,72,91,.14),
-    0 2.75px 2.21px rgba(0,0,0,.07),
+    0 0 0 1px rgba(155, 155, 155, 0.065),
+    0 2.75px 3px rgba(0, 0, 0, 0.24),
     0 22px 18px rgba(0,0,0,.01)`,
   backgroundImage: "url('/images/noise.png')",
   backgroundSize: "80px 80px",
@@ -17,12 +17,33 @@ export const Panel = ({ ...props }: PanelProps) => {
   const classNames = cn(
     "text-gray-800",
     "bg-stone-50",
-    "dark: bg-grey-900",
+    "dark:bg-zinc-900",
     "dark:text-white",
     "text-black",
     "rounded-sm",
     props.className
   );
 
-  return <div {...props} className={classNames} style={{ ...customPanelStyles, ...props.style }} />;
+  return (
+    <div
+      className="p-[1px] rounded-[2px]"
+      style={{
+        backgroundImage: `linear-gradient(
+          100deg,
+          hsla(240deg 100% 80% / 0.09) 0%,
+          hsla(278deg 82% 77% / 0.15) 18%,
+          hsla(314deg 91% 77% / 0.22) 31%,
+          hsla(329deg 100% 79% / 0.09) 43%,
+          hsla(347deg 100% 81% / 0.12) 53%,
+          hsla(10deg 100% 81% / 0.09) 63%,
+          hsla(28deg 100% 77% / 0.09) 72%,
+          hsla(40deg 100% 76% / 0.19) 81%,
+          hsla(50deg 100% 77% / 0.09) 90%,
+          hsla(66deg 100% 80% / 0.03) 100%
+        )`,
+      }}
+    >
+      <div {...props} className={classNames} style={{ ...customPanelStyles, ...props.style }} />
+    </div>
+  );
 };
