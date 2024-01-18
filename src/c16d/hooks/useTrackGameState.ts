@@ -2,7 +2,8 @@ import { useEffect } from "react";
 import { Atom, Computed } from "signia";
 import { useValue } from "signia-react";
 import { Vector3 } from "three";
-import { CELL_COUNT, Cell } from "../components/C16D";
+import { Cell } from "../components/C16D";
+import { CELL_COUNT } from "../game";
 
 export const useTrackGameState = (
   cellsAtom: Computed<Cell[]>,

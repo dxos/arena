@@ -1,4 +1,5 @@
 import { Vector3 } from "three";
+import { vec3Equal } from "./vec3";
 
 const dim = 4;
 
@@ -119,7 +120,7 @@ export function checkForWin(cells: Vector3[], winningLines: Vector3[][]) {
     let hasWin = true;
 
     for (const cell of line) {
-      if (!cells.find((c) => c.equals(cell))) {
+      if (!cells.find((c) => vec3Equal(c, cell))) {
         hasWin = false;
         break;
       }
@@ -139,5 +140,5 @@ export function inWinningLine(cell: Vector3, winningLines: Vector3[][]) {
   const id = (x: any) => x;
 
   const winningCells = winningLines.flatMap(id);
-  return winningCells.some((lineCell) => lineCell.equals(cell));
+  return winningCells.some((lineCell) => vec3Equal(lineCell, cell));
 }
