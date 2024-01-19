@@ -1,6 +1,20 @@
 import React, { CSSProperties, HTMLAttributes, PropsWithChildren } from "react";
 import { cn } from "../lib";
 
+const rimGradient = `linear-gradient(
+  100deg,
+  hsla(240deg 100% 80% / 0.09) 0%,
+  hsla(278deg 82% 77% / 0.15) 18%,
+  hsla(314deg 91% 77% / 0.22) 31%,
+  hsla(329deg 100% 79% / 0.09) 43%,
+  hsla(347deg 100% 81% / 0.12) 53%,
+  hsla(10deg 100% 81% / 0.09) 63%,
+  hsla(28deg 100% 77% / 0.09) 72%,
+  hsla(40deg 100% 76% / 0.19) 81%,
+  hsla(50deg 100% 77% / 0.09) 90%,
+  hsla(66deg 100% 80% / 0.03) 100%
+)`;
+
 // TODO: Move this to a theme file
 const customPanelStyles: CSSProperties = {
   boxShadow: `
@@ -11,9 +25,9 @@ const customPanelStyles: CSSProperties = {
   backgroundSize: "80px 80px",
 };
 
-type PanelProps = HTMLAttributes<HTMLDivElement>;
+type PanelProps = { rimLight?: boolean } & HTMLAttributes<HTMLDivElement>;
 
-export const Panel = ({ ...props }: PanelProps) => {
+export const Panel = ({ rimLight, ...props }: PanelProps) => {
   const classNames = cn(
     "text-gray-800",
     "bg-stone-50",
@@ -24,25 +38,10 @@ export const Panel = ({ ...props }: PanelProps) => {
     props.className
   );
 
+  const styles: CSSProperties = rimLight ? { backgroundImage: rimGradient } : {};
+
   return (
-    <div
-      className="p-[1px] rounded-[2px]"
-      style={{
-        backgroundImage: `linear-gradient(
-          100deg,
-          hsla(240deg 100% 80% / 0.09) 0%,
-          hsla(278deg 82% 77% / 0.15) 18%,
-          hsla(314deg 91% 77% / 0.22) 31%,
-          hsla(329deg 100% 79% / 0.09) 43%,
-          hsla(347deg 100% 81% / 0.12) 53%,
-          hsla(10deg 100% 81% / 0.09) 63%,
-          hsla(28deg 100% 77% / 0.09) 72%,
-          hsla(40deg 100% 76% / 0.19) 81%,
-          hsla(50deg 100% 77% / 0.09) 90%,
-          hsla(66deg 100% 80% / 0.03) 100%
-        )`,
-      }}
-    >
+    <div className="p-[1px] rounded-[2px]" style={styles}>
       <div {...props} className={classNames} style={{ ...customPanelStyles, ...props.style }} />
     </div>
   );
