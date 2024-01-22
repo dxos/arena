@@ -44,6 +44,19 @@ export const InvitationView = ({ id }: { id: string }) => {
       </div>
     );
 
+  if (invitation.isOpenGame) {
+    return (
+      <div className="m-8">
+        <div className="p-4 flex flex-col items-center gap-4">
+          <p className="text-lg">This is an open game.</p>
+          <Link to="/">
+            <Button aria-label="Back to lobby">Back to lobby</Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="m-8">
       <div className="p-4 flex flex-col items-center gap-4">

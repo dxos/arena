@@ -38,9 +38,10 @@ export type Invitation = {
   joiningPlayerId?: string;
   finalised: boolean;
   cancelled: boolean;
-  newEntityId: string;
+  isOpenGame: boolean;
 
   gameDescription: GameDescription;
+  newEntityId: string;
 };
 
 export const invitationIdAtom = atom<Invitation | undefined>("invitation-id", undefined);
@@ -66,7 +67,11 @@ export enum InvitationIntent {
 }
 
 export namespace InvitationIntent {
-  export type CreateInvitation = { creatorId: string; gameDescription: GameDescription };
+  export type CreateInvitation = {
+    creatorId: string;
+    gameDescription: GameDescription;
+    isOpenGame: boolean;
+  };
   export type CreateGame = Invitation;
   export type OpenGame = { gameId: string; instanceId: string };
 }
@@ -102,14 +107,13 @@ const intentResolver = (intent: Intent, plugins: Plugin[]) => {
       const data = intent.data as InvitationIntent.CreateInvitation;
 
       const invitation: Invitation = {
+        ...data,
+
         invitationId: uuid(),
-        creatorId: data.creatorId,
         joiningPlayerId: undefined,
         finalised: false,
         cancelled: false,
         newEntityId: uuid(),
-
-        gameDescription: data.gameDescription,
       };
 
       space.db.add(new Expando({ type: "invitation", ...invitation }));

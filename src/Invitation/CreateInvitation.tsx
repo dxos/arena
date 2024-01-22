@@ -8,10 +8,12 @@ import { PlayerOrdering, Variation, playerOrdering } from "../GameProvides";
 import { Button } from "../UI/Buttons";
 import { Panel } from "../UI/Panel";
 import { InvitationIntent, gameProvidesAtom, invitationIntent } from "./invitation-plugin";
+import { searchParamsAtom } from "../Layout/layout-plugin";
 
 const useOnSubmit = () => {
   const identity = useIdentity();
   const { dispatch } = useIntent();
+  const searchParams = useValue(searchParamsAtom);
 
   return useCallback(
     (data: any, _event: any) => {
@@ -27,11 +29,17 @@ const useOnSubmit = () => {
         playerOrdering: data.playerOrdering,
       };
 
+      const openGame = searchParams.get("open");
+
       dispatch(
-        invitationIntent(InvitationIntent.CREATE_INVITATION, { creatorId, gameDescription })
+        invitationIntent(InvitationIntent.CREATE_INVITATION, {
+          creatorId,
+          gameDescription,
+          isOpenGame: openGame === "true",
+        })
       );
     },
-    [dispatch, identity]
+    [dispatch, identity, searchParams]
   );
 };
 
