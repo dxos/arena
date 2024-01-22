@@ -7,7 +7,7 @@ import {
 } from "@dxos/app-framework";
 import { useClient } from "@dxos/react-client";
 import { match as pathMatch } from "path-to-regexp";
-import React, { PropsWithChildren, useCallback, useEffect } from "react";
+import { PropsWithChildren, useCallback, useEffect } from "react";
 import { atom } from "signia";
 import { match } from "ts-pattern";
 import { RoomManagerIntent, roomManagerIntent } from "../RoomManager/room-manager-plugin";
@@ -27,7 +27,14 @@ type ViewState =
   | { type: "choose-room" }
   | { type: "not-found" };
 
-export const layoutStateAtom = atom<ViewState>("layout", { type: "lobby" });
+export const layoutStateAtom = atom<ViewState>("layout", {
+  type: "lobby",
+});
+
+export const searchParamsAtom = atom<URLSearchParams>(
+  "search-params",
+  new URLSearchParams(window.location.search)
+);
 
 // --- Layout Intents ---------------------------------------------------------
 const actionPrefix = "@arena.dxos.org/layout";
@@ -39,6 +46,7 @@ export enum LayoutIntent {
   OPEN_GAME = `${actionPrefix}/open-game`,
   CHOOSE_ROOM = `${actionPrefix}/choose-room`,
   PRESENT_404 = `${actionPrefix}/present-404`,
+  UPDATE_SEARCH_PARAMS = `${actionPrefix}/update-search-params`,
 }
 
 export namespace LayoutIntent {
@@ -48,6 +56,7 @@ export namespace LayoutIntent {
   export type OpenGame = { gameId: string; instanceId: string };
   export type ChooseRoom = undefined;
   export type Present404 = undefined;
+  export type UpdateSearchParams = { searchParams: URLSearchParams };
 }
 
 type LayoutIntents = {
@@ -57,6 +66,7 @@ type LayoutIntents = {
   [LayoutIntent.OPEN_GAME]: LayoutIntent.OpenGame;
   [LayoutIntent.CHOOSE_ROOM]: LayoutIntent.ChooseRoom;
   [LayoutIntent.PRESENT_404]: LayoutIntent.Present404;
+  [LayoutIntent.UPDATE_SEARCH_PARAMS]: LayoutIntent.UpdateSearchParams;
 };
 
 export const layoutIntent = mkIntentBuilder<LayoutIntents>(LayoutPluginMeta.id);
@@ -85,6 +95,11 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
           console.log("Layout Intent Resolver", intent);
 
           return match(intent.action as LayoutIntent)
+            .with(LayoutIntent.UPDATE_SEARCH_PARAMS, () => {
+              const { searchParams } = intent.data;
+              searchParamsAtom.set(searchParams);
+              return true;
+            })
             .with(LayoutIntent.OPEN_CREATE_INVITATION, () => {
               layoutStateAtom.set({ type: "create-invitation" });
               return true;
@@ -123,10 +138,12 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
           console.log("handleNavigation", window.location);
           const path = window.location.pathname;
 
-          const search = new URLSearchParams(window.location.search);
+          const searchParams = new URLSearchParams(window.location.search);
 
-          if (search.has("spaceInvitationCode")) {
-            const invitationCode = search.get("spaceInvitationCode")!;
+          dispatch(layoutIntent(LayoutIntent.UPDATE_SEARCH_PARAMS, { searchParams }));
+
+          if (searchParams.has("spaceInvitationCode")) {
+            const invitationCode = searchParams.get("spaceInvitationCode")!;
 
             console.log("Joining space with invitation code", invitationCode);
 

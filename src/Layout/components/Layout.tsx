@@ -1,15 +1,15 @@
 import { Surface } from "@dxos/app-framework";
+import { AnimatePresence } from "framer-motion";
 import React from "react";
 import { useValue } from "signia-react";
-import { GradientBackground } from "./GradientBackground";
-import { Nav } from "./Nav";
-import { layoutStateAtom } from "../layout-plugin";
 import { P, match } from "ts-pattern";
-import { Lobby } from "./Lobby";
-import { NotFound } from "./NotFound";
 import { Fade } from "../../UI/Fade";
-import { AnimatePresence } from "framer-motion";
+import { layoutStateAtom } from "../layout-plugin";
 import { ChooseSpace } from "./ChooseSpace";
+import { GradientBackground } from "./GradientBackground";
+import { Lobby } from "./Lobby";
+import { Nav } from "./Nav";
+import { NotFound } from "./NotFound";
 
 export const Layout = () => {
   const layoutState = useValue(layoutStateAtom);
