@@ -19,12 +19,12 @@ export const OpenGames = () => {
 
   const users = useValue(usersAtom);
 
-  const grid = cn("grid grid-cols-4 gap-2");
+  const grid = cn("grid grid-cols-[5fr_3fr_4fr_5fr] gap-2");
 
   return (
     <Panel rimLight>
-      <div className="p-4 max-w-4xl">
-        <div className={cn(grid, "p-1 text-lg")} style={{ fontFamily: "EB Garamond" }}>
+      <div className="p-2 sm:p-4 max-w-4xl">
+        <div className={cn(grid, "p-1 text-xs sm:text-lg")} style={{ fontFamily: "EB Garamond" }}>
           <div>Player</div>
           <div>Game</div>
           <div>Variant</div>
@@ -45,7 +45,7 @@ export const OpenGames = () => {
                     "hover:bg-zinc-200 hover:cursor-pointer hover:scale-[101%] transition-transform duration-[80ms] ease-out",
                     "dark:hover:bg-zinc-700",
                     "rounded-md",
-                    "text-sm"
+                    "text-xs sm:text-sm"
                   )}
                 >
                   <div>{creator}</div>
@@ -65,8 +65,8 @@ export const OpenGames = () => {
 
 export const Lobby = () => (
   <div>
-    <div className="p-8 flex flex-col items-center gap-4">
-      <div className="flex flex-row gap-2">
+    <div className="p-2 sm:p-8 flex flex-col items-center gap-4">
+      <div className="flex flex-col items-center sm:flex-row gap-2">
         <Link to="/create-invitation?open=true">
           <Button size="small" aria-label="Create game">
             Create game
@@ -83,7 +83,7 @@ export const Lobby = () => (
           </Button>
         </Link>
       </div>
-      <div className="mt-8">
+      <div className="mt-2 sm:mt-8">
         <h2 className="text-2xl mb-2" style={{ fontFamily: "EB Garamond" }}>
           Lobby
         </h2>
