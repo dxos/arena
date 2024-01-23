@@ -5,7 +5,7 @@ const rimGradient = `linear-gradient(
   100deg,
   hsla(240deg 100% 80% / 0.09) 0%,
   hsla(278deg 82% 77% / 0.15) 18%,
-  hsla(314deg 91% 77% / 0.22) 31%,
+  hsla(314deg 91% 77% / 0.18) 31%,
   hsla(329deg 100% 79% / 0.09) 43%,
   hsla(347deg 100% 81% / 0.12) 53%,
   hsla(10deg 100% 81% / 0.09) 63%,
