@@ -1,3 +1,4 @@
+import { parseClientPlugin } from "@braneframe/plugin-client";
 import {
   Intent,
   IntentResolverProvides,
@@ -7,16 +8,16 @@ import {
   parseIntentPlugin,
   resolvePlugin,
 } from "@dxos/app-framework";
-import React, { PropsWithChildren } from "react";
+import { Expando } from "@dxos/react-client/echo";
+import { PropsWithChildren } from "react";
 import { atom } from "signia";
+import { match } from "ts-pattern";
+import { v4 as uuid } from "uuid";
 import { GameProvides, PlayerOrdering } from "../GameProvides";
 import { parseRoomManagerPlugin } from "../RoomManager/room-manager-plugin";
 import { mkIntentBuilder } from "../lib";
 import { CreateInvitation } from "./CreateInvitation";
 import { InvitationView } from "./Invitation";
-import { Expando } from "@dxos/react-client/echo";
-import { v4 as uuid } from "uuid";
-import { match } from "ts-pattern";
 
 // --- Constants and Metadata -------------------------------------------------
 export const InvitationPluginMeta = { id: "Invitation", name: "Invitation plugin" };
@@ -64,6 +65,8 @@ export enum InvitationIntent {
   CREATE_INVITATION = `${actionPrefix}/invite`,
   CREATE_GAME = `${actionPrefix}/create-game`,
   OPEN_GAME = `${actionPrefix}/open-game`,
+  JOIN_INVITATION = `${actionPrefix}/mark-invitation-finalised`,
+  CANCEL_INVITATION = `${actionPrefix}/mark-invitation-cancelled`,
 }
 
 export namespace InvitationIntent {
@@ -74,12 +77,16 @@ export namespace InvitationIntent {
   };
   export type CreateGame = Invitation;
   export type OpenGame = { gameId: string; instanceId: string };
+  export type JoinInvitation = { invitationId: string };
+  export type CancelInvitation = { invitationId: string };
 }
 
 type InvitationIntents = {
   [InvitationIntent.CREATE_INVITATION]: InvitationIntent.CreateInvitation;
   [InvitationIntent.CREATE_GAME]: InvitationIntent.CreateGame;
   [InvitationIntent.OPEN_GAME]: InvitationIntent.OpenGame;
+  [InvitationIntent.JOIN_INVITATION]: InvitationIntent.JoinInvitation;
+  [InvitationIntent.CANCEL_INVITATION]: InvitationIntent.CancelInvitation;
 };
 
 export const invitationIntent = mkIntentBuilder<InvitationIntents>(InvitationPluginMeta.id);
@@ -101,6 +108,19 @@ const intentResolver = (intent: Intent, plugins: Plugin[]) => {
   }
 
   const dispatch = intentPlugin.provides.intent.dispatch;
+
+  const clientPlugin = resolvePlugin(plugins, parseClientPlugin);
+
+  if (!clientPlugin) {
+    throw new Error(`[${InvitationPluginMeta.id}]: Client plugin not found`);
+  }
+
+  const identity = clientPlugin.provides.client.halo.identity.get();
+  const identityHex = identity?.identityKey.toHex();
+
+  if (!identityHex) {
+    throw new Error(`[${InvitationPluginMeta.id}]: No identity found`);
+  }
 
   match(intent.action as InvitationIntent)
     .with(InvitationIntent.CREATE_INVITATION, () => {
@@ -155,6 +175,33 @@ const intentResolver = (intent: Intent, plugins: Plugin[]) => {
     .with(InvitationIntent.OPEN_GAME, () => {
       const { gameId, instanceId } = intent.data as InvitationIntent.OpenGame;
       window.history.pushState({}, "", `/game/${gameId}/${instanceId}`);
+    })
+    .with(InvitationIntent.JOIN_INVITATION, () => {
+      const { invitationId } = intent.data as InvitationIntent.JoinInvitation;
+      const { objects } = space.db.query({ type: "invitation", invitationId });
+      const [invitation] = objects;
+
+      if (invitation.creatorId !== identityHex) {
+        console.log("We are the second player");
+
+        invitation.joiningPlayerId = identityHex;
+        invitation.finalised = true;
+
+        dispatch(invitationIntent(InvitationIntent.CREATE_GAME, invitation as any));
+      }
+    })
+    .with(InvitationIntent.CANCEL_INVITATION, () => {
+      const { invitationId } = intent.data as InvitationIntent.JoinInvitation;
+      const { objects } = space.db.query({ type: "invitation", invitationId });
+      const [invitation] = objects;
+
+      if (identityHex !== invitation.creatorId) {
+        console.warn("Only the creator can cancel an invitation");
+        return;
+      }
+
+      invitation.cancelled = true;
+      window.history.pushState({}, "", "/");
     })
     .exhaustive();
 };

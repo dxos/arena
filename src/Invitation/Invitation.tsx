@@ -1,38 +1,51 @@
+import { useIntent } from "@dxos/app-framework";
 import { useQuery } from "@dxos/react-client/echo";
-import { useIdentity } from "@dxos/react-client/halo";
-import React from "react";
+import { useEffect } from "react";
 import { Link } from "../Layout/components/Link";
 import { useActiveRoom } from "../RoomManager/useActiveRoom";
 import { Button } from "../UI/Buttons";
 import useClipboard from "../hooks/useClipboard";
-import { useJoinInvitation } from "./hooks/useJoinInvitation";
-import { useRedirectToGame } from "./hooks/useRedirectToGame";
+import { InvitationIntent, invitationIntent } from "./invitation-plugin";
 
 export const InvitationView = ({ id }: { id: string }) => {
   const space = useActiveRoom();
-  const [invitation] = useQuery(space, { type: "invitation", invitationId: id });
-  const identity = useIdentity();
+  const { dispatch } = useIntent();
+  const [dbInvitation] = useQuery(space, { type: "invitation", invitationId: id });
 
   const { isCopied, copy } = useClipboard(window.location.href, { successDuration: 800 });
 
-  useJoinInvitation(invitation);
-  useRedirectToGame(
-    invitation?.finalised,
-    invitation?.gameDescription.gameId,
-    invitation?.newEntityId
-  );
+  useEffect(() => {
+    dispatch(
+      invitationIntent(InvitationIntent.JOIN_INVITATION, {
+        invitationId: dbInvitation?.invitationId,
+      })
+    );
+  }, [dispatch, dbInvitation?.invitationId]);
+
+  useEffect(() => {
+    if (dbInvitation?.finalised) {
+      dispatch(
+        invitationIntent(InvitationIntent.OPEN_GAME, {
+          gameId: dbInvitation.gameDescription.gameId,
+          instanceId: dbInvitation.newEntityId,
+        })
+      );
+    }
+  }, [
+    dispatch,
+    dbInvitation?.finalised,
+    dbInvitation?.gameDescription.gameId,
+    dbInvitation?.newEntityId,
+  ]);
 
   const handleCancelInvitation = () => {
-    if (!space || !invitation || !identity) return;
-    if (identity.identityKey.toHex() !== invitation.creatorId) return;
-
-    invitation.cancelled = true;
-    window.history.pushState({}, "", "/");
+    if (!space || !dbInvitation) return;
+    dispatch(invitationIntent(InvitationIntent.CANCEL_INVITATION, { invitationId: id }));
   };
 
-  if (!invitation) return null;
+  if (!dbInvitation) return null;
 
-  if (invitation.cancelled)
+  if (dbInvitation.cancelled)
     return (
       <div className="m-8">
         <div className="p-4 flex flex-col items-center gap-4">
@@ -44,7 +57,7 @@ export const InvitationView = ({ id }: { id: string }) => {
       </div>
     );
 
-  if (invitation.isOpenGame) {
+  if (dbInvitation.isOpenGame) {
     return (
       <div className="m-8">
         <div className="p-4 flex flex-col items-center gap-4">
