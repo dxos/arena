@@ -13,6 +13,7 @@ import { match } from "ts-pattern";
 import { RoomManagerIntent, roomManagerIntent } from "../RoomManager/room-manager-plugin";
 import { mkIntentBuilder } from "../lib";
 import { Layout } from "./components/Layout";
+import { appPaths } from "./routes";
 
 // --- Layout Constants and Metadata -------------------------------------------
 export const LayoutPluginMeta = { id: "layout", name: "Layout Plugin" };
@@ -70,15 +71,6 @@ type LayoutIntents = {
 };
 
 export const layoutIntent = mkIntentBuilder<LayoutIntents>(LayoutPluginMeta.id);
-
-// --- App Routing -------------------------------------------------------------
-const appPaths = [
-  ["lobby", "/"],
-  ["create-invitation", "/create-invitation"],
-  ["invitation", "/play-with-me/:id"],
-  ["game", "/game/:gameId/:id"],
-  ["choose-room", "/choose-room"],
-] as const;
 
 // --- Plugin Definition ------------------------------------------------------
 type LayoutPluginProvidesCapabilities = IntentResolverProvides & SurfaceProvides;

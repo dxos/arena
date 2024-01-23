@@ -1,55 +1,64 @@
-import React, { Fragment } from "react";
-import { Button } from "../../UI/Buttons";
-import { Link } from "./Link";
-import { Panel } from "../../UI/Panel";
 import { useQuery } from "@dxos/react-client/echo";
 import { useValue } from "signia-react";
 import { usersAtom } from "../../RoomManager/room-manager-plugin";
 import { useActiveRoom } from "../../RoomManager/useActiveRoom";
+import { Button } from "../../UI/Buttons";
+import { Panel } from "../../UI/Panel";
+import { cn } from "../../lib";
+import { routes } from "../routes";
+import { Link } from "./Link";
 
 export const OpenGames = () => {
   const space = useActiveRoom();
-  const invitations = useQuery(space, { type: "invitation", finalised: false, cancelled: false });
+  const invitations = useQuery(space, {
+    type: "invitation",
+    finalised: false,
+    cancelled: false,
+    isOpenGame: true,
+  });
 
   const users = useValue(usersAtom);
+
+  const grid = cn("grid grid-cols-4 gap-2");
 
   return (
     <Panel rimLight>
       <div className="p-4 max-w-4xl">
-        {/* CSS Grid Table with Tailwind (Game, Username, Variant, Player Ordering, ) */}
-        <div className="grid grid-cols-4 gap-2">
-          <div className="font-bold">Game</div>
-          <div className="font-bold">Username</div>
-          <div className="font-bold">Variant</div>
-          {/* <div className="font-bold">Player Ordering</div>
+        <div className={cn(grid, "p-1 text-lg")} style={{ fontFamily: "EB Garamond" }}>
+          <div>Player</div>
+          <div>Game</div>
+          <div>Variant</div>
+          <div>Player Ordering</div>
+        </div>
+        <div className={"flex flex-col"} style={{ fontFamily: "Jetbrains Mono" }}>
           {invitations.map((invitation) => {
             const creator = users.find((u) => u.identityKey.toHex() === invitation.creatorId)
               ?.profile?.displayName;
 
             return (
-              <Fragment key={invitation.id}>
-                <div>{invitation.gameDescription.gameId}</div>
-              </Fragment>
+              <Link key={invitation.invitationId} to={routes.invitation(invitation.invitationId)}>
+                <div
+                  className={cn(
+                    grid,
+                    "w-full",
+                    "p-1",
+                    "hover:bg-zinc-200 hover:cursor-pointer hover:scale-[101%] transition-transform duration-[80ms] ease-out",
+                    "dark:hover:bg-zinc-700",
+                    "rounded-md",
+                    "text-sm"
+                  )}
+                >
+                  <div>{creator}</div>
+                  <div>{invitation.gameDescription.gameId}</div>
+                  <div>{invitation.gameDescription.variantId}</div>
+                  <div>{invitation.gameDescription.playerOrdering}</div>
+                </div>
+              </Link>
             );
-          })} */}
+          })}
+          {invitations.length === 0 && <div className="p-1 mt-2 text-sm">No open games</div>}
         </div>
-        <code>
-          <pre>
-            {JSON.stringify(
-              invitations.map((x) => ({
-                creator: users.find((u) => u.identityKey.toHex() === x.creatorId)?.profile
-                  ?.displayName,
-                game: x.gameDescription,
-              })),
-              null,
-              2
-            )}
-          </pre>
-        </code>
       </div>
-      <Button size="small" aria-label="Refresh">
-        Refresh
-      </Button>
     </Panel>
   );
 };
@@ -74,7 +83,12 @@ export const Lobby = () => (
           </Button>
         </Link>
       </div>
-      <OpenGames />
+      <div className="mt-8">
+        <h2 className="text-2xl mb-2" style={{ fontFamily: "EB Garamond" }}>
+          Lobby
+        </h2>
+        <OpenGames />
+      </div>
     </div>
   </div>
 );

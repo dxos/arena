@@ -4,17 +4,20 @@ import { useEffect } from "react";
 import { Link } from "../Layout/components/Link";
 import { useActiveRoom } from "../RoomManager/useActiveRoom";
 import { Button } from "../UI/Buttons";
+import { Panel } from "../UI/Panel";
 import useClipboard from "../hooks/useClipboard";
 import { InvitationIntent, invitationIntent } from "./invitation-plugin";
 
 export const InvitationView = ({ id }: { id: string }) => {
   const space = useActiveRoom();
   const { dispatch } = useIntent();
+
   const [dbInvitation] = useQuery(space, { type: "invitation", invitationId: id });
 
   const { isCopied, copy } = useClipboard(window.location.href, { successDuration: 800 });
 
   useEffect(() => {
+    if (!dbInvitation?.invitationId) return;
     dispatch(
       invitationIntent(InvitationIntent.JOIN_INVITATION, {
         invitationId: dbInvitation?.invitationId,
@@ -27,7 +30,7 @@ export const InvitationView = ({ id }: { id: string }) => {
       dispatch(
         invitationIntent(InvitationIntent.OPEN_GAME, {
           gameId: dbInvitation.gameDescription.gameId,
-          instanceId: dbInvitation.newEntityId,
+          instanceId: dbInvitation.instanceId,
         })
       );
     }
@@ -35,7 +38,7 @@ export const InvitationView = ({ id }: { id: string }) => {
     dispatch,
     dbInvitation?.finalised,
     dbInvitation?.gameDescription.gameId,
-    dbInvitation?.newEntityId,
+    dbInvitation?.instanceId,
   ]);
 
   const handleCancelInvitation = () => {
@@ -43,7 +46,22 @@ export const InvitationView = ({ id }: { id: string }) => {
     dispatch(invitationIntent(InvitationIntent.CANCEL_INVITATION, { invitationId: id }));
   };
 
-  if (!dbInvitation) return null;
+  if (!dbInvitation) {
+    return (
+      <div className="max-w-xl mx-auto">
+        <Panel rimLight className="p-4 flex flex-col gap-2">
+          <h3 className="text-lg" style={{ fontFamily: "EB Garamond" }}>
+            We can't find that invitation.
+          </h3>
+          <Link to="/">
+            <Button aria-label="Back to lobby" variant="danger" size="small">
+              Back to lobby
+            </Button>
+          </Link>
+        </Panel>
+      </div>
+    );
+  }
 
   if (dbInvitation.cancelled)
     return (
@@ -63,7 +81,9 @@ export const InvitationView = ({ id }: { id: string }) => {
         <div className="p-4 flex flex-col items-center gap-4">
           <p className="text-lg">This is an open game.</p>
           <Link to="/">
-            <Button aria-label="Back to lobby">Back to lobby</Button>
+            <Button onClick={handleCancelInvitation} aria-label="Back to lobby" variant="danger">
+              Back to lobby
+            </Button>
           </Link>
         </div>
       </div>
@@ -82,8 +102,8 @@ export const InvitationView = ({ id }: { id: string }) => {
             {isCopied ? "Copied ✅" : "Copy 📋"}
           </Button>
         </div>
-        <Button onClick={handleCancelInvitation} aria-label="Cancel invitation" variant="danger">
-          Cancel Invitation
+        <Button onClick={handleCancelInvitation} aria-label="Back to lobby" variant="danger">
+          Back to lobby
         </Button>
       </div>
     </div>

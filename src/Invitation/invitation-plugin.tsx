@@ -14,8 +14,10 @@ import { atom } from "signia";
 import { match } from "ts-pattern";
 import { v4 as uuid } from "uuid";
 import { GameProvides, PlayerOrdering } from "../GameProvides";
+import { routes } from "../Layout/routes";
 import { parseRoomManagerPlugin } from "../RoomManager/room-manager-plugin";
 import { mkIntentBuilder } from "../lib";
+import { removeMany } from "../lib/db";
 import { CreateInvitation } from "./CreateInvitation";
 import { InvitationView } from "./Invitation";
 
@@ -42,7 +44,7 @@ export type Invitation = {
   isOpenGame: boolean;
 
   gameDescription: GameDescription;
-  newEntityId: string;
+  instanceId: string;
 };
 
 export const invitationIdAtom = atom<Invitation | undefined>("invitation-id", undefined);
@@ -126,6 +128,8 @@ const intentResolver = (intent: Intent, plugins: Plugin[]) => {
     .with(InvitationIntent.CREATE_INVITATION, () => {
       const data = intent.data as InvitationIntent.CreateInvitation;
 
+      console.log("Creating invitation", data);
+
       const invitation: Invitation = {
         ...data,
 
@@ -133,11 +137,20 @@ const intentResolver = (intent: Intent, plugins: Plugin[]) => {
         joiningPlayerId: undefined,
         finalised: false,
         cancelled: false,
-        newEntityId: uuid(),
+        instanceId: uuid(),
       };
 
+      const { objects } = space.db.query({
+        type: "invitation",
+        creatorId: invitation.creatorId,
+        cancelled: false,
+        finalised: false,
+      });
+
+      removeMany(space.db, objects);
+
       space.db.add(new Expando({ type: "invitation", ...invitation }));
-      window.history.pushState({}, "", `/play-with-me/${invitation.invitationId}`);
+      window.history.pushState({}, "", routes.invitation(invitation.invitationId));
     })
     .with(InvitationIntent.CREATE_GAME, () => {
       const data = intent.data as InvitationIntent.CreateGame;
@@ -158,7 +171,7 @@ const intentResolver = (intent: Intent, plugins: Plugin[]) => {
 
       gameProvides.createGame(
         space,
-        data.newEntityId,
+        data.instanceId,
         data.gameDescription.variantId,
         data.gameDescription.timeControl,
         { creatorId: data.creatorId, challengerId: data.joiningPlayerId },
@@ -168,13 +181,13 @@ const intentResolver = (intent: Intent, plugins: Plugin[]) => {
       dispatch(
         invitationIntent(InvitationIntent.OPEN_GAME, {
           gameId: data.gameDescription.gameId,
-          instanceId: data.newEntityId,
+          instanceId: data.instanceId,
         })
       );
     })
     .with(InvitationIntent.OPEN_GAME, () => {
       const { gameId, instanceId } = intent.data as InvitationIntent.OpenGame;
-      window.history.pushState({}, "", `/game/${gameId}/${instanceId}`);
+      window.history.pushState({}, "", routes.game(gameId, instanceId));
     })
     .with(InvitationIntent.JOIN_INVITATION, () => {
       const { invitationId } = intent.data as InvitationIntent.JoinInvitation;
@@ -201,7 +214,7 @@ const intentResolver = (intent: Intent, plugins: Plugin[]) => {
       }
 
       invitation.cancelled = true;
-      window.history.pushState({}, "", "/");
+      window.history.pushState({}, "", routes.root);
     })
     .exhaustive();
 };
