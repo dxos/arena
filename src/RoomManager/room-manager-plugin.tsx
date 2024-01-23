@@ -6,7 +6,6 @@ import {
   PluginDefinition,
   resolvePlugin,
 } from "@dxos/app-framework";
-import { PublicKey } from "@dxos/react-client";
 import { Space } from "@dxos/react-client/echo";
 import { Identity } from "@dxos/react-client/halo";
 import { atom, computed } from "signia";
@@ -51,7 +50,7 @@ export enum RoomManagerIntent {
 }
 
 export namespace RoomManagerIntent {
-  export type JoinRoom = { spaceKey: PublicKey };
+  export type JoinRoom = { spaceKey: string };
 }
 
 type RoomManagerIntents = {
@@ -64,9 +63,9 @@ const intentResolver = (intent: Intent, _plugins: Plugin[]) => {
   switch (intent.action) {
     case RoomManagerIntent.JOIN_ROOM: {
       const { spaceKey } = intent.data as RoomManagerIntent.JoinRoom;
-      console.log("Joining room", spaceKey.toHex());
+      console.log("Joining room", spaceKey);
 
-      activeRoomKeyAtom.set(spaceKey.toHex());
+      activeRoomKeyAtom.set(spaceKey);
       break;
     }
   }
@@ -103,7 +102,7 @@ export default function RoomManagerPlugin(): PluginDefinition<RoomManagerProvide
       subscriptions.add(
         (client.spaces as any).subscribe((spaces: Space[]) => {
           allRoomsAtom.set(spaces);
-          availableRoomKeysAtom.set(spaces.map((space) => space.key));
+          availableRoomKeysAtom.set(spaces.map((space) => space.key.toHex()));
 
           // Collect all users
           // TODO(Zan): This probably won't be reactive when a user joins a room

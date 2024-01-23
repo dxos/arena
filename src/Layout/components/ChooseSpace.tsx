@@ -1,10 +1,8 @@
 import { useIntent } from "@dxos/app-framework";
-import { PublicKey } from "@dxos/react-client";
-import React from "react";
 import { RoomManagerIntent, roomManagerIntent } from "../../RoomManager/room-manager-plugin";
+import { useActiveRoom } from "../../RoomManager/useActiveRoom";
 import { useRoomList } from "../../RoomManager/useRoomList";
 import { Button } from "../../UI/Buttons";
-import { useActiveRoom } from "../../RoomManager/useActiveRoom";
 
 export const ChooseSpace = () => {
   const spaceList = useRoomList();
@@ -12,20 +10,19 @@ export const ChooseSpace = () => {
 
   const activeSpace = useActiveRoom();
 
-  const onJoinSpace = (key: PublicKey) => {
-    dispatch(roomManagerIntent(RoomManagerIntent.JOIN_ROOM, { spaceKey: key }));
+  const onJoinSpace = (spaceKey: string) => {
+    dispatch(roomManagerIntent(RoomManagerIntent.JOIN_ROOM, { spaceKey }));
   };
 
   return (
     <div className="flex flex-col items-center justify-center h-full gap-2">
       <h2>Choose a room to join</h2>
       {spaceList.map((spaceKey) => {
-        const keyHex = spaceKey.toHex();
-        const isActive = activeSpace?.key.toHex() === keyHex;
+        const isActive = activeSpace?.key.toHex() === spaceKey;
         return (
-          <div key={keyHex}>
+          <div key={spaceKey}>
             <code>
-              {isActive && "(active) "} {keyHex.substring(0, 32)}...
+              {isActive && "(active) "} {spaceKey.substring(0, 32)}...
             </code>
             <Button
               onClick={() => onJoinSpace(spaceKey)}

@@ -77,8 +77,8 @@ export const Lobby = () => (
           </Button>
         </Link>
         <Link to="/choose-room">
-          <Button size="small" aria-label="Choose room">
-            Choose room
+          <Button size="small" aria-label="Change room">
+            Change room
           </Button>
         </Link>
       </div>
