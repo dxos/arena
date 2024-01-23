@@ -79,7 +79,13 @@ export const InvitationView = ({ id }: { id: string }) => {
     return (
       <div className="m-8">
         <div className="p-4 flex flex-col items-center gap-4">
-          <p className="text-lg">This is an open game.</p>
+          <p className="text-md" style={{ fontFamily: "Jetbrains Mono" }}>
+            Waiting for player.
+          </p>
+          <p className="text-md" style={{ fontFamily: "Jetbrains Mono" }}>
+            Everyone in your room can see this game in the room lobby.
+          </p>
+
           <Link to="/">
             <Button onClick={handleCancelInvitation} aria-label="Back to lobby" variant="danger">
               Back to lobby
