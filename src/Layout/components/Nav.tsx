@@ -1,10 +1,8 @@
 import { useClient } from "@dxos/react-client";
-import React, { PropsWithChildren } from "react";
 import { useActiveRoom } from "../../RoomManager/useActiveRoom";
-import { PersonIcon } from "../../icons";
-import { cn } from "../../lib";
-import { Link } from "./Link";
 import { Button } from "../../UI/Buttons";
+import { PersonIcon } from "../../icons";
+import { Link } from "./Link";
 
 const Avatar = ({ onClick }: { onClick: () => void }) => {
   return (
@@ -39,7 +37,6 @@ export const Nav = () => {
     )`,
       }}
     >
-      {/* TODO(Zan): Don't reload the page */}
       <Link to="/">
         <div>
           <h1 className="text-2xl sm:text-4xl text-white" style={{ fontFamily: "EB Garamond" }}>

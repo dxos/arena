@@ -1,6 +1,6 @@
 import { useQuery } from "@dxos/react-client/echo";
 import { useValue } from "signia-react";
-import { usersAtom } from "../../RoomManager/room-manager-plugin";
+import { usernamesAtom, usersAtom } from "../../RoomManager/room-manager-plugin";
 import { useActiveRoom } from "../../RoomManager/useActiveRoom";
 import { Button } from "../../UI/Buttons";
 import { Panel } from "../../UI/Panel";
@@ -17,7 +17,7 @@ export const OpenGames = () => {
     isOpenGame: true,
   });
 
-  const users = useValue(usersAtom);
+  const usernames = useValue(usernamesAtom);
 
   const grid = cn("grid grid-cols-[5fr_3fr_4fr_5fr] gap-2");
 
@@ -32,8 +32,7 @@ export const OpenGames = () => {
         </div>
         <div className={"flex flex-col"} style={{ fontFamily: "Jetbrains Mono" }}>
           {invitations.map((invitation) => {
-            const creator = users.find((u) => u.identityKey.toHex() === invitation.creatorId)
-              ?.profile?.displayName;
+            const creator = usernames[invitation.creatorId];
 
             return (
               <Link key={invitation.invitationId} to={routes.invitation(invitation.invitationId)}>
