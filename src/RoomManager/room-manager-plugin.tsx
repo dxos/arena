@@ -20,8 +20,8 @@ import { atomWithStorage } from "../lib/atomWithStorage";
 export const RoomManagerPluginMeta = { id: "room-manager", name: "Room manager" };
 
 // --- State ------------------------------------------------------------------
-export const activeRoomKeyAtom = atomWithStorage<PublicKey | undefined>("activeRoom", undefined);
-export const availableRoomKeysAtom = atom<PublicKey[]>("availableRooms", []);
+export const activeRoomKeyAtom = atomWithStorage<string | undefined>("activeRoom", undefined);
+export const availableRoomKeysAtom = atom<string[]>("availableRooms", []);
 
 const allRoomsAtom = atom<Space[]>("allRooms", []);
 
@@ -37,6 +37,11 @@ const activeRoomAtom = computed("computedActiveSpace", () => {
 });
 
 export const usersAtom = atom<Identity[]>("users", []);
+export const usernamesAtom = computed("usernames", () =>
+  Object.fromEntries(
+    usersAtom.value.map((u) => [u.identityKey.toHex(), u.profile?.displayName || "Anonymous"])
+  )
+);
 
 // --- Intents ----------------------------------------------------------------
 const actionPrefix = "@arena.dxos.org/room-manager";
@@ -61,7 +66,7 @@ const intentResolver = (intent: Intent, _plugins: Plugin[]) => {
       const { spaceKey } = intent.data as RoomManagerIntent.JoinRoom;
       console.log("Joining room", spaceKey.toHex());
 
-      activeRoomKeyAtom.set(spaceKey);
+      activeRoomKeyAtom.set(spaceKey.toHex());
       break;
     }
   }
