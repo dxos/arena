@@ -144,7 +144,9 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
               const space = joinSpaceResult.space;
 
               if (space) {
-                dispatch(roomManagerIntent(RoomManagerIntent.JOIN_ROOM, { spaceKey: space.key }));
+                dispatch(
+                  roomManagerIntent(RoomManagerIntent.JOIN_ROOM, { spaceKey: space.key.toHex() })
+                );
               }
             });
           }
