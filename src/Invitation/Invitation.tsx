@@ -97,7 +97,7 @@ export const InvitationView = ({ id }: { id: string }) => {
   }
 
   return (
-    <div className="m-8">
+    <div className="m-8 mt-4 sm:mt-12">
       <div className="p-4 flex flex-col items-center gap-4">
         <p className="text-md" style={{ fontFamily: "Jetbrains Mono" }}>
           The first person <strong>in your room</strong> who opens this link will enter the game.

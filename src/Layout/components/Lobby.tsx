@@ -63,7 +63,7 @@ export const OpenGames = () => {
 };
 
 export const Lobby = () => (
-  <div>
+  <div className="mt-4 sm:mt-12">
     <div className="p-2 sm:p-8 flex flex-col items-center gap-4">
       <div className="flex flex-col items-center sm:flex-row gap-2">
         <Link to="/create-invitation?open=true">

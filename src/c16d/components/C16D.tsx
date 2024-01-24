@@ -54,7 +54,7 @@ function Indicator({ game }: { game: GameState }) {
   const statusText = match(game.status)
     .with("waiting", () => `Waiting for first move. ${turnDescription}`)
     .with("in-progress", () => turnDescription)
-    .with("complete", () => gameOverText)
+    .with("complete", () => `Game over. ${gameOverText}`)
     .otherwise(() => "");
 
   return (

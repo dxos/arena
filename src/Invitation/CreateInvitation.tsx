@@ -67,7 +67,7 @@ export const CreateInvitation = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
-        <div className="max-w-lg p-1 mx-auto">
+        <div className="max-w-lg p-1 mx-auto mt-4 sm:mt-12">
           <Panel rimLight className="p-4 flex flex-col gap-3">
             <h2 className="text-3xl font-bold" style={{ fontFamily: "EB Garamond" }}>
               New Game
