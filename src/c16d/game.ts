@@ -23,6 +23,15 @@ export type GameState = {
   players: { red: string; yellow: string };
 };
 
+export function zeroState(): Partial<GameState> {
+  return {
+    cells: [],
+    status: "waiting",
+    gameOverReason: undefined,
+    winningCells: undefined,
+  };
+}
+
 type GameAction =
   | { type: "move-made"; move: Vector3; playerId: string }
   | { type: "game-over"; reason: GameOverReason; winningCells?: Vector3[] };
@@ -30,7 +39,7 @@ type GameAction =
 export type GameDispatch = (action: GameAction) => void;
 
 // --- Helpers ----------------------------------------------------------------
-const whoPlaysTurn = (turn: number): PlayerColor => (turn % 2 === 0 ? "red" : "yellow");
+export const whoPlaysTurn = (turn: number): PlayerColor => (turn % 2 === 0 ? "red" : "yellow");
 
 // --- Exec -------------------------------------------------------------------
 export const exec = (state: GameState, action: GameAction): [GameState, GameAction[]] => {

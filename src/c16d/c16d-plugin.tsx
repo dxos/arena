@@ -5,6 +5,7 @@ import { match } from "ts-pattern";
 import { GameProvides } from "../GameProvides";
 import { mkIntentBuilder } from "../lib";
 import { C16D } from "./components/C16D";
+import { zeroState } from "./game";
 
 // --- C16d Constants and Metadata -------------------------------------------
 export const C16dPluginMeta = { id: "c16d", name: "C16d plugin" };
@@ -30,8 +31,6 @@ export default function C16dPlugin(): PluginDefinition<C16dPluginProvidesCapabil
       intent: { resolver: (intent, _plugins) => console.log(intent) },
       surface: {
         component: ({ data, role }) => {
-          console.log(data, role);
-
           if (
             role === "game" &&
             data?.gameId === C16dPluginMeta.id &&
@@ -53,7 +52,7 @@ export default function C16dPlugin(): PluginDefinition<C16dPluginProvidesCapabil
           // TODO(Zan): Initialise the game properly
           // TODO(Zan): Apply variation, time control
 
-          let game = { cells: [] } as any;
+          let game = zeroState();
 
           const c16dPlayers = match(ordering)
             .with("creator-first", () => ({
@@ -74,8 +73,6 @@ export default function C16dPlugin(): PluginDefinition<C16dPluginProvidesCapabil
             .exhaustive();
 
           game.players = c16dPlayers;
-
-          console.log("Creating players", game.players);
 
           room.db.add(new Expando({ type: "game-c16d", gameId: id, ...game }));
         },

@@ -39,7 +39,7 @@ export const Layout = () => {
       <GradientBackground />
 
       <Nav />
-      <div className="h-full w-full mt-4 sm:mt-12">
+      <div className="h-full w-full">
         <AnimatePresence>
           <FadeView />
         </AnimatePresence>

@@ -41,7 +41,7 @@ export const Panel = ({ rimLight, ...props }: PanelProps) => {
   const styles: CSSProperties = rimLight ? { backgroundImage: rimGradient } : {};
 
   return (
-    <div className="p-[1px] rounded-[2px]" style={styles}>
+    <div className={cn("p-[1px] rounded-[2px]", props.className)} style={styles}>
       <div {...props} className={classNames} style={{ ...customPanelStyles, ...props.style }} />
     </div>
   );
