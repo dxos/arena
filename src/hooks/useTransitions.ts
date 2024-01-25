@@ -1,4 +1,10 @@
-import { useRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Subject } from "rxjs";
+import { bufferCount, distinctUntilChanged, map } from "rxjs/operators";
+import { useSubscription } from "./useSubscription";
+
+const isFunction = <T>(functionToCheck: any): functionToCheck is (value: T) => boolean =>
+  typeof functionToCheck === "function";
 
 /**
  * Custom hook to determine if a value has transitioned from a specified 'from' value to a 'to' value.
@@ -12,33 +18,36 @@ export function useDidTransition<T>(
   currentValue: T,
   fromValue: T | ((value: T) => boolean),
   toValue: T | ((value: T) => boolean)
-) {
-  const [hasTransitioned, setHasTransitioned] = useState(false);
-  const previousValue = useRef<T>(currentValue);
+): boolean {
+  const [didTransition, setDidTransition] = useState(false);
+  const value$ = React.useMemo(() => new Subject<T>(), []);
 
-  // Type guard to check if toValue is a function
-  const isFunction = (functionToCheck: any): functionToCheck is (value: T) => boolean => {
-    return functionToCheck instanceof Function;
-  };
+  useEffect(() => value$.next(currentValue), [currentValue]);
 
-  useEffect(() => {
-    // Check for the specific transition
-    const toValueValid = isFunction(toValue) ? toValue(currentValue) : toValue === currentValue;
-    const fromValueValid = isFunction(fromValue)
-      ? fromValue(previousValue.current)
-      : fromValue === previousValue.current;
+  const transitionObservable = React.useMemo(
+    () =>
+      value$.pipe(
+        bufferCount(2, 1), // Create a sliding window of 2 values
+        map(([previous, current]) => {
+          const isFromValid = isFunction(fromValue) ? fromValue(previous) : fromValue === previous;
+          const isToValid = isFunction(toValue) ? toValue(current) : toValue === current;
+          return isFromValid && isToValid;
+        }),
+        distinctUntilChanged()
+      ),
+    [fromValue, toValue, value$]
+  );
 
-    if (fromValueValid && toValueValid) {
-      setHasTransitioned(true);
-    } else {
-      setHasTransitioned(false);
-    }
+  useSubscription(
+    () =>
+      transitionObservable.subscribe((val) => {
+        console.log("VAL", val);
+        setDidTransition(val);
+      }),
+    [transitionObservable, setDidTransition]
+  );
 
-    // Update previous value
-    previousValue.current = currentValue;
-  }, [currentValue, fromValue, toValue, setHasTransitioned, previousValue]);
-
-  return hasTransitioned;
+  return didTransition;
 }
 
 /**
