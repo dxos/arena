@@ -110,7 +110,7 @@ export const exec = (state: GameState, action: GameAction): [GameState, GameActi
       } else if (yellowWinningLines) {
         actions.push({
           type: "game-over",
-          reason: "red-won",
+          reason: "yellow-won",
           winningCells: yellowWinningLines.flat(),
         });
       }
