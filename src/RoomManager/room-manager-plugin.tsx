@@ -18,12 +18,14 @@ import { ToasterIntent, toasterIntent } from "../Toaster/toaster-plugin";
 // TODO(Zan): Expose settings to disable sound effects
 // TODO(Zan): Atlas should be composed of sounds sourced from different plugins
 
+export type Room = { key: string; name?: string };
+
 // --- Constants and Metadata -------------------------------------------------
 export const RoomManagerPluginMeta = { id: "room-manager", name: "Room manager" };
 
 // --- State ------------------------------------------------------------------
 export const activeRoomKeyAtom = atomWithStorage<string | undefined>("activeRoom", undefined);
-export const availableRoomKeysAtom = atom<string[]>("availableRooms", []);
+export const availableRoomsAtom = atom<Room[]>("availableRooms", []);
 
 const allRoomsAtom = atom<Space[]>("allRooms", []);
 
@@ -53,7 +55,7 @@ export enum RoomManagerIntent {
 }
 
 export namespace RoomManagerIntent {
-  export type JoinRoom = { spaceKey: string };
+  export type JoinRoom = { room: Room };
 }
 
 type RoomManagerIntents = {
@@ -73,16 +75,18 @@ const intentResolver = (intent: Intent, plugins: Plugin[]) => {
 
   switch (intent.action) {
     case RoomManagerIntent.JOIN_ROOM: {
-      const { spaceKey } = intent.data as RoomManagerIntent.JoinRoom;
-      console.log("Joining room", spaceKey);
+      const {
+        room: { key, name },
+      } = intent.data as RoomManagerIntent.JoinRoom;
 
-      activeRoomKeyAtom.set(spaceKey);
+      activeRoomKeyAtom.set(key);
 
       window.history.pushState({}, "", routes.root);
+
       dispatch(
         toasterIntent(ToasterIntent.ISSUE_TOAST, {
           title: "Joined room",
-          description: `${spaceKey.substring(0, 24)}...`,
+          description: name || `${key.substring(0, 24)}...`,
         })
       );
 
@@ -122,7 +126,9 @@ export default function RoomManagerPlugin(): PluginDefinition<RoomManagerProvide
       subscriptions.add(
         (client.spaces as any).subscribe((spaces: Space[]) => {
           allRoomsAtom.set(spaces);
-          availableRoomKeysAtom.set(spaces.map((space) => space.key.toHex()));
+          availableRoomsAtom.set(
+            spaces.map((space) => ({ key: space.key.toHex(), name: space.properties?.name }))
+          );
 
           // Collect all users
           // TODO(Zan): This probably won't be reactive when a user joins a room

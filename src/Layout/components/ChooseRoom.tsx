@@ -10,25 +10,21 @@ export const ChooseRoom = () => {
 
   const activeSpace = useActiveRoom();
 
-  const onJoinSpace = (spaceKey: string) => {
-    dispatch(roomManagerIntent(RoomManagerIntent.JOIN_ROOM, { spaceKey }));
+  const onJoinSpace = (room: { key: string; name?: string }) => {
+    dispatch(roomManagerIntent(RoomManagerIntent.JOIN_ROOM, { room }));
   };
 
   return (
     <div className="mt-4 sm:mt-8 flex flex-col items-center justify-center h-full gap-2">
       <h2>Choose a room to join</h2>
-      {spaceList.map((spaceKey) => {
-        const isActive = activeSpace?.key.toHex() === spaceKey;
+      {spaceList.map((room) => {
+        const isActive = activeSpace?.key.toHex() === room.key;
         return (
-          <div key={spaceKey}>
+          <div key={room.key}>
             <code>
-              {isActive && "(active) "} {spaceKey.substring(0, 32)}...
+              {isActive && "(active) "} {room.name || room.key.substring(0, 32)}...
             </code>
-            <Button
-              onClick={() => onJoinSpace(spaceKey)}
-              variant="secondary"
-              aria-label="Join space"
-            >
+            <Button onClick={() => onJoinSpace(room)} variant="secondary" aria-label="Join space">
               Join
             </Button>
           </div>

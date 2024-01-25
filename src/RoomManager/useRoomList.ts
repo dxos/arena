@@ -1,7 +1,7 @@
 import { useValue } from "signia-react";
-import { availableRoomKeysAtom } from "./room-manager-plugin";
+import { availableRoomsAtom } from "./room-manager-plugin";
 
 export const useRoomList = () => {
-  const spaces = useValue(availableRoomKeysAtom);
+  const spaces = useValue(availableRoomsAtom);
   return spaces;
 };
