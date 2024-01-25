@@ -24,9 +24,10 @@ export function useDidTransition<T>(
 
   useEffect(() => value$.next(currentValue), [currentValue]);
 
-  const transitionObservable = React.useMemo(
+  const transition$ = React.useMemo(
     () =>
       value$.pipe(
+        distinctUntilChanged(),
         bufferCount(2, 1), // Create a sliding window of 2 values
         map(([previous, current]) => {
           const isFromValid = isFunction(fromValue) ? fromValue(previous) : fromValue === previous;
@@ -39,12 +40,8 @@ export function useDidTransition<T>(
   );
 
   useSubscription(
-    () =>
-      transitionObservable.subscribe((val) => {
-        console.log("VAL", val);
-        setDidTransition(val);
-      }),
-    [transitionObservable, setDidTransition]
+    () => transition$.subscribe((val) => setDidTransition(val)),
+    [transition$, setDidTransition]
   );
 
   return didTransition;

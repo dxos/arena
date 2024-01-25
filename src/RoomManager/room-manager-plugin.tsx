@@ -55,7 +55,7 @@ export enum RoomManagerIntent {
 }
 
 export namespace RoomManagerIntent {
-  export type JoinRoom = { room: Room };
+  export type JoinRoom = { room: Room; noRedirect?: boolean };
 }
 
 type RoomManagerIntents = {
@@ -77,11 +77,14 @@ const intentResolver = (intent: Intent, plugins: Plugin[]) => {
     case RoomManagerIntent.JOIN_ROOM: {
       const {
         room: { key, name },
+        noRedirect,
       } = intent.data as RoomManagerIntent.JoinRoom;
 
       activeRoomKeyAtom.set(key);
 
-      window.history.pushState({}, "", routes.root);
+      if (noRedirect !== true) {
+        window.history.pushState({}, "", routes.root);
+      }
 
       dispatch(
         toasterIntent(ToasterIntent.ISSUE_TOAST, {

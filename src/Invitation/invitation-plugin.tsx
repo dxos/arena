@@ -93,7 +93,7 @@ type InvitationIntents = {
 
 export const invitationIntent = mkIntentBuilder<InvitationIntents>(InvitationPluginMeta.id);
 
-const intentResolver = (intent: Intent, plugins: Plugin[]) => {
+const intentResolver = async (intent: Intent, plugins: Plugin[]) => {
   console.log("Invitation resolver", intent);
   const roomManagerPlugin = resolvePlugin(plugins, parseRoomManagerPlugin);
 
@@ -102,6 +102,7 @@ const intentResolver = (intent: Intent, plugins: Plugin[]) => {
   }
 
   const space = roomManagerPlugin.provides.getActiveRoom();
+  await space.waitUntilReady();
 
   const intentPlugin = resolvePlugin(plugins, parseIntentPlugin);
 

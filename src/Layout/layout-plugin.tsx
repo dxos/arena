@@ -14,6 +14,7 @@ import { RoomManagerIntent, roomManagerIntent } from "../RoomManager/room-manage
 import { mkIntentBuilder } from "../lib";
 import { Layout } from "./components/Layout";
 import { appPaths } from "./routes";
+import { InvitationEncoder } from "@dxos/react-client/invitations";
 
 // --- Layout Constants and Metadata -------------------------------------------
 export const LayoutPluginMeta = { id: "layout", name: "Layout Plugin" };
@@ -135,22 +136,49 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
           dispatch(layoutIntent(LayoutIntent.UPDATE_SEARCH_PARAMS, { searchParams }));
 
           if (searchParams.has("spaceInvitationCode")) {
+            const removeSpaceInvitationCodeParam = () => {
+              searchParams.delete("spaceInvitationCode");
+              window.history.replaceState(
+                {},
+                "",
+                `${window.location.pathname}?${searchParams.toString()}`
+              );
+            };
+
             const invitationCode = searchParams.get("spaceInvitationCode")!;
+            const invitation = InvitationEncoder.decode(invitationCode);
 
-            console.log("Joining space with invitation code", invitationCode);
+            const alreadyJoinedSpace = client.spaces
+              .get()
+              .find((space) => space.key.toHex() === invitation.spaceKey?.toHex());
 
-            client.shell.joinSpace({ invitationCode }).then((joinSpaceResult) => {
-              console.log("Join space result", joinSpaceResult);
-              const space = joinSpaceResult.space;
+            if (alreadyJoinedSpace) {
+              dispatch(
+                roomManagerIntent(RoomManagerIntent.JOIN_ROOM, {
+                  room: {
+                    key: alreadyJoinedSpace.key.toHex(),
+                    name: alreadyJoinedSpace.properties?.name,
+                  },
+                  noRedirect: true,
+                })
+              );
+            } else {
+              client.shell.joinSpace({ invitationCode }).then((joinSpaceResult) => {
+                console.log("Join space result", joinSpaceResult);
+                const space = joinSpaceResult.space;
 
-              if (space) {
-                dispatch(
-                  roomManagerIntent(RoomManagerIntent.JOIN_ROOM, {
-                    room: { key: space.key.toHex(), name: space.properties?.name },
-                  })
-                );
-              }
-            });
+                if (space) {
+                  dispatch(
+                    roomManagerIntent(RoomManagerIntent.JOIN_ROOM, {
+                      room: { key: space.key.toHex(), name: space.properties?.name },
+                      noRedirect: true,
+                    })
+                  );
+                }
+              });
+            }
+
+            removeSpaceInvitationCodeParam();
           }
 
           // Iterate through app paths and find the first match.

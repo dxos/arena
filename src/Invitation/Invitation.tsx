@@ -1,11 +1,12 @@
 import { useIntent } from "@dxos/app-framework";
 import { useQuery } from "@dxos/react-client/echo";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Link } from "../Layout/components/Link";
 import { useActiveRoom } from "../RoomManager/useActiveRoom";
 import { Button } from "../UI/Buttons";
 import { Panel } from "../UI/Panel";
 import useClipboard from "../hooks/useClipboard";
+import { getAuthlessInviteCodeForSpace } from "../lib/space";
 import { InvitationIntent, invitationIntent } from "./invitation-plugin";
 
 export const InvitationView = ({ id }: { id: string }) => {
@@ -14,16 +15,31 @@ export const InvitationView = ({ id }: { id: string }) => {
 
   const [dbInvitation] = useQuery(space, { type: "invitation", invitationId: id });
 
-  const { isCopied, copy } = useClipboard(window.location.href, { successDuration: 800 });
+  const inviteQueryString = useMemo(() => {
+    if (!dbInvitation || dbInvitation.isOpenGame || !space) return undefined;
+
+    const spaceInvitationCode = getAuthlessInviteCodeForSpace(space);
+
+    if (!spaceInvitationCode) return undefined;
+
+    return new URLSearchParams({ spaceInvitationCode });
+  }, [space, dbInvitation]);
+
+  const inviteUrl = useMemo(() => {
+    return `${window.location.href}${inviteQueryString ? "?" : ""}${inviteQueryString?.toString()}`;
+  }, [inviteQueryString]);
+
+  const { isCopied, copy } = useClipboard(inviteUrl, { successDuration: 800 });
 
   useEffect(() => {
-    if (!dbInvitation?.invitationId) return;
+    if (!dbInvitation || !dbInvitation.invitationId || !space) return;
+
     dispatch(
       invitationIntent(InvitationIntent.JOIN_INVITATION, {
         invitationId: dbInvitation?.invitationId,
       })
     );
-  }, [dispatch, dbInvitation?.invitationId]);
+  }, [dispatch, dbInvitation, dbInvitation?.invitationId, space]);
 
   useEffect(() => {
     if (dbInvitation?.finalised) {
@@ -46,9 +62,9 @@ export const InvitationView = ({ id }: { id: string }) => {
     dispatch(invitationIntent(InvitationIntent.CANCEL_INVITATION, { invitationId: id }));
   };
 
-  if (!dbInvitation) {
+  if (dbInvitation === undefined) {
     return (
-      <div className="max-w-xl mx-auto">
+      <div className="mt-4 sm:mt-12 max-w-xl mx-auto">
         <Panel rimLight className="p-4 flex flex-col gap-2">
           <h3 className="text-lg" style={{ fontFamily: "EB Garamond" }}>
             We can't find that invitation.
@@ -75,7 +91,7 @@ export const InvitationView = ({ id }: { id: string }) => {
       </div>
     );
 
-  if (dbInvitation.isOpenGame) {
+  if (dbInvitation?.isOpenGame) {
     return (
       <div className="m-8">
         <div className="p-4 flex flex-col items-center gap-4">
@@ -102,10 +118,9 @@ export const InvitationView = ({ id }: { id: string }) => {
         <p className="text-md" style={{ fontFamily: "Jetbrains Mono" }}>
           The first person <strong>in your room</strong> who opens this link will enter the game.
         </p>
-        <div className="flex flex-row items-center gap-2">
-          <code>{window.location.href}</code>
+        <div className="flex flex-row items-center gap-2 text-xs max-w-sm">
           <Button aria-label="Copy invitation link" onClick={copy}>
-            {isCopied ? "Copied ✅" : "Copy 📋"}
+            {isCopied ? "Copied ✅" : "Copy invite link 📋"}
           </Button>
         </div>
         <Button onClick={handleCancelInvitation} aria-label="Back to lobby" variant="danger">
