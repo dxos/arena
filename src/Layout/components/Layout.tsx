@@ -5,7 +5,7 @@ import { useValue } from "signia-react";
 import { P, match } from "ts-pattern";
 import { Fade } from "../../UI/Fade";
 import { layoutStateAtom } from "../layout-plugin";
-import { ChooseSpace } from "./ChooseSpace";
+import { ChooseRoom } from "./ChooseRoom";
 import { GradientBackground } from "./GradientBackground";
 import { Lobby } from "./Lobby";
 import { Nav } from "./Nav";
@@ -26,7 +26,7 @@ export const Layout = () => {
         <Surface role="game" data={{ gameId, instanceId }} />
       ))
       .with({ type: "not-found" }, () => <NotFound />)
-      .with({ type: "choose-room" }, () => <ChooseSpace />)
+      .with({ type: "choose-room" }, () => <ChooseRoom />)
       .exhaustive();
 
   const FadeView = React.useMemo(

@@ -4,6 +4,7 @@ import {
   IntentResolverProvides,
   Plugin,
   PluginDefinition,
+  parseIntentPlugin,
   resolvePlugin,
 } from "@dxos/app-framework";
 import { Space } from "@dxos/react-client/echo";
@@ -11,6 +12,8 @@ import { Identity } from "@dxos/react-client/halo";
 import { atom, computed } from "signia";
 import { mkIntentBuilder } from "../lib";
 import { atomWithStorage } from "../lib/atomWithStorage";
+import { routes } from "../Layout/routes";
+import { ToasterIntent, toasterIntent } from "../Toaster/toaster-plugin";
 
 // TODO(Zan): Expose settings to disable sound effects
 // TODO(Zan): Atlas should be composed of sounds sourced from different plugins
@@ -59,13 +62,30 @@ type RoomManagerIntents = {
 
 export const roomManagerIntent = mkIntentBuilder<RoomManagerIntents>(RoomManagerPluginMeta.id);
 
-const intentResolver = (intent: Intent, _plugins: Plugin[]) => {
+const intentResolver = (intent: Intent, plugins: Plugin[]) => {
+  const intentPlugin = resolvePlugin(plugins, parseIntentPlugin);
+
+  if (!intentPlugin) {
+    throw new Error(`[${RoomManagerPluginMeta.id}]: Intent plugin not found`);
+  }
+
+  const dispatch = intentPlugin.provides.intent.dispatch;
+
   switch (intent.action) {
     case RoomManagerIntent.JOIN_ROOM: {
       const { spaceKey } = intent.data as RoomManagerIntent.JoinRoom;
       console.log("Joining room", spaceKey);
 
       activeRoomKeyAtom.set(spaceKey);
+
+      window.history.pushState({}, "", routes.root);
+      dispatch(
+        toasterIntent(ToasterIntent.ISSUE_TOAST, {
+          title: "Joined room",
+          description: `${spaceKey.substring(0, 24)}...`,
+        })
+      );
+
       break;
     }
   }
