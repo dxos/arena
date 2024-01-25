@@ -14,6 +14,7 @@ import { Plinth } from "./Plinth";
 import { useValue } from "signia-react";
 import { usernamesAtom } from "../../RoomManager/room-manager-plugin";
 import { match } from "ts-pattern";
+import { cn } from "../../lib";
 
 // --- Types ----------------------------------
 export const CELL_SPACING = 1.66;
@@ -57,11 +58,13 @@ function Indicator({ game }: { game: GameState }) {
     .with("complete", () => `Game over. ${gameOverText}`)
     .otherwise(() => "");
 
+  const classNames = cn(
+    "absolute top-12 left-12 z-10 text-xs sm:text-base",
+    turn === "yellow" ? "text-yellow-100" : "text-red-400"
+  );
+
   return (
-    <div
-      className="absolute top-12 left-12 text-white z-10 text-xs sm:text-base"
-      style={{ fontFamily: "Jetbrains Mono" }}
-    >
+    <div className={classNames} style={{ fontFamily: "Jetbrains Mono" }}>
       {statusText}
     </div>
   );
@@ -72,10 +75,10 @@ function Controls(props: { onLeft: () => void; onRight: () => void }) {
     <div className="absolute bottom-12 left-12 ">
       <div className="flex flex-row gap-2">
         <Button aria-label="Rotate left" onClick={props.onLeft} variant="secondary" size="small">
-          Left
+          ↪️
         </Button>
         <Button aria-label="Rotate right" onClick={props.onRight} variant="secondary" size="small">
-          Right
+          ↩️
         </Button>
       </div>
     </div>
