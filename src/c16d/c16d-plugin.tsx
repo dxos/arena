@@ -48,10 +48,7 @@ export default function C16dPlugin(): PluginDefinition<C16dPluginProvidesCapabil
         variations: [{ displayName: "Standard", id: "standard" }],
         timeControlOptions: undefined,
 
-        createGame(room, id, variation, timeControl, players, ordering) {
-          // TODO(Zan): Initialise the game properly
-          // TODO(Zan): Apply variation, time control
-
+        createGame(room, id, variation, _timeControl, players, ordering) {
           let game = zeroState();
 
           const c16dPlayers = match(ordering)

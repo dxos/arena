@@ -167,8 +167,6 @@ export const exec = (state: GameState, action: GameAction): [GameState, GameActi
     case "accept-takeback": {
       const { acceptingPlayer } = action;
 
-      // TODO: Should this be the player who requested the takeback, or the player accepting?
-      // The answer will become more clear when we implement.
       const moveNumber = state.takebackRequest[oppositePlayerColor(acceptingPlayer)];
 
       if (moveNumber === undefined) {

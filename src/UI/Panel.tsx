@@ -15,7 +15,6 @@ const rimGradient = `linear-gradient(
   hsla(66deg 100% 80% / 0.03) 100%
 )`;
 
-// TODO: Move this to a theme file
 const customPanelStyles: CSSProperties = {
   boxShadow: `
     0 0 0 1px rgba(155, 155, 155, 0.065),

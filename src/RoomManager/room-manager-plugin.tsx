@@ -17,9 +17,6 @@ import { mkIntentBuilder } from "../lib";
 import { atomWithStorage } from "../lib/atomWithStorage";
 import { RoomManager } from "./components/RoomManager";
 
-// TODO(Zan): Expose settings to disable sound effects
-// TODO(Zan): Atlas should be composed of sounds sourced from different plugins
-
 export type Room = { key: string; name?: string };
 
 // --- Constants and Metadata -------------------------------------------------

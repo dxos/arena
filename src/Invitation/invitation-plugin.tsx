@@ -27,7 +27,7 @@ export const InvitationPluginMeta = { id: "Invitation", name: "Invitation plugin
 // --- State ------------------------------------------------------------------
 export const gameProvidesAtom = atom<GameProvides["game"][]>("game-provides", []);
 
-// TODO(Zan): Add game type / variant here
+// TODO(Zan): Add variant here
 export type GameDescription = {
   gameId: string;
   variantId: string;

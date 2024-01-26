@@ -129,7 +129,7 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
     meta: LayoutPluginMeta,
 
     provides: {
-      context: (props: PropsWithChildren) => <>{props.children}</>, // TODO(Zan): Add MOSAIC root?
+      context: (props: PropsWithChildren) => <>{props.children}</>,
       intent: { resolver },
       surface: { component: ({ role }) => (role === "main" ? <Layout /> : null) },
       root: () => {
