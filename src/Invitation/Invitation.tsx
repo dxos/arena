@@ -116,7 +116,7 @@ export const InvitationView = ({ id }: { id: string }) => {
     <div className="m-8 mt-4 sm:mt-12">
       <div className="p-4 flex flex-col items-center gap-4">
         <p className="text-md" style={{ fontFamily: "Jetbrains Mono" }}>
-          The first person <strong>in your room</strong> who opens this link will enter the game.
+          The first person who opens this link will be invited to your room and join the game.
         </p>
         <div className="flex flex-row items-center gap-2 text-xs max-w-sm">
           <Button aria-label="Copy invitation link" onClick={copy}>
