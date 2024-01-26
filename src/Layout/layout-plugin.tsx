@@ -27,6 +27,7 @@ type ViewState =
   | { type: "invitation"; invitationId: string }
   | { type: "game"; gameId: string; instanceId: string }
   | { type: "choose-room" }
+  | { type: "manage-room" }
   | { type: "not-found" };
 
 export const layoutStateAtom = atom<ViewState>("layout", {
@@ -47,6 +48,7 @@ export enum LayoutIntent {
   OPEN_INVITATION = `${actionPrefix}/open-invitation`,
   OPEN_GAME = `${actionPrefix}/open-game`,
   CHOOSE_ROOM = `${actionPrefix}/choose-room`,
+  MANAGE_ROOM = `${actionPrefix}/manage-room`,
   PRESENT_404 = `${actionPrefix}/present-404`,
   UPDATE_SEARCH_PARAMS = `${actionPrefix}/update-search-params`,
 }
@@ -57,6 +59,7 @@ export namespace LayoutIntent {
   export type OpenInvitation = { invitationId: string };
   export type OpenGame = { gameId: string; instanceId: string };
   export type ChooseRoom = undefined;
+  export type ManageRoom = undefined;
   export type Present404 = undefined;
   export type UpdateSearchParams = { searchParams: URLSearchParams };
 }
@@ -67,6 +70,7 @@ type LayoutIntents = {
   [LayoutIntent.OPEN_INVITATION]: LayoutIntent.OpenInvitation;
   [LayoutIntent.OPEN_GAME]: LayoutIntent.OpenGame;
   [LayoutIntent.CHOOSE_ROOM]: LayoutIntent.ChooseRoom;
+  [LayoutIntent.MANAGE_ROOM]: LayoutIntent.ManageRoom;
   [LayoutIntent.PRESENT_404]: LayoutIntent.Present404;
   [LayoutIntent.UPDATE_SEARCH_PARAMS]: LayoutIntent.UpdateSearchParams;
 };
@@ -112,6 +116,10 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
             })
             .with(LayoutIntent.CHOOSE_ROOM, () => {
               layoutStateAtom.set({ type: "choose-room" });
+              return true;
+            })
+            .with(LayoutIntent.MANAGE_ROOM, () => {
+              layoutStateAtom.set({ type: "manage-room" });
               return true;
             })
             .with(LayoutIntent.PRESENT_404, () => {
@@ -211,6 +219,7 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
                 dispatch(layoutIntent(LayoutIntent.OPEN_GAME, { gameId: gameId, instanceId: id }))
               )
               .with("choose-room", () => dispatch(layoutIntent(LayoutIntent.CHOOSE_ROOM)))
+              .with("manage-room", () => dispatch(layoutIntent(LayoutIntent.MANAGE_ROOM)))
               .exhaustive();
           } else {
             dispatch(layoutIntent(LayoutIntent.PRESENT_404));

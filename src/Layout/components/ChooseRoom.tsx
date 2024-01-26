@@ -5,7 +5,7 @@ import { useRoomList } from "../../RoomManager/useRoomList";
 import { Button } from "../../UI/Buttons";
 
 export const ChooseRoom = () => {
-  const spaceList = useRoomList();
+  const roomList = useRoomList();
   const { dispatch } = useIntent();
 
   const activeSpace = useActiveRoom();
@@ -15,14 +15,16 @@ export const ChooseRoom = () => {
   };
 
   return (
-    <div className="mt-4 sm:mt-8 flex flex-col items-center justify-center h-full gap-2">
-      <h2>Choose a room to join</h2>
-      {spaceList.map((room) => {
+    <div className="mt-4 sm:mt-12 flex flex-col items-center justify-center h-full gap-3">
+      <h2 className="text-3xl" style={{ fontFamily: "EB Garamond" }}>
+        Join a room
+      </h2>
+      {roomList.map((room) => {
         const isActive = activeSpace?.key.toHex() === room.key;
         return (
-          <div key={room.key}>
+          <div className="flex flex-row gap-2 items-center" key={room.key}>
             <code>
-              {isActive && "(active) "} {room.name || room.key.substring(0, 32)}...
+              {isActive && "(active) "} {room.name || `${room.key.substring(0, 32)}...`}
             </code>
             <Button onClick={() => onJoinSpace(room)} variant="secondary" aria-label="Join space">
               Join

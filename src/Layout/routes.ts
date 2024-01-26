@@ -5,10 +5,12 @@ export const appPaths = [
   ["invitation", "/play-with-me/:id"],
   ["game", "/game/:gameId/:id"],
   ["choose-room", "/choose-room"],
+  ["manage-room", "/manage-room"],
 ] as const;
 
 export const routes = {
   root: "/",
   game: (gameId: string, instanceId: string) => `/game/${gameId}/${instanceId}`,
   invitation: (id: string, isOpen = false) => `/play-with-me/${id}${isOpen ? "?isOpen=true" : ""}`,
+  manageRoom: "/manage-room",
 };

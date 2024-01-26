@@ -3,13 +3,18 @@ import { AnimatePresence } from "framer-motion";
 import React from "react";
 import { useValue } from "signia-react";
 import { P, match } from "ts-pattern";
+import { useActiveRoom } from "../../RoomManager/useActiveRoom";
 import { Fade } from "../../UI/Fade";
 import { layoutStateAtom } from "../layout-plugin";
+import { routes } from "../routes";
 import { ChooseRoom } from "./ChooseRoom";
 import { GradientBackground } from "./GradientBackground";
+import { Link } from "./Link";
 import { Lobby } from "./Lobby";
+import { RoomManager } from "../../RoomManager/components/RoomManager";
 import { Nav } from "./Nav";
 import { NotFound } from "./NotFound";
+import { RoomIndicator } from "./RoomIndicator";
 
 export const Layout = () => {
   const layoutState = useValue(layoutStateAtom);
@@ -27,6 +32,7 @@ export const Layout = () => {
       ))
       .with({ type: "not-found" }, () => <NotFound />)
       .with({ type: "choose-room" }, () => <ChooseRoom />)
+      .with({ type: "manage-room" }, () => <Surface role="room-manager" />)
       .exhaustive();
 
   const FadeView = React.useMemo(
@@ -37,13 +43,11 @@ export const Layout = () => {
   return (
     <div className="h-full w-full">
       <GradientBackground />
-
       <Nav />
-      <div className="h-full w-full">
-        <AnimatePresence>
-          <FadeView />
-        </AnimatePresence>
-      </div>
+      <RoomIndicator />
+      <AnimatePresence>
+        <FadeView />
+      </AnimatePresence>
     </div>
   );
 };
