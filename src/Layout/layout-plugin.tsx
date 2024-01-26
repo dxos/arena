@@ -1,11 +1,14 @@
 import {
+  Intent,
   IntentResolverProvides,
+  Plugin,
   PluginDefinition,
   Surface,
   SurfaceProvides,
   useIntent,
 } from "@dxos/app-framework";
 import { useClient } from "@dxos/react-client";
+import { InvitationEncoder } from "@dxos/react-client/invitations";
 import { match as pathMatch } from "path-to-regexp";
 import { PropsWithChildren, useCallback, useEffect } from "react";
 import { atom } from "signia";
@@ -14,7 +17,6 @@ import { RoomManagerIntent, roomManagerIntent } from "../RoomManager/room-manage
 import { mkIntentBuilder } from "../lib";
 import { Layout } from "./components/Layout";
 import { appPaths } from "./routes";
-import { InvitationEncoder } from "@dxos/react-client/invitations";
 
 // --- Layout Constants and Metadata -------------------------------------------
 export const LayoutPluginMeta = { id: "layout", name: "Layout Plugin" };
@@ -77,6 +79,48 @@ type LayoutIntents = {
 
 export const layoutIntent = mkIntentBuilder<LayoutIntents>(LayoutPluginMeta.id);
 
+// --- Layout Intent Resolver --------------------------------------------------
+function resolver(intent: Intent, _plugins: Plugin[]) {
+  console.log("Layout Intent Resolver", intent);
+
+  return match(intent.action as LayoutIntent)
+    .with(LayoutIntent.UPDATE_SEARCH_PARAMS, () => {
+      const { searchParams } = intent.data;
+      searchParamsAtom.set(searchParams);
+      return true;
+    })
+    .with(LayoutIntent.OPEN_CREATE_INVITATION, () => {
+      layoutStateAtom.set({ type: "create-invitation" });
+      return true;
+    })
+    .with(LayoutIntent.OPEN_INVITATION, () => {
+      layoutStateAtom.set({ type: "invitation", invitationId: intent.data.invitationId });
+      return true;
+    })
+    .with(LayoutIntent.OPEN_LOBBY, () => {
+      layoutStateAtom.set({ type: "lobby" });
+      return true;
+    })
+    .with(LayoutIntent.OPEN_GAME, () => {
+      const { gameId, instanceId } = intent.data;
+      layoutStateAtom.set({ type: "game", gameId, instanceId });
+      return true;
+    })
+    .with(LayoutIntent.CHOOSE_ROOM, () => {
+      layoutStateAtom.set({ type: "choose-room" });
+      return true;
+    })
+    .with(LayoutIntent.MANAGE_ROOM, () => {
+      layoutStateAtom.set({ type: "manage-room" });
+      return true;
+    })
+    .with(LayoutIntent.PRESENT_404, () => {
+      layoutStateAtom.set({ type: "not-found" });
+      return true;
+    })
+    .exhaustive();
+}
+
 // --- Plugin Definition ------------------------------------------------------
 type LayoutPluginProvidesCapabilities = IntentResolverProvides & SurfaceProvides;
 
@@ -86,49 +130,7 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
 
     provides: {
       context: (props: PropsWithChildren) => <>{props.children}</>, // TODO(Zan): Add MOSAIC root?
-
-      intent: {
-        resolver(intent, _plugins) {
-          console.log("Layout Intent Resolver", intent);
-
-          return match(intent.action as LayoutIntent)
-            .with(LayoutIntent.UPDATE_SEARCH_PARAMS, () => {
-              const { searchParams } = intent.data;
-              searchParamsAtom.set(searchParams);
-              return true;
-            })
-            .with(LayoutIntent.OPEN_CREATE_INVITATION, () => {
-              layoutStateAtom.set({ type: "create-invitation" });
-              return true;
-            })
-            .with(LayoutIntent.OPEN_INVITATION, () => {
-              layoutStateAtom.set({ type: "invitation", invitationId: intent.data.invitationId });
-              return true;
-            })
-            .with(LayoutIntent.OPEN_LOBBY, () => {
-              layoutStateAtom.set({ type: "lobby" });
-              return true;
-            })
-            .with(LayoutIntent.OPEN_GAME, () => {
-              const { gameId, instanceId } = intent.data;
-              layoutStateAtom.set({ type: "game", gameId, instanceId });
-              return true;
-            })
-            .with(LayoutIntent.CHOOSE_ROOM, () => {
-              layoutStateAtom.set({ type: "choose-room" });
-              return true;
-            })
-            .with(LayoutIntent.MANAGE_ROOM, () => {
-              layoutStateAtom.set({ type: "manage-room" });
-              return true;
-            })
-            .with(LayoutIntent.PRESENT_404, () => {
-              layoutStateAtom.set({ type: "not-found" });
-              return true;
-            })
-            .exhaustive();
-        },
-      },
+      intent: { resolver },
       surface: { component: ({ role }) => (role === "main" ? <Layout /> : null) },
       root: () => {
         const { dispatch } = useIntent();
@@ -136,9 +138,7 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
         const client = useClient();
 
         const handleNavigation = useCallback(() => {
-          console.log("handleNavigation", window.location);
           const path = window.location.pathname;
-
           const searchParams = new URLSearchParams(window.location.search);
 
           dispatch(layoutIntent(LayoutIntent.UPDATE_SEARCH_PARAMS, { searchParams }));
@@ -203,10 +203,8 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
 
           if (foundMatch.length > 0 && foundMatch[0][1] !== false) {
             const [route, { params }] = foundMatch[0];
-
             const { id, gameId } = params as any as { id: string; gameId: string };
 
-            // TODO(Zan): Make pattern matching more robust by matching on route and params!
             match(route)
               .with("lobby", () => dispatch(layoutIntent(LayoutIntent.OPEN_LOBBY)))
               .with("create-invitation", () =>
