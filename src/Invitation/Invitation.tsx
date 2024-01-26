@@ -1,5 +1,5 @@
-import { useIntent } from "@dxos/app-framework";
-import { useQuery } from "@dxos/react-client/echo";
+import { DispatchIntent, useIntent } from "@dxos/app-framework";
+import { Space, TypedObject, useQuery } from "@dxos/react-client/echo";
 import { useEffect, useMemo } from "react";
 import { Link } from "../Layout/components/Link";
 import { useActiveRoom } from "../RoomManager/useActiveRoom";
@@ -9,38 +9,7 @@ import useClipboard from "../hooks/useClipboard";
 import { getAuthlessInviteCodeForSpace } from "../lib/space";
 import { InvitationIntent, invitationIntent } from "./invitation-plugin";
 
-export const InvitationView = ({ id }: { id: string }) => {
-  const space = useActiveRoom();
-  const { dispatch } = useIntent();
-
-  const [dbInvitation] = useQuery(space, { type: "invitation", invitationId: id });
-
-  const inviteQueryString = useMemo(() => {
-    if (!dbInvitation || dbInvitation.isOpenGame || !space) return undefined;
-
-    const spaceInvitationCode = getAuthlessInviteCodeForSpace(space);
-
-    if (!spaceInvitationCode) return undefined;
-
-    return new URLSearchParams({ spaceInvitationCode });
-  }, [space, dbInvitation]);
-
-  const inviteUrl = useMemo(() => {
-    return `${window.location.href}${inviteQueryString ? "?" : ""}${inviteQueryString?.toString()}`;
-  }, [inviteQueryString]);
-
-  const { isCopied, copy } = useClipboard(inviteUrl, { successDuration: 800 });
-
-  useEffect(() => {
-    if (!dbInvitation || !dbInvitation.invitationId || !space) return;
-
-    dispatch(
-      invitationIntent(InvitationIntent.JOIN_INVITATION, {
-        invitationId: dbInvitation?.invitationId,
-      })
-    );
-  }, [dispatch, dbInvitation, dbInvitation?.invitationId, space]);
-
+function useRedirectToGame(dbInvitation: TypedObject | undefined, dispatch: DispatchIntent) {
   useEffect(() => {
     if (dbInvitation?.finalised) {
       dispatch(
@@ -56,11 +25,51 @@ export const InvitationView = ({ id }: { id: string }) => {
     dbInvitation?.gameDescription.gameId,
     dbInvitation?.instanceId,
   ]);
+}
+
+function useJoinInvitation(
+  dbInvitation: TypedObject | undefined,
+  space: Space | undefined,
+  dispatch: DispatchIntent
+) {
+  useEffect(() => {
+    if (!dbInvitation || !dbInvitation.invitationId || !space) return;
+
+    dispatch(
+      invitationIntent(InvitationIntent.JOIN_INVITATION, {
+        invitationId: dbInvitation?.invitationId,
+      })
+    );
+  }, [dispatch, dbInvitation, dbInvitation?.invitationId, space]);
+}
+
+export const InvitationView = ({ id }: { id: string }) => {
+  const space = useActiveRoom();
+  const { dispatch } = useIntent();
+  const [dbInvitation] = useQuery(space, { type: "invitation", invitationId: id });
+
+  useJoinInvitation(dbInvitation, space, dispatch);
+  useRedirectToGame(dbInvitation, dispatch);
 
   const handleCancelInvitation = () => {
     if (!space || !dbInvitation) return;
     dispatch(invitationIntent(InvitationIntent.CANCEL_INVITATION, { invitationId: id }));
   };
+
+  const inviteQueryString = useMemo(() => {
+    if (!dbInvitation || dbInvitation.isOpenGame || !space) return undefined;
+
+    const spaceInvitationCode = getAuthlessInviteCodeForSpace(space);
+    if (!spaceInvitationCode) return undefined;
+
+    return new URLSearchParams({ spaceInvitationCode });
+  }, [space, dbInvitation]);
+
+  const inviteUrl = useMemo(() => {
+    return `${window.location.href}${inviteQueryString ? "?" : ""}${inviteQueryString?.toString()}`;
+  }, [inviteQueryString]);
+
+  const { isCopied, copy } = useClipboard(inviteUrl, { successDuration: 800 });
 
   if (dbInvitation === undefined) {
     return (
