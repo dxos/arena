@@ -27,7 +27,6 @@ export function useDidTransition<T>(
   const transition$ = React.useMemo(
     () =>
       value$.pipe(
-        distinctUntilChanged(),
         bufferCount(2, 1), // Create a sliding window of 2 values
         map(([previous, current]) => {
           const isFromValid = isFunction(fromValue) ? fromValue(previous) : fromValue === previous;

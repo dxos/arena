@@ -126,14 +126,15 @@ export function C16D({ id }: { id: string }) {
   let [dbGame] = useQuery(space, { type: "game-c16d", gameId: id });
   const { send } = useMutatingStore(dbGame as any as GameState, exec);
 
-  if (!space || !identity || !dbGame) return null;
-
   const onMove = useCallback(
     (move: Vector3) => {
+      if (!identity) return;
       send({ type: "move-made", move, playerId: identity.identityKey.toHex() });
     },
     [send, identity]
   );
+
+  if (!dbGame) return null;
 
   return (
     <div

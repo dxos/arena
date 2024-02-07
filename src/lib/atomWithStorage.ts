@@ -29,7 +29,7 @@ export function atomWithStorage<Value>(
   const getInitialValue = () => {
     try {
       return storage.getItem(key);
-    } catch {
+    } catch (_e) {
       return initialValue;
     }
   };
