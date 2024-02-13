@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { inc } from "../lib";
+import { inc } from "$lib/math";
 
 const EXECUTION_LIMIT = 10000;
 

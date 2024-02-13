@@ -1,9 +1,11 @@
-import { defineConfig } from "vite";
 import { ConfigPlugin } from "@dxos/config/vite-plugin";
+import { ThemePlugin } from "@dxos/react-ui-theme/plugin";
 import { VaultPlugin } from "@dxos/vault/vite-plugin";
 import react from "@vitejs/plugin-react";
-import { ThemePlugin } from "@dxos/react-ui-theme/plugin";
 import { resolve } from "path";
+import { defineConfig } from "vite";
+import tsconfigPaths from "vite-tsconfig-paths";
+
 const { osThemeExtension } = require("@dxos/react-shell/theme-extensions");
 
 // https://vitejs.dev/config/
@@ -30,8 +32,8 @@ export default defineConfig({
     },
   },
   optimizeDeps: { esbuildOptions: { target: "esnext" } },
-
   plugins: [
+    tsconfigPaths(),
     VaultPlugin(),
     ConfigPlugin(),
     react({ jsxRuntime: "classic" }),

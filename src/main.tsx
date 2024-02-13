@@ -1,6 +1,5 @@
 import "@dxosTheme";
 
-import React from "react";
 import { createRoot } from "react-dom/client";
 
 import ClientMeta from "@braneframe/plugin-client/meta";
@@ -16,15 +15,15 @@ import { Config, createClientServices, Defaults, Envs, Local } from "@dxos/react
 import { Status, ThemeProvider } from "@dxos/react-ui";
 import { defaultTx } from "@dxos/react-ui-theme";
 
-import { ChessPluginMeta } from "./Chess/chess-plugin";
-import { InvitationPluginMeta } from "./Invitation/invitation-plugin";
-import { LayoutPluginMeta } from "./Layout/layout-plugin";
-import { RoomManagerPluginMeta } from "./RoomManager/room-manager-plugin";
-import { SynthPluginMeta } from "./Synth/synth-plugin";
-import { ToasterPluginMeta } from "./Toaster/toaster-plugin";
+import { ConnectFourAdvancedPluginMeta } from "./plugins/ConnectFourAdvanced/connect-four-advanced-plugin";
+import { ChessPluginMeta } from "./plugins/Chess/chess-plugin";
+import { GamePluginMeta } from "./plugins/Game/game-plugin";
+import { LayoutPluginMeta } from "./plugins/Layout/layout-plugin";
+import { RoomManagerPluginMeta } from "./plugins/RoomManager/room-manager-plugin";
+import { SynthPluginMeta } from "./plugins/Synth/synth-plugin";
+import { ToasterPluginMeta } from "./plugins/Toaster/toaster-plugin";
 
 import "./fonts/fonts.css";
-import { C16dPluginMeta } from "./c16d/c16d-plugin";
 
 const main = async () => {
   const config = new Config(Envs(), Local(), Defaults());
@@ -55,14 +54,18 @@ const main = async () => {
         debugIdentity,
       }),
       [SpaceMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-space")),
-      [ToasterPluginMeta.id]: Plugin.lazy(() => import("./Toaster/toaster-plugin")),
-      [RoomManagerPluginMeta.id]: Plugin.lazy(() => import("./RoomManager/room-manager-plugin")),
+      [ToasterPluginMeta.id]: Plugin.lazy(() => import("./plugins/Toaster/toaster-plugin")),
+      [RoomManagerPluginMeta.id]: Plugin.lazy(
+        () => import("./plugins/RoomManager/room-manager-plugin")
+      ),
 
-      [SynthPluginMeta.id]: Plugin.lazy(() => import("./Synth/synth-plugin")),
-      [LayoutPluginMeta.id]: Plugin.lazy(() => import("./Layout/layout-plugin")),
-      [InvitationPluginMeta.id]: Plugin.lazy(() => import("./Invitation/invitation-plugin")),
-      [ChessPluginMeta.id]: Plugin.lazy(() => import("./Chess/chess-plugin")),
-      [C16dPluginMeta.id]: Plugin.lazy(() => import("./c16d/c16d-plugin")),
+      [SynthPluginMeta.id]: Plugin.lazy(() => import("./plugins/Synth/synth-plugin")),
+      [LayoutPluginMeta.id]: Plugin.lazy(() => import("./plugins/Layout/layout-plugin")),
+      [GamePluginMeta.id]: Plugin.lazy(() => import("./plugins/Game/game-plugin")),
+      [ChessPluginMeta.id]: Plugin.lazy(() => import("./plugins/Chess/chess-plugin")),
+      [ConnectFourAdvancedPluginMeta.id]: Plugin.lazy(
+        () => import("./plugins/ConnectFourAdvanced/connect-four-advanced-plugin")
+      ),
     },
     order: [
       ThemeMeta, // Outside of error boundary so error dialog is styled.
@@ -76,9 +79,9 @@ const main = async () => {
       ToasterPluginMeta,
       RoomManagerPluginMeta,
       SynthPluginMeta,
-      InvitationPluginMeta,
+      GamePluginMeta,
       ChessPluginMeta,
-      C16dPluginMeta,
+      ConnectFourAdvancedPluginMeta,
     ],
   });
 
