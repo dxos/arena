@@ -1,5 +1,5 @@
 import { Vector3 } from "three";
-import { CELL_COUNT, Cell as CellT } from "../game";
+import { CELL_COUNT, Cell as CellT } from "../core/game";
 import { grid2 } from "../lib/grid2";
 import { Base } from "./Base";
 import { BASE_OFFSET, CELL_SPACING } from "./C16D";

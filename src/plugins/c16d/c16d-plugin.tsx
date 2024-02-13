@@ -5,7 +5,7 @@ import { PropsWithChildren } from "react";
 import { match } from "ts-pattern";
 import { GameProvides } from "../Game/GameProvides";
 import { C16D } from "./components/C16D";
-import { zeroState } from "./game";
+import { zeroState } from "./core/game";
 
 // --- C16d Constants and Metadata -------------------------------------------
 export const C16dPluginMeta = { id: "c16d", name: "C16d plugin" };

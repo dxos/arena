@@ -7,7 +7,7 @@ import { Vector3 } from "three";
 import { useActiveRoom } from "../../RoomManager/hooks/useActiveRoom";
 import { Button } from "../../../ui/Buttons";
 import { useMutatingStore } from "../../../hooks/useStore";
-import { GameState, exec, whoPlaysTurn } from "../game";
+import { GameState, exec, whoPlaysTurn } from "../core/game";
 import { useCameraControls } from "../hooks/useCameraControls";
 import { Board } from "./Board";
 import { Plinth } from "./Plinth";

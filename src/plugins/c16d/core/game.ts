@@ -1,7 +1,7 @@
 import { Vector3 } from "three";
-import { checkForWin, enumerateWinningLines } from "./lib/winningLines";
-import { cellInBounds } from "./lib/bounds";
-import { vec3Equal } from "./lib/vec3";
+import { checkForWin, enumerateWinningLines } from "../lib/winningLines";
+import { cellInBounds } from "../lib/bounds";
+import { vec3Equal } from "../lib/vec3";
 
 // --- Constants --------------------------------------------------------------
 export const CELL_COUNT = 4;
@@ -29,10 +29,10 @@ export function zeroState(): Partial<GameState> {
     status: "waiting",
     gameOverReason: undefined,
     winningCells: undefined,
-  };
+  } as const;
 }
 
-type GameAction =
+export type GameAction =
   | { type: "move-made"; move: Vector3; playerId: string }
   | { type: "game-over"; reason: GameOverReason; winningCells?: Vector3[] };
 
