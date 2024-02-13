@@ -3,9 +3,9 @@ import { Space, TypedObject, useQuery } from "@dxos/react-client/echo";
 import { useEffect, useMemo } from "react";
 import { Link } from "../../Layout/components/Link";
 import { useActiveRoom } from "../../RoomManager/hooks/useActiveRoom";
-import { Button } from "../../../ui/Buttons";
-import { Panel } from "../../../ui/Panel";
-import useClipboard from "../../../hooks/useClipboard";
+import { Button } from "$ui/Buttons";
+import { Panel } from "$ui/Panel";
+import useClipboard from "$hooks/useClipboard";
 import { getAuthlessInviteCodeForSpace } from "$lib/space";
 import { GameIntent, gameIntent } from "../game-plugin";
 

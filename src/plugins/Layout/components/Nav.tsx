@@ -1,6 +1,6 @@
 import { useClient } from "@dxos/react-client";
 import { useActiveRoom } from "../../RoomManager/hooks/useActiveRoom";
-import { Button } from "../../../ui/Buttons";
+import { Button } from "$ui/Buttons";
 import { PersonIcon } from "../../../icons";
 import { Link } from "./Link";
 

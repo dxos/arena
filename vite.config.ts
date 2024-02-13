@@ -30,7 +30,13 @@ export default defineConfig({
       },
     },
   },
-  resolve: { alias: { $lib: resolve(__dirname, "./src/lib") } },
+  resolve: {
+    alias: {
+      $lib: resolve(__dirname, "./src/lib"),
+      $ui: resolve(__dirname, "./src/ui"),
+      $hooks: resolve(__dirname, "./src/hooks"),
+    },
+  },
   optimizeDeps: { esbuildOptions: { target: "esnext" } },
   plugins: [
     VaultPlugin(),

@@ -1,7 +1,7 @@
 import { expect, test } from "vitest";
 import { exec, GameState, GameAction } from "./game"; // Adjust import paths as necessary
 import { Vector3 } from "three";
-import { mkApplyMany } from "../../../hooks/useStore.test";
+import { mkApplyMany } from "$hooks/useStore.test";
 
 // --- HELPERS ----------------------------------------------------------------
 const applyMany = mkApplyMany(exec);

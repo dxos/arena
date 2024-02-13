@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
 import { exec, zeroState } from "./game";
-import { mkApplyMany } from "../../../hooks/useStore.test";
+import { mkApplyMany } from "$hooks/useStore.test";
 
 // --- HELPERS ----------------------------------------------------------------
 const applyMany = mkApplyMany(exec);

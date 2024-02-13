@@ -10,7 +10,11 @@
     "skipLibCheck": true,
     "types": ["node", "vite-plugin-pwa/client"],
     "downlevelIteration": true,
-    "paths": { "$lib/*": ["./src/lib/*"] }
+    "paths": {
+      "$lib/*": ["./src/lib/*"],
+      "$ui/*": ["./src/ui/*"],
+      "$hooks/*": ["./src/hooks/*"]
+    }
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist", "vite.config.ts"],

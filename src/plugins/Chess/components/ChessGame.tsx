@@ -1,7 +1,7 @@
 import { useQuery } from "@dxos/react-client/echo";
 import React from "react";
 import { useActiveRoom } from "../../RoomManager/hooks/useActiveRoom";
-import { useMutatingStore } from "../../../hooks/useStore";
+import { useMutatingStore } from "$hooks/useStore";
 import { GameState, exec } from "../core/game";
 import { InnerChessGame } from "./InnerChessGame";
 

@@ -5,8 +5,8 @@ import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { useValue } from "signia-react";
 import { PlayerOrdering, Variation, playerOrdering } from "../GameProvides";
-import { Button } from "../../../ui/Buttons";
-import { Panel } from "../../../ui/Panel";
+import { Button } from "$ui/Buttons";
+import { Panel } from "$ui/Panel";
 import { GameIntent, gameProvidesAtom, gameIntent } from "../game-plugin";
 import { searchParamsAtom } from "../../Layout/layout-plugin";
 
