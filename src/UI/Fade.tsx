@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import * as React from "react";
 
 type FadeProps = { children: React.ReactNode };
+
 export const Fade = (props: FadeProps) => (
   <motion.div
     animate={{ opacity: 1 }}

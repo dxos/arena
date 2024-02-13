@@ -5,7 +5,7 @@ import { Canvas } from "@react-three/fiber";
 import { Suspense, useCallback } from "react";
 import { Vector3 } from "three";
 import { useActiveRoom } from "../../RoomManager/hooks/useActiveRoom";
-import { Button } from "$ui/Buttons";
+import { Button } from "../../../UI/Buttons";
 import { useMutatingStore } from "$hooks/useStore";
 import { GameState, exec, whoPlaysTurn } from "../core/game";
 import { useCameraControls } from "../hooks/useCameraControls";

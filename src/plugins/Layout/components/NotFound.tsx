@@ -1,5 +1,5 @@
 import React from "react";
-import { Panel } from "$ui/Panel";
+import { Panel } from "../../../UI/Panel";
 
 export const NotFound = () => {
   return (

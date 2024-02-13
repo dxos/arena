@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "$ui/Buttons";
+import { Button } from "../../../UI/Buttons";
 import { FirstIcon, LastIcon, NextIcon, PreviousIcon, ResignIcon } from "../../../icons";
 import { InGameCursor } from "../hooks/useInGameCursor";
 

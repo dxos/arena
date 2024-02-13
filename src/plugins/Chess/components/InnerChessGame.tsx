@@ -5,7 +5,7 @@ import { Chessboard } from "react-chessboard";
 import useMeasure from "react-use-measure";
 import { useValue } from "signia-react";
 import { usersAtom } from "../../RoomManager/room-manager-plugin";
-import { Panel } from "$ui/Panel";
+import { Panel } from "../../../UI/Panel";
 import { GameAction, GameState, Move, PlayerColor, oppositePlayerColor } from "../core/game";
 import { useGameActions } from "../hooks/useGameActions";
 import { useGameSounds } from "../hooks/useGameSounds";

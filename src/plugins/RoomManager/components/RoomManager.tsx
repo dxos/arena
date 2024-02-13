@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useActiveRoom } from "../hooks/useActiveRoom";
-import { Panel } from "$ui/Panel";
-import { Button } from "$ui/Buttons";
+import { Panel } from "../../../UI/Panel";
+import { Button } from "../../../UI/Buttons";
 import { Input } from "@dxos/react-ui";
 import { useIntent } from "@dxos/app-framework";
 import { RoomManagerIntent, roomManagerIntent } from "../room-manager-plugin";

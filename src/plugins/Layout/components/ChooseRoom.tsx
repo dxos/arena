@@ -2,7 +2,7 @@ import { useIntent } from "@dxos/app-framework";
 import { RoomManagerIntent, roomManagerIntent } from "../../RoomManager/room-manager-plugin";
 import { useActiveRoom } from "../../RoomManager/hooks/useActiveRoom";
 import { useRoomList } from "../../RoomManager/hooks/useRoomList";
-import { Button } from "$ui/Buttons";
+import { Button } from "../../../UI/Buttons";
 
 export const ChooseRoom = () => {
   const roomList = useRoomList();

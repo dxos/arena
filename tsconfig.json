@@ -12,7 +12,7 @@
     "downlevelIteration": true,
     "paths": {
       "$lib/*": ["./src/lib/*"],
-      "$ui/*": ["./src/ui/*"],
+      "$ui/*": ["./src/UI/*"],
       "$hooks/*": ["./src/hooks/*"]
     }
   },

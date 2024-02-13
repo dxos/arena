@@ -3,7 +3,7 @@ import { AnimatePresence } from "framer-motion";
 import React from "react";
 import { useValue } from "signia-react";
 import { P, match } from "ts-pattern";
-import { Fade } from "$ui/Fade";
+import { Fade } from "../../../UI/Fade";
 import { layoutStateAtom } from "../layout-plugin";
 import { ChooseRoom } from "./ChooseRoom";
 import { GradientBackground } from "./GradientBackground";
