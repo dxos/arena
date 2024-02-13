@@ -42,7 +42,6 @@ const intentResolver = (intent: Intent, _plugins: Plugin[]) => {
   switch (intent.action) {
     case SynthIntent.PLAY_SOUND_FROM_ATLAS: {
       const { sound } = intent.data as SynthIntent.PlaySoundFromAtlas;
-      console.log("Playing sound", sound);
 
       zzfx(...sfxAtlas[sound]);
 

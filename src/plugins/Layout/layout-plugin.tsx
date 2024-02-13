@@ -80,10 +80,8 @@ type LayoutIntents = {
 export const layoutIntent = mkIntentBuilder<LayoutIntents>(LayoutPluginMeta.id);
 
 // --- Layout Intent Resolver --------------------------------------------------
-function resolver(intent: Intent, _plugins: Plugin[]) {
-  console.log("Layout Intent Resolver", intent);
-
-  return match(intent.action as LayoutIntent)
+const resolver = (intent: Intent, _plugins: Plugin[]) =>
+  match(intent.action as LayoutIntent)
     .with(LayoutIntent.UPDATE_SEARCH_PARAMS, () => {
       const { searchParams } = intent.data;
       searchParamsAtom.set(searchParams);
@@ -119,7 +117,6 @@ function resolver(intent: Intent, _plugins: Plugin[]) {
       return true;
     })
     .exhaustive();
-}
 
 // --- Plugin Definition ------------------------------------------------------
 type LayoutPluginProvidesCapabilities = IntentResolverProvides & SurfaceProvides;
@@ -172,7 +169,6 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
               );
             } else {
               client.shell.joinSpace({ invitationCode }).then((joinSpaceResult) => {
-                console.log("Join space result", joinSpaceResult);
                 const space = joinSpaceResult.space;
 
                 if (space) {
@@ -198,8 +194,6 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
               return [route, matchResult] as const;
             })
             .filter(([, matchResult]) => matchResult !== false);
-
-          console.log("Route match result", foundMatch);
 
           if (foundMatch.length > 0 && foundMatch[0][1] !== false) {
             const [route, { params }] = foundMatch[0];

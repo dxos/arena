@@ -1,5 +1,5 @@
 import { mkIntentBuilder } from "$lib/intent";
-import { IntentResolverProvides, PluginDefinition, SurfaceProvides } from "@dxos/app-framework";
+import { PluginDefinition, SurfaceProvides } from "@dxos/app-framework";
 import { Expando } from "@dxos/react-client/echo";
 import { PropsWithChildren } from "react";
 import { match } from "ts-pattern";
@@ -10,17 +10,8 @@ import { zeroState } from "./core/game";
 // --- C16d Constants and Metadata -------------------------------------------
 export const ConnectFourAdvancedPluginMeta = { id: "c16d", name: "Connect Four Advanced Plugin" };
 
-// --- C16d Intents ----------------------------------------------------------
-const actionPrefix = "@arena.dxos.org/c16d";
-
-export enum C16dIntent {}
-export namespace C16dIntent {}
-type C16dIntents = {};
-
-export const c16dIntent = mkIntentBuilder<C16dIntents>(ConnectFourAdvancedPluginMeta.id);
-
 // --- Plugin Definition ------------------------------------------------------
-type C16dPluginProvidesCapabilities = IntentResolverProvides & SurfaceProvides & GameProvides;
+type C16dPluginProvidesCapabilities = SurfaceProvides & GameProvides;
 
 export default function ConnectFourAdvancedPlugin(): PluginDefinition<C16dPluginProvidesCapabilities> {
   return {
@@ -28,7 +19,6 @@ export default function ConnectFourAdvancedPlugin(): PluginDefinition<C16dPlugin
 
     provides: {
       context: (props: PropsWithChildren) => <>{props.children}</>,
-      intent: { resolver: (intent, _plugins) => console.log(intent) },
       surface: {
         component: ({ data, role }) => {
           if (

@@ -1,26 +1,16 @@
-import { IntentResolverProvides, PluginDefinition, SurfaceProvides } from "@dxos/app-framework";
+import { PluginDefinition, SurfaceProvides } from "@dxos/app-framework";
 import { Expando } from "@dxos/react-client/echo";
-import React, { PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 import { match } from "ts-pattern";
 import { GameProvides } from "../Game/GameProvides";
-import { mkIntentBuilder } from "$lib/intent";
 import { ChessGame } from "./components/ChessGame";
 import { zeroState } from "./core/game";
 
 // --- Chess Constants and Metadata -------------------------------------------
 export const ChessPluginMeta = { id: "chess", name: "Chess plugin" };
 
-// --- Chess Intents ----------------------------------------------------------
-const actionPrefix = "@arena.dxos.org/chess";
-
-export enum ChessIntent {}
-export namespace ChessIntent {}
-type ChessIntents = {};
-
-export const chessIntent = mkIntentBuilder<ChessIntents>(ChessPluginMeta.id);
-
 // --- Plugin Definition ------------------------------------------------------
-type ChessPluginProvidesCapabilities = IntentResolverProvides & SurfaceProvides & GameProvides;
+type ChessPluginProvidesCapabilities = SurfaceProvides & GameProvides;
 
 export default function ChessPlugin(): PluginDefinition<ChessPluginProvidesCapabilities> {
   return {
@@ -28,7 +18,6 @@ export default function ChessPlugin(): PluginDefinition<ChessPluginProvidesCapab
 
     provides: {
       context: (props: PropsWithChildren) => <>{props.children}</>,
-      intent: { resolver: (intent, _plugins) => console.log(intent) },
       surface: {
         component: ({ data, role }) => {
           if (

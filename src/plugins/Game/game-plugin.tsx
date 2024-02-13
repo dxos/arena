@@ -193,8 +193,6 @@ const intentResolver = async (intent: Intent, plugins: Plugin[]) => {
       const [invitation] = objects;
 
       if (invitation.creatorId !== identityHex) {
-        console.log("We are the second player");
-
         invitation.joiningPlayerId = identityHex;
         invitation.finalised = true;
 
