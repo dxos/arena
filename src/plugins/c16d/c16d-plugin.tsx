@@ -1,9 +1,9 @@
+import { mkIntentBuilder } from "$lib/intent";
 import { IntentResolverProvides, PluginDefinition, SurfaceProvides } from "@dxos/app-framework";
 import { Expando } from "@dxos/react-client/echo";
 import { PropsWithChildren } from "react";
 import { match } from "ts-pattern";
-import { GameProvides } from "../../GameProvides";
-import { mkIntentBuilder } from "../../lib";
+import { GameProvides } from "../Game/GameProvides";
 import { C16D } from "./components/C16D";
 import { zeroState } from "./game";
 

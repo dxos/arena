@@ -1,5 +1,5 @@
-import React, { CSSProperties, HTMLAttributes, PropsWithChildren } from "react";
-import { cn } from "../lib";
+import { cn } from "$lib/css";
+import { CSSProperties, HTMLAttributes } from "react";
 
 const rimGradient = `linear-gradient(
   100deg,

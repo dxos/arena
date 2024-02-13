@@ -1,4 +1,4 @@
-import { GameAction, PlayerColor } from "../game";
+import { GameAction, PlayerColor } from "../core/game";
 
 export const useGameActions = (send: (action: GameAction) => void, playerColor: PlayerColor) => {
   return {

@@ -1,10 +1,10 @@
 import { useQuery } from "@dxos/react-client/echo";
 import { useValue } from "signia-react";
 import { usernamesAtom, usersAtom } from "../../RoomManager/room-manager-plugin";
-import { useActiveRoom } from "../../RoomManager/useActiveRoom";
+import { useActiveRoom } from "../../RoomManager/hooks/useActiveRoom";
 import { Button } from "../../../ui/Buttons";
 import { Panel } from "../../../ui/Panel";
-import { cn } from "../../../lib";
+import { cn } from "$lib/css";
 import { routes } from "../routes";
 import { Link } from "./Link";
 

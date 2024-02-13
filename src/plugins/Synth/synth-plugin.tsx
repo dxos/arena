@@ -1,6 +1,6 @@
 import { Intent, IntentResolverProvides, Plugin, PluginDefinition } from "@dxos/app-framework";
 import React, { PropsWithChildren } from "react";
-import { mkIntentBuilder } from "../../lib";
+import { mkIntentBuilder } from "$lib/intent";
 
 // @ts-ignore-next-line
 import { zzfx } from "zzfx";

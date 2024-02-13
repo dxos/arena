@@ -2,10 +2,10 @@ import { IntentResolverProvides, PluginDefinition, SurfaceProvides } from "@dxos
 import { Expando } from "@dxos/react-client/echo";
 import React, { PropsWithChildren } from "react";
 import { match } from "ts-pattern";
-import { GameProvides } from "../../GameProvides";
-import { mkIntentBuilder } from "../../lib";
+import { GameProvides } from "../Game/GameProvides";
+import { mkIntentBuilder } from "$lib/intent";
 import { ChessGame } from "./components/ChessGame";
-import { zeroState } from "./game";
+import { zeroState } from "./core/game";
 
 // --- Chess Constants and Metadata -------------------------------------------
 export const ChessPluginMeta = { id: "chess", name: "Chess plugin" };

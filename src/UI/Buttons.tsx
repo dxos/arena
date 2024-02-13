@@ -1,6 +1,6 @@
 import React from "react";
 import "./buttons.css";
-import { cn } from "../lib";
+import { cn } from "$lib/css";
 
 type ButtonVariant = "primary" | "danger" | "secondary";
 type ButtonSize = "small" | "medium";

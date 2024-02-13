@@ -1,8 +1,8 @@
 import React from "react";
 import { match } from "ts-pattern";
 import { Panel } from "../../../ui/Panel";
-import { cn } from "../../../lib/css";
-import { GameState, PlayerColor } from "../game";
+import { cn } from "$lib/css";
+import { GameState, PlayerColor } from "../core/game";
 import { Timer } from "./Timer";
 
 type PlayerInfoProps = {

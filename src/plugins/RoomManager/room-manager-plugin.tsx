@@ -13,8 +13,8 @@ import { Identity } from "@dxos/react-client/halo";
 import { atom, computed } from "signia";
 import { routes } from "../Layout/routes";
 import { ToasterIntent, toasterIntent } from "../Toaster/toaster-plugin";
-import { mkIntentBuilder } from "../../lib";
-import { atomWithStorage } from "../../lib/atomWithStorage";
+import { mkIntentBuilder } from "$lib/intent";
+import { atomWithStorage } from "$lib/atomWithStorage";
 import { RoomManager } from "./components/RoomManager";
 
 export type Room = { key: string; name?: string };

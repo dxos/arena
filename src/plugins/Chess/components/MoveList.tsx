@@ -1,6 +1,6 @@
 import React from "react";
-import { arrayToPairs } from "../../../lib/array";
-import { cn } from "../../../lib/css";
+import { arrayToPairs } from "$lib/array";
+import { cn } from "$lib/css";
 
 const MoveBadge = ({
   current,

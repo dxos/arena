@@ -4,11 +4,11 @@ import { Input, Select } from "@dxos/react-ui";
 import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { useValue } from "signia-react";
-import { PlayerOrdering, Variation, playerOrdering } from "../../GameProvides";
-import { Button } from "../../ui/Buttons";
-import { Panel } from "../../ui/Panel";
-import { InvitationIntent, gameProvidesAtom, invitationIntent } from "./invitation-plugin";
-import { searchParamsAtom } from "../Layout/layout-plugin";
+import { PlayerOrdering, Variation, playerOrdering } from "../GameProvides";
+import { Button } from "../../../ui/Buttons";
+import { Panel } from "../../../ui/Panel";
+import { GameIntent, gameProvidesAtom, gameIntent } from "../game-plugin";
+import { searchParamsAtom } from "../../Layout/layout-plugin";
 
 const useOnSubmit = () => {
   const identity = useIdentity();
@@ -32,7 +32,7 @@ const useOnSubmit = () => {
       const openGame = searchParams.get("open");
 
       dispatch(
-        invitationIntent(InvitationIntent.CREATE_INVITATION, {
+        gameIntent(GameIntent.CREATE_INVITATION, {
           creatorId,
           gameDescription,
           isOpenGame: openGame === "true",
@@ -43,7 +43,7 @@ const useOnSubmit = () => {
   );
 };
 
-export const CreateInvitation = () => {
+export const CreateGame = () => {
   const gameProvides = useValue(gameProvidesAtom);
   const onSubmit = useOnSubmit();
 
@@ -56,7 +56,7 @@ export const CreateInvitation = () => {
     return map;
   }, {} as Record<string, Variation[]>);
 
-  const { register, handleSubmit, watch, setValue } = useForm({
+  const { handleSubmit, watch, setValue } = useForm({
     defaultValues: {
       gameId: gameProvides[0].id,
       variationId: gameProvides[0].variations[0].id,

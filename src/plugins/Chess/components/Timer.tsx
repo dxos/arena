@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { useValue } from "signia-react";
 import { blackTimeAtom, whiteTimeAtom } from "../hooks/useTimeControl";
-import { PlayerColor } from "../game";
+import { PlayerColor } from "../core/game";
 
 export const Timer = ({ color }: { color: PlayerColor }) => {
   const atom = useMemo(() => (color === "white" ? whiteTimeAtom : blackTimeAtom), [color]);

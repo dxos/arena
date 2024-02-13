@@ -3,7 +3,7 @@ import { Chess } from "chess.js";
 import { useCallback, useEffect } from "react";
 import { SynthIntent, synthIntent } from "../../Synth/synth-plugin";
 import { useOnTransition } from "../../../hooks/useTransitions";
-import { GameStatus } from "../game";
+import { GameStatus } from "../core/game";
 
 export const useGameSounds = (fen: string, status: GameStatus) => {
   const { dispatch } = useIntent();

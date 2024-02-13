@@ -4,6 +4,7 @@ import { VaultPlugin } from "@dxos/vault/vite-plugin";
 import react from "@vitejs/plugin-react";
 import { ThemePlugin } from "@dxos/react-ui-theme/plugin";
 import { resolve } from "path";
+
 const { osThemeExtension } = require("@dxos/react-shell/theme-extensions");
 
 // https://vitejs.dev/config/
@@ -29,8 +30,8 @@ export default defineConfig({
       },
     },
   },
+  resolve: { alias: { $lib: resolve(__dirname, "./src/lib") } },
   optimizeDeps: { esbuildOptions: { target: "esnext" } },
-
   plugins: [
     VaultPlugin(),
     ConfigPlugin(),

@@ -1,5 +1,5 @@
 import { useIntent } from "@dxos/app-framework";
-import { GameState, PlayerColor, oppositePlayerColor } from "../game";
+import { GameState, PlayerColor, oppositePlayerColor } from "../core/game";
 import { ToasterIntent, toasterIntent } from "../../Toaster/toaster-plugin";
 import { useOnTransition } from "../../../hooks/useTransitions";
 import { match } from "ts-pattern";

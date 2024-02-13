@@ -1,19 +1,19 @@
 import { DispatchIntent, useIntent } from "@dxos/app-framework";
 import { Space, TypedObject, useQuery } from "@dxos/react-client/echo";
 import { useEffect, useMemo } from "react";
-import { Link } from "../Layout/components/Link";
-import { useActiveRoom } from "../RoomManager/useActiveRoom";
-import { Button } from "../../ui/Buttons";
-import { Panel } from "../../ui/Panel";
-import useClipboard from "../../hooks/useClipboard";
-import { getAuthlessInviteCodeForSpace } from "../../lib/space";
-import { InvitationIntent, invitationIntent } from "./invitation-plugin";
+import { Link } from "../../Layout/components/Link";
+import { useActiveRoom } from "../../RoomManager/hooks/useActiveRoom";
+import { Button } from "../../../ui/Buttons";
+import { Panel } from "../../../ui/Panel";
+import useClipboard from "../../../hooks/useClipboard";
+import { getAuthlessInviteCodeForSpace } from "$lib/space";
+import { GameIntent, gameIntent } from "../game-plugin";
 
 function useRedirectToGame(dbInvitation: TypedObject | undefined, dispatch: DispatchIntent) {
   useEffect(() => {
     if (dbInvitation?.finalised) {
       dispatch(
-        invitationIntent(InvitationIntent.OPEN_GAME, {
+        gameIntent(GameIntent.OPEN_GAME, {
           gameId: dbInvitation.gameDescription.gameId,
           instanceId: dbInvitation.instanceId,
         })
@@ -36,7 +36,7 @@ function useJoinInvitation(
     if (!dbInvitation || !dbInvitation.invitationId || !space) return;
 
     dispatch(
-      invitationIntent(InvitationIntent.JOIN_INVITATION, {
+      gameIntent(GameIntent.JOIN_INVITATION, {
         invitationId: dbInvitation?.invitationId,
       })
     );
@@ -53,7 +53,7 @@ export const InvitationView = ({ id }: { id: string }) => {
 
   const handleCancelInvitation = () => {
     if (!space || !dbInvitation) return;
-    dispatch(invitationIntent(InvitationIntent.CANCEL_INVITATION, { invitationId: id }));
+    dispatch(gameIntent(GameIntent.CANCEL_INVITATION, { invitationId: id }));
   };
 
   const inviteQueryString = useMemo(() => {

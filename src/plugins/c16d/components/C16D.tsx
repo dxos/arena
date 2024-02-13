@@ -4,7 +4,7 @@ import { Center, OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useCallback } from "react";
 import { Vector3 } from "three";
-import { useActiveRoom } from "../../RoomManager/useActiveRoom";
+import { useActiveRoom } from "../../RoomManager/hooks/useActiveRoom";
 import { Button } from "../../../ui/Buttons";
 import { useMutatingStore } from "../../../hooks/useStore";
 import { GameState, exec, whoPlaysTurn } from "../game";
@@ -14,7 +14,7 @@ import { Plinth } from "./Plinth";
 import { useValue } from "signia-react";
 import { usernamesAtom } from "../../RoomManager/room-manager-plugin";
 import { match } from "ts-pattern";
-import { cn } from "../../../lib";
+import { cn } from "$lib/css";
 
 // --- Types ----------------------------------
 export const CELL_SPACING = 1.66;

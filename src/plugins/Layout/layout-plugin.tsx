@@ -14,7 +14,7 @@ import { PropsWithChildren, useCallback, useEffect } from "react";
 import { atom } from "signia";
 import { match } from "ts-pattern";
 import { RoomManagerIntent, roomManagerIntent } from "../RoomManager/room-manager-plugin";
-import { mkIntentBuilder } from "../../lib";
+import { mkIntentBuilder } from "$lib/intent";
 import { Layout } from "./components/Layout";
 import { appPaths } from "./routes";
 

@@ -11,7 +11,7 @@ import { atom } from "signia";
 import { useValue } from "signia-react";
 import { match } from "ts-pattern";
 import { v4 as uuid } from "uuid";
-import { mkIntentBuilder } from "../../lib";
+import { mkIntentBuilder } from "$lib/intent";
 
 // --- Constants and Metadata -------------------------------------------------
 export const ToasterPluginMeta = { id: "Toaster", name: "Toaster Plugin" };

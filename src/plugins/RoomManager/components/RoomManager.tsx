@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useActiveRoom } from "../useActiveRoom";
+import { useActiveRoom } from "../hooks/useActiveRoom";
 import { Panel } from "../../../ui/Panel";
 import { Button } from "../../../ui/Buttons";
 import { Input } from "@dxos/react-ui";

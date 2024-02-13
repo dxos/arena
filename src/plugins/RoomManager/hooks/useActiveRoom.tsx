@@ -1,6 +1,6 @@
 import { useSpace } from "@dxos/react-client/echo";
 import { useValue } from "signia-react";
-import { activeRoomKeyAtom } from "./room-manager-plugin";
+import { activeRoomKeyAtom } from "../room-manager-plugin";
 import { PublicKey } from "@dxos/react-client";
 import { useMemo } from "react";
 

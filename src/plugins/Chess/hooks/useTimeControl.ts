@@ -4,9 +4,9 @@ import { useValue } from "signia-react";
 import React from "react";
 import { interval } from "rxjs";
 import { match } from "ts-pattern";
-import { GameDispatch, GameStatus, TimeControl } from "../game";
+import { GameDispatch, GameStatus, TimeControl } from "../core/game";
 import { useSubscription } from "../../../hooks/useSubscription";
-import { ms } from "../../../lib/time";
+import { ms } from "$lib/time";
 
 export const thinkingTime = (moveTimes: string[], currentTime?: string) => {
   let whiteThinkingDuration: number = 0;

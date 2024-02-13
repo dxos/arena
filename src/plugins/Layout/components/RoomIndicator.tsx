@@ -1,4 +1,4 @@
-import { useActiveRoom } from "../../RoomManager/useActiveRoom";
+import { useActiveRoom } from "../../RoomManager/hooks/useActiveRoom";
 import { routes } from "../routes";
 import { Link } from "./Link";
 

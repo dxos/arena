@@ -9,7 +9,8 @@
     "outDir": "dist",
     "skipLibCheck": true,
     "types": ["node", "vite-plugin-pwa/client"],
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "paths": { "$lib/*": ["./src/lib/*"] }
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist", "vite.config.ts"],

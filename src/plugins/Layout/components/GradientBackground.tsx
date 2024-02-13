@@ -1,5 +1,5 @@
 import React, { CSSProperties } from "react";
-import { cn } from "../../../lib";
+import { cn } from "$lib/css";
 
 export const GradientBackground = () => {
   const commonClasses = "absolute left-0 top-0 h-full w-screen blur-3xl";

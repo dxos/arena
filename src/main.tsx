@@ -15,9 +15,9 @@ import { Config, createClientServices, Defaults, Envs, Local } from "@dxos/react
 import { Status, ThemeProvider } from "@dxos/react-ui";
 import { defaultTx } from "@dxos/react-ui-theme";
 
-import { C16dPluginMeta } from "./plugins/c16d/c16d-plugin";
+import { C16dPluginMeta } from "./plugins/C16D/c16d-plugin";
 import { ChessPluginMeta } from "./plugins/Chess/chess-plugin";
-import { InvitationPluginMeta } from "./plugins/Invitation/invitation-plugin";
+import { GamePluginMeta } from "./plugins/Game/game-plugin";
 import { LayoutPluginMeta } from "./plugins/Layout/layout-plugin";
 import { RoomManagerPluginMeta } from "./plugins/RoomManager/room-manager-plugin";
 import { SynthPluginMeta } from "./plugins/Synth/synth-plugin";
@@ -61,11 +61,9 @@ const main = async () => {
 
       [SynthPluginMeta.id]: Plugin.lazy(() => import("./plugins/Synth/synth-plugin")),
       [LayoutPluginMeta.id]: Plugin.lazy(() => import("./plugins/Layout/layout-plugin")),
-      [InvitationPluginMeta.id]: Plugin.lazy(
-        () => import("./plugins/Invitation/invitation-plugin")
-      ),
+      [GamePluginMeta.id]: Plugin.lazy(() => import("./plugins/Game/game-plugin")),
       [ChessPluginMeta.id]: Plugin.lazy(() => import("./plugins/Chess/chess-plugin")),
-      [C16dPluginMeta.id]: Plugin.lazy(() => import("./plugins/c16d/c16d-plugin")),
+      [C16dPluginMeta.id]: Plugin.lazy(() => import("./plugins/C16D/c16d-plugin")),
     },
     order: [
       ThemeMeta, // Outside of error boundary so error dialog is styled.
@@ -79,7 +77,7 @@ const main = async () => {
       ToasterPluginMeta,
       RoomManagerPluginMeta,
       SynthPluginMeta,
-      InvitationPluginMeta,
+      GamePluginMeta,
       ChessPluginMeta,
       C16dPluginMeta,
     ],
