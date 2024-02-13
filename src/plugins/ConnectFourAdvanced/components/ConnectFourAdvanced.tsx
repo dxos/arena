@@ -119,7 +119,7 @@ export function C16DImpl({ game, onMove }: { game: GameState; onMove: (cell: Vec
   );
 }
 
-export function C16D({ id }: { id: string }) {
+export function ConnectFourAdvanced({ id }: { id: string }) {
   const space = useActiveRoom();
   const identity = useIdentity();
 

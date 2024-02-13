@@ -15,7 +15,7 @@ import { Config, createClientServices, Defaults, Envs, Local } from "@dxos/react
 import { Status, ThemeProvider } from "@dxos/react-ui";
 import { defaultTx } from "@dxos/react-ui-theme";
 
-import { C16dPluginMeta } from "./plugins/C16D/c16d-plugin";
+import { ConnectFourAdvancedPluginMeta } from "./plugins/ConnectFourAdvanced/connect-four-advanced-plugin";
 import { ChessPluginMeta } from "./plugins/Chess/chess-plugin";
 import { GamePluginMeta } from "./plugins/Game/game-plugin";
 import { LayoutPluginMeta } from "./plugins/Layout/layout-plugin";
@@ -63,7 +63,9 @@ const main = async () => {
       [LayoutPluginMeta.id]: Plugin.lazy(() => import("./plugins/Layout/layout-plugin")),
       [GamePluginMeta.id]: Plugin.lazy(() => import("./plugins/Game/game-plugin")),
       [ChessPluginMeta.id]: Plugin.lazy(() => import("./plugins/Chess/chess-plugin")),
-      [C16dPluginMeta.id]: Plugin.lazy(() => import("./plugins/C16D/c16d-plugin")),
+      [ConnectFourAdvancedPluginMeta.id]: Plugin.lazy(
+        () => import("./plugins/ConnectFourAdvanced/connect-four-advanced-plugin")
+      ),
     },
     order: [
       ThemeMeta, // Outside of error boundary so error dialog is styled.
@@ -79,7 +81,7 @@ const main = async () => {
       SynthPluginMeta,
       GamePluginMeta,
       ChessPluginMeta,
-      C16dPluginMeta,
+      ConnectFourAdvancedPluginMeta,
     ],
   });
 
