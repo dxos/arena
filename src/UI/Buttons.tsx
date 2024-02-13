@@ -1,5 +1,5 @@
 import React from "react";
-import "./buttons.css";
+import "./button-styles.css";
 import { cn } from "$lib/css";
 
 type ButtonVariant = "primary" | "danger" | "secondary";
