@@ -6,7 +6,7 @@ import { InGameCursor } from "../hooks/useInGameCursor";
 type ControlsProps = {
   cursor: InGameCursor;
   playing: boolean;
-  drawOffered: boolean;
+  drawOffered: "offered-to-me" | "offered-by-me" | undefined;
   takebackRequested: boolean;
   onResign: () => void;
   onOfferDraw: () => void;
@@ -63,9 +63,13 @@ export const Controls = ({
         <Button onClick={onOfferDraw} disabled={!playing} aria-label="Offer draw">
           Offer draw
         </Button>
-      ) : (
+      ) : drawOffered === "offered-to-me" ? (
         <Button onClick={onAcceptDraw} disabled={!playing} aria-label="Accept draw offer">
           Accept draw
+        </Button>
+      ) : (
+        <Button onClick={onAcceptDraw} disabled={true} aria-label="Draw offered">
+          Draw offered
         </Button>
       )}
       {!takebackRequested ? (

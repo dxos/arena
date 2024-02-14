@@ -16,6 +16,7 @@ import { findPiece } from "../core/utils";
 import { Controls } from "./Controls";
 import { MoveList } from "./MoveList";
 import { PlayerInfo } from "./PlayerInfo";
+import { match } from "ts-pattern";
 
 const computeSquareStyles = (lastMove: Move | undefined, fen: string) => {
   const game = new Chess(fen);
@@ -108,6 +109,14 @@ export const InnerChessGame = ({
 
   const [ref, bounds] = useMeasure();
 
+  const oppositePlayer = oppositePlayerColor(playerColor);
+
+  const drawOffered = game.drawOffer
+    ? game.drawOffer === oppositePlayer
+      ? "offered-to-me"
+      : "offered-by-me"
+    : undefined;
+
   return (
     <div className="p-1 sm:p-4 grid grid-cols-1 sm:grid-cols-[auto_auto] gap-2 sm:gap-3 justify-center items-start">
       <div ref={ref} className="flex flex-col gap-2 sm:gap-3">
@@ -134,7 +143,7 @@ export const InnerChessGame = ({
         <Controls
           cursor={cursor}
           playing={game.status === "in-progress"}
-          drawOffered={game.drawOffer !== undefined}
+          drawOffered={drawOffered}
           takebackRequested={
             game.takebackRequest.black !== undefined || game.takebackRequest.white !== undefined
           }
