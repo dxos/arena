@@ -1,8 +1,18 @@
+import { cn } from "$lib/css";
 import { useIntent } from "@dxos/app-framework";
-import { RoomManagerIntent, roomManagerIntent } from "../../RoomManager/room-manager-plugin";
+import { Button } from "../../../UI/Buttons";
 import { useActiveRoom } from "../../RoomManager/hooks/useActiveRoom";
 import { useRoomList } from "../../RoomManager/hooks/useRoomList";
-import { Button } from "../../../UI/Buttons";
+import { RoomManagerIntent, roomManagerIntent } from "../../RoomManager/room-manager-plugin";
+
+const RoomCard = ({ children, active }: { children: React.ReactNode; active: boolean }) => {
+  const className = cn(
+    "p-4 bg-zinc-50 dark:bg-zinc-900 rounded-sm shadow-lg w-full max-w-lg",
+    active ? "ring-1 ring-yellow-200 dark:ring-yellow-400" : "",
+    "flex flex-row justify-between items-center gap-2"
+  );
+  return <div className={className}>{children}</div>;
+};
 
 export const ChooseRoom = () => {
   const roomList = useRoomList();
@@ -15,21 +25,19 @@ export const ChooseRoom = () => {
   };
 
   return (
-    <div className="mt-4 sm:mt-12 flex flex-col items-center justify-center h-full gap-3">
-      <h2 className="text-3xl" style={{ fontFamily: "EB Garamond" }}>
+    <div className="mt-4 sm:mt-12 px-4 pb-4 flex flex-col items-center justify-center h-full gap-3">
+      <h2 className="text-3xl mb-3" style={{ fontFamily: "EB Garamond" }}>
         Join a room
       </h2>
       {roomList.map((room) => {
         const isActive = activeSpace?.key.toHex() === room.key;
         return (
-          <div className="flex flex-row gap-2 items-center" key={room.key}>
-            <code>
-              {isActive && "(active) "} {room.name || `${room.key.substring(0, 32)}...`}
-            </code>
+          <RoomCard key={room.key} active={isActive}>
+            <code>{room.name || `${room.key.substring(0, 32)}...`}</code>
             <Button onClick={() => onJoinSpace(room)} variant="secondary" aria-label="Join space">
-              Join
+              {isActive ? "Joined" : "Join"}
             </Button>
-          </div>
+          </RoomCard>
         );
       })}
     </div>

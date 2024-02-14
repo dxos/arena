@@ -1,10 +1,10 @@
+import { cn } from "$lib/css";
 import { useQuery } from "@dxos/react-client/echo";
 import { useValue } from "signia-react";
-import { usernamesAtom, usersAtom } from "../../RoomManager/room-manager-plugin";
-import { useActiveRoom } from "../../RoomManager/hooks/useActiveRoom";
 import { Button } from "../../../UI/Buttons";
 import { Panel } from "../../../UI/Panel";
-import { cn } from "$lib/css";
+import { useActiveRoom } from "../../RoomManager/hooks/useActiveRoom";
+import { usernamesAtom } from "../../RoomManager/room-manager-plugin";
 import { routes } from "../routes";
 import { Link } from "./Link";
 
@@ -55,7 +55,9 @@ export const OpenGames = () => {
               </Link>
             );
           })}
-          {invitations.length === 0 && <div className="p-1 mt-2 text-sm">No open games</div>}
+          {invitations.length === 0 && (
+            <div className="p-1 mt-2 text-xs sm:text-sm">No open games</div>
+          )}
         </div>
       </div>
     </Panel>
@@ -82,7 +84,7 @@ export const Lobby = () => (
           </Button>
         </Link>
       </div>
-      <div className="mt-2 sm:mt-8">
+      <div className="mt-2 sm:mt-8 w-full max-w-3xl">
         <h2 className="text-2xl mb-2" style={{ fontFamily: "EB Garamond" }}>
           Lobby
         </h2>
