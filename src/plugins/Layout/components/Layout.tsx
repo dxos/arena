@@ -5,7 +5,7 @@ import { useValue } from "signia-react";
 import { P, match } from "ts-pattern";
 import { Fade } from "../../../UI/Fade";
 import { layoutStateAtom } from "../layout-plugin";
-import { ChooseRoom } from "./ChooseRoom";
+import { ChooseRoom } from "../../RoomManager/components/ChooseRoom";
 import { GradientBackground } from "./GradientBackground";
 import { Lobby } from "./Lobby";
 import { Nav } from "./Nav";

@@ -1,9 +1,9 @@
 import { cn } from "$lib/css";
 import { useIntent } from "@dxos/app-framework";
 import { Button } from "../../../UI/Buttons";
-import { useActiveRoom } from "../../RoomManager/hooks/useActiveRoom";
-import { useRoomList } from "../../RoomManager/hooks/useRoomList";
-import { RoomManagerIntent, roomManagerIntent } from "../../RoomManager/room-manager-plugin";
+import { useActiveRoom } from "../hooks/useActiveRoom";
+import { useRoomList } from "../hooks/useRoomList";
+import { RoomManagerIntent, roomManagerIntent } from "../room-manager-plugin";
 
 const RoomCard = ({ children, active }: { children: React.ReactNode; active: boolean }) => {
   const className = cn(
