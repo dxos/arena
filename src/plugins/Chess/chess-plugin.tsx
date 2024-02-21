@@ -5,6 +5,7 @@ import { match } from "ts-pattern";
 import { GameProvides } from "../Game/GameProvides";
 import { ChessGame } from "./components/ChessGame";
 import { zeroState } from "./core/game";
+import { shouldRenderGame } from "../Game/shouldRenderGame";
 
 // --- Chess Constants and Metadata -------------------------------------------
 export const ChessPluginMeta = { id: "chess", name: "Chess plugin" };
@@ -20,11 +21,7 @@ export default function ChessPlugin(): PluginDefinition<ChessPluginProvidesCapab
       context: (props: PropsWithChildren) => <>{props.children}</>,
       surface: {
         component: ({ data, role }) => {
-          if (
-            role === "game" &&
-            typeof data.instanceId === "string" &&
-            data.gameId === ChessPluginMeta.id
-          ) {
+          if (shouldRenderGame(data, role, ChessPluginMeta.id)) {
             return <ChessGame id={data.instanceId} />;
           }
 

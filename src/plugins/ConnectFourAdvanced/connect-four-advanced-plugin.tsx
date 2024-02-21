@@ -1,4 +1,3 @@
-import { mkIntentBuilder } from "$lib/intent";
 import { PluginDefinition, SurfaceProvides } from "@dxos/app-framework";
 import { Expando } from "@dxos/react-client/echo";
 import { PropsWithChildren } from "react";
@@ -6,6 +5,7 @@ import { match } from "ts-pattern";
 import { GameProvides } from "../Game/GameProvides";
 import { ConnectFourAdvanced } from "./components/ConnectFourAdvanced";
 import { zeroState } from "./core/game";
+import { shouldRenderGame } from "../Game/shouldRenderGame";
 
 // --- C16d Constants and Metadata -------------------------------------------
 export const ConnectFourAdvancedPluginMeta = { id: "c16d", name: "Connect Four Advanced Plugin" };
@@ -21,11 +21,7 @@ export default function ConnectFourAdvancedPlugin(): PluginDefinition<C16dPlugin
       context: (props: PropsWithChildren) => <>{props.children}</>,
       surface: {
         component: ({ data, role }) => {
-          if (
-            role === "game" &&
-            data?.gameId === ConnectFourAdvancedPluginMeta.id &&
-            typeof data?.instanceId === "string"
-          ) {
+          if (shouldRenderGame(data, role, ConnectFourAdvancedPluginMeta.id)) {
             return <ConnectFourAdvanced id={data.instanceId} />;
           }
 
