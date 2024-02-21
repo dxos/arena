@@ -157,4 +157,5 @@ export function MyGameSurface({ id }: { id: string }) {
 
 
 ## Contributing
+
 Your contributions make Arena better for everyone. Whether you're adding new games, enhancing the platform, or fixing bugs, we welcome your pull requests.
