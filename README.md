@@ -51,7 +51,7 @@ When adding a new game to the arena-app, you'll be creating a game plugin that i
 
 #### Understanding the plugin framework
 
-The plugin architecture is based on the [@dxos/app-framework](https://github.com/dxos/dxos/tree/main/packages/sdk/app-framework), which facilitates the integration of new functionalities, such as games, into the app. A plugin typically includes metadata (meta) and capabilities it provides (provides), among other configurations.
+The plugin architecture is based on the [@dxos/app-framework](https://github.com/dxos/dxos/tree/main/packages/sdk/app-framework), which facilitates the integration of new functionalities, such as games, into the app. A plugin typically includes metadata (`meta`) and capabilities it provides (`provides`), among other configurations.
 
 The arena-app includes a core game plugin host that facilitates the management of individual game plugins. This core plugin exposes:
 
