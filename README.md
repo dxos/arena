@@ -70,7 +70,6 @@ It's important to note that different games have different rendering and data re
 import { PluginDefinition, SurfaceProvides } from "@dxos/app-framework";
 import { Expando } from "@dxos/react-client/echo";
 import { PropsWithChildren } from "react";
-import { match } from "ts-pattern";
 import { GameProvides } from "../Game/GameProvides";
 import { shouldRenderGame } from "../Game/shouldRenderGame";
 import { MyGameSurface } from "./components/MyGameSurface";
@@ -103,28 +102,32 @@ export default function MyGamePlugin(): PluginDefinition<MyGamePluginProvidesCap
         timeControlOptions: undefined,
 
         createGame(room, id, variation, _timeControl, players, ordering) {
-					// Initialise any starting game state, move arrays, etc. here
-          let game = { }
+          // Initialise any starting game state, move arrays, etc. here
+          let game = {};
 
-          const players = match(ordering)
-            .with("creator-first", () => ({
-              player1: players.creatorId,
-              player2: players.challengerId,
-            }))
-            .with("challenger-first", () => ({
-              player1: players.challengerId,
-              player2: players.creatorId,
-            }))
-            .with("random", () => {
+          switch (ordering) {
+            case "creator-first":
+              game.players = {
+                player1: players.creatorId,
+                player2: players.challengerId,
+              };
+              break;
+            case "challenger-first":
+              game.players = {
+                player1: players.challengerId,
+                player2: players.creatorId,
+              };
+              break;
+            case "random":
               const random = Math.random() > 0.5;
-              return {
+              game.players = {
                 player1: random ? players.creatorId : players.challengerId,
                 player2: random ? players.challengerId : players.creatorId,
               };
-            })
-            .exhaustive();
-
-          game.players = players;
+              break;
+            default:
+              throw new Error(`Unsupported ordering: ${ordering}`);
+          }
 
           room.db.add(new Expando({ type: "game-my-game-type", gameId: id, ...game }));
         },
@@ -132,6 +135,7 @@ export default function MyGamePlugin(): PluginDefinition<MyGamePluginProvidesCap
     },
   };
 }
+
 ```
 
 The rendered game surface is provided with some ECHO object ID, it's the game plugin authors responsibility to query and mutate the game object as required. Here's an example for a simple game surface:
