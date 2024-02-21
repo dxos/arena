@@ -69,7 +69,6 @@ It's important to note that different games have different rendering and data re
 // my-game-plugin.tsx
 import { PluginDefinition, SurfaceProvides } from "@dxos/app-framework";
 import { Expando } from "@dxos/react-client/echo";
-import { PropsWithChildren } from "react";
 import { GameProvides } from "../Game/GameProvides";
 import { shouldRenderGame } from "../Game/shouldRenderGame";
 import { MyGameSurface } from "./components/MyGameSurface";
@@ -85,7 +84,6 @@ export default function MyGamePlugin(): PluginDefinition<MyGamePluginProvidesCap
     meta: MyGamePluginMeta,
 
     provides: {
-      context: (props: PropsWithChildren) => <>{props.children}</>,
       surface: {
         component: ({ data, role }) => {
           if (shouldRenderGame(data, role, MyGamePluginMeta.id)) {

@@ -1,6 +1,5 @@
 import { PluginDefinition, SurfaceProvides } from "@dxos/app-framework";
 import { Expando } from "@dxos/react-client/echo";
-import { PropsWithChildren } from "react";
 import { match } from "ts-pattern";
 import { GameProvides } from "../Game/GameProvides";
 import { shouldRenderGame } from "../Game/shouldRenderGame";
@@ -18,7 +17,6 @@ export default function ConnectFourAdvancedPlugin(): PluginDefinition<C16dPlugin
     meta: ConnectFourAdvancedPluginMeta,
 
     provides: {
-      context: (props: PropsWithChildren) => <>{props.children}</>,
       surface: {
         component: ({ data, role }) => {
           if (shouldRenderGame(data, role, ConnectFourAdvancedPluginMeta.id)) {
