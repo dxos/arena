@@ -146,11 +146,9 @@ export function MyGameSurface({ id }: { id: string }) {
 
   if (!dbGame) return null;
 
-  return (
-    <div>
-      <GameImplementation game={dbGame as any as GameState} >
-    </div>
-  );
+  // NOTE: Currently casting due to use of untyped ECHO `Expando`s.
+  //   Expect to migrate to ECHO Schema for type safety.
+  return <GameImplementation game={dbGame as any as GameState}>;
 }
 ```
 
