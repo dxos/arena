@@ -61,7 +61,7 @@ The arena-app includes a core game plugin host that facilitates the management o
 
 Game state is persisted and replicated using [ECHO](https://docs.dxos.org/guide/platform/). You will need to be familiar with creating, querying and manipulating [ECHO objects](https://docs.dxos.org/guide/platform/#objects) as well as interacting with [ECHO spaces](https://docs.dxos.org/guide/platform/#spaces).
 
-It's important to note that different games have different rendering and data requirements to the plugin makes no assumptions about the shape of the game data or the user interface.
+It's important to note that different games have different rendering and data requirements. The game plugin host makes no assumptions about the shape of the game data or the user interface. This flexibility allows for a wide range of games to be implemented, from simple 2D board games to 3D games rendered with [React Three Fiber](https://docs.pmnd.rs/react-three-fiber/getting-started/introduction).
 
 #### A minimal game example
 
