@@ -59,7 +59,7 @@ The arena-app includes a core game plugin host that facilitates the management o
 
 - `shouldRenderGame` Helper Function: This utility helps determine whether your game should render a `surface`.
 
-Game state is persisted and replicated using [ECHO](https://docs.dxos.org/guide/platform/#objects). You will need to be familiar with creating, querying and manipulating ECHO objects as well as interacting with [ECHO spaces](https://docs.dxos.org/guide/platform/#spaces).
+Game state is persisted and replicated using [ECHO](https://docs.dxos.org/guide/platform/). You will need to be familiar with creating, querying and manipulating [ECHO objects](https://docs.dxos.org/guide/platform/#objects) as well as interacting with [ECHO spaces](https://docs.dxos.org/guide/platform/#spaces).
 
 It's important to note that different games have different rendering and data requirements to the plugin makes no assumptions about the shape of the game data or the user interface.
 
