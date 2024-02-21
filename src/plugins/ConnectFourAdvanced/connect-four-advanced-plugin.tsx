@@ -3,9 +3,9 @@ import { Expando } from "@dxos/react-client/echo";
 import { PropsWithChildren } from "react";
 import { match } from "ts-pattern";
 import { GameProvides } from "../Game/GameProvides";
+import { shouldRenderGame } from "../Game/shouldRenderGame";
 import { ConnectFourAdvanced } from "./components/ConnectFourAdvanced";
 import { zeroState } from "./core/game";
-import { shouldRenderGame } from "../Game/shouldRenderGame";
 
 // --- C16d Constants and Metadata -------------------------------------------
 export const ConnectFourAdvancedPluginMeta = { id: "c16d", name: "Connect Four Advanced Plugin" };

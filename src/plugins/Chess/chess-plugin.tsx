@@ -3,9 +3,9 @@ import { Expando } from "@dxos/react-client/echo";
 import { PropsWithChildren } from "react";
 import { match } from "ts-pattern";
 import { GameProvides } from "../Game/GameProvides";
+import { shouldRenderGame } from "../Game/shouldRenderGame";
 import { ChessGame } from "./components/ChessGame";
 import { zeroState } from "./core/game";
-import { shouldRenderGame } from "../Game/shouldRenderGame";
 
 // --- Chess Constants and Metadata -------------------------------------------
 export const ChessPluginMeta = { id: "chess", name: "Chess plugin" };
