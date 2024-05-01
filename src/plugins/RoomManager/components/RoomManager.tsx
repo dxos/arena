@@ -3,14 +3,14 @@ import { useActiveRoom } from "../hooks/useActiveRoom";
 import { Panel } from "../../../UI/Panel";
 import { Button } from "../../../UI/Buttons";
 import { Input } from "@dxos/react-ui";
-import { useIntent } from "@dxos/app-framework";
+import { useIntentDispatcher } from "@dxos/app-framework";
 import { RoomManagerIntent, roomManagerIntent } from "../room-manager-plugin";
 
 type FormValues = { roomName: string };
 
 export const RoomManager = () => {
   const room = useActiveRoom();
-  const { dispatch } = useIntent();
+  const dispatch = useIntentDispatcher();
 
   const { handleSubmit, watch, setValue } = useForm({
     defaultValues: { roomName: room?.properties?.name || "" },

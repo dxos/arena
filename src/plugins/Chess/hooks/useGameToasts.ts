@@ -1,4 +1,4 @@
-import { useIntent } from "@dxos/app-framework";
+import { useIntentDispatcher } from "@dxos/app-framework";
 import { GameState, PlayerColor, oppositePlayerColor } from "../core/game";
 import { ToasterIntent, toasterIntent } from "../../Toaster/toaster-plugin";
 import { useOnTransition } from "$hooks/useTransitions";
@@ -13,7 +13,7 @@ export const useGameToasts = (
   drawOffer: GameState["drawOffer"],
   takebackRequest: GameState["takebackRequest"]
 ) => {
-  const { dispatch } = useIntent();
+  const dispatch = useIntentDispatcher();
 
   const oppositeColor = useMemo(() => oppositePlayerColor(playerColor), [playerColor]);
 

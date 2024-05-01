@@ -8,13 +8,14 @@
     "lib": ["DOM", "ESNext"],
     "outDir": "dist",
     "skipLibCheck": true,
-    "types": ["node", "vite-plugin-pwa/client"],
     "downlevelIteration": true,
     "paths": {
       "$lib/*": ["./src/lib/*"],
       "$ui/*": ["./src/UI/*"],
       "$hooks/*": ["./src/hooks/*"]
-    }
+    },
+    "module": "ESNext",
+    "moduleResolution": "node"
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist", "vite.config.ts"],
@@ -22,5 +23,5 @@
     {
       "path": "./tsconfig.node.json"
     }
-  ]
+  ],
 }

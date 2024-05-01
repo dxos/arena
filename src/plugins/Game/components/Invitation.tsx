@@ -1,5 +1,5 @@
-import { DispatchIntent, useIntent } from "@dxos/app-framework";
-import { Space, TypedObject, useQuery } from "@dxos/react-client/echo";
+import { IntentDispatcher, useIntentDispatcher } from "@dxos/app-framework";
+import { type ReactiveObject, Space, useQuery } from "@dxos/react-client/echo";
 import { useEffect, useMemo } from "react";
 import { Link } from "../../Layout/components/Link";
 import { useActiveRoom } from "../../RoomManager/hooks/useActiveRoom";
@@ -9,7 +9,10 @@ import useClipboard from "$hooks/useClipboard";
 import { getAuthlessInviteCodeForSpace } from "$lib/space";
 import { GameIntent, gameIntent } from "../game-plugin";
 
-function useRedirectToGame(dbInvitation: TypedObject | undefined, dispatch: DispatchIntent) {
+function useRedirectToGame(
+  dbInvitation: ReactiveObject<any> | undefined,
+  dispatch: IntentDispatcher
+) {
   useEffect(() => {
     if (dbInvitation?.finalised) {
       dispatch(
@@ -28,9 +31,9 @@ function useRedirectToGame(dbInvitation: TypedObject | undefined, dispatch: Disp
 }
 
 function useJoinInvitation(
-  dbInvitation: TypedObject | undefined,
+  dbInvitation: ReactiveObject<any> | undefined,
   space: Space | undefined,
-  dispatch: DispatchIntent
+  dispatch: IntentDispatcher
 ) {
   useEffect(() => {
     if (!dbInvitation || !dbInvitation.invitationId || !space) return;
@@ -45,7 +48,7 @@ function useJoinInvitation(
 
 export const InvitationView = ({ id }: { id: string }) => {
   const space = useActiveRoom();
-  const { dispatch } = useIntent();
+  const dispatch = useIntentDispatcher();
   const [dbInvitation] = useQuery(space, { type: "invitation", invitationId: id });
 
   useJoinInvitation(dbInvitation, space, dispatch);

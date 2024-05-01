@@ -1,11 +1,12 @@
 import {
   Intent,
+  IntentResolver,
   IntentResolverProvides,
   Plugin,
   PluginDefinition,
   Surface,
   SurfaceProvides,
-  useIntent,
+  useIntentDispatcher,
 } from "@dxos/app-framework";
 import { useClient } from "@dxos/react-client";
 import { InvitationEncoder } from "@dxos/react-client/invitations";
@@ -80,41 +81,33 @@ type LayoutIntents = {
 export const layoutIntent = mkIntentBuilder<LayoutIntents>(LayoutPluginMeta.id);
 
 // --- Layout Intent Resolver --------------------------------------------------
-const resolver = (intent: Intent, _plugins: Plugin[]) =>
+const resolver: IntentResolver = (intent: Intent, _plugins: Plugin[]) =>
   match(intent.action as LayoutIntent)
     .with(LayoutIntent.UPDATE_SEARCH_PARAMS, () => {
-      const { searchParams } = intent.data;
+      const { searchParams } = intent.data!;
       searchParamsAtom.set(searchParams);
-      return true;
     })
     .with(LayoutIntent.OPEN_CREATE_INVITATION, () => {
       layoutStateAtom.set({ type: "create-invitation" });
-      return true;
     })
     .with(LayoutIntent.OPEN_INVITATION, () => {
-      layoutStateAtom.set({ type: "invitation", invitationId: intent.data.invitationId });
-      return true;
+      layoutStateAtom.set({ type: "invitation", invitationId: intent.data!.invitationId });
     })
     .with(LayoutIntent.OPEN_LOBBY, () => {
       layoutStateAtom.set({ type: "lobby" });
-      return true;
     })
     .with(LayoutIntent.OPEN_GAME, () => {
-      const { gameId, instanceId } = intent.data;
+      const { gameId, instanceId } = intent.data!;
       layoutStateAtom.set({ type: "game", gameId, instanceId });
-      return true;
     })
     .with(LayoutIntent.CHOOSE_ROOM, () => {
       layoutStateAtom.set({ type: "choose-room" });
-      return true;
     })
     .with(LayoutIntent.MANAGE_ROOM, () => {
       layoutStateAtom.set({ type: "manage-room" });
-      return true;
     })
     .with(LayoutIntent.PRESENT_404, () => {
       layoutStateAtom.set({ type: "not-found" });
-      return true;
     })
     .exhaustive();
 
@@ -130,7 +123,7 @@ export default function LayoutPlugin(): PluginDefinition<LayoutPluginProvidesCap
       intent: { resolver },
       surface: { component: ({ role }) => (role === "main" ? <Layout /> : null) },
       root: () => {
-        const { dispatch } = useIntent();
+        const dispatch = useIntentDispatcher();
 
         const client = useClient();
 

@@ -1,22 +1,23 @@
 import "@dxosTheme";
 
+import { registerSignalRuntime } from "@dxos/echo-signals";
 import { createRoot } from "react-dom/client";
 
 import ClientMeta from "@braneframe/plugin-client/meta";
-import ErrorMeta from "@braneframe/plugin-error/meta";
 import GraphMeta from "@braneframe/plugin-graph/meta";
 import MetadataMeta from "@braneframe/plugin-metadata/meta";
 import SpaceMeta from "@braneframe/plugin-space/meta";
 import ThemeMeta from "@braneframe/plugin-theme/meta";
 
-import { types } from "@braneframe/types";
 import { createApp, Plugin } from "@dxos/app-framework";
-import { Config, createClientServices, Defaults, Envs, Local } from "@dxos/react-client";
-import { Status, ThemeProvider } from "@dxos/react-ui";
+import { createStorageObjects } from "@dxos/client-services";
+import { Config, Defaults, defs, Envs, Local } from "@dxos/config";
+import { createClientServices } from "@dxos/react-client";
+import { Status, ThemeProvider, Tooltip } from "@dxos/react-ui";
 import { defaultTx } from "@dxos/react-ui-theme";
 
-import { ConnectFourAdvancedPluginMeta } from "./plugins/ConnectFourAdvanced/connect-four-advanced-plugin";
 import { ChessPluginMeta } from "./plugins/Chess/chess-plugin";
+import { ConnectFourAdvancedPluginMeta } from "./plugins/ConnectFourAdvanced/connect-four-advanced-plugin";
 import { GamePluginMeta } from "./plugins/Game/game-plugin";
 import { LayoutPluginMeta } from "./plugins/Layout/layout-plugin";
 import { RoomManagerPluginMeta } from "./plugins/RoomManager/room-manager-plugin";
@@ -25,17 +26,28 @@ import { ToasterPluginMeta } from "./plugins/Toaster/toaster-plugin";
 
 import "./fonts/fonts.css";
 
-const main = async () => {
-  const config = new Config(Envs(), Local(), Defaults());
+export const getConfig = () => new Config(Envs(), Local(), Defaults());
 
-  const services = await createClientServices(config);
-  const debugIdentity = config?.values.runtime?.app?.env?.DX_DEBUG;
+const createWorker = () =>
+  new SharedWorker(new URL("./shared-worker", import.meta.url), {
+    type: "module",
+    name: "dxos-client-worker",
+  });
+
+const main = async () => {
+  registerSignalRuntime();
+  let config = await getConfig();
+
+  const services = await createClientServices(
+    config,
+    config.values.runtime?.app?.env?.DX_HOST ? undefined : () => createWorker()
+  );
 
   const App = createApp({
-    fallback: (
+    placeholder: (
       <ThemeProvider tx={defaultTx}>
         <div className="flex bs-[100dvh] justify-center items-center">
-          <Status indeterminate aria-label="Intitialising" />
+          <Status indeterminate aria-label="Initializing" />
         </div>
       </ThemeProvider>
     ),
@@ -43,22 +55,19 @@ const main = async () => {
       [ThemeMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-theme"), {
         appName: "Arena App",
       }),
-      [ErrorMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-error")),
       [GraphMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-graph")),
       [MetadataMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-metadata")),
       [ClientMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-client"), {
         appKey: "schrodie.dxos.network",
-        types,
-        services,
+        shell: "./shell.html",
         config,
-        debugIdentity,
+        services,
       }),
       [SpaceMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-space")),
       [ToasterPluginMeta.id]: Plugin.lazy(() => import("./plugins/Toaster/toaster-plugin")),
       [RoomManagerPluginMeta.id]: Plugin.lazy(
         () => import("./plugins/RoomManager/room-manager-plugin")
       ),
-
       [SynthPluginMeta.id]: Plugin.lazy(() => import("./plugins/Synth/synth-plugin")),
       [LayoutPluginMeta.id]: Plugin.lazy(() => import("./plugins/Layout/layout-plugin")),
       [GamePluginMeta.id]: Plugin.lazy(() => import("./plugins/Game/game-plugin")),
@@ -70,7 +79,6 @@ const main = async () => {
     order: [
       ThemeMeta, // Outside of error boundary so error dialog is styled.
 
-      ErrorMeta,
       ClientMeta,
       SpaceMeta,
       GraphMeta,
@@ -86,6 +94,19 @@ const main = async () => {
   });
 
   createRoot(document.getElementById("root")!).render(<App />);
+};
+
+const defaultStorageIsEmpty = async (config?: defs.Runtime.Client.Storage): Promise<boolean> => {
+  try {
+    const storage = createStorageObjects(config ?? {}).storage;
+    const metadataDir = storage.createDirectory("metadata");
+    const echoMetadata = metadataDir.getOrCreateFile("EchoMetadata");
+    const { size } = await echoMetadata.stat();
+    return !(size > 0);
+  } catch (err) {
+    console.warn("Checking for empty default storage.", { err });
+    return true;
+  }
 };
 
 void main();

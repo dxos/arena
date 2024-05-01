@@ -1,4 +1,4 @@
-import { useIntent } from "@dxos/app-framework";
+import { useIntentDispatcher } from "@dxos/app-framework";
 import { useIdentity } from "@dxos/react-client/halo";
 import { Input, Select } from "@dxos/react-ui";
 import React, { useCallback } from "react";
@@ -12,7 +12,7 @@ import { searchParamsAtom } from "../../Layout/layout-plugin";
 
 const useOnSubmit = () => {
   const identity = useIdentity();
-  const { dispatch } = useIntent();
+  const dispatch = useIntentDispatcher();
   const searchParams = useValue(searchParamsAtom);
 
   return useCallback(
