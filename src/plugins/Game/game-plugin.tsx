@@ -124,8 +124,8 @@ const intentResolver = async (intent: Intent, plugins: Plugin[]) => {
     throw new Error(`[${GamePluginMeta.id}]: No identity found`);
   }
 
-  match(intent.action as GameIntent)
-    .with(GameIntent.CREATE_INVITATION, () => {
+  await match(intent.action as GameIntent)
+    .with(GameIntent.CREATE_INVITATION, async () => {
       const data = intent.data as GameIntent.CreateInvitation;
 
       const invitation: Invitation = {
@@ -138,12 +138,14 @@ const intentResolver = async (intent: Intent, plugins: Plugin[]) => {
         instanceId: uuid(),
       };
 
-      const { objects } = space.db.query({
-        type: "invitation",
-        creatorId: invitation.creatorId,
-        cancelled: false,
-        finalised: false,
-      });
+      const { objects } = await space.db
+        .query({
+          type: "invitation",
+          creatorId: invitation.creatorId,
+          cancelled: false,
+          finalised: false,
+        })
+        .run();
 
       removeMany(space.db, objects);
 
@@ -187,9 +189,9 @@ const intentResolver = async (intent: Intent, plugins: Plugin[]) => {
       const { gameId, instanceId } = intent.data as GameIntent.OpenGame;
       window.history.pushState({}, "", routes.game(gameId, instanceId));
     })
-    .with(GameIntent.JOIN_INVITATION, () => {
+    .with(GameIntent.JOIN_INVITATION, async () => {
       const { invitationId } = intent.data as GameIntent.JoinInvitation;
-      const { objects } = space.db.query({ type: "invitation", invitationId });
+      const { objects } = await space.db.query({ type: "invitation", invitationId }).run();
       const [invitation] = objects;
 
       if (invitation.creatorId !== identityHex) {
@@ -199,9 +201,9 @@ const intentResolver = async (intent: Intent, plugins: Plugin[]) => {
         dispatch(gameIntent(GameIntent.CREATE_GAME, invitation as any));
       }
     })
-    .with(GameIntent.CANCEL_INVITATION, () => {
+    .with(GameIntent.CANCEL_INVITATION, async () => {
       const { invitationId } = intent.data as GameIntent.JoinInvitation;
-      const { objects } = space.db.query({ type: "invitation", invitationId });
+      const { objects } = await space.db.query({ type: "invitation", invitationId }).run();
       const [invitation] = objects;
 
       if (identityHex !== invitation.creatorId) {

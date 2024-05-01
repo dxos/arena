@@ -53,7 +53,8 @@ export const Nav = () => {
         >
           Invite to room
         </Button>
-        <Avatar onClick={() => client.shell.open()} />
+        {/* TODO(Zan): Identity panel crashes in 0.5.0 */}
+        {/* <Avatar onClick={() => client.shell.open()} /> */}
       </div>
     </nav>
   );
