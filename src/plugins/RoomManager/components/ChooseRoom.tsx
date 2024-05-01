@@ -1,5 +1,5 @@
 import { cn } from "$lib/css";
-import { useIntent } from "@dxos/app-framework";
+import { useIntentDispatcher } from "@dxos/app-framework";
 import { Button } from "../../../UI/Buttons";
 import { useActiveRoom } from "../hooks/useActiveRoom";
 import { useRoomList } from "../hooks/useRoomList";
@@ -16,7 +16,7 @@ const RoomCard = ({ children, active }: { children: React.ReactNode; active: boo
 
 export const ChooseRoom = () => {
   const roomList = useRoomList();
-  const { dispatch } = useIntent();
+  const dispatch = useIntentDispatcher();
 
   const activeSpace = useActiveRoom();
 

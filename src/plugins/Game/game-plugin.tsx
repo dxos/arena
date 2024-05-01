@@ -10,7 +10,7 @@ import {
   parseIntentPlugin,
   resolvePlugin,
 } from "@dxos/app-framework";
-import { Expando } from "@dxos/react-client/echo";
+import { create } from "@dxos/react-client/echo";
 import { PropsWithChildren } from "react";
 import { atom } from "signia";
 import { match } from "ts-pattern";
@@ -147,7 +147,7 @@ const intentResolver = async (intent: Intent, plugins: Plugin[]) => {
 
       removeMany(space.db, objects);
 
-      space.db.add(new Expando({ type: "invitation", ...invitation }));
+      space.db.add(create({ type: "invitation", ...invitation }));
       window.history.pushState({}, "", routes.invitation(invitation.invitationId));
     })
     .with(GameIntent.CREATE_GAME, () => {

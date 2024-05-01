@@ -1,6 +1,7 @@
-import { EchoDatabase, TypedObject } from "@dxos/echo-schema";
+import { EchoReactiveObject } from "@dxos/echo-schema";
+import { EchoDatabase } from "@dxos/react-client/echo";
 
-export function removeMany(db: EchoDatabase, objects: TypedObject[]) {
+export function removeMany(db: EchoDatabase, objects: EchoReactiveObject<any>[]) {
   objects.forEach((object) => {
     db.remove(object);
   });

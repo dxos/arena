@@ -3,7 +3,7 @@ import {
   IntentResolverProvides,
   Plugin,
   PluginDefinition,
-  useIntent,
+  useIntentDispatcher,
 } from "@dxos/app-framework";
 import { Toast } from "@dxos/react-ui";
 import React, { PropsWithChildren } from "react";
@@ -61,7 +61,7 @@ export default function ToasterPlugin(): PluginDefinition<ToasterPluginProvidesC
 
     provides: {
       context: (props: PropsWithChildren) => {
-        const { dispatch } = useIntent();
+        const dispatch = useIntentDispatcher();
         const toast = useValue(toastsAtom);
 
         const open = toast !== undefined;

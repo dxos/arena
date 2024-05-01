@@ -68,7 +68,7 @@ It's important to note that different games have different rendering and data re
 ```tsx
 // my-game-plugin.tsx
 import { PluginDefinition, SurfaceProvides } from "@dxos/app-framework";
-import { Expando } from "@dxos/react-client/echo";
+import { create } from "@dxos/react-client/echo";
 import { GameProvides } from "../Game/GameProvides";
 import { shouldRenderGame } from "../Game/shouldRenderGame";
 import { MyGameSurface } from "./components/MyGameSurface";
@@ -127,7 +127,7 @@ export default function MyGamePlugin(): PluginDefinition<MyGamePluginProvidesCap
               throw new Error(`Unsupported ordering: ${ordering}`);
           }
 
-          room.db.add(new Expando({ type: "game-my-game-type", gameId: id, ...game }));
+          room.db.add(create({ type: "game-my-game-type", gameId: id, ...game }));
         },
       },
     },
@@ -148,7 +148,7 @@ export function MyGameSurface({ id }: { id: string }) {
 
   if (!dbGame) return null;
 
-  // NOTE: Currently casting due to use of untyped ECHO `Expando`s.
+  // NOTE: Currently casting due to use of untyped `create` call
   //   Expect to migrate to ECHO Schema for type safety.
   return <GameImplementation game={dbGame as any as GameState}>;
 }

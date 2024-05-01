@@ -1,5 +1,5 @@
 import { PluginDefinition, SurfaceProvides } from "@dxos/app-framework";
-import { Expando } from "@dxos/react-client/echo";
+import { create } from "@dxos/react-client/echo";
 import { match } from "ts-pattern";
 import { GameProvides } from "../Game/GameProvides";
 import { shouldRenderGame } from "../Game/shouldRenderGame";
@@ -56,7 +56,7 @@ export default function ChessPlugin(): PluginDefinition<ChessPluginProvidesCapab
 
           game.players = chessPlayers;
 
-          room.db.add(new Expando({ type: "game", gameId: id, ...game }));
+          room.db.add(create({ type: "game", gameId: id, ...game }));
         },
       },
     },

@@ -3,13 +3,11 @@ import "@dxosTheme";
 import { createRoot } from "react-dom/client";
 
 import ClientMeta from "@braneframe/plugin-client/meta";
-import ErrorMeta from "@braneframe/plugin-error/meta";
 import GraphMeta from "@braneframe/plugin-graph/meta";
 import MetadataMeta from "@braneframe/plugin-metadata/meta";
 import SpaceMeta from "@braneframe/plugin-space/meta";
 import ThemeMeta from "@braneframe/plugin-theme/meta";
 
-import { types } from "@braneframe/types";
 import { createApp, Plugin } from "@dxos/app-framework";
 import { Config, createClientServices, Defaults, Envs, Local } from "@dxos/react-client";
 import { Status, ThemeProvider } from "@dxos/react-ui";
@@ -32,7 +30,7 @@ const main = async () => {
   const debugIdentity = config?.values.runtime?.app?.env?.DX_DEBUG;
 
   const App = createApp({
-    fallback: (
+    fallback: () => (
       <ThemeProvider tx={defaultTx}>
         <div className="flex bs-[100dvh] justify-center items-center">
           <Status indeterminate aria-label="Intitialising" />
@@ -43,12 +41,10 @@ const main = async () => {
       [ThemeMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-theme"), {
         appName: "Arena App",
       }),
-      [ErrorMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-error")),
       [GraphMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-graph")),
       [MetadataMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-metadata")),
       [ClientMeta.id]: Plugin.lazy(() => import("@braneframe/plugin-client"), {
         appKey: "schrodie.dxos.network",
-        types,
         services,
         config,
         debugIdentity,
@@ -58,7 +54,6 @@ const main = async () => {
       [RoomManagerPluginMeta.id]: Plugin.lazy(
         () => import("./plugins/RoomManager/room-manager-plugin")
       ),
-
       [SynthPluginMeta.id]: Plugin.lazy(() => import("./plugins/Synth/synth-plugin")),
       [LayoutPluginMeta.id]: Plugin.lazy(() => import("./plugins/Layout/layout-plugin")),
       [GamePluginMeta.id]: Plugin.lazy(() => import("./plugins/Game/game-plugin")),
@@ -70,7 +65,6 @@ const main = async () => {
     order: [
       ThemeMeta, // Outside of error boundary so error dialog is styled.
 
-      ErrorMeta,
       ClientMeta,
       SpaceMeta,
       GraphMeta,
