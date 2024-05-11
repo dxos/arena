@@ -1,12 +1,13 @@
-import { Surface } from "@dxos/app-framework";
 import { AnimatePresence } from "framer-motion";
 import React from "react";
 import { useValue } from "signia-react";
 import { P, match } from "ts-pattern";
-import { Fade } from "../../../UI/Fade";
-import { layoutStateAtom } from "../layout-plugin";
+
+import { Surface } from "@dxos/app-framework";
+
+import { Fade } from "../../../ui/Fade";
 import { ChooseRoom } from "../../RoomManager/components/ChooseRoom";
-import { GradientBackground } from "./GradientBackground";
+import { layoutStateAtom } from "../layout-plugin";
 import { Lobby } from "./Lobby";
 import { Nav } from "./Nav";
 import { NotFound } from "./NotFound";
@@ -36,14 +37,16 @@ export const Layout = () => {
     [layoutState]
   );
 
+  // TODO(burdon): Light and dark modes.
   return (
-    <div className="h-full w-full">
-      <GradientBackground />
-      <Nav />
-      <RoomIndicator />
-      <AnimatePresence>
-        <FadeView />
-      </AnimatePresence>
+    <div className='absolute inset-0 overflow-hidden flex justify-center bg-black'>
+      <div className="h-full w-[900px] bg-neutral-900 text-white">
+        <Nav />
+        <RoomIndicator />
+        <AnimatePresence>
+          <FadeView />
+        </AnimatePresence>
+      </div>
     </div>
   );
 };

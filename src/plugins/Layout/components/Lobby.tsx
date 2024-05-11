@@ -85,7 +85,6 @@ export const Lobby = () => (
         </Link>
       </div>
       <div className="mt-2 sm:mt-8 w-full max-w-3xl">
-        <h2 className="font-medium text-2xl mb-2">Lobby</h2>
         <OpenGames />
       </div>
     </div>
