@@ -1,12 +1,12 @@
 import { useClient } from "@dxos/react-client";
 import { useActiveRoom } from "../../RoomManager/hooks/useActiveRoom";
-import { Button } from "../../../UI/Buttons";
+import { Button } from "@dxos/react-ui";
 import { PersonIcon } from "../../../icons";
 import { Link } from "./Link";
 
 const Avatar = ({ onClick }: { onClick: () => void }) => {
   return (
-    <Button aria-label="Manage user" onClick={onClick} size="small" variant="danger">
+    <Button aria-label="Manage user" onClick={onClick} variant="outline" classNames="shadow-md">
       <PersonIcon />
     </Button>
   );
@@ -39,22 +39,19 @@ export const Nav = () => {
     >
       <Link to="/">
         <div>
-          <h1 className="text-2xl sm:text-4xl text-white" style={{ fontFamily: "EB Garamond" }}>
-            DXOS Arena
-          </h1>
+          <h1 className="font-serif font-medium text-2xl sm:text-4xl text-white">DXOS Arena</h1>
         </div>
       </Link>
       <div className="flex items-center gap-2">
         <Button
           aria-label="Invite to room"
           onClick={() => client.shell.shareSpace({ spaceKey: space.key })}
-          variant={"secondary"}
-          size="small"
+          variant="outline"
+          classNames="shadow-md"
         >
           Invite to room
         </Button>
-        {/* TODO(Zan): Identity panel crashes in 0.5.0 */}
-        {/* <Avatar onClick={() => client.shell.open()} /> */}
+        <Avatar onClick={() => client.shell.open()} />
       </div>
     </nav>
   );

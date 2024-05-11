@@ -1,7 +1,7 @@
 import { cn } from "$lib/css";
 import { useQuery } from "@dxos/react-client/echo";
 import { useValue } from "signia-react";
-import { Button } from "../../../UI/Buttons";
+import { Button } from "@dxos/react-ui";
 import { Panel } from "../../../UI/Panel";
 import { useActiveRoom } from "../../RoomManager/hooks/useActiveRoom";
 import { usernamesAtom } from "../../RoomManager/room-manager-plugin";
@@ -24,13 +24,13 @@ export const OpenGames = () => {
   return (
     <Panel rimLight>
       <div className="p-2 sm:p-4 max-w-4xl">
-        <div className={cn(grid, "p-1 text-xs sm:text-lg")} style={{ fontFamily: "EB Garamond" }}>
+        <div className={cn(grid, "p-1 text-xs sm:text-lg")}>
           <div>Player</div>
           <div>Game</div>
           <div>Variant</div>
           <div>Player Ordering</div>
         </div>
-        <div className={"flex flex-col"} style={{ fontFamily: "Jetbrains Mono" }}>
+        <div className={"flex flex-col"}>
           {invitations.map((invitation) => {
             const creator = usernames[invitation.creatorId];
 
@@ -44,7 +44,7 @@ export const OpenGames = () => {
                     "hover:bg-zinc-200 hover:cursor-pointer hover:scale-[101%] transition-transform duration-[80ms] ease-out",
                     "dark:hover:bg-zinc-700",
                     "rounded-md",
-                    "text-xs sm:text-sm"
+                    "text-xs sm:text-sm",
                   )}
                 >
                   <div>{creator}</div>
@@ -69,25 +69,23 @@ export const Lobby = () => (
     <div className="p-2 sm:p-8 flex flex-col items-center gap-4">
       <div className="flex flex-col items-center sm:flex-row gap-2">
         <Link to="/create-invitation?open=true">
-          <Button size="small" aria-label="Create game">
+          <Button aria-label="Create game" variant="outline">
             Create game
           </Button>
         </Link>
         <Link to={"/create-invitation"}>
-          <Button size="small" aria-label={"Play with a friend"}>
+          <Button aria-label={"Play with a friend"} variant="outline">
             Play with a friend
           </Button>
         </Link>
         <Link to="/choose-room">
-          <Button size="small" aria-label="Change room">
+          <Button aria-label="Change room" variant="outline">
             Change room
           </Button>
         </Link>
       </div>
       <div className="mt-2 sm:mt-8 w-full max-w-3xl">
-        <h2 className="text-2xl mb-2" style={{ fontFamily: "EB Garamond" }}>
-          Lobby
-        </h2>
+        <h2 className="font-medium text-2xl mb-2">Lobby</h2>
         <OpenGames />
       </div>
     </div>

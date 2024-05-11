@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "../../../UI/Buttons";
+import { Button } from "@dxos/react-ui";
 import { FirstIcon, LastIcon, NextIcon, PreviousIcon, ResignIcon } from "../../../icons";
 import { InGameCursor } from "../hooks/useInGameCursor";
 
@@ -56,7 +56,7 @@ export const Controls = ({
       >
         <LastIcon />
       </Button>
-      <Button onClick={onResign} disabled={!playing} aria-label="Resign" variant="danger">
+      <Button onClick={onResign} disabled={!playing} aria-label="Resign" variant="destructive">
         <ResignIcon />
       </Button>
       {!drawOffered ? (

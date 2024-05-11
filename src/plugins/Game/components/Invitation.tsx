@@ -3,7 +3,7 @@ import { type ReactiveObject, Space, useQuery } from "@dxos/react-client/echo";
 import { useEffect, useMemo } from "react";
 import { Link } from "../../Layout/components/Link";
 import { useActiveRoom } from "../../RoomManager/hooks/useActiveRoom";
-import { Button } from "../../../UI/Buttons";
+import { Button } from "@dxos/react-ui";
 import { Panel } from "../../../UI/Panel";
 import useClipboard from "$hooks/useClipboard";
 import { getAuthlessInviteCodeForSpace } from "$lib/space";
@@ -11,7 +11,7 @@ import { GameIntent, gameIntent } from "../game-plugin";
 
 function useRedirectToGame(
   dbInvitation: ReactiveObject<any> | undefined,
-  dispatch: IntentDispatcher
+  dispatch: IntentDispatcher,
 ) {
   useEffect(() => {
     if (dbInvitation?.finalised) {
@@ -19,7 +19,7 @@ function useRedirectToGame(
         gameIntent(GameIntent.OPEN_GAME, {
           gameId: dbInvitation.gameDescription.gameId,
           instanceId: dbInvitation.instanceId,
-        })
+        }),
       );
     }
   }, [
@@ -33,7 +33,7 @@ function useRedirectToGame(
 function useJoinInvitation(
   dbInvitation: ReactiveObject<any> | undefined,
   space: Space | undefined,
-  dispatch: IntentDispatcher
+  dispatch: IntentDispatcher,
 ) {
   useEffect(() => {
     if (!dbInvitation || !dbInvitation.invitationId || !space) return;
@@ -41,7 +41,7 @@ function useJoinInvitation(
     dispatch(
       gameIntent(GameIntent.JOIN_INVITATION, {
         invitationId: dbInvitation?.invitationId,
-      })
+      }),
     );
   }, [dispatch, dbInvitation, dbInvitation?.invitationId, space]);
 }
@@ -82,7 +82,7 @@ export const InvitationView = ({ id }: { id: string }) => {
             We can't find that invitation.
           </h3>
           <Link to="/">
-            <Button aria-label="Back to lobby" variant="danger" size="small">
+            <Button aria-label="Back to lobby" variant="destructive">
               Back to lobby
             </Button>
           </Link>
@@ -115,7 +115,11 @@ export const InvitationView = ({ id }: { id: string }) => {
           </p>
 
           <Link to="/">
-            <Button onClick={handleCancelInvitation} aria-label="Back to lobby" variant="danger">
+            <Button
+              onClick={handleCancelInvitation}
+              aria-label="Back to lobby"
+              variant="destructive"
+            >
               Back to lobby
             </Button>
           </Link>
@@ -135,7 +139,7 @@ export const InvitationView = ({ id }: { id: string }) => {
             {isCopied ? "Copied ✅" : "Copy invite link 📋"}
           </Button>
         </div>
-        <Button onClick={handleCancelInvitation} aria-label="Back to lobby" variant="danger">
+        <Button onClick={handleCancelInvitation} aria-label="Back to lobby" variant="destructive">
           Back to lobby
         </Button>
       </div>

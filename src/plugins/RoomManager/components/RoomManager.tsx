@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useActiveRoom } from "../hooks/useActiveRoom";
 import { Panel } from "../../../UI/Panel";
-import { Button } from "../../../UI/Buttons";
+import { Button } from "@dxos/react-ui";
 import { Input } from "@dxos/react-ui";
 import { useIntentDispatcher } from "@dxos/app-framework";
 import { RoomManagerIntent, roomManagerIntent } from "../room-manager-plugin";
@@ -23,7 +23,7 @@ export const RoomManager = () => {
           roomManagerIntent(RoomManagerIntent.UPDATE_ROOM_NAME, {
             key: room.key.toHex(),
             name: roomName,
-          })
+          }),
         );
       }
     }
@@ -48,7 +48,7 @@ export const RoomManager = () => {
             />
           </Input.Root>
           <div className="w-full flex flex-row-reverse">
-            <Button type="submit" aria-label="Create game" variant="secondary">
+            <Button type="submit" aria-label="Create game" variant="primary">
               Update
             </Button>
           </div>

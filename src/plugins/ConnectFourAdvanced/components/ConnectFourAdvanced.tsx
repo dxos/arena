@@ -1,11 +1,11 @@
 import { useQuery } from "@dxos/react-client/echo";
 import { useIdentity } from "@dxos/react-client/halo";
+import { Button } from "@dxos/react-ui";
 import { Center, OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useCallback } from "react";
 import { Vector3 } from "three";
 import { useActiveRoom } from "../../RoomManager/hooks/useActiveRoom";
-import { Button } from "../../../UI/Buttons";
 import { useMutatingStore } from "$hooks/useStore";
 import { GameState, exec, whoPlaysTurn } from "../core/game";
 import { useCameraControls } from "../hooks/useCameraControls";
@@ -60,7 +60,7 @@ function Indicator({ game }: { game: GameState }) {
 
   const classNames = cn(
     "absolute top-12 left-12 z-10 text-xs sm:text-base",
-    turn === "yellow" ? "text-yellow-100" : "text-red-400"
+    turn === "yellow" ? "text-yellow-100" : "text-red-400",
   );
 
   return (
@@ -74,10 +74,10 @@ function Controls(props: { onLeft: () => void; onRight: () => void }) {
   return (
     <div className="absolute bottom-12 left-12 ">
       <div className="flex flex-row gap-2">
-        <Button aria-label="Rotate left" onClick={props.onLeft} variant="secondary" size="small">
+        <Button aria-label="Rotate left" onClick={props.onLeft} variant="outline">
           ↪️
         </Button>
-        <Button aria-label="Rotate right" onClick={props.onRight} variant="secondary" size="small">
+        <Button aria-label="Rotate right" onClick={props.onRight} variant="outline">
           ↩️
         </Button>
       </div>
@@ -131,7 +131,7 @@ export function ConnectFourAdvanced({ id }: { id: string }) {
       if (!identity) return;
       send({ type: "move-made", move, playerId: identity.identityKey.toHex() });
     },
-    [send, identity]
+    [send, identity],
   );
 
   if (!dbGame) return null;
