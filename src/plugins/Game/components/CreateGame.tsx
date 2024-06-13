@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { useValue } from "signia-react";
 import { PlayerOrdering, Variation, playerOrdering } from "../GameProvides";
 import { Button } from "@dxos/react-ui";
-import { Panel } from "../../../UI/Panel";
+import { Panel } from "$ui/Panel";
 import { GameIntent, gameProvidesAtom, gameIntent } from "../game-plugin";
 import { searchParamsAtom } from "../../Layout/layout-plugin";
 

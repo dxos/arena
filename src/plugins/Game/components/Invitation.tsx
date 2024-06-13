@@ -4,7 +4,7 @@ import { useEffect, useMemo } from "react";
 import { Link } from "../../Layout/components/Link";
 import { useActiveRoom } from "../../RoomManager/hooks/useActiveRoom";
 import { Button } from "@dxos/react-ui";
-import { Panel } from "../../../UI/Panel";
+import { Panel } from "$ui/Panel";
 import useClipboard from "$hooks/useClipboard";
 import { getAuthlessInviteCodeForSpace } from "$lib/space";
 import { GameIntent, gameIntent } from "../game-plugin";

@@ -1,6 +1,6 @@
 import React from "react";
 import { match } from "ts-pattern";
-import { Panel } from "../../../UI/Panel";
+import { Panel } from "$ui/Panel";
 import { cn } from "$lib/css";
 import { GameState, PlayerColor } from "../core/game";
 import { Timer } from "./Timer";
@@ -29,7 +29,7 @@ export const PlayerInfo = ({ color, game, name }: PlayerInfoProps) => {
         .with("black-timeout", () => "Black timeout")
         .with("draw-agreed", () => "Draw")
         .with(undefined, () => "")
-        .exhaustive()
+        .exhaustive(),
     )
     .exhaustive();
 
@@ -42,7 +42,7 @@ export const PlayerInfo = ({ color, game, name }: PlayerInfoProps) => {
         "sm:p-4",
         "flex flex-row justify-between items-center",
         "font-mono",
-        "transition-all duration-100 ease-in-out"
+        "transition-all duration-100 ease-in-out",
       )}
     >
       <div>

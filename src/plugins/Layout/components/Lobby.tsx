@@ -2,7 +2,7 @@ import { cn } from "$lib/css";
 import { useQuery } from "@dxos/react-client/echo";
 import { useValue } from "signia-react";
 import { Button } from "@dxos/react-ui";
-import { Panel } from "../../../UI/Panel";
+import { Panel } from "$ui/Panel";
 import { useActiveRoom } from "../../RoomManager/hooks/useActiveRoom";
 import { usernamesAtom } from "../../RoomManager/room-manager-plugin";
 import { routes } from "../routes";

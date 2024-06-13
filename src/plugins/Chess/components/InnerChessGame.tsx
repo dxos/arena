@@ -5,7 +5,7 @@ import { Chessboard } from "react-chessboard";
 import useMeasure from "react-use-measure";
 import { useValue } from "signia-react";
 import { usersAtom } from "../../RoomManager/room-manager-plugin";
-import { Panel } from "../../../UI/Panel";
+import { Panel } from "$ui/Panel";
 import { GameAction, GameState, Move, PlayerColor, oppositePlayerColor } from "../core/game";
 import { useGameActions } from "../hooks/useGameActions";
 import { useGameSounds } from "../hooks/useGameSounds";
@@ -16,7 +16,6 @@ import { findPiece } from "../core/utils";
 import { Controls } from "./Controls";
 import { MoveList } from "./MoveList";
 import { PlayerInfo } from "./PlayerInfo";
-import { match } from "ts-pattern";
 
 const computeSquareStyles = (lastMove: Move | undefined, fen: string) => {
   const game = new Chess(fen);
@@ -70,7 +69,7 @@ export const InnerChessGame = ({
   const opponentUsername = useMemo(() => {
     return (
       users.find(
-        (user) => user.identityKey.toHex() === game.players[oppositePlayerColor(playerColor)]
+        (user) => user.identityKey.toHex() === game.players[oppositePlayerColor(playerColor)],
       )?.profile?.displayName || "Anonymous"
     );
   }, [users, game, playerColor]);
@@ -85,7 +84,7 @@ export const InnerChessGame = ({
     playerColor,
     opponentUsername,
     game.drawOffer,
-    game.takebackRequest
+    game.takebackRequest,
   );
 
   const gameActions = useGameActions(send, playerColor);
@@ -99,12 +98,12 @@ export const InnerChessGame = ({
 
       return false;
     },
-    [cursor.isOnMostRecentState, send]
+    [cursor.isOnMostRecentState, send],
   );
 
   const squareStyles = useMemo(
     () => computeSquareStyles(game.moves[cursor.__index - 1], game.boards[cursor.__index]),
-    [cursor.__index]
+    [cursor.__index],
   );
 
   const [ref, bounds] = useMeasure();

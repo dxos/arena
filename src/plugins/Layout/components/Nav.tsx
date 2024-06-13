@@ -1,4 +1,4 @@
-import { ShieldChevron } from "@phosphor-icons/react";
+import { Joystick } from "@phosphor-icons/react";
 import { useClient } from "@dxos/react-client";
 import { Button } from "@dxos/react-ui";
 import { useActiveRoom } from "../../RoomManager/hooks/useActiveRoom";
@@ -21,12 +21,12 @@ export const Nav = () => {
   }
 
   return (
-    <nav className="p-4 sm:p-6 flex justify-between items-center bg-neutral-800">
+    <nav className="p-4 sm:p-6 flex justify-between items-center bg-zinc-200 dark:bg-zinc-700">
       <div className="flex items-center gap-4">
-        <ShieldChevron weight="duotone" className="text-[40px]" />
+        <Joystick weight="light" className="text-[40px]" />
         <Link to="/">
           <div>
-            <h1 className="font-serif font-thin text-2xl sm:text-4xl text-white">DXOS Arena</h1>
+            <h1 className="font-serif font-light text-2xl sm:text-4xl">DXOS Arena</h1>
           </div>
         </Link>
       </div>
