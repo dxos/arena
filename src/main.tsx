@@ -13,7 +13,7 @@ import { createApp, Plugin } from "@dxos/app-framework";
 import { createStorageObjects } from "@dxos/client-services";
 import { Config, Defaults, defs, Envs, Local } from "@dxos/config";
 import { createClientServices } from "@dxos/react-client";
-import { Status, ThemeProvider, Tooltip } from "@dxos/react-ui";
+import { Status, ThemeProvider } from "@dxos/react-ui";
 import { defaultTx } from "@dxos/react-ui-theme";
 
 import { ChessPluginMeta } from "./plugins/Chess/chess-plugin";

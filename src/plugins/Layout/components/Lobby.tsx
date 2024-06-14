@@ -2,7 +2,7 @@ import { cn } from "$lib/css";
 import { useQuery } from "@dxos/react-client/echo";
 import { useValue } from "signia-react";
 import { Button } from "@dxos/react-ui";
-import { Panel } from "../../../UI/Panel";
+import { Panel } from "$ui/Panel";
 import { useActiveRoom } from "../../RoomManager/hooks/useActiveRoom";
 import { usernamesAtom } from "../../RoomManager/room-manager-plugin";
 import { routes } from "../routes";
@@ -85,7 +85,6 @@ export const Lobby = () => (
         </Link>
       </div>
       <div className="mt-2 sm:mt-8 w-full max-w-3xl">
-        <h2 className="font-medium text-2xl mb-2">Lobby</h2>
         <OpenGames />
       </div>
     </div>

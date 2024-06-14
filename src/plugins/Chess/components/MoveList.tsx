@@ -15,7 +15,7 @@ const MoveBadge = ({
     "inline-flex items-center justify-center text-xs px-2 rounded border border-gray-200 dark:border-zinc-600",
     "hover:bg-zinc-600 hover:border-zinc-50 hover:text-white hover:cursor-pointer hover:scale-105 active:scale-100",
     "transition-all duration-100 ease-in-out",
-    current && "ring-1 ring-green-200"
+    current && "ring-1 ring-green-200",
   );
 
   return (

@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useActiveRoom } from "../hooks/useActiveRoom";
-import { Panel } from "../../../UI/Panel";
+import { Panel } from "$ui/Panel";
 import { Button } from "@dxos/react-ui";
 import { Input } from "@dxos/react-ui";
 import { useIntentDispatcher } from "@dxos/app-framework";
