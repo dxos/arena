@@ -138,7 +138,7 @@ export function ConnectFourAdvanced({ id }: { id: string }) {
 
   return (
     <div
-      className="flex flex-col items-center justify-center w-screen"
+      className="flex flex-col items-center justify-center w-full"
       style={{ height: "calc(100vh - 88px)" }}
     >
       <C16DImpl game={dbGame as any as GameState} onMove={onMove} />
