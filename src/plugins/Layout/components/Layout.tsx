@@ -21,6 +21,7 @@ const images = [
 
 export const Layout = () => {
   const layoutState = useValue(layoutStateAtom);
+  const classNames = useMemo(() => images[Math.floor(Math.random() * images.length)], [layoutState]);
   const layoutStateToView = (state: typeof layoutState) =>
     match(state)
       .with({ type: "uninitialized" }, () => null)
@@ -36,7 +37,6 @@ export const Layout = () => {
       .with({ type: "choose-room" }, () => <ChooseRoom />)
       .with({ type: "manage-room" }, () => <Surface role="room-manager" />)
       .exhaustive();
-  const classNames = useMemo(() => images[Math.floor(Math.random() * images.length)], [layoutState]);
 
   const FadeView = React.useMemo(
     () => () => <Fade>{layoutStateToView(layoutState)}</Fade>,
@@ -44,14 +44,17 @@ export const Layout = () => {
   );
 
   return (
-    <div className="absolute inset-0 overflow-hidden flex justify-center">
-      <div className="flex flex-col h-full overflow-hidden w-[900px] text-zinc-900 dark:text-zinc-50 dark:bg-zinc-900">
+    <div className="absolute inset-0 overflow-hidden flex flex-col items-center">
+      <div className="flex flex-col h-full overflow-hidden w-[1000px] text-zinc-900 dark:text-zinc-50 dark:bg-zinc-900">
         <Nav />
-        <div className={clsx("flex flex-col h-full bg-no-repeat bg-cover", classNames)}>
-          <RoomIndicator />
-          <AnimatePresence>
-            <FadeView />
-          </AnimatePresence>
+        <div className="flex flex-col h-full relative">
+          <div className={clsx("absolute inset-0 bg-no-repeat bg-cover opacity-60 dark:opacity-40", classNames)} />
+          <div className="flex flex-col h-full relative z-50">
+            <RoomIndicator />
+            <AnimatePresence>
+              <FadeView />
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </div>
