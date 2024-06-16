@@ -5,7 +5,7 @@ import { P, match } from "ts-pattern";
 
 import { Surface } from "@dxos/app-framework";
 
-import { Fade } from "../../../ui/Fade";
+import { Fade } from "$ui/Fade";
 import { ChooseRoom } from "../../RoomManager/components/ChooseRoom";
 import { layoutStateAtom } from "../layout-plugin";
 import { Lobby } from "./Lobby";
@@ -34,13 +34,13 @@ export const Layout = () => {
 
   const FadeView = React.useMemo(
     () => () => <Fade>{layoutStateToView(layoutState)}</Fade>,
-    [layoutState]
+    [layoutState],
   );
 
   // TODO(burdon): Light and dark modes.
   return (
-    <div className='absolute inset-0 overflow-hidden flex justify-center bg-black'>
-      <div className="h-full w-[900px] bg-neutral-900 text-white">
+    <div className="absolute inset-0 overflow-hidden flex justify-center">
+      <div className="h-full w-[900px] text-zinc-900 dark:text-zinc-50">
         <Nav />
         <RoomIndicator />
         <AnimatePresence>

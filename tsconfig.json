@@ -11,7 +11,7 @@
     "downlevelIteration": true,
     "paths": {
       "$lib/*": ["./src/lib/*"],
-      "$ui/*": ["./src/UI/*"],
+      "$ui/*": ["./src/ui/*"],
       "$hooks/*": ["./src/hooks/*"]
     },
     "module": "ESNext",
@@ -23,5 +23,5 @@
     {
       "path": "./tsconfig.node.json"
     }
-  ],
+  ]
 }
