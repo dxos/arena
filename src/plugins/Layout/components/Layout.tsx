@@ -44,8 +44,11 @@ export const Layout = () => {
   );
 
   return (
-    <div className="absolute inset-0 overflow-hidden flex flex-col items-center">
-      <div className="flex flex-col h-full overflow-hidden w-[1000px] text-zinc-900 dark:text-zinc-50 dark:bg-zinc-900">
+    <div className={clsx(
+      "absolute inset-0 overflow-hidden flex flex-col items-center",
+      "bg-zinc-800 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-50"
+    )}>
+      <div className="flex flex-col h-full overflow-hidden w-[1000px]">
         <Nav />
         <div className="flex flex-col h-full relative">
           <div className={clsx("absolute inset-0 bg-no-repeat bg-cover opacity-60 dark:opacity-40", classNames)} />

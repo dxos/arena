@@ -21,7 +21,7 @@ export const Nav = () => {
   }
 
   return (
-    <nav className="flex p-4 sm:p-6 justify-between items-center bg-zinc-200 dark:bg-zinc-900">
+    <nav className="flex p-4 sm:p-6 justify-between items-center bg-zinc-200 dark:bg-zinc-800">
       <div className="flex items-center gap-4">
         <Joystick weight="light" className="text-[40px]" />
         <Link to="/">
