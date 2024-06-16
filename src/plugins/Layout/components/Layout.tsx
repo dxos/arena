@@ -37,10 +37,12 @@ export const Layout = () => {
     [layoutState],
   );
 
-  // TODO(burdon): Light and dark modes.
   return (
     <div className="absolute inset-0 overflow-hidden flex justify-center">
-      <div className="h-full w-[900px] text-zinc-900 dark:text-zinc-50">
+      <div className={[
+        "h-full w-[900px] text-zinc-900 dark:text-zinc-50 dark:bg-zinc-900",
+        "bg-no-repeat bg-[url('/images/chess2.png')] bg-cover"
+      ].join(' ')}>
         <Nav />
         <RoomIndicator />
         <AnimatePresence>

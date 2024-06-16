@@ -78,7 +78,6 @@ const main = async () => {
     },
     order: [
       ThemeMeta, // Outside of error boundary so error dialog is styled.
-
       ClientMeta,
       SpaceMeta,
       GraphMeta,
