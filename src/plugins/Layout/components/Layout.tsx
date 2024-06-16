@@ -1,5 +1,6 @@
+import { clsx } from "clsx";
 import { AnimatePresence } from "framer-motion";
-import React from "react";
+import React, { useMemo } from "react";
 import { useValue } from "signia-react";
 import { P, match } from "ts-pattern";
 
@@ -13,9 +14,14 @@ import { Nav } from "./Nav";
 import { NotFound } from "./NotFound";
 import { RoomIndicator } from "./RoomIndicator";
 
+const images = [
+  "bg-[url('/images/chess-light-1.png')] dark:bg-[url('/images/chess-dark-1.png')]",
+  "bg-[url('/images/chess-light-2.png')] dark:bg-[url('/images/chess-dark-2.png')]",
+];
+
 export const Layout = () => {
   const layoutState = useValue(layoutStateAtom);
-
+  const classNames = useMemo(() => images[Math.floor(Math.random() * images.length)], [layoutState]);
   const layoutStateToView = (state: typeof layoutState) =>
     match(state)
       .with({ type: "uninitialized" }, () => null)
@@ -37,15 +43,22 @@ export const Layout = () => {
     [layoutState],
   );
 
-  // TODO(burdon): Light and dark modes.
   return (
-    <div className="absolute inset-0 overflow-hidden flex justify-center">
-      <div className="h-full w-[900px] text-zinc-900 dark:text-zinc-50">
+    <div className={clsx(
+      "absolute inset-0 overflow-hidden flex flex-col items-center",
+      "bg-zinc-800 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-50"
+    )}>
+      <div className="flex flex-col h-full overflow-hidden w-[1000px]">
         <Nav />
-        <RoomIndicator />
-        <AnimatePresence>
-          <FadeView />
-        </AnimatePresence>
+        <div className="flex flex-col h-full relative">
+          <div className={clsx("absolute inset-0 bg-no-repeat bg-cover opacity-60 dark:opacity-40", classNames)} />
+          <div className="flex flex-col h-full relative z-50">
+            <RoomIndicator />
+            <AnimatePresence>
+              <FadeView />
+            </AnimatePresence>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -68,23 +68,23 @@ export const Lobby = () => (
   <div className="mt-4 sm:mt-12">
     <div className="p-2 sm:p-8 flex flex-col items-center gap-4">
       <div className="flex flex-col items-center sm:flex-row gap-2">
-        <Link to="/create-invitation?open=true">
+        <Link className='bg-zinc-100 dark:bg-zinc-900' to="/create-invitation?open=true">
           <Button aria-label="Create game" variant="outline">
             Create game
           </Button>
         </Link>
-        <Link to={"/create-invitation"}>
+        <Link className='bg-zinc-100 dark:bg-zinc-900' to={"/create-invitation"}>
           <Button aria-label={"Play with a friend"} variant="outline">
             Play with a friend
           </Button>
         </Link>
-        <Link to="/choose-room">
+        <Link className='bg-zinc-100 dark:bg-zinc-900' to="/choose-room">
           <Button aria-label="Change room" variant="outline">
             Change room
           </Button>
         </Link>
       </div>
-      <div className="mt-2 sm:mt-8 w-full max-w-3xl">
+      <div className="mt-2 sm:mt-8 w-full max-w-3xl opacity-90">
         <OpenGames />
       </div>
     </div>

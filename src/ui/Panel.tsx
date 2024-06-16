@@ -1,5 +1,5 @@
 import { cn } from "$lib/css";
-import { CSSProperties, HTMLAttributes } from "react";
+import { HTMLAttributes } from "react";
 
 type PanelProps = { rimLight?: boolean } & HTMLAttributes<HTMLDivElement>;
 

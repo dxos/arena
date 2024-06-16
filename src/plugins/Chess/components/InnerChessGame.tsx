@@ -17,14 +17,20 @@ import { Controls } from "./Controls";
 import { MoveList } from "./MoveList";
 import { PlayerInfo } from "./PlayerInfo";
 
+const props = {
+  customDarkSquareStyle: { backgroundColor: '#CCD3DB' },
+  customLightSquareStyle: { backgroundColor: '#6C95B9' },
+  customDropSquareStyle: { boxShadow: 'inset 0 0 1px 2px black' },
+};
+
 const computeSquareStyles = (lastMove: Move | undefined, fen: string) => {
   const game = new Chess(fen);
   let squareStyles = {};
 
   if (lastMove !== undefined) {
     squareStyles = {
-      [lastMove.source]: { backgroundColor: "rgba(30, 150, 0, 0.152)" },
-      [lastMove.target]: { backgroundColor: "rgba(30, 150, 0, 0.2)" },
+      [lastMove.source]: { backgroundColor: "rgba(20, 20, 20, 0.1)" },
+      [lastMove.target]: { backgroundColor: "rgba(20, 20, 20, 0.1)" },
       ...squareStyles,
     };
   }
@@ -123,13 +129,14 @@ export const InnerChessGame = ({
         <div className="flex-1 p-1 aspect-ratio-1 bg-stone-800 rounded-sm">
           <div className="rounded-sm border border-stone-300">
             <Chessboard
+              id={"main"}
               customSquareStyles={squareStyles}
               position={cursor.board}
               onPieceDrop={onDrop}
               areArrowsAllowed
-              id={"main"}
               animationDuration={50}
               boardOrientation={playerColor}
+              {...props}
             />
           </div>
         </div>

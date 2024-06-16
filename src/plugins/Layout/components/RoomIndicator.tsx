@@ -11,8 +11,8 @@ export const RoomIndicator = () => {
   const roomLabel = room.properties?.name || `${room.key.truncate()}`;
 
   return (
-    <div className="p-2 flex flex-row-reverse">
-      <p className="flex items-center gap-1 text-xs text-zinc-500">
+    <div className="flex flex-row-reverse p-2">
+      <p className="flex items-center gap-1 text-xs text-zinc-800 dark:text-zinc-100">
         <span>Room</span>
         <Link to={routes.manageRoom} className="hover:underline hover:cursor-pointer">
           {roomLabel}
